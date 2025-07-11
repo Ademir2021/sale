@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CookieAlertComponet } from "../../components/home/CookieAlertComponet"
+import { CookieAlertComponent } from "../../components/home/CookieAlertComponent"
 
 export function CookiesAlert() {
 
@@ -23,7 +23,7 @@ export function CookiesAlert() {
   
     return (
         <>
-        <CookieAlertComponet
+        <CookieAlertComponent
             handleSubmit={handleSubmit}
             cookieStatus={cookieStatus}
         />

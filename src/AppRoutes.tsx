@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import  { useContext } from 'react'
 import { Home } from "./useCases/home/Home";
-import { HomeProductHire } from "./useCases/home/HomeForm";
-import { StoreHome } from "./useCases/storeHome/StoreHome";
 import { UserLogin } from './useCases/users/UserLogin';
 import { DashboardDefault } from "./useCases/dashboard/DashboardDefault";
 import { ItenStore } from "./useCases/dashboard/iItenStore";
@@ -25,7 +23,7 @@ import { AuthProvider, AuthContext } from "./context/auth";
 import { Logout } from "./components/utils/logout/Logout";
 import { Ceps } from "./useCases/ceps/Ceps";
 import { ContactsList } from "./useCases/contacts/ContactsList";
-import { CookieWarnings } from "./useCases/storeHome/CookieWarnings";
+import { CookieWarnings } from "./useCases/home/CookieWarnings";
 import { ContasAReceber } from "./useCases/contasAReceber/ContasAReceber";
 import { PagCredLoja } from "./useCases/sales/PagCredLoja";
 import { ContasAReceberRegister } from "./useCases/contasAReceber/ContasAReceberRegister";
@@ -61,8 +59,6 @@ export function AppRoutes() {
             <AuthProvider>
                 <Routes>
                     <Route path="/" Component={Home} />
-                    <Route path="/hire" Component={HomeProductHire} />
-                    <Route path="/store" Component={StoreHome} />
                     <Route path="/login" Component={UserLogin} />
                     <Route path="/logout" Component={Logout} />
                     <Route path="/register" Component={UserRegister} />

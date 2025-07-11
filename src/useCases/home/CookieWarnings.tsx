@@ -1,4 +1,4 @@
-import { CookiesWarnings } from "../../components/storeHome/CookieWarning";
+import { CookiesWarnings } from "../../components/home/CookieWarning";
 
 export function CookieWarnings(){
     return(

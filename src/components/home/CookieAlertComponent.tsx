@@ -4,7 +4,7 @@ type Props = {
     handleSubmit: any
     cookieStatus: boolean
 }
-export function CookieAlertComponet({ handleSubmit, cookieStatus }: Props) {
+export function CookieAlertComponent({ handleSubmit, cookieStatus }: Props) {
     let cookie_notice = "cookie-alert";
     let cookie_close = "cookie-close"
     return (

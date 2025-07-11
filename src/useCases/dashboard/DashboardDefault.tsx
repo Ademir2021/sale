@@ -1,5 +1,5 @@
 import { Dashboard } from "./Dashboard"
-import { FooterHome } from "../../components/storeHome/FooterHome"
+import { FooterHome } from "../../components/home/FooterHome"
 import { useContext } from 'react';
 import { AuthContext } from "../../context/auth";
 import { HeaderDashboard } from '../../components/dashboard/HeaderDashboard';
