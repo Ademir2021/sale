@@ -1,0 +1,153 @@
+#header {
+    background-image: url('/public/img/carousel/banner5.png');
+    padding: 100px;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+@media screen and (max-width:768px) {
+    #header{
+        width: 100%;
+        padding: 50px;
+    }
+}
+#btn-header{
+    padding: 12px;
+    border-radius: 1px 1px 12px 1px
+}
+#container-home {
+    padding: 3px;
+    margin: 2px;
+    color: black;
+}
+#main-home {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    margin-bottom: 1px;
+}
+#main-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1px;
+}
+@media screen and (max-width:768px) {
+    #main-home {
+        flex-direction: column;
+    }
+}
+#form {
+    display: flex;
+    flex-direction: column;
+    /* border: solid 1px rgb(221, 213, 213); */
+    border-radius: 3px;
+    margin: 1px;
+    width: 100%;
+    padding: 16px;
+}
+#prospecting-form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 12px;
+}
+#mt18 {
+    margin-top: 18px;
+}
+#bg-white {
+    background-color: #fff;
+}
+#font-bold {
+    font-style: oblique;
+    color: black;
+    margin-top: 1px;
+}
+#img {
+    margin-bottom: 3px;
+    border-radius: 3px;
+}
+#container-cards {
+    display: inline-block;
+    max-width: 100%;
+    min-width: 200px;
+    width: 30%;
+}
+#main-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3px;
+    margin-left: auto;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2);
+    margin-top: 16px;
+    padding:12px;
+    gap: 3px;
+}
+#main-cards:hover {
+    box-shadow: 4px 4px 4px 4px rgb(58, 58, 87);
+}
+#cards{
+    text-align: center;
+    color: black;
+}
+#container-dev {
+    display: flex;
+    padding: 1%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+#btn-list {
+    padding: 12px;
+    display: flex;
+    margin: 2px;
+    justify-content: left;
+    align-items: center;
+    width: 960px;
+    border-radius: 3px;
+    font-size:16px;
+}
+
+@media screen and (max-width:768px) {
+    #btn-list {
+        width: 98%;
+    }
+}
+
+#icon-seta {
+    position: absolute;
+    left: 68%;
+    color: #fff;
+}
+
+@media screen and (max-width:768px) {
+    #icon-seta {
+        left: 90%;
+    }
+}
+
+#v-text {
+    width: 99%;
+    padding: 16px;
+    margin: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    color: gray;
+}
+@media screen and (max-width:768px) {
+    #v-text{
+        width: 96%;
+    }
+}
+
+#img_card{
+    width: 56px;
+    height: 56px;
+    background-color: #f0f4f5;
+    padding: 2px;
+    border-radius: 12px;
+}
+
+

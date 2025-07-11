@@ -1,0 +1,96 @@
+.container-user-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    /* border: gray solid 1px; */
+    width: 100%;
+    height: center;
+}
+
+.main-user-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: gray solid 1px; */
+    background-color: white;
+    padding: 8px;
+    border-radius: 1rem;
+    width: 360px;
+}
+
+.main-user input {
+    margin: 7px;
+    width: 18rem;
+    height: 2.5rem;
+}
+
+.main-user button {
+    align-items: center;
+    width: 18rem;
+    height: 2.5rem;
+    margin: 2px;
+}
+
+.main-user label {
+    color: red;
+    font-size: 12px;
+}
+
+.main-user a {
+    color: blue;
+    font-size: 12px;
+    text-decoration: none;
+    padding-top: 12px;
+}
+
+#text-recover {
+    color: blue;
+    margin-left: 10rem;
+    font-size: small;
+    text-decoration:underline;
+}
+
+#text-recover:hover {
+    color: gray;
+}
+
+.text-title{
+    margin-bottom: auto;
+}
+
+.text-welcome {
+    font-size:x-large;
+    color: blue;
+    font-family:Arial;
+}
+
+.text-register{
+    font-size: 16px;
+    color: blue;
+    text-align: center;
+}
+
+.text-label{
+    font-size: 16px;
+    padding: 3px;
+    background-color: white;
+    border-radius: 6px;
+    color:blue;
+    position: relative;
+    top: 21px;
+    left: -110px;
+}
+.psw-repeat{
+    font-size: 16px;
+    padding: 3px;
+    background-color: white;
+    border-radius: 6px;
+    color:blue;
+    position: relative;
+    top: 21px;
+    left: -74px;
+
+}
+
+
+

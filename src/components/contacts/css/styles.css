@@ -1,0 +1,22 @@
+#form-newsLetter{
+    padding: 3px;
+    margin: 1px;
+    border-radius: 2px;
+    background-color: #e4e8f0;
+}
+
+#input-newsLetter{
+    font-size:16px;
+    border-radius:16px 1px 1px 16px;
+    height: 36px;
+}
+
+#button-newsLetter{
+    margin: 2px;
+    border-radius: 0px 1px 8px 0px;
+    color: #fff;
+}
+#ico-email{
+    margin: 1px;
+    color:#516480;
+}

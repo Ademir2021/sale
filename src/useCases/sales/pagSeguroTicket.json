@@ -1,0 +1,64 @@
+{
+  "reference_id": "",
+  "customer": {
+    "name": "",
+    "email": "",
+    "tax_id": "",
+    "phones": [
+      {
+        "country": "",
+        "area": "",
+        "number": "",
+        "type": ""
+      }
+    ]
+  },
+  "items": [],
+  "shipping": {
+    "address": {
+      "street": "",
+      "number": "",
+      "complement": "",
+      "locality": "",
+      "city": "",
+      "region_code": "",
+      "country": "",
+      "postal_code": ""
+    }
+  },
+  "notification_urls": [
+    ""
+  ],
+  "charges": [
+    {
+      "reference_id": "",
+      "description": "",
+      "amount": {
+        "value": 0,
+        "currency": ""
+      },
+      "payment_method": {
+        "type": "",
+        "boleto": {
+          "due_date": "",
+          "instruction_lines": {},
+          "holder": {
+            "name": "",
+            "tax_id": "",
+            "email": "",
+            "address": {
+              "country": "",
+              "region": "",
+              "region_code": "",
+              "city": "",
+              "postal_code": "",
+              "street": "",
+              "number": "",
+              "locality": ""
+            }
+          }
+        }
+      }
+    }
+  ]
+}

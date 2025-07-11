@@ -1,0 +1,118 @@
+{
+    "id": "",
+    "reference_id": "",
+    "created_at": "",
+    "customer": {
+        "name": "",
+        "email": "",
+        "tax_id": "",
+        "phones": [
+            {
+                "type": "",
+                "country": "",
+                "area": "",
+                "number": ""
+            }
+        ]
+    },
+    "items": [
+        {
+            "reference_id": "",
+            "name": "",
+            "quantity": 0,
+            "unit_amount": 0
+        }
+    ],
+    "shipping": {
+        "address": {
+            "street": "",
+            "number": "",
+            "complement": "",
+            "locality": "",
+            "city": "",
+            "region_code": "",
+            "country": "",
+            "postal_code": ""
+        }
+    },
+    "charges": [
+        {
+            "id": "",
+            "reference_id": "",
+            "status": "",
+            "created_at": "",
+            "paid_at": "",
+            "description": "",
+            "amount": {
+                "value": 0,
+                "currency": "",
+                "summary": {
+                    "total": 0,
+                    "paid": 0,
+                    "refunded": 0
+                }
+            },
+            "payment_response": {
+                "code": "",
+                "message": "",
+                "reference": ""
+            },
+            "payment_method": {
+                "type": "",
+                "installments": 0,
+                "capture": true,
+                "card": {
+                    "brand": "",
+                    "first_digits": "",
+                    "last_digits": "",
+                    "exp_month": "",
+                    "exp_year": "",
+                    "holder": {
+                        "name": "",
+                        "tax_id": ""
+                    },
+                    "store": false
+                },
+                "soft_descriptor": ""
+            },
+            "links": [
+                {
+                    "rel": "",
+                    "href": "",
+                    "media": "",
+                    "type": ""
+                },
+                {
+                    "rel": "",
+                    "href": "",
+                    "media": "",
+                    "type": ""
+                }
+            ]
+        }
+    ],
+    "notification_urls": [
+        ""
+    ],
+    "links": [
+        {
+            "rel": "",
+            "href": "",
+            "media": "",
+            "type": ""
+        },
+        {
+            "rel": "PAY",
+            "href": "",
+            "media": "",
+            "type": ""
+        }
+    ],
+    "error_messages": [
+        {
+          "code": "",
+          "description": "",
+          "parameter_name": ""
+        }
+      ]
+}

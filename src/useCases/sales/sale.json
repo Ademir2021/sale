@@ -1,0 +1,30 @@
+{
+    "filial": 0,
+    "user": {
+        "user_id": 0,
+        "user_name": ""
+    },
+    "person": {
+        "fk_name_pers": 0,
+        "name_pers": "",
+        "cpf_pers": "",
+        "phone_pers": "",
+        "address": {
+            "address_pers": "",
+            "num_address":"",
+            "bairro_pers": "",
+            "fk_cep": 0,
+            "name_city": "",
+            "uf": "",
+            "num_cep": ""
+        }
+    },
+    "installments":1,
+    "disc_sale": 0,
+    "tItens": 0,
+    "tNote": 0,
+    "paySale": 0,
+    "dinheiro":0,
+    "itens": [],
+    "duplicatas":[]
+}

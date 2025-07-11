@@ -1,0 +1,121 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+#container{
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+}
+#main{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  /* border: solid rgb(204, 185, 185) 1px; */
+  width: 90%;
+  height: 100%;
+  padding: 3px;
+}
+#main-card{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  /* border: solid rgb(204, 185, 185) 1px; */
+  width: 80%;
+  height: 100%;
+  padding: 3px;
+}
+#main-input{
+  border: solid 1px rgb(235, 223, 223);
+  width: 100%;
+  height: 36px;
+  margin: 6px;
+}
+#main-inputs-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  /* border: solid 1px rgb(235, 223, 223); */
+  width: 103%;
+  height: 100%;
+  gap: 1px;
+}
+#main-input-number{
+  border: solid 1px rgb(235, 223, 223);
+  width: 36%;
+  height: 36px;
+  margin: 6px;
+}
+#main label{
+  /* margin-left:8px; */
+  position: relative;
+  padding: 1px;
+  border-radius: 6px;
+  top: 16px;
+  left: 12px;
+  background-color: white;
+  width: 100px;
+  font-size: 14px;
+}
+
+#data{
+  display: flex;
+  flex-direction: column;
+  color:gray;
+  padding: 16px;
+}
+#vals{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  color:blue;
+  gap: 7px;
+}
+#main img {
+  display: flex;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+}
+#text-area{
+  border: solid 1px rgb(235, 223, 223);
+  padding: 12px;
+  width: 100%;
+  height: 100px;
+  margin: 1px;
+}
+#m-2{
+  margin:3px;
+}
+#text-center{
+  text-align: center;
+}
+#msg-red{
+  padding: 4px;
+  font-size: 12px;
+  color:red;
+}
+#msg-green{
+  padding: 4px;
+  font-size: 12px;
+  color:green;
+}
+
+#main-list{
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: gray;
+}
+hr{
+  border: black solid 1px;
+  width: 99%;
+}
+

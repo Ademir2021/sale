@@ -1,0 +1,50 @@
+.btn-search {
+    display: contents;
+}
+
+.checkbox-label {
+    color: gray;
+    font-size: 12px;
+}
+
+.search-items-img {
+    position: relative;
+    right: 18%;
+    top: 5px;
+    width: 26px;
+    height: 26px;
+}
+
+.search-items-message {
+    font-size: 12px;
+    padding-left: 12px;
+}
+
+.search-select {
+    display: block;
+    color: black;
+    width: 100px;
+    height: auto;
+    font-size: 16px;
+    border-radius: 3px 0px 0px 3px;
+    border: solid 1px gray;
+}
+
+.search-item-main {
+    margin: 6px;
+    left: auto;
+    margin-left: 18px;
+    justify-content: center;
+}
+
+.search-item-input {
+    font-size: 16px;
+    border-radius: 0px 2px 2px 0px;
+    width: 100%;
+    height: 36px;
+    border: solid 1px gray;
+}
+
+.search-item-input:hover {
+    border: none;
+}
