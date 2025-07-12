@@ -66,32 +66,30 @@ export function NavBar() {
                                     {checksUserLogged() === privilegeShopping ?
                                         <a className="nav-link"
                                             aria-current="page"
-                                            href="/pe">Carrinho/Logar</a> :
+                                            href="/pe">Carrinho de Compras</a> :
                                         <a className="nav-link"
                                             aria-current="page"
-                                            href="/pe">Carrinho/Alterar</a>}
+                                            href="/pe">Carrinho Consultar</a>}
+                                </li>
+
+                                <li className="nav-item">
+                                    {checksUserLogged() !== privilegeShopping  &&
+                                        <a className="nav-link"
+                                            href='/user_update'>Sua Conta Consultar</a>}
                                 </li>
 
                                 <li className="nav-item">
                                     {checksUserLogged() === privilegeShopping ?
-                                        <a className="nav-link"
-                                            href='/register'><>Não tem conta?/</><b>Cadastre-se</b></a> :
-                                        <a className="nav-link"
-                                            href='/user_update'>Sua Conta/Alterar</a>}
-                                </li>
-
-                                <li className="nav-item">
-                                    {checksUserLogged() === privilegeShopping ?
-                                        <a className="nav-link" href='/login'>Entrar</a> :
+                                        <a className="nav-link" href='/login'>Fazer Login</a> :
                                         <a className="nav-link"
                                             href='/logout'>Sair</a>}
                                 </li>
                                 <li className="nav-item">
                                    <b>{checksUserLogged() === privilegeShopping ?
                                        <a className="nav-link"
-                                       href="/sale">PDV/Logar</a> :
+                                       href="/sale">Checkout</a> :
                                         <a className="nav-link"
-                                            href="/sale">PDV/Comprar</a>}</b>
+                                            href="/sale">Checkout</a>}</b>
                                 </li>
 
                                 <li className="nav-item dropdown">
@@ -163,7 +161,6 @@ export function NavBar() {
                     </div>
                 </div>
             </nav>
-            {/* <span id="nav-calendar">{Globais.calendar}</span> */}
         </div>
     )
 }

@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import  { useContext } from 'react'
 import { Home } from "./useCases/home/Home";
-import { UserLogin } from './useCases/users/UserLogin';
 import { DashboardDefault } from "./useCases/dashboard/DashboardDefault";
 import { ItenStore } from "./useCases/dashboard/iItenStore";
-import { UserRegister } from './useCases/users/UserRegister';
 import { Contacts } from "./useCases/contacts/Contacts";
 import { UsersList } from './useCases/users/UsersList';
 import { UserUpdate } from "./useCases/users/UserUpdate";
@@ -35,8 +33,8 @@ import { ContasAPagarRegister } from "./useCases/contasAPagar/ContasAPagarRegist
 import { PagarValor } from "./useCases/contasAPagar/PagarValor";
 import { Error404 } from "./components/utils/errors/Error404";
 import { ReciboValRc } from "./useCases/contasAReceber/ReciboValRec";
-import { UserRecoverPass } from "./useCases/users/UserRecoverPass";
 import { HandleNFe } from "./useCases/nfe/HandleNFe";
+import { Login } from "./useCases/users/Login";
 
 export function AppRoutes() {
     const Private = ({ children }: any) => {
@@ -59,10 +57,8 @@ export function AppRoutes() {
             <AuthProvider>
                 <Routes>
                     <Route path="/" Component={Home} />
-                    <Route path="/login" Component={UserLogin} />
+                    <Route path="/login" Component={Login} />
                     <Route path="/logout" Component={Logout} />
-                    <Route path="/register" Component={UserRegister} />
-                    <Route path="/user_recover_pass" Component={UserRecoverPass} />
                     <Route path="/contact" Component={Contacts} />
                     <Route path="/cookies" Component={CookieWarnings} />
                     <Route path="/dashboardefault" element={<Private><DashboardDefault /></Private>} />

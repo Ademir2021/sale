@@ -1,8 +1,61 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;  /* centraliza na horizontal */
+  align-items: center;      /* centraliza na vertical */
+  height: 100vh;            /* ocupa toda a altura da janela */
+  background-color: #f0f0f0;
+}
+
+.login-container {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.login-container button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #2980b9;
+}
+
+/**User Update*/
 .container-user-login {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
-    /* border: gray solid 1px; */
     width: 100%;
     height: center;
 }
@@ -11,7 +64,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border: gray solid 1px; */
     background-color: white;
     padding: 8px;
     border-radius: 1rem;
@@ -19,78 +71,14 @@
 }
 
 .main-user input {
-    margin: 7px;
-    width: 18rem;
-    height: 2.5rem;
+    margin: 2px;
+    width: 40vh;
+    height: auto;
 }
 
 .main-user button {
     align-items: center;
-    width: 18rem;
-    height: 2.5rem;
-    margin: 2px;
+    width: 40vh;
+    height: auto;
+    margin: auto;
 }
-
-.main-user label {
-    color: red;
-    font-size: 12px;
-}
-
-.main-user a {
-    color: blue;
-    font-size: 12px;
-    text-decoration: none;
-    padding-top: 12px;
-}
-
-#text-recover {
-    color: blue;
-    margin-left: 10rem;
-    font-size: small;
-    text-decoration:underline;
-}
-
-#text-recover:hover {
-    color: gray;
-}
-
-.text-title{
-    margin-bottom: auto;
-}
-
-.text-welcome {
-    font-size:x-large;
-    color: blue;
-    font-family:Arial;
-}
-
-.text-register{
-    font-size: 16px;
-    color: blue;
-    text-align: center;
-}
-
-.text-label{
-    font-size: 16px;
-    padding: 3px;
-    background-color: white;
-    border-radius: 6px;
-    color:blue;
-    position: relative;
-    top: 21px;
-    left: -110px;
-}
-.psw-repeat{
-    font-size: 16px;
-    padding: 3px;
-    background-color: white;
-    border-radius: 6px;
-    color:blue;
-    position: relative;
-    top: 21px;
-    left: -74px;
-
-}
-
-
-

@@ -1,8 +1,13 @@
 import { useState, createContext, useEffect } from "react";
 import bcrypt from "bcryptjs-react"
 import { useNavigate } from "react-router";
-import { TUserLogin } from '../useCases/users/UserLogin'
+// import { TUserLogin } from '../useCases/users/Login'
 import api from '../services/api/api'
+
+type TUserLogin = {
+    username:string;
+    password:string;
+}
 
 type TAuthProvider = {
     authenticated: boolean
