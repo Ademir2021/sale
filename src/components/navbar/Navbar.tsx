@@ -58,7 +58,7 @@ export function NavBar() {
                                         <a
                                             className="nav-link"
                                             aria-current="page"
-                                            href="/store"><b>Home/Store</b>
+                                            href="/"><b>Home/Store</b>
                                         </a>}
                                 </li>
 
