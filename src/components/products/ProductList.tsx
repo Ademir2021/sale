@@ -39,7 +39,7 @@ export function ProductList(props: Props) {
                     <div><b>Tipo Produto</b> {props.tipo_prod}</div>
                     <div><b>NCM</b> {props.ncm}</div>
                 </>}
-                update={!props.update && <>{props.update}</>}
+                update={props.update && <>{props.update}</>}
             />
     return (
         <>
