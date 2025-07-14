@@ -10,6 +10,7 @@ import ControlledCarousel from '../../components/carousel/ControlledCarousel';
 import { FilterItens } from '../../components/home/FilterItens';
 import { getList, getListQuery } from '../../services/handleService';
 import api from '../../services/api/api'
+import { Globais } from '../../components/globais/Globais';
 
 type TProdListQuery = {
     id_product:number

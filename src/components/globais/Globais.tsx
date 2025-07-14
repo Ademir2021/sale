@@ -43,7 +43,6 @@ const setMonth = () => {
     else if (month === 12)
         return "dez"
 }
-
 export class Globais {
     static calendar = saudacao + ' ' + day + ' ' + setMonth() + ' ' + year + ' ' + H + ':' + M + ':' + S
     static checksUserLogged = undefined;
@@ -53,13 +52,10 @@ export class Globais {
     static phone = '+55 (44) 98852-1033'
     static title = 'Centro Informática';
     static company = "Centro Informática"
-    static CNPJ = "18.069.383/0001-10"
-    // static URL="https://centroinfo.com.br"
-    // static API_URL="https://api.centroinfo.com.br"
-    // static URL_NOTE="https://api.centroinfo.com.br/note"
-    // static URL_CENTROINFO="https://www.centroinfo.com.br"
-    static URL="http://localhost:3001"
-    static API_URL="http://localhost:3000"
-    static URL_NOTE="http://localhost:3000/note"
-    static URL_CENTROINFO="http://localhost:3001"
+    static CNPJ =process.env.REACT_APP_CNPJ
+    static URL=process.env.REACT_APP_URL
+    static API_URL=process.env.REACT_APP_API_URL
+    static URL_NOTE=process.env.REACT_APP_URL_NOTE
+    static URL_CENTROINFO=process.env.REACT_APP_URL_CENTROINFO
  }
+

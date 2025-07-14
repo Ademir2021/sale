@@ -1,22 +1,76 @@
-#form-newsLetter{
-    padding: 3px;
-    margin: 1px;
-    border-radius: 2px;
-    background-color: #e4e8f0;
+.contact-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#input-newsLetter{
-    font-size:16px;
-    border-radius:16px 1px 1px 16px;
-    height: 36px;
+.contact-form label {
+    font-weight: 500;
+    margin-top: 15px;
+    display: block;
+    color: #333;
 }
 
-#button-newsLetter{
-    margin: 2px;
-    border-radius: 0px 1px 8px 0px;
+.contact-input,
+.contact-textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.contact-textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.contact-button {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #007bff;
     color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
 }
-#ico-email{
-    margin: 1px;
-    color:#516480;
+
+.contact-button:hover {
+    background-color: #0056b3;
+}
+
+.contact-header h1 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.contact-subtitle {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.contact-msg {
+    background-color: #ffdddd;
+    color: #a94442;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    margin-bottom: 15px;
 }

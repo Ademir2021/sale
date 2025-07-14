@@ -91,7 +91,7 @@ export function ListItensStore({
             {itens.length === 0 && <div id='container'><button
                 className='btn btn-primary'
                 id='m-2'
-                onClick={() => { window.location.replace("/store") }}>Voltar as Compras</button></div>}
+                onClick={() => { window.location.replace("/") }}>Voltar as Compras</button></div>}
             <div id="container">
                 <div id="main">
                     <div>

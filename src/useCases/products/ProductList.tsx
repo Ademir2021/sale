@@ -48,7 +48,7 @@ export function ProductsList() {
     return (
         <>
             <Dashboard />
-            <h1 className="text-center">Lista de Produtos</h1>
+            <h1 className="text-center" >Lista de Items</h1>
             {products.length === 0 ? <p>Carregando...</p> : (
                 products.map((product: TProduct) => (
                     <ProductList

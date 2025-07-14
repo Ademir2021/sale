@@ -172,7 +172,7 @@ export function ProductUpdate() {
     return (
         <>
             <Dashboard />
-             <h1 className="text-center">Lista de Produtos</h1>
+             <h1 className='text-center'>Escolha o Item para atualizar</h1>
                {handleTokenMessage('product_update', tokenMessage)}
             < ProductFormUpdate
                 handleChange={handleChange}
@@ -196,7 +196,6 @@ export function ProductUpdate() {
                         >
                             {brand.name_brand}
                         </option>))}</select>}
-
                 listSector={<select
                   id='main-input'
                     onChange={e => setSelectedIdSector(e.target.value)}
@@ -274,7 +273,6 @@ export function ProductUpdate() {
                     />
                 </>}
                 msgNcm={product.ncm === "00000" ? product.ncm : "NCM Localizado: " + product.ncm}
-
             >
                 {product}
             </ProductFormUpdate>
@@ -299,11 +297,8 @@ export function ProductUpdate() {
                         grupo_fiscal={handleProducts.nameGruposFiscais(product.fk_grupo_fiscal, gruposFiscais)}
                         tipo_prod={handleProducts.nameTiposProds(product.fk_tipo_prod, tiposProds)}
                         ncm={product.ncm}
-                        update={<button
-                            className="btn btn-primary"
-                            id='m-2'
-                            onClick={() => listUpdate(product)}>Atualizar</button>}
-                            dropdown={dropdown}
+                        update={<a href="##" onClick={() => listUpdate(product)}>Atualizar</a>}
+                        dropdown={dropdown}
                     />
                 )))}
         </>

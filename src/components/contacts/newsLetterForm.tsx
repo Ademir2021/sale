@@ -1,6 +1,6 @@
 import * as Icon from 'phosphor-react';
 
-import'./css/styles.css'
+import'./css/newsLetter.css';
 
 type Props = {
     children: React.ChangeEventHandler<HTMLInputElement> | undefined | any;
@@ -15,29 +15,30 @@ export function NewsLetterForm({
 
     return (
         <>
-        <div id='form-newsLetter'>
-            <span id='ico-email'>
-                <Icon.Envelope size={32} />
-                <> Informe-se em nossa Newsletter</>
-            </span>
-        <form >
-            <input
-                id='input-newsLetter'
-                type="email"
-                name="email"
-                value={children.email || ''}
-                placeholder="Registre aqui seu e-mail ..."
-                required
-                onChange={handleChange}
-                />
-            <button
-                id='button-newsLetter'
-                className='btn btn-primary mb-2'
-                type="submit"
-                onClick={handleSubmit}
-                >Enviar</button>
-        </form>
-                </div>
+       <div className="newsletter-container">
+    <span className="newsletter-header">
+        <Icon.Envelope size={32} />
+        <span className="newsletter-text">Informe-se em nossa Newsletter</span>
+    </span>
+    <form onSubmit={handleSubmit} className="newsletter-form">
+        <input
+            type="email"
+            name="email"
+            value={children.email || ''}
+            placeholder="Registre aqui seu e-mail ..."
+            required
+            onChange={handleChange}
+            className="newsletter-input"
+        />
+        <button
+            className="newsletter-button"
+            type="submit"
+        >
+            Enviar
+        </button>
+    </form>
+</div>
+
         </>
     )
 }

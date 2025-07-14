@@ -12,15 +12,15 @@ export function ItenStore() {
 
     useEffect(() => {
         function getItensStorage() {
-            const itens_store_res:any | undefined = localStorage.getItem('p');
-            if (itens_store_res)
-                setItens(JSON.parse(itens_store_res));
-            const counter_res:any | undefined = localStorage.getItem('c');
-            if (counter_res)
-                setCounter(JSON.parse(counter_res));
-            const subTotal_res:any | undefined = localStorage.getItem('t');
-            if (subTotal_res)
-                setsubtotal(JSON.parse(subTotal_res));
+            const itemsStore = localStorage.getItem('p');
+            if (itemsStore)
+                setItens(JSON.parse(itemsStore));
+            const counterStore = localStorage.getItem('c');
+            if (counterStore)
+                setCounter(JSON.parse(counterStore));
+            const sumTotalStore = localStorage.getItem('t');
+            if (sumTotalStore)
+                setsubtotal(JSON.parse(sumTotalStore));
         };
         getItensStorage()
     }, [itens]);
@@ -36,23 +36,22 @@ export function ItenStore() {
 
     function deleteListStore(item_: TItens) {
         if (window.confirm('Deseja remover, ' + item_.descric + ' ?')) {
-            for (let i = 0; itens.length > 0; i++) {
-                if (itens[i].id === item_.id) {
-                    itens.splice(i, 1);
-                    localStorage.setItem("p", JSON.stringify(itens));
-                    setMessages(item_.descric + ', foi removido com sucesso.');
-                    let res_counter = localStorage.getItem('c');
-                    if (res_counter !== null) {
-                        const counter = JSON.parse(res_counter)
-                        localStorage.setItem("c", JSON.stringify(counter - 1));
-                        res_counter = localStorage.getItem('c');
-                        setCounter(counter_);
-                    }
-                    sumItens()
-                    setTimeout(() => {
-                        setMessages('');
-                    }, 5000);
+            const index = itens.findIndex(item => item.id === item_.id);
+            if (index !== -1) {
+                itens.splice(index, 1);
+                localStorage.setItem("p", JSON.stringify(itens));
+                setMessages(item_.descric + ', foi removido com sucesso.');
+                let counterStore = localStorage.getItem('c');
+                if (counterStore) {
+                    const counter = JSON.parse(counterStore);
+                    const newCounter = counter - 1;
+                    localStorage.setItem("c", JSON.stringify(newCounter));
+                    setCounter(newCounter);
                 }
+                sumItens();
+                setTimeout(() => {
+                    setMessages('');
+                }, 5000);
             }
         }
     }

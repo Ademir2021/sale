@@ -1,0 +1,30 @@
+.list-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 700px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.list-card div {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.list-card b {
+    color:gray;
+    margin-right: 6px;
+}
+
+.list-update {
+    margin-top: 20px;
+    font-style: italic;
+    color: #666;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
