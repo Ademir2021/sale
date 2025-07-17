@@ -3,6 +3,8 @@ type Props = {
 }
 export function Waiting(props: Props) {
     return (
-        <div className="text-center p-1">{props.waiting}</div>
+        <div
+        className="text-center p-3"
+        >{props.waiting}</div>
     )
 }

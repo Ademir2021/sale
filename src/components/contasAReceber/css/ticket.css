@@ -1,0 +1,56 @@
+.receipt-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+
+.receipt-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #111;
+}
+
+.receipt-date {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.receipt-section {
+  margin: 1rem 0;
+}
+
+.section-label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: #222;
+}
+
+.section-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #047857; /* verde */
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1rem 0;
+}
+
+.receipt-footer {
+  font-size: 0.9rem;
+  text-align: center;
+  color: #555;
+  margin-top: 2rem;
+  line-height: 1.6;
+}

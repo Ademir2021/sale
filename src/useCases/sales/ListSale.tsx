@@ -1,58 +1,70 @@
 import { useState, useContext } from "react";
 import { SalesList } from "../../components/sales/SaleList";
 import { Dashboard } from "../dashboard/Dashboard";
-import { InputSearch } from "../../components/inputSearch/InputSearch";
 import { AuthContext } from '../../context/auth'
 import { postAuthHandle } from "../../services/handleService";
 import { TSaleList } from "./type/TSale";
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
 
 export function ListSales() {
-  const { user: isLogged }: any = useContext(AuthContext);
+  const [created_int, setInt] = useState('');
+  const [created_end, setEnd] = useState('');
   const [sales, setSales] = useState<TSaleList[]>([]);
-  const [sales_, setSales_] = useState<TSaleList[]>([]);
-  const [created_int, setInt] = useState<Date | any>('')
-  const [created_end, setEnd] = useState<Date | any>('')
-  const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
+  const [filteredSales, setFilteredSales] = useState<TSaleList[]>([]);
+  const [tokenMessage, setTokenMessage] = useState('');
+  const [msg, setMsg] = useState('')
 
-  function searchSales(e: Event) {
-    e.preventDefault()
-    if (created_int.length &&
-      created_end.length !== '') {
-      getSales()
-    } else {
-      alert("Preencha os 2 campos das Datas !")
-    }
+  const { user: isLogged }: any = useContext(AuthContext);
+
+  const validateDates = () => {
+    return created_int.trim() !== '' && created_end.trim() !== '';
   };
 
-  const getSales = async () => {
-    postAuthHandle('sale_user', setTokenMessage, setSales, isLogged)
-    let sale_: TSaleList[] = []
-    for (let sale of sales) {
-      if (sale.created_at >= created_int
-        && sale.created_at <= created_end)
-        sale_.push(sale)
+  const searchSales = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateDates()) {
+      setMsg("Preencha os campos do período desejado");
+      return;
     }
-    setSales_(sale_)
-    if (!sales[0].id_sale)
-      alert("Cliente sem Nota")
+
+    await fetchSales();
+    filterSales();
+  };
+
+  const fetchSales = async () => {
+    await postAuthHandle('sale_user', setTokenMessage, setSales, isLogged);
+  };
+
+  const filterSales = () => {
+    const filtered = sales.filter(sale =>
+      sale.created_at >= created_int && sale.created_at <= created_end
+    );
+    setFilteredSales(filtered);
+
+    if (!filtered.length) {
+      setMsg("Nota(s) não localizada");
+    }
   };
 
   return (
     <>
       <Dashboard />
-      <h1 className="text-center">Lista de notas por período</h1>
-     {handleTokenMessage('list_sale',  tokenMessage)}
-      <InputSearch
+      <h1 className="text-center">Listar de notas por período</h1>
+      <p className="text-center">
+        {filteredSales.length > 0 && <a href="##"
+        onClick={() => { setFilteredSales([]) }}
+      >Limpar busca</a>}
+        </p>
+      {handleTokenMessage('list_sale', tokenMessage)}
+      <SalesList
         int={created_int}
-        end={created_end}
         setInt={setInt}
+        end={created_end}
         setEnd={setEnd}
         searchHandle={searchSales}
-      />
-      <SalesList
-      sales={sales_}
-      />
+        msg={msg}
+        sales={filteredSales} />
     </>
-  )
+  );
 }

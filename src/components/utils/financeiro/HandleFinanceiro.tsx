@@ -2,6 +2,9 @@ import { format, parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
 class HandleFinanceiro {
+    static dateDifference(vencOriginal: number, hoje: number) {
+        throw new Error("Method not implemented.");
+    }
     dateDifference(date1: number | Date | any, date2: number | Date | any) {
         const diffInMilliseconds = Math.abs(date2 - date1);
         const diffInSeconds = diffInMilliseconds / 1000;
