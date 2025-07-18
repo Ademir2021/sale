@@ -1,6 +1,5 @@
-## Primeiros passos com o aplicativo APP-MANAG-SALE-1.2
-
-# Sistema de Gestão para Compras Online.
+## Aplicação para vendas online.
+# Sistema para automação de atividades de vendas online.
 
 Recursos:
 - `Compras, Pagamentos, Emissão de Notas e Relatórios`
@@ -12,12 +11,12 @@ Recursos:
 - `Checkout para finalização dos Pagamentos`
 
 Segurança:
-- `Authenticação segura de Usuários`
-- `Segurança controlada por Token (JWT Web Token)`
+- `Autenticação segura do usuários`
+- `Segurança controlada com (JWT Web Token)`
 
 Integração:
 - `API REST`
-- `Postgres SQL`
+- `Postgres`
 - `Checkout de Vendas`
 - `Checkout de Pagamentos`
 
