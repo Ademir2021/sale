@@ -20,11 +20,10 @@ export function ContactForm({
     <form onSubmit={handleSubmit} className="contact-form">
         <div className="contact-header">
             <h1>Fale conosco</h1>
-            <dd><b>Telefone:</b> {Globais.phone}</dd>
-            <p className="contact-subtitle">Suporte, Garantia, Frete, Dúvidas?</p>
+            {/* <dd><b>Telefone:</b> {Globais.phone}</dd> */}
+            {/* <p className="contact-subtitle">Suporte, Garantia, Frete, Dúvidas?</p> */}
         </div>
-
-        <label htmlFor="name">Nome</label>
+        {/* <label htmlFor="name">Nome</label> */}
         <input
             id="name"
             type="text"
@@ -35,8 +34,7 @@ export function ContactForm({
             onChange={handleChange}
             className="contact-input"
         />
-
-        <label htmlFor="email">Email</label>
+        {/* <label htmlFor="email">Email</label> */}
         <input
             id="email"
             type="email"
@@ -47,8 +45,7 @@ export function ContactForm({
             onChange={handleChange}
             className="contact-input"
         />
-
-        <label htmlFor="phone">Telefone</label>
+        {/* <label htmlFor="phone">Telefone</label> */}
         <InputMask
             id="phone"
             mask="(99)99999-9999"
@@ -60,7 +57,6 @@ export function ContactForm({
             value={children.phone || ""}
             onChange={handleChange}
         />
-
         <label htmlFor="comments">Digite aqui ...</label>
         <textarea
             id="comments"
@@ -71,15 +67,11 @@ export function ContactForm({
             onChange={handleChange}
             className="contact-textarea"
         />
-
         {msg && <div className="contact-msg">{msg}</div>}
-
         <button
             type="submit"
             className="contact-button"
-        >
-            Enviar
-        </button>
+        >Enviar</button>
     </form>
 </div>
 

@@ -70,19 +70,11 @@ export function ProductFormUpdate({
         getUploadImagem()
     }
 
-    const nav = <>
-        <div>
-            <button
-                className='btn btn-primary'
-                id='m-2'
-                onClick={() => (setMenu('geral'))}
-            >Produto</button>
-            <button
-                className='btn btn-primary'
-                id='m-2'
-                onClick={() => (setMenu('fiscal'))}
-            >Situação fiscal</button>
-        </div>
+    const nav = <> <a href='##'
+        onClick={() => (setMenu('geral'))}
+    >Produto</a> / < a href='##'
+            onClick={() => (setMenu('fiscal'))}
+    >Situação fiscal</a>
     </>
 
     const geral = <>

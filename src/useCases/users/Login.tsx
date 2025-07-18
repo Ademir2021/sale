@@ -8,8 +8,10 @@ import { crypt } from '../../components/utils/crypt/Crypt';
 export function Login() {
 
   const { login, message }: any = useContext(AuthContext);
+
   const [msg, setMsg] = useState('')
   const [user, setUser] = useState<TUserLogin>({
+    id: 0,
     name: "Usuário da Loja",
     username: "",
     password: "",
@@ -37,14 +39,13 @@ export function Login() {
 
   setTimeout(() => {
     setMsg('')
-  }, 3000);
+  }, 9000);
 
   const handleLogin = async () => {
     if (valFields(user)) {
       await login(user.username, user.password)
     }
   }
-
   const handleLoginRegister = async () => {
     await api.post('/user', user)
       .then(response => {
@@ -52,6 +53,16 @@ export function Login() {
         setMsg(res[0].msg)
       }).catch(error => setMsg(error))
   }
+
+  const handleLoginUpdate = async () => {
+    await api.put('/user_update', user)
+      .then(response => {
+        const res: any = response.data
+        setMsg(res[0].msg)
+        user.password = ''
+      }).catch(error => setMsg(error))
+  }
+
   const handleLoginRecover = async () => {
     await api.post('/user_recover_pass', user)
       .then(response => {
@@ -70,7 +81,7 @@ export function Login() {
     else if (user.username && user.password && user.repeatPass) {
       if (user.password === user.repeatPass) {
         user.password = crypt(user.password)
-        handleLoginRegister()
+        user.id === 0 ? handleLoginRegister() : handleLoginUpdate()
       } else { setMsg("As senhas não confere tente novamente") }
     }
     else if (user.username) {
@@ -82,7 +93,6 @@ export function Login() {
     }
   }
   return <>
-    {/* <p>{JSON.stringify(user)}</p> */}
     <LoginComponent
       handleSubmit={handleSubmit}
       handleChange={handleChange}

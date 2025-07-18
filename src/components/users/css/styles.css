@@ -6,9 +6,9 @@ html, body {
 
 .login-wrapper {
   display: flex;
-  justify-content: center;  /* centraliza na horizontal */
-  align-items: center;      /* centraliza na vertical */
-  height: 100vh;            /* ocupa toda a altura da janela */
+  justify-content: center;  
+  align-items: center;
+  height: 100vh;
   background-color: #f0f0f0;
 }
 
@@ -49,36 +49,4 @@ html, body {
 
 .login-container button:hover {
   background-color: #2980b9;
-}
-
-/**User Update*/
-.container-user-login {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    width: 100%;
-    height: center;
-}
-
-.main-user-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 8px;
-    border-radius: 1rem;
-    width: 360px;
-}
-
-.main-user input {
-    margin: 2px;
-    width: 40vh;
-    height: auto;
-}
-
-.main-user button {
-    align-items: center;
-    width: 40vh;
-    height: auto;
-    margin: auto;
 }

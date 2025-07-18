@@ -5,7 +5,6 @@ import { DashboardDefault } from "./useCases/dashboard/DashboardDefault";
 import { ItenStore } from "./useCases/dashboard/iItenStore";
 import { Contacts } from "./useCases/contacts/Contacts";
 import { UsersList } from './useCases/users/UsersList';
-import { UserUpdate } from "./useCases/users/UserUpdate";
 import { RegisterSale } from "./useCases/sales/RegisterSale";
 import { InvoiceSales } from './useCases/sales/InvoiceSales';
 import { PagSeguro } from "./useCases/sales/PagSeguro";
@@ -64,7 +63,6 @@ export function AppRoutes() {
                     <Route path="/dashboardefault" element={<Private><DashboardDefault /></Private>} />
                     <Route path="/pe" element={<Private><ItenStore /></Private>} />
                     <Route path="/users_list" element={<Private><UsersList /></Private>} />
-                    <Route path="/user_update" element={<Private><UserUpdate /></Private>} />
                     <Route path="/invoice_sales" element={<Private><InvoiceSales /></Private>} />
                     <Route path="/pagseguro" element={<Private><PagSeguro /></Private>} />
                     <Route path="/pagsegurocard" element={<Private><PagSeguroCard /></Private>} />

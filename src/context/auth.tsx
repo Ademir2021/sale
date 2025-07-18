@@ -1,7 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import bcrypt from "bcryptjs-react"
 import { useNavigate } from "react-router";
-// import { TUserLogin } from '../useCases/users/Login'
 import api from '../services/api/api'
 
 type TUserLogin = {
@@ -21,7 +20,7 @@ type TAuthProvider = {
 export const AuthContext = createContext<TAuthProvider | null>(null);
 export const AuthProvider = ({ children }: any | undefined) => {
     const navigate = useNavigate()
-    const [user, setUser] = useState<boolean | null>(null);
+    const [user, setUser] = useState<boolean | null >(null);
     const [loading, setLoading] = useState<boolean>(true)
     const [message, setMessage] = useState<string>("")
     const [userLogin] = useState<TUserLogin>({
@@ -55,7 +54,6 @@ export const AuthProvider = ({ children }: any | undefined) => {
                 }
             }
         }
-
         try {
             await api.post('auth', userLogin)
                 .then(response => {
@@ -75,6 +73,7 @@ export const AuthProvider = ({ children }: any | undefined) => {
                                 localStorage.setItem("xxx", JSON.stringify(password));
                                 localStorage.setItem("user_id", JSON.stringify(user_id))
                                 localStorage.setItem("token", JSON.stringify(resToken));
+                                console.log(res)
                             }
                         })
                 })

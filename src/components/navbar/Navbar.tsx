@@ -75,7 +75,7 @@ export function NavBar() {
                                 <li className="nav-item">
                                     {checksUserLogged() !== privilegeShopping  &&
                                         <a className="nav-link"
-                                            href='/user_update'>Sua Conta Consultar</a>}
+                                            href='/login'>Sua Conta</a>}
                                 </li>
 
                                 <li className="nav-item">

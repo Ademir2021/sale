@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { TUserLogin } from "../../useCases/users/type/TLogin"
 
 import "./css/styles.css"
-import { UserHome } from "./UserHome"
+
+import { AuthContext } from "../../context/auth"
 
 type Props = {
     children: TUserLogin
@@ -22,16 +23,34 @@ const LoginComponent: React.FC<Props> = ({
 
     const [loginRegister, setLoginRegister] = useState(false);
     const [loginRecover, setLoginRecover] = useState(false);
+
+    const { user }: any = useContext(AuthContext);
+
     const clearFieldsLogin = () => {
-        setUser({
-      name: "Usuário da Loja",
-      username: "",
-      password: "",
-      repeatPass: "",
-      role: "ADMIN",
-      hash:""
-    })
-    }
+        if (Array.isArray(user) && user.length > 0) {
+            setLoginRegister(true)
+            setUser({
+                id: user[0].id,
+                name: "Usuário da Loja",
+                username: user[0].username || "",
+                password: "",
+                repeatPass: "",
+                role: "ADMIN",
+                hash: ""
+            });
+        } else {
+            setUser({
+                id: 0,
+                name: "Usuário da Loja",
+                username: "",
+                password: "",
+                repeatPass: "",
+                role: "ADMIN",
+                hash: ""
+            });
+        }
+    };
+
     const getLoginRegister = (login: boolean) => {
         setLoginRegister(login)
         clearFieldsLogin()
@@ -41,12 +60,17 @@ const LoginComponent: React.FC<Props> = ({
         clearFieldsLogin()
     }
 
+    useEffect(() => {
+        clearFieldsLogin()
+    }, [user])
+
     return <>
         <div className="login-wrapper">
             <div className="login-container">
-                <span><UserHome /></span>
+                <a href="/">Home</a>
                 <h2>{loginRegister ? "Seja bem vindo(a)" : "Seja bem vindo(a) de volta"}</h2>
-                {!loginRecover ? <p>{loginRegister ? "Registrar a minha conta" : "Entrar na minha conta"}</p> : <p>Digite um Email válido!</p>}
+                {children.id === 0 ? <>{!loginRecover ? <p>{loginRegister ? "Registrar a minha conta" :
+                    "Entrar na minha conta"}</p> : <p>Digite um Email válido!</p>}</> : <p>Atualizar Conta</p>}
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"
@@ -83,23 +107,25 @@ const LoginComponent: React.FC<Props> = ({
                             /></>} </>}
                     {msg && <p className="msg-red" >{msg}</p>}
 
-                    {!loginRecover ? <a className="text-right" href="##"
+                    {children.id === 0 && <>{!loginRecover ? <a className="text-right" href="##"
                         onClick={() => { getLoginRecover(true) }}>
                         Esqueceu a senha?</a> :
                         <a className="text-right" href="##"
                             onClick={() => { getLoginRecover(false) }}>
                             Recuperar mais tarde? Sair.</a>}
 
-                    <button type="submit">{!loginRecover ? <>{loginRegister === false ? "Entrar" :
+                        <button type="submit">{!loginRecover ? <>{loginRegister === false ? "Entrar" :
                             "Registrar"}</> : "Recuperar sua senha"}</button>
 
-                    {!loginRecover && <>{!loginRegister && <a className="text-center" href="##"
-                        onClick={() => { getLoginRegister(true) }}>
-                        Não tem Conta? Clique aqui</a>}
-                        {loginRegister && <a className="text-center" href="##"
-                            onClick={() => { getLoginRegister(false) }}>
-                            Já possui Conta? Clique aqui</a>
-                        }</>}
+                        {!loginRegister && <a className="text-center" href="##"
+                            onClick={() => { getLoginRegister(true) }}>
+                            Não tem Conta? Clique aqui</a>}
+                            {loginRegister && <a className="text-center" href="##"
+                                onClick={() => { getLoginRegister(false) }}>
+                                Já possui Conta? Clique aqui</a>
+                            }</>
+                        }
+                    {children.id !== 0 && <button>Atualizar Conta</button>}
                 </form>
             </div>
         </div>
