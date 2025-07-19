@@ -17,12 +17,12 @@ import { handleTokenMessage } from "../../services/handleEnsureAuth"
 export function PersonUpdate() {
     const { user: isLogged }: any = useContext(AuthContext)
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
-    const [alert_, setAlert_] = useState<string>('')
+    const [msg, setMsg] = useState('')
     const [persons, setPersons] = useState<TPerson[]>([])
     const [ceps, setCeps] = useState<ICeps[]>([])
     const [cities, setCities] = useState<ICities[]>([])
     const [person, setPerson] = useState<TPerson>({
-        created_at: '', updated_at: '', name_pers: '',
+        created_at: '', updated_at: '', name_pers: '', dateOfBirth:"2000-01-01",
         num_address: "", cpf_pers: "0", phone_pers: "", address_pers: "",
         bairro_pers: "", fk_cep: 0, name_city: "", uf: "",
         num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg: '0',
@@ -35,7 +35,7 @@ export function PersonUpdate() {
 
     function clearFields() {
         setPerson({
-            id_person: 0, created_at: '', name_pers: '', cpf_pers: "0",
+            id_person: 0, created_at: '', name_pers: '', dateOfBirth:"2000-01-01", cpf_pers: "0",
             phone_pers: "", address_pers: "", num_address: '', bairro_pers: "", fk_cep: 0,
             name_city: "", uf: "", num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg: '0',
             cnpj: '0', inscricao: '0', fantasia: '', limit_cred: 800, fk_grupo: 1
@@ -100,51 +100,51 @@ export function PersonUpdate() {
 
     async function handleSubmit(e: Event) {
         e.preventDefault();
-        if (PersonsValFields(person, setAlert_)) {
+        if (PersonsValFields(person, setMsg)) {
             listUpdate(person); // Atualiza o CEP do Cliente !!
             person.cpf_pers = person.cpf_pers.replace(/[..-]/g, '')
             person.phone_pers = person.phone_pers.replace(/[()-]/g, '')
             person.cnpj = person.cnpj.replace(/[../-]/g, '')
             person.rg = person.rg.replace(/[..-]/g, '')
             if (person.fk_cep === undefined) {
-                setAlert_('Digite um CEP Válido')
+                setMsg('Digite um CEP Válido')
             } else {
                 await api.post<any[]>('person', person)
                     .then(response => {
                         const res = response.data
                         const msg = JSON.stringify(res)
-                        alert(msg)
+                        setMsg(msg)
                     })
-                    .catch(error => alert(error));
+                    .catch(error => setMsg(error));
             }
-        } else { setAlert_("Digite um novo Usuário") }
+        } else { setMsg("Digite um novo Usuário") }
     }
 
     async function handleUpdate(e: Event) {
         e.preventDefault();
-        if (PersonsValFields(person, setAlert_)) {
+        if (PersonsValFields(person, setMsg)) {
             listUpdate(person); //Atualiza o CEP do Cliente
             person.cpf_pers = person.cpf_pers.replace(/[..-]/g, '')
             person.phone_pers = person.phone_pers.replace(/[()-]/g, '')
             person.cnpj = person.cnpj.replace(/[../-]/g, '')
             person.rg = person.rg.replace(/[..-]/g, '')
             if (person.fk_cep === undefined) {
-                setAlert_('Digite um CEP Válido')
+                setMsg('Digite um CEP Válido')
             } else {
-                await api.put<any[]>('person_update', person)
+                await api.put('person_update', person)
                     .then(response => {
-                        alert(response.data)
+                        setMsg(response.data)
                     })
-                    .catch(error => alert(error));
+                    .catch(error => setMsg(error));
             }
         }
     }
 
-    async function handleDelete(e: Event) {
+    async function handleNewPerson(e: Event) {
         e.preventDefault()
         setFlagRegister(true)
         clearFields()
-        setAlert_("Insira um novo Cliente !!")
+        setMsg("Insira um novo Cliente !!")
     }
 
     function toggleDropdown(): void {
@@ -201,13 +201,12 @@ export function PersonUpdate() {
             <PersonFormUpdate
                 handleSubmit={handleSubmit}
                 handleUpdate={handleUpdate}
-                handleDelete={handleDelete}
+                handleNewPerson={handleNewPerson}
                 handleChange={handleChange}
                 close={closeDropdown}
                 className={dropdown}
                 modalRef={modalRef}
-                alert={alert_}
-                message=""
+                msg={msg}
                 flagRegister={flagRegister}
             >
                 {person}
@@ -224,6 +223,7 @@ export function PersonUpdate() {
                         updated_at={per.updated_at === null ?
                             "não houve atualização" : (FormatDate(per.updated_at))}
                         name={per.name_pers}
+                        dateOfBirth={per.dateOfBirth}
                         phone={per.phone_pers}
                         address={per.address_pers}
                         num_address={per.num_address}

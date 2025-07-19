@@ -1,20 +1,19 @@
 import InputMask from "react-input-mask";
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 
-import '../../index'
+import '../css/styles-forms.css'
 
 type Props = {
     children: string | number | readonly string[] | undefined | any
     handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined
     handleSubmit: any
     handleUpdate: any
-    handleDelete: any
+    handleNewPerson: any
     modalRef?: any
     className?: string
     close?: any
-    alert: string
-    message: string
-    flagRegister:boolean
+    msg: string
+    flagRegister: boolean
 }
 
 export function PersonFormUpdate({
@@ -22,19 +21,17 @@ export function PersonFormUpdate({
     handleSubmit,
     children,
     handleUpdate,
-    handleDelete,
+    handleNewPerson,
     modalRef,
     className,
     close,
-    alert,
-    message,
+    msg,
     flagRegister,
 }: Props) {
 
     const naturalPerson = <>
         <label>CPF</label>
         <InputMask
-          id='main-input'
             type="text"
             name="cpf_pers"
             placeholder="Seu CPF"
@@ -49,7 +46,6 @@ export function PersonFormUpdate({
         />
         <label>RG</label>
         <InputMask
-        id='main-input'
             type="text"
             name="rg"
             placeholder="Seu RG"
@@ -66,7 +62,6 @@ export function PersonFormUpdate({
     const legalPerson = <>
         <label>Nome Fantasia</label>
         <input
-        id="main-input"
             type="text"
             name="fantasia"
             placeholder="Nome fantasia"
@@ -75,7 +70,6 @@ export function PersonFormUpdate({
         />
         <label>CNPJ</label>
         <InputMask
-            id="main-input"
             type="text"
             name="cnpj"
             placeholder="CNPJ da empresa"
@@ -90,7 +84,6 @@ export function PersonFormUpdate({
         />
         <label>Inscr. estadual</label>
         <InputMask
-        id="main-input"
             type="text"
             name="inscricao"
             placeholder="Inscrição estadual"
@@ -107,7 +100,6 @@ export function PersonFormUpdate({
     const limiteCredito = <>
         <label>Limite crédito</label>
         <InputMask
-            id='main-input-number'
             type="number"
             name="limit_cred"
             placeholder='Informe o limite para crédito'
@@ -124,7 +116,7 @@ export function PersonFormUpdate({
     const grupo = <>
         <dd>{"1-Cliente 2-Fornecedor 3-Transportadora 4-Geral"}</dd>
         <label>Grupo cliente</label>
-        <input id='main-input-number'
+        <input
             type="number"
             min={1}
             max={4}
@@ -135,133 +127,122 @@ export function PersonFormUpdate({
 
         />
     </>
-
-    return (
+    return <>
         <div ref={modalRef} className={`${className} modal`}>
-            <div id="container">
-                <form id="main">
-                    <strong className="text-center mt-3">Atualizar Cliente</strong>
-                  
-                    <input
-                        id='main-input'
-                        type="hidden"
-                        name="id_person"
-                        value={children.id_person || ""}
-                        placeholder="ID do cliente"
-                        disabled
-                        onChange={handleChange}
-                    />
-                    <label>Nome</label>
-                    <input
-                        id='main-input'
-                        type="text"
-                        name="name_pers"
-                        value={children.name_pers || ""}
-                        placeholder="Seu nome"
-                        onChange={handleChange}
-                    />
-                    {children.cpf_pers === '0' ? legalPerson : naturalPerson}
-                    <label>Telefone</label>
-                    <InputMask
-                        id='main-input'
-                        type="text"
-                        name="phone_pers"
-                        placeholder="Seu telefone"
-                        mask="(99)99999-9999"
-                        mask-selectonfocus="true"
-                        maxLength={14}
-                        autoComplete="off"
-                        maskChar={null}
-                        value={children.phone_pers || ''}
-                        onChange={handleChange}
-                    />
-                    <label>Endereço</label>
-                    <input
-                        id='main-input'
-                        type="text"
-                        name="address_pers"
-                        value={children.address_pers || ''}
-                        placeholder="Seu endereço"
-                        onChange={handleChange}
-                    />
-                    <label>Número</label>
-                    <input
-                        id='main-input-number'
-                        type="text"
-                        name="num_address"
-                        value={children.num_address || ''}
-                        placeholder="Número do endereço"
-                        onChange={handleChange}
-                    />
-                    <label>Bairro</label>
-                    <input
-                        id='main-input'
-                        type="text"
-                        name="bairro_pers"
-                        value={children.bairro_pers || ''}
-                        placeholder="Seu bairro"
-                        onChange={handleChange}
-                    />
-                    <label>CEP</label>
-                    <InputMask
-                        id='main-input'
-                        mask={"99.999-999"}
-                        type="text"
-                        name="num_cep"
-                        value={children.num_cep || ''}
-                        placeholder="CEP de sua cidade"
-                        onChange={handleChange}
-                    />
-                    <label>Cidade</label>
-                    <input
-                        id='main-input'
-                        type="text"
-                        name="name_city"
-                        value={children.name_city || ''}
-                        placeholder="Cidade"
-                        disabled
-                        onChange={handleChange}
-                    />
-                    <label>Estado</label>
-                    <input
-                        id='main-input-number'
-                        type="text"
-                        name="uf"
-                        value={children.uf || ''}
-                        placeholder="Estado"
-                        disabled
-                        onChange={handleChange}
-                    />
-                    <input
-                        id='main-input-number'
-                        type="hidden"
-                        name="fk_name_filial"
-                        value={children.fk_name_filial || ''}
-                        placeholder="Filial do cliente"
-                        disabled
-                        onChange={handleChange}
-                    />
-                    <input
-                        id='main-input-number'
-                        type="hidden"
-                        name="fk_id_user"
-                        value={children.fk_id_user || ''}
-                        placeholder="Usuário do cliente"
-                        disabled
-                        onChange={handleChange}
-                    />
-                    {checkAdminPrivilege() === "2" ? limiteCredito : null}
-                    {checkAdminPrivilege() === "2" ? grupo : null}
-                    {alert && <div id="msg-red">{alert}</div>}
-                    {message && <div id='msg-red'>{message}</div>}
-                    {!flagRegister && <button className="btn btn-primary" id='m-2' onClick={handleUpdate} >Atualizar</button>}
-                    {!flagRegister && <button className="btn btn-primary" id='m-2' onClick={handleDelete}>Novo</button>}
-                    {flagRegister && <button className="btn btn-primary" id='m-2' onClick={handleSubmit}>Registrar</button>}
-                    {<button className="btn btn-primary" id='m-2' onClick={close}>Sair</button>}
-                </form>
-
-            </div>
+            <form className="form">
+                <b>Atualizar Cliente</b>
+                <input
+                    type="hidden"
+                    name="id_person"
+                    value={children.id_person || ""}
+                    placeholder="ID do cliente"
+                    disabled
+                    onChange={handleChange}
+                />
+                <label>Nome</label>
+                <input
+                    type="text"
+                    name="name_pers"
+                    value={children.name_pers || ""}
+                    placeholder="Seu nome"
+                    onChange={handleChange}
+                />
+                <label>{children.cpf_pers !== "0" ? "Data de nascimento" : "Data de abertura"}</label>
+                <input
+                    type="Date"
+                    name="dateOfBirth"
+                    value={children.dateOfBirth || '2000-01-01'}
+                    onChange={handleChange}
+                />
+                {children.cpf_pers === '0' ? legalPerson : naturalPerson}
+                <label>Telefone</label>
+                <InputMask
+                    type="text"
+                    name="phone_pers"
+                    placeholder="Seu telefone"
+                    mask="(99)99999-9999"
+                    mask-selectonfocus="true"
+                    maxLength={14}
+                    autoComplete="off"
+                    maskChar={null}
+                    value={children.phone_pers || ''}
+                    onChange={handleChange}
+                />
+                <label>Endereço</label>
+                <input
+                    type="text"
+                    name="address_pers"
+                    value={children.address_pers || ''}
+                    placeholder="Seu endereço"
+                    onChange={handleChange}
+                />
+                <label>Número</label>
+                <input
+                    type="text"
+                    name="num_address"
+                    value={children.num_address || ''}
+                    placeholder="Número do endereço"
+                    onChange={handleChange}
+                />
+                <label>Bairro</label>
+                <input
+                    type="text"
+                    name="bairro_pers"
+                    value={children.bairro_pers || ''}
+                    placeholder="Seu bairro"
+                    onChange={handleChange}
+                />
+                <label>CEP</label>
+                <InputMask
+                    mask={"99.999-999"}
+                    type="text"
+                    name="num_cep"
+                    value={children.num_cep || ''}
+                    placeholder="CEP de sua cidade"
+                    onChange={handleChange}
+                />
+                <label>Cidade</label>
+                <input
+                    type="text"
+                    name="name_city"
+                    value={children.name_city || ''}
+                    placeholder="Cidade"
+                    disabled
+                    onChange={handleChange}
+                />
+                <label>Estado</label>
+                <input
+                    type="text"
+                    name="uf"
+                    value={children.uf || ''}
+                    placeholder="Estado"
+                    disabled
+                    onChange={handleChange}
+                />
+                <input
+                    type="hidden"
+                    name="fk_name_filial"
+                    value={children.fk_name_filial || ''}
+                    placeholder="Filial do cliente"
+                    disabled
+                    onChange={handleChange}
+                />
+                <input
+                    type="hidden"
+                    name="fk_id_user"
+                    value={children.fk_id_user || ''}
+                    placeholder="Usuário do cliente"
+                    disabled
+                    onChange={handleChange}
+                />
+                {checkAdminPrivilege() === "2" ? limiteCredito : null}
+                {checkAdminPrivilege() === "2" ? grupo : null}
+                {msg && <div id='msg-red'>{msg}</div>}
+                {!flagRegister && <button id='m-2' onClick={handleUpdate} >Atualizar Dados</button>}
+                {!flagRegister && <button id='m-2' onClick={handleNewPerson}>Novo Cadastro</button>}
+                {flagRegister && <button id='m-2' onClick={handleSubmit}>Inserir Dados</button>}
+                {<button id='m-2' onClick={close}>Sair</button>}
+            </form>
         </div>
-
-    )
+    </>
 }

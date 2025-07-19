@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import { TProduct } from '../../useCases/products/type/TProducts';
-import '../../index'
 import { UploadImagem } from '../../useCases/products/UploadImage';
+
+import '../../index'
+import '../css/styles-forms.css'
 
 type Props = {
     children: TProduct
     handleChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
     handleSubmit?: any;
     handleUpdate?: any;
-    handleDelete?: any;
+    handleNewProduct?: any;
     modalRef?: any;
     className?: string;
     close?: any;
-    alert: string;
-    message: string;
+    msg: string;
     listBrand: any;
     listSector: any;
     listUn: any;
@@ -36,12 +37,11 @@ export function ProductFormUpdate({
     handleSubmit,
     children,
     handleUpdate,
-    handleDelete,
+    handleNewProduct,
     modalRef,
     className,
     close,
-    alert,
-    message,
+    msg,
     listBrand,
     listSector,
     listUn,
@@ -70,16 +70,15 @@ export function ProductFormUpdate({
         getUploadImagem()
     }
 
-    const nav = <> <a href='##'
+    const nav = <p> <a href='##'
         onClick={() => (setMenu('geral'))}
     >Produto</a> / < a href='##'
-            onClick={() => (setMenu('fiscal'))}
+        onClick={() => (setMenu('fiscal'))}
     >Situação fiscal</a>
-    </>
+    </p>
 
     const geral = <>
         <input
-            id='main-input'
             type="hidden"
             name="id_person"
             value={children.id_product || ''}
@@ -88,7 +87,6 @@ export function ProductFormUpdate({
             onChange={handleChange}
         />
         <input
-            id='main-input'
             type="text"
             name="descric_product"
             value={children.descric_product || ""}
@@ -118,13 +116,12 @@ export function ProductFormUpdate({
             placeholder="valor mínimo"
         />
 
-        <div>
+        <>
             {listBrand}
             {listSector}
             {listUn}
-        </div>
+        </>
         <input
-            id='main-input'
             type="text"
             name="bar_code"
             value={children.bar_code || ''}
@@ -132,7 +129,6 @@ export function ProductFormUpdate({
             placeholder='código de barras'
         />
         <input
-            id='main-input'
             type="text"
             name="image"
             value={children.image || ''}
@@ -140,12 +136,11 @@ export function ProductFormUpdate({
             placeholder='Imagem'
         />
         <UploadImagem />
-        {alert && <div id='msg-red'>{alert}</div>}
-        {alert && <div id='msg-red'>{message}</div>}
-        {!flagRegister && <button className='btn btn-primary' id='m-2' onClick={handleUpdate}>Atualizar</button>}
-        {!flagRegister && <button className='btn btn-primary' id='m-2' onClick={handleDelete}>Novo</button>}
-        {flagRegister && <button className='btn btn-primary' id='m-2' onClick={handleSubmit}>Registrar</button>}
-        <button className='btn btn-primary' id='m-2' onClick={close}>Sair</button>
+        {msg && <div id='msg-red'>{msg}</div>}
+        {!flagRegister && <button id='m-2' onClick={handleUpdate}>Atualizar Dados</button>}
+        {!flagRegister && <button id='m-2' onClick={handleNewProduct}>Novo Produto</button>}
+        {flagRegister && <button id='m-2' onClick={handleSubmit}>Inserir Produto</button>}
+        <button id='m-2' onClick={close}>Sair</button>
 
     </>
 
@@ -154,23 +149,17 @@ export function ProductFormUpdate({
         <div>Grupo Fiscal {listGrupoFiscal}</div>
         <div>Tipo de Produto {listTipoProd}</div>
         <div>Pesquise o NCM do Produto {listNcm}</div>
-        <span id='m-2'>{msgNcm}</span>
+        <span>{msgNcm}</span>
     </div>
 
     return (
         <>
             <div ref={modalRef} className={`${className} modal`}>
-                <div id='container'>
-                    {menu === 'geral' ? <b className='m-3'>Atualizar Produto</b> : null}
-                    {menu === 'fiscal' ? <><b className='m-3'>Situação fiscal do Produto</b><br /></> : null}
-                </div>
-                <div id='container'>
-                    <div id='m-2'>
-                        {nav}
-                    </div>
-                </div>
-                <div id="container">
-                    <form id='main'>
+                <div className='form'>
+                    {menu === 'geral' && <b>Atualizar Produto</b>}
+                    {menu === 'fiscal' && <b>Situação fiscal do Produto</b>}
+                    {nav}
+                    <form>
                         {menu === "geral" ? geral : null}
                         {menu === 'fiscal' ? fiscal : null}
                     </form>

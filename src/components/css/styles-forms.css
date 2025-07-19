@@ -1,0 +1,80 @@
+
+.form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form b {
+  font-size: 16px;
+  display: line;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.form a {
+  color: #0077cc;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.form a:hover {
+  text-decoration: underline;
+}
+
+.form label {
+  font-weight: bold;
+  display: block;
+  margin-top: 1rem;
+  color: #555;
+}
+
+.form input,
+.form select,
+.form input:focus,
+.form input[type="text"],
+.form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border 0.3s;
+}
+
+.form input:focus,
+select:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+#main-input {
+  margin-bottom: 1rem;
+}
+
+.form button {
+  margin-top: 2rem;
+  background-color: #0077cc;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.form button:hover {
+  background-color: #005fa3;
+}
+
+#msg-red {
+  color: red;
+  margin-top: 1rem;
+  font-weight: bold;
+}

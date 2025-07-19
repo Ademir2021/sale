@@ -4,20 +4,20 @@ import { UploadImagem } from '../../useCases/products/UploadImage';
 import { NavBar } from '../navbar/Navbar';
 
 import '../../index'
+import '../css/styles-forms.css'
 
 type Props = {
   children: TProduct
   handleChange: React.ChangeEventHandler<HTMLInputElement> | any;
   handleSubmit: any;
-  alert: string;
-  message: string;
-  listBrand: any;
-  listSector: any;
-  listUn: any;
-  listClasse: any;
-  listGrupoFiscal: any;
-  listTipoProd: any
-  listNcm: any;
+  msg: string;
+  listBrand: React.ReactNode;
+  listSector: React.ReactNode;
+  listUn: React.ReactNode;
+  listClasse: React.ReactNode;
+  listGrupoFiscal: React.ReactNode;
+  listTipoProd: React.ReactNode
+  listNcm: React.ReactNode;
   msgNcm: string | undefined;
 }
 
@@ -31,8 +31,7 @@ export function ProductForm({
   children,
   handleChange,
   handleSubmit,
-  alert,
-  message,
+  msg,
   listBrand,
   listSector,
   listUn,
@@ -42,7 +41,6 @@ export function ProductForm({
   listNcm,
   msgNcm,
 }: Props) {
-
 
   const [menu, setMenu] = useState("geral")
 
@@ -62,23 +60,19 @@ export function ProductForm({
   }
 
   const nav = <>
-    <div>
-      <button
-        className='btn btn-primary'
-        id='m-2'
+  <p>
+      <a
+      href='##'
         onClick={() => (setMenu('geral'))}
-      >Cadastro do Produto</button>
-      <button
-        className='btn btn-primary'
-        id='m-2'
+      >Cadastro do Produto</a>/
+      <a href='##'
         onClick={() => (setMenu('fiscal'))}
-      >Situação Fiscal</button>
-    </div>
+      >Situação Fiscal</a>
+  </p>
   </>
 
   const geral = <>
     <input
-      id='main-input'
       type="text"
       name="descric_product"
       placeholder='Descrição do produto'
@@ -110,7 +104,6 @@ export function ProductForm({
     </div>
 
     <input
-      id='main-input'
       type="text"
       name="bar_code"
       placeholder='Código de Barras'
@@ -118,7 +111,6 @@ export function ProductForm({
       onChange={handleChange}
     />
     <input
-      id='main-input'
       type="text"
       name="image"
       placeholder='Imagem'
@@ -126,12 +118,8 @@ export function ProductForm({
       onChange={handleChange}
     />
     <UploadImagem />
-    {alert && <div id='msg-red'>{alert}</div>}
-    {message && <div id='msg-red'>{message}</div>}
-    <button
-      className='btn btn-primary'
-      id='m-2'
-      onClick={handleSubmit}>Registrar</button>
+    {msg && <div id='msg-red'>{msg}</div>}
+    <button>Inserir Produto</button>
   </>
 
   const fiscal = <div id='m-2'>
@@ -145,15 +133,11 @@ export function ProductForm({
   return (
     <>
       <NavBar />
-      <div id='container'>
-        {menu === 'geral' ? <b className='m-3'>Cadastrar Produto</b>:null}
-        {menu === 'fiscal' ? <b className='m-3'>Situação fiscal do Produto</b>:null}
-      </div>
-      <div id='container'>
+      <div className='form'>
+        {menu === 'geral' && <b id='m-2'>Cadastrar Produto</b>}
+        {menu === 'fiscal' && <b id='m-2'>Situação fiscal do Produto</b>}
         {nav}
-      </div>
-      <div id="container">
-        <form id="main">
+        <form onSubmit={handleSubmit}>
           {menu === 'fiscal' ? fiscal : null}
           {menu === "geral" ? geral : null}
         </form>

@@ -10,13 +10,13 @@ import api from "../../services/api/api";
 
 export function FormPerson() {
     const [person, setPerson] = useState<TPerson>({
-        name_pers: "", cpf_pers: "", phone_pers: "", address_pers: "",
+        name_pers: "", cpf_pers: "",dateOfBirth:"2000-01-01", phone_pers: "", address_pers: "",
         num_address: "", bairro_pers: "", fk_cep: 0, name_city: "", uf: "",
         num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg:'',
         cnpj:'',inscricao:'',fantasia:'',limit_cred:800,fk_grupo:1
     })
 
-    const [alert_, setAlert_] = useState<string>('')
+    const [msg, setMsg] = useState('')
     const [ceps, setCeps] = useState<ICeps[]>([])
     const res: any = localStorage.getItem('u')
     const [userIdLogged] = useState(JSON.parse(res))
@@ -30,7 +30,7 @@ export function FormPerson() {
 
     async function handleSubmit(e: Event) {
         e.preventDefault();
-        if (PersonsValFields(person, setAlert_)) {
+        if (PersonsValFields(person, setMsg)) {
             if(person.cpf_pers == ''){
                 person.cpf_pers = '0'
             }
@@ -43,15 +43,15 @@ export function FormPerson() {
             person.rg = person.rg.replace(/[..-]/g, '')
             new setNumCeps().setNumCep()
             if (person.fk_cep === undefined) {
-                alert("Digite um CEP válido")
+                setMsg("Digite um CEP válido")
             } else {
                 await api.post<any[]>('person', person)
                     .then(response => {
                         const res = response.data
                         const msg = JSON.stringify(res)
-                        alert(msg)
+                        setMsg(msg)
                     })
-                    .catch(error => alert(error));
+                    .catch(error => setMsg(error));
             }
         }
     }
@@ -77,12 +77,12 @@ export function FormPerson() {
 
     return (
         <>
+        {/* <p>{JSON.stringify(person)}</p> */}
             <Dashboard />
             <PersonForm
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
-                alert={alert_}
-                message=""
+                msg={msg}
             >
                 {person}
             </PersonForm>

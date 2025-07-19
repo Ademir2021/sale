@@ -3,6 +3,7 @@ export type TPerson = {
     created_at?: Date | any
     updated_at?: Date | any
     name_pers: string | any
+    dateOfBirth:Date | "2000-01-01" | any
     cpf_pers: string
     phone_pers: string
     address_pers: string

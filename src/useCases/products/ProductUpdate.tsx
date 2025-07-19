@@ -5,18 +5,20 @@ import { TProduct, TSector, TBrand, TClasseProd, TGrupoFiscal, TTipoProd, TUnMed
 import { postAuthHandle, postRegister, putUpdate, getList } from "../../services/handleService";
 import { ProductFormUpdate } from "../../components/products/ProductFormUpdate";
 import { ProductList } from "../../components/products/ProductList";
-import { AuthContext } from '../../context/auth'
 import { currencyFormat } from '../../components/utils/currentFormat/CurrentFormat';
 import { Dashboard } from "../dashboard/Dashboard";
 import { HandleProducts } from "./HandleProduct";
-import "../../App.css"
 import { ProductValFields } from "./valsFields/ValsFields";
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
+
+import { AuthContext } from '../../context/auth'
+
+import "../../App.css"
 
 export function ProductUpdate() {
     const { user: isLogged }: any = useContext(AuthContext);
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
-    const [alert_, setAlert_] = useState<string>("")
+    const [msg, setMsg] = useState("")
     const handleProducts: HandleProducts = new HandleProducts()
     const [sectors, setSectors] = useState<TSector[]>([]);
     const [brands, setBrands] = useState<TBrand[]>([]);
@@ -78,25 +80,25 @@ export function ProductUpdate() {
     }, [brands])
 
     useEffect(() => {
-       getList('sectors',setSectors)
+        getList('sectors', setSectors)
     }, [sectors])
 
     useEffect(() => {
-        getList('un_med',setUnMeds)
+        getList('un_med', setUnMeds)
     }, [unMeds])
 
     useEffect(() => {
-        getList('classes_prods',setClassesProds)
+        getList('classes_prods', setClassesProds)
     }, [classesProds])
 
     useEffect(() => {
-        getList('grupos_fiscais',setGruposFiscais)
+        getList('grupos_fiscais', setGruposFiscais)
     }, [gruposFiscais])
 
     useEffect(() => {
-   getList('tipos_prods',setTiposProds)
+        getList('tipos_prods', setTiposProds)
     }, [tiposProds])
-    
+
     useEffect(() => {
         async function getNcms() {
             const ncms = await ncms_.Nomenclaturas;
@@ -126,7 +128,7 @@ export function ProductUpdate() {
     }
 
     useEffect(() => {
-        postAuthHandle('products_list',setTokenMessage,setProducts,isLogged)
+        postAuthHandle('products_list', setTokenMessage, setProducts, isLogged)
     }, [products, isLoggedParams]);
 
 
@@ -145,19 +147,19 @@ export function ProductUpdate() {
 
     async function handleSubmit(e: any) {
         e.preventDefault();
-        if (ProductValFields(product, setAlert_)) {
+        if (ProductValFields(product, setMsg)) {
             postRegister(product, 'product');
         }
     };
     async function handleUpdate(e: Event) {
         e.preventDefault();
-        if (ProductValFields(product, setAlert_)) {
+        if (ProductValFields(product, setMsg)) {
             const resp: any = await putUpdate(product, 'product_update')
-            setAlert_(resp)
+            setMsg(resp)
         }
     };
 
-    async function handleDelete(e: Event) {
+    async function handleNewProduct(e: Event) {
         e.preventDefault();
         setFlagRegister(true)
         setProduct({
@@ -168,25 +170,23 @@ export function ProductUpdate() {
             fk_grupo_fiscal: 1, fk_tipo_prod: 1, ncm: ''
         })
     };
-    
+
     return (
         <>
             <Dashboard />
-             <h1 className='text-center'>Escolha o Item para atualizar</h1>
-               {handleTokenMessage('product_update', tokenMessage)}
+            <h1 className='text-center'>Escolha o Item para atualizar</h1>
+            {handleTokenMessage('product_update', tokenMessage)}
             < ProductFormUpdate
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 handleUpdate={handleUpdate}
-                handleDelete={handleDelete}
+                handleNewProduct={handleNewProduct}
                 flagRegister={flagRegister}
                 modalRef={modalRef}
                 className={dropdown}
                 close={closeDropdown}
-                alert={alert_}
-                message=""
+                msg={msg}
                 listBrand={<select
-                id='main-input'
                     onChange={e => setSelectedIdBrand(e.target.value)}
                 >
                     {brands.map((brand) => (
@@ -197,7 +197,6 @@ export function ProductUpdate() {
                             {brand.name_brand}
                         </option>))}</select>}
                 listSector={<select
-                  id='main-input'
                     onChange={e => setSelectedIdSector(e.target.value)}
                 >
                     {sectors.map((sector: TSector) => (
@@ -209,7 +208,6 @@ export function ProductUpdate() {
                         </option>))}</select>}
 
                 listUn={<select
-                  id='main-input'
                     onChange={e => setSelectedIdUn(e.target.value)}
                 >
                     {unMeds.map((un: TUnMed) => (
@@ -221,7 +219,6 @@ export function ProductUpdate() {
                         </option>))}</select>}
 
                 listClasse={<select
-                  id='main-input'
                     onChange={e => setSelectedIdClasseProd(e.target.value)}
                 >{classesProds.map((classe: TClasseProd) => (
                     <option
@@ -232,7 +229,6 @@ export function ProductUpdate() {
                     </option>))}</select>}
 
                 listGrupoFiscal={<select
-                  id='main-input'
                     onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
                 >{gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
                     <option
@@ -243,7 +239,6 @@ export function ProductUpdate() {
                     </option>))}</select>}
 
                 listTipoProd={<select
-                  id='main-input'
                     onChange={e => setSelectdIdTipoProd(e.target.value)}
                 >{tiposProds.map((tipoProd: TTipoProd) => (
                     <option
@@ -255,15 +250,15 @@ export function ProductUpdate() {
                 ))}</select>}
 
                 listNcm={<><datalist
-                    id="data-itens"><select
-                    >{ncms.map((ncm: TNcm) => (
-                        <option
-                            key={ncm.Codigo}
-                            value={ncm.Codigo}
-                        >
-                            {ncm.Descricao}
-                        </option>
-                    ))};
+                ><select
+                >{ncms.map((ncm: TNcm) => (
+                    <option
+                        key={ncm.Codigo}
+                        value={ncm.Codigo}
+                    >
+                        {ncm.Descricao}
+                    </option>
+                ))};
                     </select></datalist>
                     <input
                         placeholder="Pequisar o NCM do produto"

@@ -6,7 +6,7 @@ import ncmJSON from './NCM.json'
 import { ProductValFields } from "./valsFields/ValsFields";
 
 export function FormProduct() {
-    const [alert_, setAlert_] = useState<string>("")
+    const [msg, setMsg] = useState("")
     const [brands, setBrands] = useState<TBrand[]>([]);
     const [sectors, setSectors] = useState<TSector[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
@@ -76,22 +76,19 @@ export function FormProduct() {
 
     async function handleSubmit(e: Event) {
         e.preventDefault();
-        if (ProductValFields(product, setAlert_)) {
+        if (ProductValFields(product, setMsg)) {
             postRegister(product, 'product')
-            if (alert_ !== "")
-                setAlert_('')
+            if (msg !== "")
+                setMsg('')
         }
     };
 
-    return (
-        <>
+    return  <>
             <ProductForm
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
-                alert={alert_}
-                message=""
+                msg={msg}
                 listBrand={<select
-                id="main-input"
                     onChange={e => setSelectedIdBrand(e.target.value)}
                 >
                     {brands.map((brand) => (
@@ -103,7 +100,6 @@ export function FormProduct() {
                         </option>))}</select>}
 
                 listSector={<select
-                id='main-input'
                     onChange={e => setSelectedIdSector(e.target.value)}
                 >
                     {sectors.map((sector: TSector) => (
@@ -115,7 +111,6 @@ export function FormProduct() {
                         </option>))}</select>}
 
                 listUn={<select
-                id='main-input-number'
                     onChange={e => setSelectedIdUn(e.target.value)}
                 >
                     {unMeds.map((un: TUnMed) => (
@@ -127,7 +122,6 @@ export function FormProduct() {
                         </option>))}</select>}
 
                 listClasse={<select
-                id="main-input"
                     onChange={e => setSelectedIdClasseProd(e.target.value)}
                 >{classesProds.map((classe: TClasseProd) => (
                     <option
@@ -138,7 +132,6 @@ export function FormProduct() {
                     </option>))}</select>}
 
                 listGrupoFiscal={<select
-                id="main-input"
                     onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
                 >{gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
                     <option
@@ -149,7 +142,6 @@ export function FormProduct() {
                     </option>))}</select>}
 
                 listTipoProd={<select
-                id='main-input'
                     onChange={e => setSelectdIdTipoProd(e.target.value)}
                 >{tiposProds.map((tipoProd: TTipoProd) => (
                     <option
@@ -183,5 +175,4 @@ export function FormProduct() {
                 {product}
             </ProductForm>
         </>
-    )
 }
