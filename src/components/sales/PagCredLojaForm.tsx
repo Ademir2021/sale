@@ -4,6 +4,7 @@ import { currencyFormat } from "../utils/currentFormat/CurrentFormat"
 import { HandleFinanceiro } from "../utils/financeiro/HandleFinanceiro"
 
 import '../../index'
+import '../css/styles-forms.css'
 
 type Props = {
     duplicatas: TContaAreceber[]
@@ -11,17 +12,17 @@ type Props = {
     toGoBackInvoiceSale: any
     URLNoteSubmit: any
     dinheiro: number
-    msg:string
+    msg: string
 }
 
 export function PagCredLojaForm({
-        handleSubmit,
-        duplicatas,
-        toGoBackInvoiceSale,
-        URLNoteSubmit,
-        dinheiro,
-        msg
-    }: Props) {
+    handleSubmit,
+    duplicatas,
+    toGoBackInvoiceSale,
+    URLNoteSubmit,
+    dinheiro,
+    msg
+}: Props) {
 
     const handleContasAReceber = new HandleFinanceiro()
 
@@ -52,33 +53,22 @@ export function PagCredLojaForm({
                 </tbody>
             </table>
         </>
-    return (
-        <>
-        <hr></hr>
-            <div id="container">
-                <div id='main'>
-                <h1 className="text-center">Crediário Loja</h1>
-                {msg && <div id='msg-red'>{msg}</div>}
-                <button
-                    className="btn btn-primary"
-                    id='m-2'
-                    onClick={handleSubmit}
-                >Finalizar compra</button>
-                <button
-                    className="btn btn-primary"
-                    id="m-2"
-                    onClick={toGoBackInvoiceSale}
-                >Modificar forma de pagamento</button>
-                {dinheiro > 0 || duplicatas.length > 0 ? <h1 className="mt-2">Forma de pagamento</h1>:<></>}
-                {dinheiro > 0 && <dd><b>Em dinheiro: </b>{currencyFormat(dinheiro)}</dd>}
-                {duplicatas.length > 0 && <b>Crediario Loja:</b>}
-                {duplicatas.length > 0 && listDuplicatas}
-                <>{URLNoteSubmit ? <button
-                    className="btn btn-primary"
-                    id='m-2'
-                    onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Imprimir compra</button> : null}</>
-            </div>
-                </div>       
-        </>
-    )
+    return <>
+        <div className="form">
+            <h1>Crediário Loja</h1>
+            {msg && <div id='msg-red'>{msg}</div>}
+            <button id='m-2'
+                onClick={handleSubmit}
+            >Finalizar compra</button>
+            <button id="m-2"
+                onClick={toGoBackInvoiceSale}
+            >Modificar forma de pagamento</button>
+            {dinheiro > 0 || duplicatas.length > 0 ? <h1 className="mt-2">Forma de pagamento</h1> : <></>}
+            {dinheiro > 0 && <dd><b>Em dinheiro: </b>{currencyFormat(dinheiro)}</dd>}
+            {duplicatas.length > 0 && <b>Crediario Loja:</b>}
+            {duplicatas.length > 0 && listDuplicatas}
+            <>{URLNoteSubmit ? <button id='m-2'
+                onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Imprimir compra</button> : null}</>
+        </div>
+    </>
 }

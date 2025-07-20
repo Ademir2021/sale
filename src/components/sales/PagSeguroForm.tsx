@@ -34,21 +34,14 @@ export function PagSeguroForm({
     URLNoteSubmit,
     error
 }: Props) {
-    return (
-        <>
+    return <>
             <NavBar />
-            <hr></hr>
-            <div id='container'>
-                {<form id='main' >
-                    <h1 id='text-center'>Pague com PIX ou Boleto</h1>
+                {<form className='form' >
+                    <h1>Pague com PIX ou Boleto</h1>
                     <p>{currencyFormat(paySale)}</p>
-                    <button
-                    className='btn btn-primary'
-                    onClick={handleBoleto}>Emitir BOLETO
-                    </button>
+                    <button onClick={handleBoleto}>Emitir BOLETO</button>
                     <label>Vencim. boleto</label>
                     <input
-                    id='main-input-number'
                     type="date"
                     value={datavenc}
                     onChange={(e) => setInt(e.target.value)}
@@ -61,19 +54,14 @@ export function PagSeguroForm({
                         <strong style={{ fontSize: '10px' }}>{barCodeBoletoFormated}</strong></div> :
                         <dd>Aguardando código de barras</dd>}
                     <hr></hr>
-                    <button
-                    className='btn btn-primary'
-                    onClick={handleQrCode}>Gerar QR-CODE
-                    </button>
-                    {qrcode_img ? <img id='img-qrcode' src={qrcode_img} alt='Aguarde o qrcode'></img> : null}
+                    <button onClick={handleQrCode}>Gerar QR-CODE</button>
+                    {qrcode_img && <img id='img-qrcode' src={qrcode_img} alt='Aguarde o qrcode'></img>}
                     <dd><b>PIX</b> {payPix}</dd>
                     <dd id='msg-red'>{error}</dd>
                     <dd>{qrCodeGeneratedSuccessfully}</dd>
                     <hr></hr>
-                    {URLNoteSubmit ? <a href={Globais.URL_NOTE + '/' + URLNoteSubmit}>Emitir Nota</a> : null}
+                    {URLNoteSubmit && <a href={Globais.URL_NOTE + '/' + URLNoteSubmit}>Emitir Nota</a>}
                     {URLNoteSubmit ? <a href='/dashboardefault'>Sair</a> : null}
                 </form >}
-            </div>
         </>
-    )
 }

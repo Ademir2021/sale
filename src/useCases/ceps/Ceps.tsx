@@ -13,8 +13,7 @@ export function Ceps() {
     const [selectedNameCity, setSelectedNameCity] = useState<string | undefined>(undefined);
     const [cities, setCities] = useState<ICities[]>([])
     const [ceps, setCeps] = useState<ICeps[]>([])
-    const [message, setMessage] = useState<string>("")
-    const [alertCep, setAlertCep] = useState<string>("")
+    const [msg, setMsg] = useState('')
     const [cep, setCep] = useState<ICeps>({
         id_cep: 0, num_cep: "", code_city: 0, type_cep: "",
         public_place: "", num_initial: 0, num_final: 0,
@@ -89,7 +88,7 @@ export function Ceps() {
         if (selectedUf === "Selecione um Estado") { msg += "Selecione um Estado ! _\n" };
         if (selectedNameCity === undefined) { msg += "Selecione uma Cidade\n" };
         if (msg !== "") {
-            setMessage(msg)
+            setMsg(msg)
             return false;
         };
         return true;
@@ -98,14 +97,14 @@ export function Ceps() {
     function handleSubmit(e: Event) {
         e.preventDefault()
         if (checkCepExist() === false) {
-            setAlertCep("")
+            setMsg("")
             if (cepValFields(cep)) {
                 cep.uf = selectedUf
                 cep.code_city = selectedIdCity
                 cep.city = selectedNameCity
                 postRegister(cep, 'ceps')
             }
-        } else { setAlertCep("CEP já existente na base") }
+        } else { setMsg("CEP já existente na base") }
     }
 
     return (
@@ -117,8 +116,7 @@ export function Ceps() {
                 listUf={setSelectedUf}
                 listCity={cities}
                 setSelectedIdCity={setSelectedIdCity}
-                alertCep={alertCep}
-                message={message}
+                msg={msg}
             >
                 {cep}
             </CepsForm>

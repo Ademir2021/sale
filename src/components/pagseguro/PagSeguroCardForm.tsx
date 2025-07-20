@@ -28,14 +28,10 @@ export function PagSeguroCardForm({
     err
 }: PropsPagSeguroCardForm) {
 
-    return (
-        <>
+    return <>
             <NavBar />
-            <hr></hr>
-            <div id="container">
-                <form id="main-card">
-            <div>
-                <h1 id='text-center'>Cartões aceitos</h1>
+                <form className="form">
+                <h1>Cartões aceitos</h1>
                 <img
                 id='img-band-card'
                 src="img/band_cartao_creditos.png"
@@ -43,8 +39,7 @@ export function PagSeguroCardForm({
                 <dd>Aceitamos as principais bandeiras de cartão de crédito para a sua conveniência.</dd>
                 <b>Visa, MasterCard, American Express (AMEX), Elo, Hipercard, Discover, Diners Club.</b>
                 <p>Você tambêm pode usar o seu cartão de debito ou outras opções de pagamento <a href="invoice_sales">on-line</a> disponíveis.</p>
-
-            </div>
+                
                     <input
                         type="hidden"
                         name="public_key"
@@ -53,7 +48,6 @@ export function PagSeguroCardForm({
                         disabled
                     />
                     <input
-                        id='main-input'
                         type="text"
                         name="holder"
                         onChange={handleChange}
@@ -62,7 +56,6 @@ export function PagSeguroCardForm({
                         required
                     />
                     <input
-                        id='main-input'
                         type="text"
                         name="number"
                         onChange={handleChange}
@@ -110,12 +103,10 @@ export function PagSeguroCardForm({
                     {paidSucess || paid ? <label id='msg-red'>{paidSucess} {paid}</label> : null}
                     {err != '' && <label id="msg-red">{err}</label>}
                     <label id='msg-green'>{!URLNoteSubmit ? currencyFormat(paySale) : null}</label>
-                    {!URLNoteSubmit ? <button className="btn btn-primary" id='m-2' onClick={handleSubmit}>Pagar</button> : null}
-                    {URLNoteSubmit ? <button className="btn btn-primary" id='m-2' onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Emitir Nota</button> : null}
-                    {URLNoteSubmit ? <button className="btn btn-primary" id='m-2' onClick={() => { window.location.replace('dashboardefault') }}>Sair</button> : null}
+                    {!URLNoteSubmit && <button id='m-2' onClick={handleSubmit}>Pagar</button>}
+                    {URLNoteSubmit != 0 && <button id='m-2' onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Emitir Nota</button>}
+                    {URLNoteSubmit !=0 && <button id='m-2' onClick={() => { window.location.replace('dashboardefault') }}>Sair</button>}
 
                 </form>
-            </div>
-        </>
-    )
+            </>
 }

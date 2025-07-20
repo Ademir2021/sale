@@ -30,8 +30,8 @@ export function Itens({ itens, updateListProduct }: TProps) {
                     <th id="center">ITEM</th>
                     <th>DESCRIÇÃO</th>
                     <th id='center'>QUANT</th>
-                    <th>R$ UN</th>
-                    <th>R$ TOTAL</th>
+                    <th>UN</th>
+                    <th>TOTAL</th>
                     <th id="center">EDITAR</th>
                 </tr>
             </thead>

@@ -3,12 +3,12 @@ import { RegisterSaleForm } from "../../components/sales/RegisterSaleForm";
 import { Itens } from "../../components/sales/Itens";
 import { TProduct, TItens } from "../products/type/TProducts";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
-// import { Dashboard } from "../dashboard/Dashboard";
 import { postList } from "../../services/handleService";
 import { handleLinksDir } from "../../components/utils/backHome/BackHome";
-// import api from "../../services/api/api";
 
 export function RegisterSale() {
+
+    const [msg, setMsg] = useState('')
     const [product, setProduct] = useState<TItens>(
         { id: 0, item: 0, descric: "", valor: 0, amount: 1, tItem: 0 });
     const [products, setProducts] = useState<TProduct[]>([]);
@@ -90,12 +90,12 @@ export function RegisterSale() {
         if (product.item !== 0) {
             for (let item of itens)
                 if (product.item === item.item && editId == null) {
-                    return alert("Item já foi lançado")
+                    return setMsg("Item já foi lançado")
                 }
             setId(id + 1);
             return itens.push(product)
         } else {
-            alert("Item não localizado")
+            setMsg("Item não localizado")
         }
     };
 
@@ -104,7 +104,7 @@ export function RegisterSale() {
             if (product.item === item.item && editId !== null) {
                 item.amount = product.amount
                 item.tItem = product.amount * product.valor
-                return alert("Item já foi lançado ! a quantidade é de " + product.amount + " item(s)")
+                return setMsg("Item já foi lançado ! a quantidade é de " + product.amount + " item(s)")
             }
         deleteProduct();
         setItens(itens);
@@ -148,7 +148,7 @@ export function RegisterSale() {
                 openClearNewSale();
             }
         } else {
-            alert("Busque um novo item !");
+            setMsg("Busque um novo item !");
             openClearNewSale();
         }
     };
@@ -156,25 +156,25 @@ export function RegisterSale() {
     function handleSubmit(e: Event) {
         e.preventDefault();
         if (statusBtnSaleSubmit === "Iniciar Pedido") {
-            itens.length === 0 ? alert("Iniciar compra !") :
+            itens.length === 0 ? setMsg("Iniciar compra !") :
                 openClearNewSale();
             setStatusBtnSaleSubmit("Faturar Pedido");
         } else {
             setStatusBtnSaleSubmit("Iniciar Pedido");
             if (itens.length === 0) {
-                alert("Informe ao menos um item e clique em salvar !");
+                setMsg("Informe ao menos um item e clique em salvar !");
             } else {
-                alert("Seu pedido será gravado");
+                setMsg("Seu pedido será gravado");
                 const itens_store_res: [] | any = localStorage.getItem('i');
                 if (itens_store_res === null) {
                     localStorage.setItem("i", JSON.stringify(itens))
                     localStorage.setItem("s", JSON.stringify(sumItens().toFixed(2)));
-                    alert("Pedido gravado com sucesso")
+                    setMsg("Pedido gravado com sucesso")
                     setTimeout(() => {
                         window.location.replace("/invoice_sales");
                     }, 1000);
                 } else {
-                    alert("Aguarde retorno! existe um pedido  em aberto !");
+                    setMsg("Aguarde retorno! existe um pedido  em aberto !");
                 }
             }
         }
@@ -239,8 +239,7 @@ export function RegisterSale() {
                 statusBtnSaveUpdate={statusBtnSaveUpdate}
                 statusBtnSaleSubmit={statusBtnSaleSubmit}
                 item_img={itemImg}
-                alert=""
-                message=""
+                msg={msg}
                 totalItens={totalItens <= 0 ? '' : currencyFormat(totalItens)}
                 loadItens={itens.length === 0 ? "Carregando" :
                     <Itens
