@@ -25,10 +25,10 @@ export function PagarValorForm({
                     'Pagar valores'
                 )}
             </>
-    const pagarValor = <div className="container-global">
-        <div className="main-global">
-            <p>Pagar Valores</p>
-            <div className="main-global-form">
+    const pagarValor =
+    <form onSubmit={handleSubmit} className="form">
+           <>{links}</>
+                <b>Pagar Valores</b>
                 <input
                     type="number"
                     name='valor'
@@ -43,19 +43,11 @@ export function PagarValorForm({
                     placeholder="Descrição do valor"
                     onChange={handlechange}
                 />
-                <button className="btn btn-primary"
-                    onClick={handleSubmit}
-                >Registrar Valor</button>
-                <dd>{msg}</dd>
-                <hr></hr>
-            </div>
+                <button>Inserir Valor</button>
+                <p>{msg}</p>
                 <div className="list-person">{listPersons}</div>
-        </div>
-    </div>
-    return (
-        <>
-           <div className='text-center'>{links}</div>
+            </form>
+    return <>
             {pagarValor}
         </>
-    )
 }

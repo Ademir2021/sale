@@ -5,6 +5,7 @@ import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged"
 import { handleLinksDir } from "../utils/backHome/BackHome";
 
 import './css/styles.css'
+import '../css/styles-forms.css'
 
 type Props = {
     contasAPagar: TContaAPagar[]
@@ -18,7 +19,7 @@ type Props = {
     submitfluxoDeCaixa: any
     saldo: number
     findNameDespesa: any // (id: number)
-    token:string | any
+    token: string | any
 }
 
 function ContasAPagarForm({
@@ -39,28 +40,25 @@ function ContasAPagarForm({
     const handleContasAPagar = new HandleFinanceiro()
 
     const headerContasPagar =
-        <dd>Contas a pagar em aberto.</dd>
+        <b>Contas a pagar em aberto.</b>
 
     const sumbit =
-        <div className="mb-1">
+        <>
             <button
-                className="btn btn-primary"
                 id="m-2"
                 onClick={submitContasAPagarRegister}
             >Emitir título</button>
             <button
-                className="btn btn-primary"
                 id="m-2"
                 onClick={submitInserirValor}
             >Pagar</button>
             <button
-                className="btn btn-primary"
                 id="m-2"
                 onClick={submitfluxoDeCaixa}
             >Fluxo de caixa</button>
             <div id="m-2"><b>Saldo à pagar </b>{currencyFormat(saldo)}</div>
             {token}
-        </div>
+        </>
 
     const inputPagarValor = <div>
         <input
@@ -122,11 +120,7 @@ function ContasAPagarForm({
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.pagamento !== null ? handleContasAPagar.formatDate(conta.pagamento) : null}</td>
                     <td>{conta.observacao}</td>
-                    <td><button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => pagarValor(conta)}
-                    >Pagar</button></td>
+                    <td><button onClick={() => pagarValor(conta)} >Pagar</button></td>
                 </tr>
             ))}
         </tbody>
@@ -156,28 +150,24 @@ function ContasAPagarForm({
             </tr>
         ))}</tbody>
     </table>
-
-    return (
-
-        <div className="container">
-                  {handleLinksDir(
-                            'dashboardefault',
-                            'Painel',
-                            '##',
-                            'Financeiro',
-                            '##',
-                            'Contas a pagar'
-                            )}
+    return <>
+        <div className="form">
+            {handleLinksDir(
+                'dashboardefault',
+                'Painel',
+                '##',
+                'Financeiro',
+                '##',
+                'Contas a pagar'
+            )}
             {checkAdminPrivilege() == '2' && sumbit}
-            <hr/>
             {headerContasPagar}
             {msg && <div>{msg}</div>}
             {checkAdminPrivilege() == '2' && inputPagarValor}
-            {contasAPagar.length > 0 && listaContasPagar}
-            {valoresPagos.length > 0 && listaValoresPago}
         </div>
-
-    )
+        {contasAPagar.length > 0 && listaContasPagar}
+        {valoresPagos.length > 0 && listaValoresPago}
+    </>
 }
 
 export { ContasAPagarForm }

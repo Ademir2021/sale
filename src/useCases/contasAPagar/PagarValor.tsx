@@ -40,7 +40,8 @@ export function PagarValor() {
         pagarValor.descricao = ''
     }
 
-    function handleSubmit() {
+    function handleSubmit(e:Event) {
+        e.preventDefault()
         if (persons.length > 0)
             pagarValor.fk_person = IdPerson
         if (sendValor === false) {

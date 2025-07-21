@@ -1,5 +1,7 @@
 import { handleLinksDir } from '../utils/backHome/BackHome'
+
 import './css/styles.css'
+import '../css/styles-forms.css'
 
 type Props = {
     children: any
@@ -29,10 +31,10 @@ export function ContasAPagarRegisterForm({
             'Emitir titulos a pagar'
         )}
     </> 
-    const emitirTitulo = <div className="container-global">
-        <div className="main-global">
+    const emitirTitulo =<>
+     <form onSubmit={handleSubmit} className='form'>
+        <>{links}</>
             <p>Emitir provisão de despesas</p>
-            <div className="main-global-form">
                 <input
                     type="number"
                     name="valor"
@@ -52,22 +54,14 @@ export function ContasAPagarRegisterForm({
                     onChange={handleChange}
                     placeholder="Observação"
                 />
-                <button
-                    className="btn btn-primary"
-                    onClick={handleSubmit}
-                >Salvar conta</button>
-                <dd className="text-center">{msg}</dd>
-                <hr></hr>
-            </div>
-            <div className='list-person'>{listPersons}</div>
-            <div className='list-despesa'>{listDespesas}</div>
-        </div>
-    </div>
-
-    return (
-        <>
-        <div className='text-center'>{links}</div>
+            <div>{listPersons}</div>
+            <div>{listDespesas}</div>
+                <button>inserir conta</button>
+                <hr/>
+                <p>{msg}</p>
+            </form>
+            </>
+    return <>
             {emitirTitulo}
         </>
-    )
 }

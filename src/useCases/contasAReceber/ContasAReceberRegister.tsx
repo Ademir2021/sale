@@ -59,7 +59,8 @@ export function ContasAReceberRegister() {
         contaAReceber.observacao = ''
     }
 
-    function handleSubmit() {
+    function handleSubmit(e:Event) {
+        e.preventDefault()
         getContaAReceber()
         if (sendConta === false) {
             postRegister(contaAReceber, 'contas_receber')

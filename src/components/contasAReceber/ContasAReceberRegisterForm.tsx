@@ -27,10 +27,9 @@ export function ContasAReceberRegisterForm({
             )}
         </> 
 
-    const emitirTitulo = <div className="container-global">
-        <div className="main-global">
+    const emitirTitulo = <form onSubmit={handleSubmit} className="form">
+            <>{links}</>
             <p>Emitir título de conta a receber</p>
-            <div className="main-global-form">
                 <input
                     type="number"
                     name="valor"
@@ -50,21 +49,11 @@ export function ContasAReceberRegisterForm({
                     onChange={handleChange}
                     placeholder="Observação"
                 />
-                <button
-                    className="btn btn-primary"
-                    onClick={handleSubmit}
-                >Salvar conta</button>
-                <dd className="text-center">{msg}</dd>
-                <hr></hr>
-            </div>
-                <div className="list-person">{listPersons}</div>
-        </div>
-    </div>
-
-    return (
-        <>
-        <div className="text-center">{links}</div>
+                <>{listPersons}</>
+                <button>Inserir conta</button>
+                <p>{msg}</p>
+            </form>
+    return <>
             {emitirTitulo}
         </>
-    )
 }

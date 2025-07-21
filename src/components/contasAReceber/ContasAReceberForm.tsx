@@ -5,6 +5,7 @@ import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged"
 import { handleLinksDir } from "../utils/backHome/BackHome";
 
 import './css/styles.css'
+import '../css/styles-forms.css'
 import '../../index'
 
 type Props = {
@@ -39,31 +40,38 @@ export function ContasAreceberForm({
 
     const handleContasAReceber = new HandleFinanceiro()
 
+    const links = <>    {handleLinksDir(
+        'dashboardefault',
+        'Painel',
+        '##',
+        'Financeiro',
+        '##',
+        'Contas a receber'
+    )}</>
+
     const headerContasReceber =
-        <dd>Contas a receber em aberto.</dd>
-    const sumbit = <div className="mb-1">
+        <b>Contas a receber em aberto.</b>
+
+    const sumbit = <>
         <button
-            className="btn btn-primary"
             id='m-2'
             onClick={submitContasAReceberRegister}
-            >Emitir título</button>
+        >Emitir título</button>
         <button
-            className="btn btn-primary"
             id='m-2'
             onClick={submitInserirValor}
-            >Inserir valor</button>
+        >Inserir valor</button>
         <button
-            className="btn btn-primary"
             id='m-2'
             onClick={submitfluxoDeCaixa}
-            >Fluxo de caixa</button>
+        >Fluxo de caixa</button>
         <div id="m-2"><b>Saldo à receber </b>{currencyFormat(saldo)}</div>
-            <div>{token}</div>
-    </div>
+        <div>{token}</div>
+    </>
 
     const inputReceberValor = <div>
         <input
-            id="main-input-number"
+            id="input-valor"
             min={0}
             max={999}
             type="number"
@@ -71,7 +79,7 @@ export function ContasAreceberForm({
             onChange={handleChangeValor}
         />
         <input
-            id="main-input-number"
+            id="input-valor"
             min={0}
             max={999}
             type="number"
@@ -150,28 +158,19 @@ export function ContasAreceberForm({
                     <td>{valRec.valor}</td>
                     <td>{handleContasAReceber.formatDate(valRec.data_recebimento)}</td>
                     <td>{valRec.descricao}</td>
-                    <td><button className="btn btn-primary" onClick={() => printValorRecebido(valRec)}>Recibo</button></td>
+                    <td><button onClick={() => printValorRecebido(valRec)}>Recibo</button></td>
                 </tr>
             ))}</tbody>
         </table>
-    return (
-        <div className="container">
-            {handleLinksDir(
-                'dashboardefault',
-                'Painel',
-                '##',
-                'Financeiro',
-                '##',
-                'Contas a receber'
-                )}
-            {checkAdminPrivilege() === '2' ? sumbit : null}
-            <hr/>
+    return <>
+        <div className="form">
+            {links}
+            {checkAdminPrivilege() === '2' && sumbit}
             {headerContasReceber}
-            {<div>{msg}</div>}
             {checkAdminPrivilege() === '2' ? inputReceberValor : <div>Contas em aberto do cliente</div>}
-            {contasAReceber.length > 0 ? listaContasReceber : <h1>Cliente sem título para pagar !</h1>}
-            {valoresRecebidos.length > 0 && listaValoresRecebidos}
+            {<div>{msg}</div>}
         </div>
-
-    )
+        {contasAReceber.length > 0 ? listaContasReceber : <h1>Cliente sem título para pagar !</h1>}
+        {valoresRecebidos.length > 0 && listaValoresRecebidos}
+    </>
 }

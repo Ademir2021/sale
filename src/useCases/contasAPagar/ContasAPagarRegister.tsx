@@ -8,16 +8,17 @@ import { ContasAPagarRegisterForm } from "../../components/contasAPagar/ContasAP
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
 
 export function ContasAPagarRegister() {
+
+    const { user: isLogged }: any = useContext(AuthContext);
+    const [tokenMessage, setTokenMessage] = useState("Usuário Autenticado !")
+
+    const [msg, setMsg] = useState('Aguardando titulo')
+
     const [idPerson, setIdPerson] = useState<number>(0)
     const [sendConta, setSendConta] = useState<boolean>(false)
-    const [msg, setMsg] = useState<string>('Aguardando titulo')
     const [persons, setPersons] = useState<TPerson[]>([])
-
     const [despesas, setDespesas] = useState<TDespesa[]>([]) //criar no banco
     const [idDespesa, setIdDespesa] = useState<number>(0)
-
-    const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
-    const { user: isLogged }: any = useContext(AuthContext);
     const [contaAPagar, setContaAPagar] = useState<TContaAPagar>({
         id_conta: 0,
         fk_filial: 0,
@@ -37,7 +38,6 @@ export function ContasAPagarRegister() {
         observacao: "",
         fk_beneficiario: 0,
         fk_despesa: 1
-
     });
 
     const handleChange = (e: any) => {
@@ -78,7 +78,8 @@ export function ContasAPagarRegister() {
         contaAPagar.observacao = ''
     }
 
-    function handleSubmit() {
+    function handleSubmit(e:Event) {
+        e.preventDefault()
         getContaAPagar()
         if (sendConta === false) {
             postRegister(contaAPagar, 'contas_pagar')
