@@ -2,9 +2,11 @@ import InputMask from "react-input-mask";
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 
 import '../css/styles-forms.css'
+import { TPerson } from "../../useCases/persons/type/TPerson";
+import { FormatDate } from "../utils/formatDate";
 
 type Props = {
-    children: string | number | readonly string[] | undefined | any
+    children: TPerson
     handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined
     handleSubmit: any
     handleUpdate: any
@@ -150,8 +152,8 @@ export function PersonFormUpdate({
                 <label>{children.cpf_pers !== "0" ? "Data de nascimento" : "Data de abertura"}</label>
                 <input
                     type="Date"
-                    name="dateOfBirth"
-                    value={children.dateOfBirth || '2000-01-01'}
+                    name="date_of_birth"
+                    value={children.date_of_birth}
                     onChange={handleChange}
                 />
                 {children.cpf_pers === '0' ? legalPerson : naturalPerson}

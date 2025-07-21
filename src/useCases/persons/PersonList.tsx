@@ -56,7 +56,8 @@ export function PersonsList() {
                         updated_at={(per.updated_at === null ?
                             "não houve atualização" : FormatDate(per.updated_at))}
                         name={per.name_pers}
-                        dateOfBirth={per.dateOfBirth}
+                        date_of_birth={FormatDate(per.date_of_birth)}
+                        age={per.age}
                         phone={per.phone_pers}
                         address={per.address_pers}
                         num_address={per.num_address}

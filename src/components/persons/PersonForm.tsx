@@ -136,8 +136,8 @@ export const  PersonForm:React.FC<Props> = ({
             <label>{tpPerson === "Pessoa-Fisica" ? "Data de nascimento" : "Data de abertura"}</label>
             <input
                 type="Date"
-                name="dateOfBirth"
-                value={children.dateOfBirth || '2000-01-01'}
+                name="date_of_birth"
+                value={ children.date_of_birth}
                 onChange={handleChange}
             />
             {tpPerson === 'Pessoa-Fisica' ? naturalPerson : legalPerson}

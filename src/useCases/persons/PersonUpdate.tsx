@@ -15,51 +15,58 @@ import "../../App.css"
 import { handleTokenMessage } from "../../services/handleEnsureAuth"
 
 export function PersonUpdate() {
+
     const { user: isLogged }: any = useContext(AuthContext)
+    // const isLoggedParams: number = isLogged[0].id
+
+    const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
+
+    const [dropdown, setDropdown] = useState<string>("");
+    const modalRef = useRef<any>(null);
+
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
+
     const [msg, setMsg] = useState('')
+
     const [persons, setPersons] = useState<TPerson[]>([])
     const [ceps, setCeps] = useState<ICeps[]>([])
     const [cities, setCities] = useState<ICities[]>([])
     const [person, setPerson] = useState<TPerson>({
-        created_at: '', updated_at: '', name_pers: '', dateOfBirth:"2000-01-01",
-        num_address: "", cpf_pers: "0", phone_pers: "", address_pers: "",
+        created_at: '', updated_at: '', name_pers: '', date_of_birth:"",
+        age:0, num_address: "", cpf_pers: "0", phone_pers: "", address_pers: "",
         bairro_pers: "", fk_cep: 0, name_city: "", uf: "",
         num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg: '0',
         cnpj: '0', inscricao: '0', fantasia: '', limit_cred: 800, fk_grupo: 1
     })
-    const isLoggedParams: number = isLogged[0].id
-    const [dropdown, setDropdown] = useState<string>("");
-    const modalRef = useRef<any>(null);
-    const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
-
+    
     function clearFields() {
         setPerson({
-            id_person: 0, created_at: '', name_pers: '', dateOfBirth:"2000-01-01", cpf_pers: "0",
+            id_person: 0, created_at: '', name_pers: '', age:0, date_of_birth:"", cpf_pers: "0",
             phone_pers: "", address_pers: "", num_address: '', bairro_pers: "", fk_cep: 0,
             name_city: "", uf: "", num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg: '0',
             cnpj: '0', inscricao: '0', fantasia: '', limit_cred: 800, fk_grupo: 1
         })
     }
 
-    function listUpdate(pers: TPerson) {
-        person.id_person = pers.id_person
-        person.name_pers = pers.name_pers
-        person.cpf_pers = pers.cpf_pers
-        person.phone_pers = pers.phone_pers
-        person.address_pers = pers.address_pers
-        person.num_address = pers.num_address
-        person.bairro_pers = pers.bairro_pers
-        person.num_cep = pers.num_cep
+    function listUpdate(persUpdate: TPerson) {
+        person.id_person = persUpdate.id_person
+        person.name_pers = persUpdate.name_pers
+        person.cpf_pers = persUpdate.cpf_pers
+        person.phone_pers = persUpdate.phone_pers
+        person.address_pers = persUpdate.address_pers
+        person.num_address = persUpdate.num_address
+        person.bairro_pers = persUpdate.bairro_pers
+        person.num_cep = persUpdate.num_cep
         person.fk_cep = setNumCep(person.num_cep);
-        person.name_city = pers.name_city
-        person.uf = pers.uf
-        person.rg = pers.rg
-        person.cnpj = pers.cnpj
-        person.inscricao = pers.inscricao
-        person.fantasia = pers.fantasia
-        person.limit_cred = pers.limit_cred
-        person.fk_grupo = pers.fk_grupo
+        person.name_city = persUpdate.name_city
+        person.uf = persUpdate.uf
+        person.rg = persUpdate.rg
+        person.cnpj = persUpdate.cnpj
+        person.inscricao = persUpdate.inscricao
+        person.fantasia = persUpdate.fantasia
+        person.limit_cred = persUpdate.limit_cred
+        person.fk_grupo = persUpdate.fk_grupo
+        person.date_of_birth = persUpdate.date_of_birth
         toggleDropdown()
     };
 
@@ -71,32 +78,34 @@ export function PersonUpdate() {
 
     async function getPersons() {
         postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
-        for (let res of persons) {
-            if (person.id_person === res.id_person)
-                person.name_pers = res.name_pers
-            person.cpf_pers = res.cpf_pers
-            person.phone_pers = res.phone_pers
-            person.address_pers = res.address_pers
-            person.num_address = res.num_address
-            person.bairro_pers = res.bairro_pers
-            person.fk_name_filial = res.fk_name_filial
-            person.fk_id_user = res.fk_id_user
-            person.rg = res.rg
-            person.cnpj = res.cnpj
-            person.inscricao = res.cnpj
-            person.fantasia = res.fantasia
-            person.limit_cred = res.limit_cred
-            person.fk_grupo = res.fk_grupo
-        }
+        // for (let res of persons) {
+        //     if (person.id_person === res.id_person)
+        //         person.name_pers = res.name_pers
+        //     person.cpf_pers = res.cpf_pers
+        //     person.phone_pers = res.phone_pers
+        //     person.address_pers = res.address_pers
+        //     person.num_address = res.num_address
+        //     person.bairro_pers = res.bairro_pers
+        //     person.fk_name_filial = res.fk_name_filial
+        //     person.fk_id_user = res.fk_id_user
+        //     person.rg = res.rg
+        //     person.cnpj = res.cnpj
+        //     person.inscricao = res.cnpj
+        //     person.fantasia = res.fantasia
+        //     person.limit_cred = res.limit_cred
+        //     person.fk_grupo = res.fk_grupo
+        //     person.date_of_birth = res.date_of_birth
+        // }
     };
 
-    if (person.fk_id_user === 0) { /** Busca Person somente 1 vez ! */
-        getPersons()
-        person.fk_id_user = isLoggedParams
-    }
+    // if (person.fk_id_user === 0) { /** Busca Person somente 1 vez ! */
+    //     getPersons()
+    //     person.fk_id_user = isLoggedParams
+    // }
 
     useEffect(() => {
-    }, [person.id_person])
+    getPersons()
+    }, [])
 
     async function handleSubmit(e: Event) {
         e.preventDefault();
@@ -223,7 +232,8 @@ export function PersonUpdate() {
                         updated_at={per.updated_at === null ?
                             "não houve atualização" : (FormatDate(per.updated_at))}
                         name={per.name_pers}
-                        dateOfBirth={per.dateOfBirth}
+                        date_of_birth={per.date_of_birth ? FormatDate(per.date_of_birth) : "Não informado"}
+                        age={per.age && per.age}
                         phone={per.phone_pers}
                         address={per.address_pers}
                         num_address={per.num_address}

@@ -5,7 +5,8 @@ export type Props = {
     created_at: Date | any
     updated_at: Date | any
     name: string
-    dateOfBirth:Date | "2000-01-01" | any
+    date_of_birth:Date | "2000-01-01" | any
+    age:number
     cpf: string
     rg: string
     cnpj: string
@@ -31,7 +32,8 @@ export const PersonList = (props: Props) => {
             <div><b>Cadastro:</b> {props.created_at}</div>
             <div><b>Alterado:</b> {props.updated_at}</div>
             <div><b>Nome:</b> {props.name}</div>
-             <div><b>Data de nascimento:</b> {props.dateOfBirth}</div>
+             <div><b>Data de nascimento:</b> {props.date_of_birth}</div>
+             <div><b>Idade:</b> {props.age}</div>
             {props.cpf !== '0' && props.cpf !== '' && (
                 <div><b>CPF:</b> {props.cpf}</div>
             )}

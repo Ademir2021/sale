@@ -10,7 +10,7 @@ import api from "../../services/api/api";
 
 export function FormPerson() {
     const [person, setPerson] = useState<TPerson>({
-        name_pers: "", cpf_pers: "",dateOfBirth:"2000-01-01", phone_pers: "", address_pers: "",
+        name_pers: "",date_of_birth:"", cpf_pers: "",age:0, phone_pers: "", address_pers: "",
         num_address: "", bairro_pers: "", fk_cep: 0, name_city: "", uf: "",
         num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg:'',
         cnpj:'',inscricao:'',fantasia:'',limit_cred:800,fk_grupo:1
