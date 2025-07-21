@@ -10,22 +10,24 @@ import { AuthContext } from '../../context/auth'
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
 
 export function PersonsList() {
+
     const { user: isLogged }: any = useContext(AuthContext);
-    const [persons, setPersons] = useState<TPerson[]>([])
-    const [ceps, setCeps] = useState<ICeps[]>([])
-    const [cities, setCities] = useState<ICities[]>([])
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
 
+    const [persons, setPersons] = useState<TPerson[]>([])
+    const [cities, setCities] = useState<ICities[]>([])
+    const [ceps, setCeps] = useState<ICeps[]>([])
+
     useEffect(() => {
-       postAuthHandle('persons_user',setTokenMessage,setPersons, isLogged)
+        postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
     }, [persons])
 
     useEffect(() => {
-        getList('ceps',setCeps)
+        getList('ceps', setCeps)
     }, [ceps])
 
     useEffect(() => {
-    getList('cities',setCities)
+        getList('cities', setCities)
     }, [cities])
 
     function setCep(idCep: number) {
@@ -42,40 +44,42 @@ export function PersonsList() {
         }
     }
 
-    return (
-        <>
+    return <>
             <Dashboard />
             <h1 className="text-center">Lista de Clientes</h1>
             {handleTokenMessage('person_list', tokenMessage)}
             {persons.length === 0 ? <p>Carregando...</p> : (
-                persons.map((per: TPerson) => (
+                persons.map((person) => (
                     <PersonList
-                        key={per.id_person}
-                        id_person={per.id_person}
-                        created_at={FormatDate(per.created_at)}
-                        updated_at={(per.updated_at === null ?
-                            "não houve atualização" : FormatDate(per.updated_at))}
-                        name={per.name_pers}
-                        date_of_birth={FormatDate(per.date_of_birth)}
-                        age={per.age}
-                        phone={per.phone_pers}
-                        address={per.address_pers}
-                        num_address={per.num_address}
-                        bairro={per.bairro_pers}
-                        num_cep={per.num_cep = setCep(per.fk_cep)?.num_cep}
-                        name_city={setCity(per.fk_cep)?.name_city}
-                        uf={setCity(per.fk_cep)?.uf}
-                        cpf={per.cpf_pers}
-                        rg={per.rg}
-                        cnpj={per.cnpj}
-                        inscricao={per.inscricao}
-                        id_user={per.fk_id_user}
-                        filial={per.fk_name_filial}
-                        fk_grupo={per.fk_grupo}
+                        key={person.id_person}
+                        id_person={person.id_person}
+                        created_at={FormatDate(person.created_at)}
+                        updated_at={person.updated_at ?
+                            FormatDate(person.updated_at) :
+                            "Não houve atualização"
+                        }
+                        name={person.name_pers}
+                        date_of_birth={person.date_of_birth ?
+                            FormatDate(person.date_of_birth) :
+                            "Não informado"}
+                        age={person.age}
+                        phone={person.phone_pers}
+                        address={person.address_pers}
+                        num_address={person.num_address}
+                        bairro={person.bairro_pers}
+                        num_cep={person.num_cep = setCep(person.fk_cep)?.num_cep}
+                        name_city={setCity(person.fk_cep)?.name_city}
+                        uf={setCity(person.fk_cep)?.uf}
+                        cpf={person.cpf_pers}
+                        rg={person.rg}
+                        cnpj={person.cnpj}
+                        inscricao={person.inscricao}
+                        id_user={person.fk_id_user}
+                        filial={person.fk_name_filial}
+                        fk_grupo={person.fk_grupo}
                         update={null}
                         dropdown=""
                     />
                 )))}
         </>
-    )
 }

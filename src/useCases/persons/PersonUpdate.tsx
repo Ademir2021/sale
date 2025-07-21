@@ -78,30 +78,7 @@ export function PersonUpdate() {
 
     async function getPersons() {
         postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
-        // for (let res of persons) {
-        //     if (person.id_person === res.id_person)
-        //         person.name_pers = res.name_pers
-        //     person.cpf_pers = res.cpf_pers
-        //     person.phone_pers = res.phone_pers
-        //     person.address_pers = res.address_pers
-        //     person.num_address = res.num_address
-        //     person.bairro_pers = res.bairro_pers
-        //     person.fk_name_filial = res.fk_name_filial
-        //     person.fk_id_user = res.fk_id_user
-        //     person.rg = res.rg
-        //     person.cnpj = res.cnpj
-        //     person.inscricao = res.cnpj
-        //     person.fantasia = res.fantasia
-        //     person.limit_cred = res.limit_cred
-        //     person.fk_grupo = res.fk_grupo
-        //     person.date_of_birth = res.date_of_birth
-        // }
     };
-
-    // if (person.fk_id_user === 0) { /** Busca Person somente 1 vez ! */
-    //     getPersons()
-    //     person.fk_id_user = isLoggedParams
-    // }
 
     useEffect(() => {
     getPersons()

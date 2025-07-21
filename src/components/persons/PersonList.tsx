@@ -33,7 +33,7 @@ export const PersonList = (props: Props) => {
             <div><b>Alterado:</b> {props.updated_at}</div>
             <div><b>Nome:</b> {props.name}</div>
              <div><b>Data de nascimento:</b> {props.date_of_birth}</div>
-             <div><b>Idade:</b> {props.age}</div>
+             {props.age && <div><b>Idade:</b> {props.age}</div>}
             {props.cpf !== '0' && props.cpf !== '' && (
                 <div><b>CPF:</b> {props.cpf}</div>
             )}
