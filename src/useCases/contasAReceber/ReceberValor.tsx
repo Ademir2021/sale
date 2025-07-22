@@ -39,7 +39,8 @@ export function ReceberValor() {
         receberValor.descricao = ''
     }
 
-    function handleSubmit() {
+    function handleSubmit(e:Event) {
+        e.preventDefault()
         if (persons.length > 0)
             receberValor.fk_person = IdPerson
         if (sendValor === false) {

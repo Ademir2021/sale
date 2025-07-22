@@ -17,7 +17,7 @@ import { handleTokenMessage } from "../../services/handleEnsureAuth"
 export function PersonUpdate() {
 
     const { user: isLogged }: any = useContext(AuthContext)
-    // const isLoggedParams: number = isLogged[0].id
+    const isLoggedParams: number = isLogged[0].id
 
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
 
@@ -32,21 +32,47 @@ export function PersonUpdate() {
     const [ceps, setCeps] = useState<ICeps[]>([])
     const [cities, setCities] = useState<ICities[]>([])
     const [person, setPerson] = useState<TPerson>({
-        created_at: '', updated_at: '', name_pers: '', date_of_birth:"",
-        age:0, num_address: "", cpf_pers: "0", phone_pers: "", address_pers: "",
-        bairro_pers: "", fk_cep: 0, name_city: "", uf: "",
-        num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg: '0',
-        cnpj: '0', inscricao: '0', fantasia: '', limit_cred: 800, fk_grupo: 1
+        created_at: '',
+        updated_at: '',
+        name_pers: '',
+        date_of_birth: "",
+        age: 0,
+        num_address: "",
+        cpf_pers: "0",
+        phone_pers: "",
+        address_pers: "",
+        bairro_pers: "",
+        fk_cep: 0,
+        name_city: "",
+        uf: "",
+        num_cep: "",
+        fk_name_filial: 1,
+        fk_id_user: isLoggedParams,
+        rg: '0',
+        cnpj: '0',
+        inscricao: '0',
+        fantasia: '',
+        limit_cred: 800,
+        fk_grupo: 1
     })
-    
-    function clearFields() {
-        setPerson({
-            id_person: 0, created_at: '', name_pers: '', age:0, date_of_birth:"", cpf_pers: "0",
-            phone_pers: "", address_pers: "", num_address: '', bairro_pers: "", fk_cep: 0,
-            name_city: "", uf: "", num_cep: "", fk_name_filial: 1, fk_id_user: 0, rg: '0',
-            cnpj: '0', inscricao: '0', fantasia: '', limit_cred: 800, fk_grupo: 1
-        })
-    }
+
+    const clearFields = () => {
+        const cleared: TPerson = Object.keys(person).reduce((acc: any, key) => {
+            acc[key] = ''; // ou null, ou 0 dependendo do tipo
+            return acc;
+        }, {} as typeof person);
+        cleared.id_person = 0
+        cleared.age = 0
+        cleared.cpf_pers = '0'
+        cleared.cnpj = '0'
+        cleared.fk_name_filial = 1
+        cleared.fk_cep = 0
+        cleared.fk_grupo = 0
+        cleared.fk_id_user = isLoggedParams
+        cleared.limit_cred = 800
+        cleared.fk_grupo = 1
+        setPerson(cleared);
+    };
 
     function listUpdate(persUpdate: TPerson) {
         person.id_person = persUpdate.id_person
@@ -81,7 +107,7 @@ export function PersonUpdate() {
     };
 
     useEffect(() => {
-    getPersons()
+        getPersons()
     }, [])
 
     async function handleSubmit(e: Event) {

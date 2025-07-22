@@ -33,7 +33,7 @@ export function ReceberValorForm({
         </> 
 
     const receberValor = <>
-            <div onSubmit={handleSubmit} className="form">
+            <form onSubmit={handleSubmit} className="form">
                 {links}
             <b>Receber valores</b>
                 <input
@@ -53,7 +53,7 @@ export function ReceberValorForm({
                 <>{listPersons}</>
                 <button>Inserir valor</button>
                 <dd>{msg}</dd>
-            </div>
+            </form>
         </>
     return <>
             {receberValor}

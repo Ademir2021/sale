@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
+import { TPerson } from "../../useCases/persons/type/TPerson";
 
 import '../css/styles-forms.css'
-import { TPerson } from "../../useCases/persons/type/TPerson";
-import { FormatDate } from "../utils/formatDate";
 
 type Props = {
     children: TPerson
@@ -31,6 +31,17 @@ export function PersonFormUpdate({
     flagRegister,
 }: Props) {
 
+    const [tpPerson, setTpPerson] = useState('Pessoa-Fisica')
+
+    useEffect(() => {
+        if (children.cpf_pers !== "0") {
+            setTpPerson('Pessoa-Fisica')
+        }
+        else if (children.cnpj !== "0") {
+            setTpPerson('Pessoa-Juridica')
+        }
+    }, [close])
+
     const naturalPerson = <>
         <label>CPF</label>
         <InputMask
@@ -44,7 +55,7 @@ export function PersonFormUpdate({
             maskChar={null}
             value={children.cpf_pers || ""}
             onChange={handleChange}
-            disabled
+        // disabled
         />
         <label>RG</label>
         <InputMask
@@ -82,7 +93,7 @@ export function PersonFormUpdate({
             maskChar={null}
             value={children.cnpj || ""}
             onChange={handleChange}
-            disabled
+        // disabled
         />
         <label>Inscr. estadual</label>
         <InputMask
@@ -132,7 +143,12 @@ export function PersonFormUpdate({
     return <>
         <div ref={modalRef} className={`${className} modal`}>
             <form className="form">
-                <b>Atualizar Cliente</b>
+                <b>{children.cnpj != "0" || children.cpf_pers != "0" ?
+                    "Atualizar Cliente" : "Novo Cliente"}</b>
+                <select onChange={(e) => setTpPerson(e.target.value)}>
+                    <option>{'Pessoa-Fisica'}</option>
+                    <option>{'Pessoa-Juridica'}</option>
+                </select>
                 <input
                     type="hidden"
                     name="id_person"
@@ -149,14 +165,14 @@ export function PersonFormUpdate({
                     placeholder="Seu nome"
                     onChange={handleChange}
                 />
-                <label>{children.cpf_pers !== "0" ? "Data de nascimento" : "Data de abertura"}</label>
+                <label>{tpPerson === 'Pessoa-Fisica' ? "Data de nascimento" : "Data de abertura"}</label>
                 <input
                     type="Date"
                     name="date_of_birth"
                     value={children.date_of_birth}
                     onChange={handleChange}
                 />
-                {children.cpf_pers === '0' ? legalPerson : naturalPerson}
+                {tpPerson === 'Pessoa-Fisica' ? naturalPerson : legalPerson}
                 <label>Telefone</label>
                 <InputMask
                     type="text"
