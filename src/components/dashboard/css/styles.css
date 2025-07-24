@@ -1,17 +1,3 @@
-#container-dashboard {
-    justify-content: center;
-    background-color: #fff;
-}
-
-#form-dashboard {
-    display: flex;
-    flex-direction: column;
-}
-
-#form-dashboard button {
-    margin: 2px;
-}
-
 #itens-store-car {
     display: flex;
     margin: 18px;
@@ -20,10 +6,22 @@
     flex-Direction: column;
     align-Items: center;
     background-color: whitesmoke;
-    /* border: solid 1px grey; */
     color: blue;
 }
 
 #itens-store {
     font-size: 12px;
+}
+
+#store-input-quant {
+    text-align: center;
+    margin: 6px;
+    width: 12%;
+    color: blue;
+}
+
+#store-input-total {
+    margin: 6px;
+    width: 30%;
+    color: blue;
 }

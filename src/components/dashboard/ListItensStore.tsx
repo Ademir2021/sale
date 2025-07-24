@@ -55,16 +55,16 @@ export function ListItensStore({
             <dd>Você está a um passo de receber seus produtos favoritos. Finalize sua compra agora!</dd>
             <b id='msg-red'>Confira os itens abaixo antes de finalizar sua compra.</b>
             <dd id="msg-green">Seu carrinho está quase pronto! Finalize sua compra e receba seus produtos no conforto de casa.</dd>
-            <>Items</>
+            <label>Items no carrinho</label>
             <input
-                id="main-input-number"
+                id="store-input-quant"
                 placeholder="Quantidade"
                 value={counter_}
                 disabled
             />
-            <>Total</>
+            {/* <label>Total</label> */}
             <input
-                id="main-input-number"
+                id="store-input-total"
                 placeholder="Total dos Items"
                 value={currencyFormat(subtotal)}
                 disabled

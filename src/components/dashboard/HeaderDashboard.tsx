@@ -1,6 +1,7 @@
 import { handleLinksDir } from '../utils/backHome/BackHome';
 
 import './css/styles.css'
+import '../css/styles-forms.css'
 
 type Props = {
     privilege: number
@@ -9,41 +10,40 @@ type Props = {
     handleLogout: any;
 }
 
-export function HeaderDashboard(props: Props) {
-    return (
-        <>
-            <hr></hr>
-            <div id='container-dashboard'>
-                <div id='form-dashboard'>
-                    <h1>Sua Conta de acesso</h1>
-                    <b>{props.privilege == 2 ? 'Nome adminstrador ' : 'Nome comprador '}</b>
-                    <dd><b>Olá, </b>{props.name}</dd>
-                    <b>{props.privilege == 2 ? 'Email admistrador ' : 'Email comprador '}</b>
-                    <>{props.username}</>
-                    <hr/>
-                    {handleLinksDir(
-                        'store',
-                        'HomeStore',
-                        'pe',
-                        'Carrinho de compras',
-                        '##',
-                        'Painel de controle',
-                    )}
-                    <b>Gerenciar suas compras nunca foi tão fácil</b>
-                    <ul>
-                    <li><b>Incluir cadastro</b>{" >> "}<a href='form_person'>Dados do Cliente e endereço</a></li>
-                    <li><b>Consultar parcelas</b>{" >> "}<a href='contas_receber'>Suas parcelas em aberto</a></li>
-                    </ul>
-                    <button
-                        onClick={() => { window.location.replace("sale") }}
-                        className="btn btn-primary mt-5"
-                    >Checkout de compras</button>
-                    <button
-                        onClick={props.handleLogout}
-                        className='btn btn-primary'
-                    >Sair</button>
-                </div>
-            </div>
-        </>
+const HeaderDashboard: React.FC<Props> = (props: Props) => {
+    const links = handleLinksDir(
+        '/',
+        'Home',
+        'pe',
+        'Carrinho de compras',
+        '##',
+        'Painel de controle',
     )
+    return <>
+        <div className='form'>
+            {links}
+            <h1>Painel de controle</h1>
+            <p>{props.privilege == 2 ? 'Adminstrador' : 'Cliente'}</p>
+            <p><b>Olá, </b>{props.name}</p>
+            <p>{props.username}</p>
+            <b>Gerenciar suas compras nunca foi tão fácil</b>
+            <p>
+                <a href='form_person'>Dados do cliente</a>
+                {' / '}
+                <a href='contas_receber'>Financeiro</a>
+            </p>
+            <button
+                onClick={() => {
+                    window.location.replace("sale")
+                }}
+                className="m-2"
+            >Checkout de compras</button>
+            <button
+                onClick={props.handleLogout}
+                className='m-2'
+            >Sair</button>
+        </div>
+    </>
 }
+
+export { HeaderDashboard }
