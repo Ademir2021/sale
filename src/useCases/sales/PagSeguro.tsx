@@ -5,6 +5,8 @@ import pagSeguroPix_JSON from "./pagSeguroPix.json"
 import pagSeguroTicket_JSON from "./pagSeguroTicket.json"
 import ticketRequest_JSON from './ticketRequest.json'
 import { currencyFormat } from '../../components/utils/currentFormat/CurrentFormat';
+import { handleInstallments } from "./handlePayment/HandlePayment";
+
 import api from "../../services/api/api";
 
 export function PagSeguro() {
@@ -23,21 +25,21 @@ export function PagSeguro() {
     const [numNote, setNumNote] = useState(0)
     const [error, setError] = useState("")
     const payment = sale.paySale - sale.dinheiro - sale.disc_sale
-    const paySale:number = payment
+    const paySale: number = payment
 
     const msgPay = 'Sem compras para pagar'
 
     useEffect(() => {
         const getSale = () => {
-            const sale_store_res = localStorage.getItem('sl');
-            if (sale_store_res !== null) {
-                const sales = JSON.parse(sale_store_res)
-                setSale(sales)
+            const store_sale = localStorage.getItem('sl');
+            if (store_sale){
+                const res = JSON.parse(store_sale)
+                setSale(res)
+            handleInstallments(res)
             }
         };
         getSale()
-    }, [sale]);
-
+    }, []);
 
     function arrayItems(obj: Object | any) {
         for (let i = 0; sale.itens.length > i; i++) {
@@ -193,7 +195,7 @@ export function PagSeguro() {
 
     return (
         <>
-        {/* {JSON.stringify(pagSeguroPix)} */}
+            {/* {JSON.stringify(sale)} */}
             <PagSeguroForm
                 handleBoleto={handleBoleto}
                 datavenc={getboletoDueDate}

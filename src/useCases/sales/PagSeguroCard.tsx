@@ -4,8 +4,9 @@ import { currencyFormat } from "../../components/utils/currentFormat/CurrentForm
 import pagSeguroCard_JSON from "./pagSeguroCard.json";
 import saleJSON from "./sale.json"
 // import cardRequest_JSON from "./cardRequest.json"
-import { clearSaleStorage } from "./handlePayment/HandlePayment";
+import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
 import { TCardRequest } from "./type/TSale";
+
 import api from './../../services/api/api';
 
 export function PagSeguroCard() {
@@ -21,10 +22,11 @@ export function PagSeguroCard() {
     // const [cardRequest, setCardRequest] = useState<TCardRequest>()
     const [paidSucess, setPaidSucess] = useState<string | number>("")
     const [paid, setPaid] = useState(0)
-    const [sale, setSale_] = useState<any>(saleJSON);
+    const [sale, setSale] = useState<any>(saleJSON);
     const [numNote, setNumNote] = useState(0)
     const payment = sale.paySale - sale.dinheiro - sale.disc_sale
     const paySale: number = payment
+    
     /* Mensagem na Tela **/
     const msgPay = 'Sem compras para pagar'
     const msgTaxId = 'CPF ou CNPJ inválido'
@@ -48,15 +50,15 @@ export function PagSeguroCard() {
 
     useEffect(() => {
         const getSale = () => {
-            const sale_store_res = localStorage.getItem('sl');
-            if (sale_store_res !== null) {
-                const sales = JSON.parse(sale_store_res)
-                setSale_(sales)
+            const store_sale = localStorage.getItem('sl');
+            if (store_sale !== null) {
+                const res = JSON.parse(store_sale)
+                setSale(res)
+                handleInstallments(res)
             }
         };
         getSale()
-    }, [sale]);
-
+    }, []);
     function arrayItems(obj: Object | any) {
         for (let i = 0; sale.itens.length > i; i++) {
             const items = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
@@ -190,7 +192,6 @@ export function PagSeguroCard() {
             setErr(msgSendFields)
         }
     }
-
     function handleSubmitCard(e: any) {
         e.preventDefault();
         if (filedsCard() == true) {
@@ -211,8 +212,8 @@ export function PagSeguroCard() {
         clearSaleStorage(paid, flagSales)
     }, [paid, flagSales])
 
-    return (
-        <>
+    return <>
+        {/* <p>{JSON.stringify(sale)}</p> */}
             <PagSeguroCardForm
                 handleSubmit={handleSubmitCard}
                 handleChange={handleChange}
@@ -227,5 +228,4 @@ export function PagSeguroCard() {
                 {card}
             </PagSeguroCardForm>
         </>
-    )
 }
