@@ -5,7 +5,7 @@ import pagSeguroCard_JSON from "./pagSeguroCard.json";
 import saleJSON from "./sale.json"
 // import cardRequest_JSON from "./cardRequest.json"
 import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
-import { TCardRequest } from "./type/TSale";
+import { TCardRequest, TSale } from "./type/TSale";
 
 import api from './../../services/api/api';
 
@@ -54,7 +54,7 @@ export function PagSeguroCard() {
             if (store_sale !== null) {
                 const res = JSON.parse(store_sale)
                 setSale(res)
-                handleInstallments(res)
+                handleInstallments(res, 'Card')
             }
         };
         getSale()

@@ -35,7 +35,7 @@ export function PagSeguro() {
             if (store_sale){
                 const res = JSON.parse(store_sale)
                 setSale(res)
-            handleInstallments(res)
+        handleInstallments(res, 'Pix/Boleto')
             }
         };
         getSale()
@@ -204,7 +204,9 @@ export function PagSeguro() {
                 barCodeBoletoFormated={barCodeBoletoFormated}
                 handleQrCode={handleQrCode}
                 qrcode_img={imgQrCode}
-                payPix={valueQrCode !== 0 ? currencyFormat(paySale) : 'R$ 0,00'} /** utilizado valor da sale, o retorno não separa casa decimal !! */
+                payPix={valueQrCode !== 0 ?
+                    currencyFormat(paySale) :
+                    'R$ 0,00'} /** utilizado valor da sale, o retorno não separa casa decimal !! */
                 qrCodeGeneratedSuccessfully={messagesSucess}
                 URLNoteSubmit={numNote}
                 paySale={payment}

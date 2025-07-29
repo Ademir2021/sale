@@ -60,8 +60,8 @@ export function PagSeguroForm({
                     <dd id='msg-red'>{error}</dd>
                     <dd>{qrCodeGeneratedSuccessfully}</dd>
                     <hr></hr>
-                    {URLNoteSubmit && <a href={Globais.URL_NOTE + '/' + URLNoteSubmit}>Emitir Nota</a>}
-                    {URLNoteSubmit ? <a href='/dashboardefault'>Sair</a> : null}
+                    {URLNoteSubmit && <a id='m-2' href={Globais.URL_NOTE + '/' + URLNoteSubmit}>Emitir Nota</a>}
+                    {URLNoteSubmit ? <a id='m-2' href='/dashboardefault'>Sair</a> : null}
                 </form >}
         </>
 }

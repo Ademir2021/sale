@@ -20,7 +20,7 @@ export function PagCredLoja() {
         if (store_sale) {
             const res = JSON.parse(store_sale)
             setSale(res)
-            handleInstallments(res)
+            handleInstallments(res, 'Cred')
         }
     };
     useEffect(() => {

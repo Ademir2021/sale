@@ -1,5 +1,6 @@
 import moment from "moment";
 import { TContaAreceber } from "../../contasAReceber/type/TContasAReceber";
+import { TSale } from "../type/TSale";
 
 export function clearSaleStorage(paid: number, flagSales: boolean) {
     if (paid !== 0 && flagSales === true) {
@@ -33,10 +34,10 @@ const setPrazo = (i: number) => {
     return prazo
 }
 
-export function handleInstallments(sales: any) {
-    const installments = parseInt(sales.installments)
-    let pay = parseFloat(sales.paySale) - sales.dinheiro - parseFloat(sales.disc_sale)
-    sales.dinheiro = parseFloat(sales.dinheiro)
+export function handleInstallments(sale:TSale, cred:string) {
+    const installments = parseInt(sale.installments)
+    let pay = parseFloat(sale.paySale) - sale.dinheiro - parseFloat(sale.disc_sale)
+    sale.dinheiro = parseFloat(sale.dinheiro)
     if (pay > 0) {
         let valParc = pay / installments
         for (let i = 1; installments >= i; i++) {
@@ -60,10 +61,10 @@ export function handleInstallments(sales: any) {
                 fk_pagador: 0
             };
             contaReceber.id_conta = i
-            contaReceber.fk_filial = sales.filial
-            contaReceber.tipo = 'Cred'
+            contaReceber.fk_filial = sale.filial
+            contaReceber.tipo = cred
             contaReceber.fk_venda = 0
-            contaReceber.fk_user = sales.user.user_id
+            contaReceber.fk_user = sale.user.user_id
             contaReceber.parcela = i + '/' + installments
             contaReceber.valor = parseFloat(valParc.toFixed(3))
             contaReceber.multa = 0
@@ -74,8 +75,8 @@ export function handleInstallments(sales: any) {
             contaReceber.saldo = 0
             contaReceber.pagamento = null
             contaReceber.recebimento = 0
-            contaReceber.fk_pagador = sales.person.fk_name_pers
-            sales.duplicatas.push(contaReceber)
+            contaReceber.fk_pagador = sale.person.fk_name_pers
+            sale.duplicatas.push(contaReceber)
         }
     }
 }
