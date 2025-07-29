@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { BackHome } from "../backHome/BackHome";
 
 export function Error404() {
-    return (
+    useEffect(() => {
+        const uri = window.location.pathname
+        if (uri === "/store")
+            return window.location.replace('/')
+    }, [])
+    return <>
         <div className="container text-center p-3">
             <BackHome />
             <hr />
@@ -12,8 +18,7 @@ export function Error404() {
                 style={{ borderRadius: "67px" }}
             />
             <hr></hr>
-            <a href="/store">Home</a>
+            <a href="/">Home</a>
         </div>
-    )
+    </>
 }
-
