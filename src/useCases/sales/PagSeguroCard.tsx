@@ -5,20 +5,10 @@ import pagSeguroCard_JSON from "./pagSeguroCard.json";
 import saleJSON from "./sale.json"
 import cardRequest_JSON from "./cardRequest.json"
 import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
-import { TCard, TCardRequest } from "./type/TSale";
+import { TCard, TCardRequest, TError } from "./type/TSale";
 
 import api from './../../services/api/api';
 
-type TError = {
-    error_messages: [
-        {
-            code: string
-            error: string
-            description: string
-            parameter_name: string
-        }
-    ]
-}
 export function PagSeguroCard() {
     const [card, setCard] = useState<TCard>({
         public_key: "", holder: "", number: "",

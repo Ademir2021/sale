@@ -85,3 +85,14 @@ export type TCard = {
     secure_code: string
     encrypted: string
 }
+
+export type TError = {
+    error_messages: [
+        {
+            code: string
+            error: string
+            description: string
+            parameter_name: string
+        }
+    ]
+}
