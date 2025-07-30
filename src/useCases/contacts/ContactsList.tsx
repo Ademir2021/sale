@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { ContactList } from "../../components/contacts/ContactList"
-import { BackHome } from "../../components/utils/backHome/BackHome"
 import { AuthContext } from '../../context/auth'
 import { TContact } from "./Contacts"
 import { getList } from "../../services/handleService";
+import { BackHome } from "../../components/utils/backHome/BackHome";
 
 export function ContactsList() {
 
@@ -23,9 +23,7 @@ export function ContactsList() {
         }
     }, [contacts_, isLoggedParams])
 
-    return (
-        <>
-            <BackHome />
+    return <> <BackHome />
             <p>{notAuthorized}</p>
             {contacts.length === 0 ? <p>Carregando...</p> : (
                 contacts.map((contact: TContact) => (
@@ -40,5 +38,4 @@ export function ContactsList() {
                     />
                 )))}
         </>
-    )
 }

@@ -192,7 +192,7 @@ export function PagSeguroCard() {
             setErr(msgSendFields)
         }
     }
-    function handleSubmitCard(e: any) {
+    function handleSubmitCard(e: Event) {
         e.preventDefault();
         if (filedsCard() == true) {
             if (paySale !== 0) {

@@ -1,7 +1,6 @@
 import { checksUserLogged } from "../checksUserLogged/ChecksUserLogged"
 
 export const BackHome = () => {
-
     function handleLink() {
         let link = ''
         if (checksUserLogged() !== undefined) {
@@ -23,13 +22,12 @@ export const BackHome = () => {
         }
         return locale
     };
-
-    return (
-        <div className="container-global">
-            <button className="btn btn-primary"
-                onClick={handleLink}>{handleLocale()}</button>
-        </div>
-    )
+    return <p id="container">
+        <button
+            className="mt-3"
+            onClick={handleLink}>{handleLocale()}
+        </button>
+    </p>
 }
 
 export function handleLinksDir(
@@ -41,7 +39,7 @@ export function handleLinksDir(
     title_c: string
 ) {
     const links = <>
-    <p className="mt-2"><i>
+        <p className="mt-2"><i>
             <a href={link_a}><b>{title_a}</b></a>
             <>{' > '}</>
             <a href={link_b}><b>{title_b}</b></a>

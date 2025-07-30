@@ -30,7 +30,7 @@ export function PagSeguroCardForm({
 
     return <>
             <NavBar />
-                <form className="form">
+                <form onSubmit={handleSubmit} className="form">
                 <h1>Cartões aceitos</h1>
                 <img
                 id='img-band-card'
@@ -66,7 +66,6 @@ export function PagSeguroCardForm({
 
                     <div id="main-inputs-row" >
                         <input
-                            id='main-input-number'
                             type="text"
                             name="ex_month"
                             onChange={handleChange}
@@ -75,7 +74,6 @@ export function PagSeguroCardForm({
                             required
                         />
                         <input
-                            id='main-input-number'
                             type="text"
                             name="ex_year"
                             onChange={handleChange}
@@ -84,7 +82,6 @@ export function PagSeguroCardForm({
                             required
                         />
                         <input
-                            id='main-input-number'
                             type="text"
                             name="secure_code"
                             onChange={handleChange}
@@ -103,10 +100,9 @@ export function PagSeguroCardForm({
                     {paidSucess || paid ? <label id='msg-red'>{paidSucess} {paid}</label> : null}
                     {err != '' && <label id="msg-red">{err}</label>}
                     <label id='msg-green'>{!URLNoteSubmit ? currencyFormat(paySale) : null}</label>
-                    {!URLNoteSubmit && <button id='m-2' onClick={handleSubmit}>Pagar</button>}
+                    {!URLNoteSubmit && <button id='m-2'>Pagar</button>}
                     {URLNoteSubmit != 0 && <button id='m-2' onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Emitir Nota</button>}
-                    {URLNoteSubmit !=0 && <button id='m-2' onClick={() => { window.location.replace('dashboardefault') }}>Sair</button>}
-
+                    {URLNoteSubmit != 0 && <button id='m-2' onClick={() => { window.location.replace('dashboardefault') }}>Sair</button>}
                 </form>
             </>
 }
