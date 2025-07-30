@@ -21,8 +21,8 @@ type TError = {
 }
 export function PagSeguroCard() {
     const [card, setCard] = useState<TCard>({
-        public_key: "", holder: "Ademir Souza de Almeida", number: "22365635457620222",
-        ex_month: "12", ex_year: "2029", secure_code: "394", encrypted: ""
+        public_key: "", holder: "", number: "",
+        ex_month: "", ex_year: "", secure_code: "", encrypted: ""
     });
     const [publicKey, setPublicKey] = useState({ public_key: "", created_at: "" })
     const [flagSales, setFlagSales] = useState<boolean>(false);
