@@ -3,34 +3,44 @@ import { PagSeguroCardForm } from "../../components/pagseguro/PagSeguroCardForm"
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
 import pagSeguroCard_JSON from "./pagSeguroCard.json";
 import saleJSON from "./sale.json"
-// import cardRequest_JSON from "./cardRequest.json"
+import cardRequest_JSON from "./cardRequest.json"
 import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
-import { TCardRequest, TSale } from "./type/TSale";
+import { TCard, TCardRequest } from "./type/TSale";
 
 import api from './../../services/api/api';
 
+type TError = {
+    error_messages: [
+        {
+            code: string
+            error: string
+            description: string
+            parameter_name: string
+        }
+    ]
+}
 export function PagSeguroCard() {
-    const [card, setCard] = useState({
-        public_key: "", holder: "", number: "",
-        ex_month: "", ex_year: "", secure_code: "", encrypted: ""
+    const [card, setCard] = useState<TCard>({
+        public_key: "", holder: "Ademir Souza de Almeida", number: "22365635457620222",
+        ex_month: "12", ex_year: "2029", secure_code: "394", encrypted: ""
     });
     const [publicKey, setPublicKey] = useState({ public_key: "", created_at: "" })
     const [flagSales, setFlagSales] = useState<boolean>(false);
-    const [err, setErr] = useState<string>("")
+    const [err, setErr] = useState("")
+    const [erro, setErro] = useState<TError>()
     const [encrypted, setEncripted] = useState("")
     const [pagSeguroCard, setPagSeguroCard] = useState(pagSeguroCard_JSON);
-    // const [cardRequest, setCardRequest] = useState<TCardRequest>()
+    const [cardRequest, setCardRequest] = useState<any>(cardRequest_JSON)
     const [paidSucess, setPaidSucess] = useState<string | number>("")
     const [paid, setPaid] = useState(0)
     const [sale, setSale] = useState<any>(saleJSON);
     const [numNote, setNumNote] = useState(0)
     const payment = sale.paySale - sale.dinheiro - sale.disc_sale
     const paySale: number = payment
-    
+
     /* Mensagem na Tela **/
     const msgPay = 'Sem compras para pagar'
-    const msgTaxId = 'CPF ou CNPJ inválido'
-    const msgCard = 'Cartão recusado, verifique os dados.'
+    // const msgTaxId = 'CPF ou CNPJ inválido'
     const msgErr = 'Erro de comunicação, tente novamente'
     const msgSucess = 'Valor pago com sucesso.'
     const msgSendFields = "Por favor, preencha todos os campos corretamente."
@@ -42,11 +52,42 @@ export function PagSeguroCard() {
         setCard(values => ({ ...values, [name]: value }))
     };
 
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setErr('')
+    //     }, 8000)
+    // }, [err])
+
     useEffect(() => {
-        setTimeout(() => {
-            setErr('')
-        }, 6000)
-    }, [err])
+        const INVALID_NUMBER = "INVALID_NUMBER"
+        const INVALID_NUMBER_MSG = "campo inválido `número`. Você deve passar um valor entre 13 e 19 dígitos"
+        const errorCardStorage = localStorage.getItem('errors')
+        if (!errorCardStorage) return
+        try {
+            const errors = JSON.parse(errorCardStorage)
+            if (Array.isArray(errors) && errors[0]?.code === INVALID_NUMBER) {
+                setErr(INVALID_NUMBER_MSG)
+            }
+        } catch (err) {
+            console.error("Erro ao parsear os erros do localStorage:", err)
+        }
+    }, [cardRequest])
+
+    useEffect(() => {
+        const DECLINED = 'DECLINED'
+        const INVALID_DECLINER_MSG = 'Cartão recusado, verifique os dados: '
+        const INVALID_VAL_MSG = 'O VALOR DA PARCELA É MENOR QUE O VALOR MÍNIMO PERMITIDO. USE UM VALOR MAIOR '
+        const VAL_MIN = '40002'
+        const status = cardRequest?.charges?.[0]?.status
+        const errorCode = erro?.error_messages?.[0]?.code
+        if (!err) {
+            if (status === DECLINED) {
+                setErr(`${INVALID_DECLINER_MSG}${status}`)
+            } else if (errorCode === VAL_MIN) {
+                setErr(INVALID_VAL_MSG)
+            }
+        }
+    }, [cardRequest, erro, err])
 
     useEffect(() => {
         const getSale = () => {
@@ -123,27 +164,23 @@ export function PagSeguroCard() {
         }
     }, [encrypted])
 
-    async function registerPagSeguroCard() {
-        if (encrypted !== "") {
-            await api.post<TCardRequest>("card", pagSeguroCard)
-                .then(response => {
-                    const res: TCardRequest = response.data
-                    if (res.charges) {
-                        setPaid(res.charges[0].amount.summary.paid)
-                        if (JSON.stringify(res.charges[0].status)) {
-                            setErr(msgCard)
-                        }
-                    }
-                    if (res.error_messages) {
-                        setErr(msgTaxId)
-                    }
 
-                }).catch(error =>
-                    setErr(msgErr)
-                    // console.log(error)
-                )
-        };
+    async function registerPagSeguroCard() {
+        if (!encrypted) return
+        try {
+            const response = await api.post<any>("card", pagSeguroCard)
+            setErro(response.data)
+            const res: TCardRequest = response.data
+            if (res.charges) {
+                const paid = res.charges[0].amount.summary.paid
+                setPaid(paid)
+                setCardRequest(res)
+            }
+        } catch (error: unknown) {
+            setErr("Erro " + error)
+        }
     }
+
     useEffect(() => {
         if (paid === 0) {
             registerPagSeguroCard() // Registra o pagamento
@@ -213,19 +250,19 @@ export function PagSeguroCard() {
     }, [paid, flagSales])
 
     return <>
-        {/* <p>{JSON.stringify(sale)}</p> */}
-            <PagSeguroCardForm
-                handleSubmit={handleSubmitCard}
-                handleChange={handleChange}
-                paidSucess={paidSucess}
-                err={err}
-                paid={paid !== 0 ? paid : null}
-                paySale={sale.installments !== 1 ?
-                    valPayCard :
-                    'Valor a pagar ' + currencyFormat(paySale)}
-                URLNoteSubmit={numNote}
-            >
-                {card}
-            </PagSeguroCardForm>
-        </>
+        {/* <p>{JSON.stringify(erro?.charges[0]?.payment_response?.message)}</p> */}
+        <PagSeguroCardForm
+            handleSubmit={handleSubmitCard}
+            handleChange={handleChange}
+            paidSucess={paidSucess}
+            err={err}
+            paid={paid !== 0 ? paid : null}
+            paySale={sale.installments !== 1 ?
+                valPayCard :
+                'Valor a pagar ' + currencyFormat(paySale)}
+            URLNoteSubmit={numNote}
+        >
+            {card}
+        </PagSeguroCardForm>
+    </>
 }

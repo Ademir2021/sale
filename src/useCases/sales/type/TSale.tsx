@@ -21,13 +21,13 @@ export type TSale = {
         }
     }
     disc_sale: number | any
-    installments:number | any
-    paySale:any
-    dinheiro:any
+    installments: number | any
+    paySale: any
+    dinheiro: any
     tItens: number
     tNote: number
     itens: []
-    duplicatas:TContaAreceber[]
+    duplicatas: TContaAreceber[]
 }
 
 export type TSaleList = {
@@ -74,4 +74,14 @@ export type TCardRequest = {
             parameter_name: string
         }
     ]
+}
+
+export type TCard = {
+    public_key: string
+    holder: string
+    number: string
+    ex_month: string
+    ex_year: string
+    secure_code: string
+    encrypted: string
 }
