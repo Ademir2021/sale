@@ -2,10 +2,10 @@ import React from "react";
 import { currencyFormat } from "../utils/currentFormat/CurrentFormat";
 import { Globais } from "../globais/Globais";
 import { NavBar } from "../navbar/Navbar";
-
-import './css/styles.css'
-import '../../index'
 import { TCard } from "../../useCases/sales/type/TSale";
+
+import '../../index'
+import './css/styles.css'
 
 type PropsPagSeguroCardForm = {
     children:TCard
@@ -35,11 +35,10 @@ export function PagSeguroCardForm({
         </div>
         <form onSubmit={handleSubmit} className="form">
             <h1>Cartões aceitos</h1>
-            <img
-                id='img-band-card'
-                src="img/band_cartao_creditos.png"
-                alt="Cartões aceitos"></img>
             <dd>Aceitamos as principais bandeiras de cartão de crédito para a sua conveniência.</dd>
+                   <img id='img-band-card'
+                src="img/band_cartao_creditos.png"
+                alt="Cartões aceitos"/>
             <b>Visa, MasterCard, American Express (AMEX), Elo, Hipercard, Discover, Diners Club.</b>
             <p>Você tambêm pode usar o seu cartão de debito ou outras opções de pagamento <a href="invoice_sales">on-line</a> disponíveis.</p>
             <input
@@ -101,7 +100,7 @@ export function PagSeguroCardForm({
             {paidSucess || paid && <label id='msg-red'>{paidSucess} {paid}</label>}
             {err && <label id="msg-red">{err}</label>}
             <label id='msg-green'>{!URLNoteSubmit ? currencyFormat(paySale) : null}</label>
-            {!URLNoteSubmit && <button id='m-2'>Pagar</button>}
+            {!URLNoteSubmit && <button id='m-2'>Pagar Compra</button>}
             {URLNoteSubmit != 0 && <button id='m-2' onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Emitir Nota</button>}
             {URLNoteSubmit != 0 && <button id='m-2' onClick={() => { window.location.replace('dashboardefault') }}>Sair</button>}
         </form>
