@@ -49,7 +49,7 @@ export function ListItens(props: Props) {
                 {checksUserLogged() !== undefined ? <div className='mb-1'><a href='pe'>Ir para o Carrinho</a></div> : null}
                 {checksUserLogged() !== undefined ? <button className='btn btn-primary mb-2' onClick={() =>
                     props.handleItem(props.itemParameter)}>Comprar</button> : <button className='btn btn-primary mb-2'
-                        onClick={() => { window.location.replace("/pe") }}>Solicitar cotação</button>}
+                        onClick={() => { window.location.replace("/pe") }}>Ver Preço</button>}
             </div>
         </div>
     )
