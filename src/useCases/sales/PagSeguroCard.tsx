@@ -42,12 +42,6 @@ export function PagSeguroCard() {
         setCard(values => ({ ...values, [name]: value }))
     };
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setErr('')
-    //     }, 8000)
-    // }, [err])
-
     useEffect(() => {
         const INVALID_NUMBER = "INVALID_NUMBER"
         const INVALID_NUMBER_MSG = "campo inválido `número`. Você deve passar um valor entre 13 e 19 dígitos"
@@ -66,7 +60,7 @@ export function PagSeguroCard() {
     useEffect(() => {
         const DECLINED = 'DECLINED'
         const INVALID_DECLINER_MSG = 'Cartão recusado, verifique os dados: '
-        const INVALID_VAL_MSG = 'O VALOR DA PARCELA É MENOR QUE O VALOR MÍNIMO PERMITIDO. USE UM VALOR MAIOR '
+        const INVALID_VAL_MSG = 'O valor da parcela é menor que o valor mínimo permitido. use um valor maior '
         const VAL_MIN = '40002'
         const status = cardRequest?.charges?.[0]?.status
         const errorCode = erro?.error_messages?.[0]?.code
@@ -147,19 +141,19 @@ export function PagSeguroCard() {
     }, [publicKey])
 
     useEffect(() => {
-        const encrypted_: any | undefined = localStorage.getItem('encrypted')
-        if (encrypted_ !== null) {
-            setEncripted(JSON.parse(encrypted_))
+        const storage_encrypted = localStorage.getItem('encrypted')
+        if (storage_encrypted) {
+            setEncripted(JSON.parse(storage_encrypted))
             getPargSeguroCard(pagSeguroCard)
         }
     }, [encrypted])
-
 
     async function registerPagSeguroCard() {
         if (!encrypted) return
         try {
             const response = await api.post<any>("card", pagSeguroCard)
-            setErro(response.data)
+            const error:TError = response.data
+            setErro(error)
             const res: TCardRequest = response.data
             if (res.charges) {
                 const paid = res.charges[0].amount.summary.paid
@@ -176,7 +170,7 @@ export function PagSeguroCard() {
             registerPagSeguroCard() // Registra o pagamento
         }
         if (paid !== 0) {
-            clearFieldCard()
+            clearStorageCard()
         }
         if (paid !== 0 && flagSales === false) {
             registerSale() // Se paid for maior que 0 gera a venda.
@@ -193,35 +187,16 @@ export function PagSeguroCard() {
             .catch(error => console.log(error));
     };
 
-    function clearFieldCard() {
+    function clearStorageCard() {
         localStorage.removeItem('encrypted')
         localStorage.removeItem('card')
+        localStorage.removeItem('hasErrors')
+        localStorage.removeItem('errors')
         setPaidSucess(msgSucess)
-        card.public_key = ""
-        card.holder = ""
-        card.number = ""
-        card.ex_year = ""
-        card.ex_month = ""
-        card.secure_code = ""
-        card.encrypted = ""
     }
 
-    function filedsCard() {
-        if (
-            card.holder != '' &&
-            card.number != '' &&
-            card.ex_year != '' &&
-            card.ex_month != '' &&
-            card.secure_code != ''
-        ) {
-            return true
-        } else {
-            setErr(msgSendFields)
-        }
-    }
     function handleSubmitCard(e: Event) {
         e.preventDefault();
-        if (filedsCard() == true) {
             if (paySale !== 0) {
                 if (paid === 0) {
                     if (card.public_key !== "") {
@@ -232,7 +207,6 @@ export function PagSeguroCard() {
             } else {
                 setErr(msgPay)
             }
-        }
     }
 
     useEffect(() => {

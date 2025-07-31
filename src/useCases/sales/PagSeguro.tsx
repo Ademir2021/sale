@@ -63,7 +63,7 @@ export function PagSeguro() {
         obj.customer.phones[0].area = sale.person.phone_pers.slice(0, -9);
         obj.customer.phones[0].type = "MOBILE"
         obj.shipping.address.street = sale.person.address.address_pers
-        obj.shipping.address.number = "1241"
+        obj.shipping.address.number = parseInt(sale.person.address.num_address)
         obj.shipping.address.complement = null
         obj.shipping.address.locality = sale.person.address.bairro_pers
         obj.shipping.address.city = sale.person.address.name_city
