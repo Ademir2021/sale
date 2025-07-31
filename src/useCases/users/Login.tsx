@@ -1,9 +1,9 @@
 import { useState, useContext } from 'react'
 import LoginComponent from '../../components/users/LoginComponent'
-import { AuthContext } from '../../context/auth'
 import { TUserLogin } from './type/TLogin';
-import api from '../../services/api/api';
 import { crypt } from '../../components/utils/crypt/Crypt';
+import { AuthContext } from '../../context/auth'
+import api from '../../services/api/api';
 
 export function Login() {
 
@@ -12,7 +12,7 @@ export function Login() {
   const [msg, setMsg] = useState('')
   const [user, setUser] = useState<TUserLogin>({
     id: 0,
-    name: "Usuário da Loja",
+    name: "",
     username: "",
     password: "",
     repeatPass: "",

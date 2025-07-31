@@ -67,7 +67,7 @@ export function PagSeguroCard() {
         if (!err) {
             if (status === DECLINED) {
                 setErr(`${INVALID_DECLINER_MSG}${status}`)
-            } else if (errorCode === VAL_MIN) {
+            } else if (errorCode === VAL_MIN && sale?.duplicatas[0]?.valor < 6) {
                 setErr(INVALID_VAL_MSG)
             }
         }
@@ -214,7 +214,7 @@ export function PagSeguroCard() {
     }, [paid, flagSales])
 
     return <>
-        {/* <p>{JSON.stringify(erro?.charges[0]?.payment_response?.message)}</p> */}
+        {/* <p>{JSON.stringify(sale?.duplicatas[1]?.valor)}</p> */}
         <PagSeguroCardForm
             handleSubmit={handleSubmitCard}
             handleChange={handleChange}

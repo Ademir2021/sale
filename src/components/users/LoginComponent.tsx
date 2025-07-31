@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react"
 import { TUserLogin } from "../../useCases/users/type/TLogin"
 
-import "./css/styles.css"
-
 import { AuthContext } from "../../context/auth"
+
+import "./css/styles.css"
 
 type Props = {
     children: TUserLogin
@@ -31,7 +31,7 @@ const LoginComponent: React.FC<Props> = ({
             setLoginRegister(true)
             setUser({
                 id: user[0].id,
-                name: "Usuário da Loja",
+                name: user[0].name,
                 username: user[0].username || "",
                 password: "",
                 repeatPass: "",
@@ -41,7 +41,7 @@ const LoginComponent: React.FC<Props> = ({
         } else {
             setUser({
                 id: 0,
-                name: "Usuário da Loja",
+                name: "",
                 username: "",
                 password: "",
                 repeatPass: "",
@@ -72,6 +72,14 @@ const LoginComponent: React.FC<Props> = ({
                 {children.id === 0 ? <>{!loginRecover ? <p>{loginRegister ? "Registrar a minha conta" :
                     "Entrar na minha conta"}</p> : <p>Digite um Email válido!</p>}</> : <p>Atualizar Conta</p>}
                 <form onSubmit={handleSubmit}>
+                    {loginRegister && <input
+                        type="text"
+                        placeholder="Nome do Usuário"
+                        name="name"
+                        value={children.name || ''}
+                        required
+                        onChange={handleChange}
+                    />}
                     <input
                         type="email"
                         placeholder="Email"
@@ -105,7 +113,7 @@ const LoginComponent: React.FC<Props> = ({
                                 required
                                 onChange={handleChange}
                             /></>} </>}
-                    {msg && <p className="msg-red" >{msg}</p>}
+                    {msg && <p id="msg-red">{msg}</p>}
 
                     {children.id === 0 && <>{!loginRecover ? <a className="text-right" href="##"
                         onClick={() => { getLoginRecover(true) }}>
@@ -120,11 +128,11 @@ const LoginComponent: React.FC<Props> = ({
                         {!loginRegister && <a className="text-center" href="##"
                             onClick={() => { getLoginRegister(true) }}>
                             Não tem Conta? Clique aqui</a>}
-                            {loginRegister && <a className="text-center" href="##"
-                                onClick={() => { getLoginRegister(false) }}>
-                                Já possui Conta? Clique aqui</a>
-                            }</>
-                        }
+                        {loginRegister && <a className="text-center" href="##"
+                            onClick={() => { getLoginRegister(false) }}>
+                            Já possui Conta? Clique aqui</a>
+                        }</>
+                    }
                     {children.id !== 0 && <button>Atualizar Conta</button>}
                 </form>
             </div>
