@@ -1,10 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { TUserLogin } from "../../useCases/users/type/TLogin"
-
 import * as Icon from 'phosphor-react';
-
 import { AuthContext } from "../../context/auth"
-
 import "./css/styles.css"
 
 type Props = {
@@ -69,8 +66,8 @@ const LoginComponent: React.FC<Props> = ({
     return <>
         <div className="login-wrapper">
             <div className="login-container">
+                <a href="/">{<Icon.X size={18} />}</a>
                 <h2>{loginRegister ? "Seja bem vindo(a)" : "Bem vindo(a) de volta"}</h2>
-                <a href="/">{<Icon.SignOut size={32} />}</a>
                 {children.id === 0 ? <>{!loginRecover ? <p>{loginRegister ? "Registrar a minha conta" :
                     "Entrar na minha conta"}</p> : <p>Digite um Email válido!</p>}</> : <p>Atualizar Conta</p>}
                 <form onSubmit={handleSubmit}>
