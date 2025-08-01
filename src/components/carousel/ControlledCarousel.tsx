@@ -1,5 +1,6 @@
 import { SetStateAction, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import * as Icon from 'phosphor-react';
 
 import './css/styles.css'
 
@@ -10,8 +11,8 @@ function ControlledCarousel() {
   };
   return <>
         <Carousel
-          prevIcon='<'
-          nextIcon='>'
+          prevIcon= {<Icon.CaretDoubleLeft size={32} />}
+          nextIcon= {<Icon.CaretDoubleRight size={32} />}
           variant='|' //dark
           activeIndex={index}
           onSelect={handleSelect}>

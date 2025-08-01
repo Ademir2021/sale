@@ -2,6 +2,8 @@ import { checksUserLogged, checkAdminPrivilege } from "../utils/checksUserLogged
 import { Globais } from "../globais/Globais";
 import { Logo } from "../logo/Logo";
 
+import * as Icon from 'phosphor-react';
+
 import "../assets/dist/css/bootstrap.min.css"
 import "./css/styles.css"
 
@@ -66,10 +68,10 @@ export function NavBar() {
                                     {checksUserLogged() === privilegeShopping ?
                                         <a className="nav-link"
                                             aria-current="page"
-                                            href="/pe">Carrinho de Compras</a> :
+                                            href="/pe">{<Icon.ShoppingCart size={32} />}</a> :
                                         <a className="nav-link"
                                             aria-current="page"
-                                            href="/pe">Carrinho Consultar</a>}
+                                            href="/pe">{<Icon.ShoppingCart size={32} />}</a>}
                                 </li>
 
                                 <li className="nav-item">
