@@ -10,45 +10,31 @@ function ControlledCarousel() {
     setIndex(selectedIndex);
   };
   return <>
-        <Carousel
-          prevIcon= {<Icon.CaretDoubleLeft size={32} />}
-          nextIcon= {<Icon.CaretDoubleRight size={32} />}
-          variant='|' //dark
-          activeIndex={index}
-          onSelect={handleSelect}>
-          <Carousel.Item interval={800}>
-            <a href='form_person'>
-            <div id="carousel-item1">
-              <h2>Realize suas compras aqui</h2>
-              <p>Produtos com até 10% de desconto</p>
-              <button className='btn btn-primary' onClick={() => { window.location.replace('form_person') }}>Cadastre-se</button>
-            </div>
-            </a>
-          </Carousel.Item>
-
-          <Carousel.Item interval={800}>
-      <a href='contact'>
-            <div id="carousel-item2">
-              <h2>Contamos com todos os meios de entrega</h2>
-              <p>Retire na loja ou despachamos até sua localidade</p>
-              <button className='btn btn-primary' onClick={() => { window.location.replace('contact') }}>Fale conosco</button>
-              </div>
-           </a> 
-          </Carousel.Item>
-
-          <Carousel.Item interval={800}>
-            <a href='login'>
-            <div id='carousel-item3'>
-              <h2><>Acesso rápido e seguro</></h2>
-              <p>Acesso com Token. Segurança durante as suas compras</p>
-              <button className='btn btn-primary' onClick={() => { window.location.replace('register') }}>Criar conta</button>
-            </div>
-            </a>
-        
-          </Carousel.Item>
-          {/* <Carousel.Caption>
-          </Carousel.Caption> */}
-        </Carousel>
+    <Carousel
+      prevIcon={<Icon.CaretDoubleLeft size={32} color='blue' />}
+      nextIcon={<Icon.CaretDoubleRight size={32} color='blue' />}
+      variant='dark' //dark
+      activeIndex={index}
+      onSelect={handleSelect}>
+      <Carousel.Item interval={800}>
+        <a href='##'><div>
+          <img src='img/carousel/banner_ubiquiti.png'/>
+          </div></a>
+      </Carousel.Item>
+      <Carousel.Item interval={800}>
+        <a href='##'><div>
+           <img src='img/carousel/banner_century.png'/>
+          </div></a>
+      </Carousel.Item>
+      <Carousel.Item interval={800}>
+        <a href='##'>
+          <div>
+           <img src='img/carousel/banner_cftv.png'/>
+            </div></a>
+      </Carousel.Item>
+      {/* <Carousel.Caption>
+</Carousel.Caption> */}
+    </Carousel>
   </>
 }
 

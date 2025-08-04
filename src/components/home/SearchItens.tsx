@@ -1,5 +1,5 @@
 import { TProduct, TSector } from '../../useCases/products/type/TProducts'
-
+import * as Icon from 'phosphor-react';
 import './css/search-itens.css'
 
 type Props = {
@@ -43,9 +43,10 @@ export function SearchItens(props: Props) {
                         list='data-itens' name='descric' value={props.descric}
                         style={{ backgroundColor: 'white' }}
                         onChange={props.handleChange} />
-                    <button className="btn-search" type="submit">
-                        <img src='img/icons8-pesquisar.png'
-                            className='search-items-img'></img></button>
+                    <button className="btn-search">
+                        <div className='search-items-img'>
+                            {<Icon.MagnifyingGlass size={28} color='gray' />}
+                        </div></button>
                 </form>
                 : null}
             <strong className='search-items-message'>{props.messageItems}</strong>

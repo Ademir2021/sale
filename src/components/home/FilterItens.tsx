@@ -1,3 +1,5 @@
+import * as Icon from 'phosphor-react';
+
 import './css/filter-itens.css'
 import './css/search-itens.css'
 
@@ -22,6 +24,7 @@ export function FilterItens({
             >
                 {listProd.length === 0 ? <span id='filter-subject'>{subject}</span> : null}
                 <form
+                    onSubmit={onSubmit}
                     className="d-flex mt-1 mt-lg-0"
                 >
                     <input
@@ -30,11 +33,10 @@ export function FilterItens({
                         aria-label="Search"
                         onChange={handleChange}
                     />
-                    <button
-                        className='btn-search'
-                        onClick={onSubmit}
-                    ><img src='img/icons8-pesquisar.png'
-                        className='search-items-img'></img></button>
+                    <button className="btn-search">
+                        <div className='search-items-img'>
+                            {<Icon.MagnifyingGlass size={28} color='gray' />}
+                        </div></button>
                 </form>
             </div>
         </>
