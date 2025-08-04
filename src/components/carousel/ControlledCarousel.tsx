@@ -11,13 +11,13 @@ function ControlledCarousel() {
   };
   return <>
     <Carousel
-      prevIcon={<Icon.CaretDoubleLeft size={32} color='blue' />}
-      nextIcon={<Icon.CaretDoubleRight size={32} color='blue' />}
+      prevIcon={<Icon.CaretDoubleLeft size={32} color='black' />}
+      nextIcon={<Icon.CaretDoubleRight size={32} color='black' />}
       variant='dark' //dark
       activeIndex={index}
       onSelect={handleSelect}>
       <Carousel.Item interval={800}>
-        <a href='##'><div>
+        <a href='##'><div id='carrousel-item'>
           <img src='img/carousel/banner_ubiquiti.png'/>
           </div></a>
       </Carousel.Item>
