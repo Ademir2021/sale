@@ -17,17 +17,17 @@ function ControlledCarousel() {
       activeIndex={index}
       onSelect={handleSelect}>
       <Carousel.Item interval={800}>
-        <a href='##'><div>
+        <a href='form_person'><div>
           <img src='img/carousel/banner_ubiquiti.png'/>
           </div></a>
       </Carousel.Item>
       <Carousel.Item interval={800}>
-        <a href='##'><div>
+        <a href='form_person'><div>
            <img src='img/carousel/banner_century.png'/>
           </div></a>
       </Carousel.Item>
       <Carousel.Item interval={800}>
-        <a href='##'>
+        <a href='form_person'>
           <div>
            <img src='img/carousel/banner_cftv.png'/>
             </div></a>
