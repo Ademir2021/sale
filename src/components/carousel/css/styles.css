@@ -32,7 +32,7 @@
 
 /* Indicadores responsivos */
 .carousel-indicators [data-bs-target] {
-  background-color: grey;
+  background-color: gray;
   width: 10px;
   height: 10px;
   border-radius: 50%;
