@@ -17,7 +17,7 @@ function ControlledCarousel() {
       activeIndex={index}
       onSelect={handleSelect}>
       <Carousel.Item interval={800}>
-        <a href='##'><div id='carrousel-item'>
+        <a href='##'><div>
           <img src='img/carousel/banner_ubiquiti.png'/>
           </div></a>
       </Carousel.Item>
