@@ -26,9 +26,8 @@ export function PagCredLojaForm({
 
     const handleContasAReceber = new HandleFinanceiro()
 
-    const listDuplicatas =
-        <>
-            <table className='table bg-light mt-1'>
+    const listDuplicatas =<div className="table-container">
+            <table className='table'>
                 <thead>
                     <tr>
                         <th id="center">ID</th>
@@ -52,7 +51,7 @@ export function PagCredLojaForm({
                     ))}
                 </tbody>
             </table>
-        </>
+        </div>
     return <>
         <div className="form">
             <h1>Crediário Loja</h1>
