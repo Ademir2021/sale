@@ -90,7 +90,7 @@ export function InvoiceSalesForm({
              </p>
             <p>
             <a href='/person_update'>{<Icon.Checks size={32} />} Atualizar Cadastro</a>
-            <a href='invoice_sales'>{token}</a>
+            {token}
             </p>
             {children.tNote > 0 && <div id='vals'>
               <div>Soma Total, R$ {currencyFormat(children.tItens)}</div>
