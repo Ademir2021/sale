@@ -3,6 +3,7 @@ import { TContaAreceber, TValsRecebidos } from "../../useCases/contasAReceber/ty
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 import { handleLinksDir } from "../utils/backHome/BackHome";
+import { NavBar } from "../navbar/Navbar";
 
 import './css/styles.css'
 import '../css/styles-forms.css'
@@ -50,7 +51,7 @@ export function ContasAreceberForm({
     )}</>
 
     const headerContasReceber =
-        <b>Contas a receber em aberto.</b>
+        <label>Contas a Receber em Aberto</label>
 
     const sumbit = <>
         <button
@@ -69,17 +70,18 @@ export function ContasAreceberForm({
         <div>{token}</div>
     </>
 
-    const inputReceberValor = <div>
+    const inputReceberValor = <div
+        id="main-inputs-row">
         <input
-            id="input-valor"
+            id="main-input-number"
             min={0}
             max={999}
             type="number"
-            placeholder="Informe o Valor a receber"
+            placeholder="Valor Receber"
             onChange={handleChangeValor}
         />
         <input
-            id="input-valor"
+            id="main-input-number"
             min={0}
             max={999}
             type="number"
@@ -125,44 +127,41 @@ export function ContasAreceberForm({
                     <td>{conta.pagamento !== null ? handleContasAReceber.formatDate(conta.pagamento) : null}</td>
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.observacao}</td>
-                    <td>{checkAdminPrivilege() === "2" ? <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => receberValor(conta)}
-                    >Receber</button> : null}</td>
+                    <td>{checkAdminPrivilege() === "2" ?
+                        <button onClick={() => receberValor(conta)}
+                        >Receber</button> : null}</td>
                 </tr>
             ))}
         </tbody>
     </table>
 
-    const listaValoresRecebidos =
-        <table className='table bg-light mt-1'>
-            <thead>
-                <tr>
-                    <th id="center">ID</th>
-                    <td id="center">Conta</td>
-                    <td id="center">Venda</td>
-                    <td id="center">User</td>
-                    <td>Recebido</td>
-                    <td>Pagamento</td>
-                    <td>Descrição</td>
-                    <td>Recibo</td>
-                </tr>
-            </thead>
-            <tbody>{valoresRecebidos.map((valRec: TValsRecebidos) => (
-                <tr key={valRec.id_val}>
-                    <th id="center">{valRec.id_val}</th>
-                    <td id="center">{valRec.fk_conta}</td>
-                    <td id="center">{valRec.fk_venda}</td>
-                    <td id="center">{valRec.fk_user}</td>
-                    <td>{valRec.valor}</td>
-                    <td>{handleContasAReceber.formatDate(valRec.data_recebimento)}</td>
-                    <td>{valRec.descricao}</td>
-                    <td><button onClick={() => printValorRecebido(valRec)}>Recibo</button></td>
-                </tr>
-            ))}</tbody>
-        </table>
-    return <>
+    const listaValoresRecebidos = <table className='table'>
+        <thead>
+            <tr>
+                <th id="center">ID</th>
+                <td id="center">Conta</td>
+                <td id="center">Venda</td>
+                <td id="center">User</td>
+                <td>Recebido</td>
+                <td>Pagamento</td>
+                <td>Descrição</td>
+                <td>Recibo</td>
+            </tr>
+        </thead>
+        <tbody>{valoresRecebidos.map((valRec: TValsRecebidos) => (
+            <tr key={valRec.id_val}>
+                <th id="center">{valRec.id_val}</th>
+                <td id="center">{valRec.fk_conta}</td>
+                <td id="center">{valRec.fk_venda}</td>
+                <td id="center">{valRec.fk_user}</td>
+                <td>{valRec.valor}</td>
+                <td>{handleContasAReceber.formatDate(valRec.data_recebimento)}</td>
+                <td>{valRec.descricao}</td>
+                <td><button onClick={() => printValorRecebido(valRec)}>Recibo</button></td>
+            </tr>
+        ))}</tbody>
+    </table>
+    return <><NavBar />
         <div className="form">
             {links}
             {checkAdminPrivilege() === '2' && sumbit}
@@ -170,7 +169,7 @@ export function ContasAreceberForm({
             {checkAdminPrivilege() === '2' ? inputReceberValor : <div>Contas em aberto do cliente</div>}
             {<div>{msg}</div>}
         </div>
-        {contasAReceber.length > 0 ? listaContasReceber : <h1>Cliente sem título para pagar !</h1>}
-        {valoresRecebidos.length > 0 && listaValoresRecebidos}
+        {contasAReceber.length > 0 ? <div className="table-container" >{listaContasReceber}</div> : <h1 className="text-center">Cliente sem título para pagar !</h1>}
+        {valoresRecebidos.length > 0 && <div className="table-container">{listaValoresRecebidos}</div>}
     </>
 }

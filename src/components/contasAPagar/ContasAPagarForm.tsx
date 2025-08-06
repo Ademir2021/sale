@@ -6,6 +6,7 @@ import { handleLinksDir } from "../utils/backHome/BackHome";
 
 import './css/styles.css'
 import '../css/styles-forms.css'
+import { NavBar } from "../navbar/Navbar";
 
 type Props = {
     contasAPagar: TContaAPagar[]
@@ -40,7 +41,7 @@ function ContasAPagarForm({
     const handleContasAPagar = new HandleFinanceiro()
 
     const headerContasPagar =
-        <b>Contas a pagar em aberto.</b>
+        <b>Contas a Pagar em Aberto.</b>
 
     const sumbit =
         <>
@@ -60,26 +61,26 @@ function ContasAPagarForm({
             {token}
         </>
 
-    const inputPagarValor = <div>
+    const inputPagarValor = <div id="main-inputs-row">
         <input
+            id="main-input-number"
             min={0}
             max={999}
             type="number"
-            id="input-valor"
-            placeholder="Informe o Valor a pagar"
+            placeholder="Informe o Valor"
             onChange={handleChangeValor}
         />
         <input
+            id="main-input-number"
             min={0}
             max={999}
             type="number"
-            id="input-valor"
             placeholder="Desconto"
             onChange={handleChangeDesconto}
         />
     </div>
 
-    const listaContasPagar = <table className='table bg-light mt-1'>
+    const listaContasPagar = <table className='table'>
         <thead>
             <tr>
                 <th id="center">ID</th>
@@ -126,7 +127,7 @@ function ContasAPagarForm({
         </tbody>
     </table>
 
-    const listaValoresPago = <table className='table bg-light mt-1'>
+    const listaValoresPago = <table className='table'>
         <thead>
             <tr>
                 <th id="center">ID</th>
@@ -150,7 +151,7 @@ function ContasAPagarForm({
             </tr>
         ))}</tbody>
     </table>
-    return <>
+    return <> <NavBar />
         <div className="form">
             {handleLinksDir(
                 'dashboardefault',
@@ -165,8 +166,8 @@ function ContasAPagarForm({
             {msg && <div>{msg}</div>}
             {checkAdminPrivilege() == '2' && inputPagarValor}
         </div>
-        {contasAPagar.length > 0 && listaContasPagar}
-        {valoresPagos.length > 0 && listaValoresPago}
+        {contasAPagar.length > 0 && <div className="table-container">{listaContasPagar}</div>}
+        {valoresPagos.length > 0 && <div className="table-container">{listaValoresPago}</div>}
     </>
 }
 
