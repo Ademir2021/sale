@@ -39,9 +39,25 @@ export function SalesList({
                 onChange={(e) => setEnd(e.target.value)}
             />
         </div>
-               {sales.length > 0 ? <Waiting waiting={"Nota(s) Localizada"} /> : msg && <Waiting waiting={msg} />}
+        {sales.length > 0 ? <Waiting waiting={"Nota(s) Localizada"} /> : msg && <Waiting waiting={msg} />}
         <button type="submit">Buscar</button>
     </form>
+
+    const tbody = <tbody>
+        {sales.map((sale: TSaleList) => (
+            <tr key={sale.id_sale}>
+                <th className='text-center'>{sale.id_sale}</th>
+                <th className="text-center">{sale.id_sale}</th>
+                <th className="text-center">{NFeStatus}</th>
+                <td>{FormatDate(sale.created_at)}</td>
+                <td>{sale.fk_name_pers}</td>
+                <td>{currencyFormat(sale.total_sale)}</td>
+                <td>{currencyFormat(sale.disc_sale)}</td>
+                <td>{currencyFormat(sale.val_rec)}</td>
+                <td><a href={Globais.URL_NOTE + '/' + sale.id_sale}>Imprimir</a></td>
+            </tr>
+        ))}
+    </tbody>
 
     const thead = <thead>
         <tr>
@@ -58,23 +74,11 @@ export function SalesList({
     </thead>
     return <>
         {sales.length < 1 && form_}
-        <table className='table bg-light mt-1 container'>
-            {sales.length === 0 ? <Waiting waiting="Aguardando Notas" /> : thead}
-            <tbody>
-                {sales.map((sale: TSaleList) => (
-                    <tr key={sale.id_sale}>
-                        <th className='text-center'>{sale.id_sale}</th>
-                        <th className="text-center">{sale.id_sale}</th>
-                        <th className="text-center">{NFeStatus}</th>
-                        <td>{FormatDate(sale.created_at)}</td>
-                        <td>{sale.fk_name_pers}</td>
-                        <td>{currencyFormat(sale.total_sale)}</td>
-                        <td>{currencyFormat(sale.disc_sale)}</td>
-                        <td>{currencyFormat(sale.val_rec)}</td>
-                        <td><a href={Globais.URL_NOTE + '/' + sale.id_sale}>Imprimir</a></td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <div className="table-container">
+            <table className='table'>
+                {sales.length === 0 ? <Waiting waiting="Aguardando Notas" /> : thead}
+                {sales.length > 0 && tbody}
+            </table>
+        </div>
     </>
 }
