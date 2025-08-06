@@ -97,10 +97,10 @@ export function RegisterSaleForm({
         {totalItens && sub_total}
         </p>
         {msg && <label>{msg}</label>}
-        <a href='##' className='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</a>
         <a href='##' className='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</a>
-        <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' />}</a>
+        <a href='##' className='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</a>
         <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' />}</a>
+        {totalItens && <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' />}</a>}
       </div>
       <div className='text-center p-1'>{loadItens}</div>
     </>
