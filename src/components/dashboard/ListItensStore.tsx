@@ -1,5 +1,6 @@
 import { currencyFormat } from "../utils/currentFormat/CurrentFormat";
 import { TItens } from "../../useCases/products/type/TProducts";
+import * as Icon from 'phosphor-react';
 
 import '../../index'
 import './css/styles.css'
@@ -30,19 +31,17 @@ export function ListItensStore({
             <div><b>Item: </b>{item.item}</div>
             <p><b>Descrição: </b>{item.descric}</p>
             <div>
-                <button
-                    className="btn btn-primary"
+                <a href="##"
                     id='m-2'
-                    onClick={() => decrementItemListStore(item)}>-</button>
+                    onClick={() => decrementItemListStore(item)}>{<Icon.Minus size={16} />}</a>
                 {item.amount}
-                <button
-                    className="btn btn-primary"
+                <a href="##"
                     id='m-2'
-                    onClick={() => incrementItemListStore(item)}>+</button>
-                <button
-                    className="btn btn-danger"
+                    onClick={() => incrementItemListStore(item)}>{<Icon.Plus size={16} />}</a>
+                <a href="##"
+                    
                     id='m-2'
-                    onClick={() => { deleteListStore(item) }} >Remover</button>
+                    onClick={() => { deleteListStore(item) }} >{<Icon.Trash size={18} color='red' />}</a>
             </div>
             <><b> Unitário: </b>{currencyFormat(item.valor)}</>
             <p><b>Total: </b>{currencyFormat(item.tItem)}</p>
@@ -73,17 +72,17 @@ export function ListItensStore({
         </form>
 
         <div className="form">
-            {itens.length > 0 && <button id='m-2'
+            {itens.length > 0 && <a href="##"
+            id='m-2'
                 onClick={() => window.location.replace("/sale")}
-            >Finalizar carrinho
-            </button>}
+            >{<Icon.FlagCheckered size={32} />}Finalizar carrinho
+            </a>}
             <div id='m-2'>
                 {itens.length === 0 ? "O seu carrinho de compras está vazio" : null}
             </div>
-            {itens.length === 0 && <div id='container'><button
-                className='btn btn-primary'
+            {itens.length === 0 && <a href="##"
                 id='m-2'
-                onClick={() => { window.location.replace("/") }}>Voltar as Compras</button></div>}
+                onClick={() => { window.location.replace("/") }}>Voltar as Compras {<Icon.ArrowSquareOut size={32} />}</a>}
             {list}
         </div>
     </>

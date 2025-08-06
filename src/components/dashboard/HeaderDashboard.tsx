@@ -1,4 +1,5 @@
 import { handleLinksDir } from '../utils/backHome/BackHome';
+import * as Icon from 'phosphor-react';
 
 import './css/styles.css'
 import '../css/styles-forms.css'
@@ -26,22 +27,15 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
             <p>{props.privilege == 2 ? 'Adminstrador' : 'Cliente'}</p>
             <p><b>Olá, </b>{props.name}</p>
             <p>{props.username}</p>
-            <b>Gerenciar suas compras nunca foi tão fácil</b>
-            <p>
-                <a href='form_person'>Dados do cliente</a>
-                {' / '}
-                <a href='contas_receber'>Financeiro</a>
-            </p>
-            <button
-                onClick={() => {
-                    window.location.replace("sale")
-                }}
-                className="m-2"
-            >Checkout de compras</button>
-            <button
-                onClick={props.handleLogout}
-                className='m-2'
-            >Sair</button>
+            <label>{<Icon.DotsThreeOutlineVertical size={18} color='blue' />}Gerenciar suas compras nunca foi tão fácil</label>
+
+            <a href='form_person' className='p-3' >{<Icon.FolderUser size={32} />} Dados do cliente</a>
+            <a href='contas_receber' className='p-3' >{<Icon.ChartLineUp size={32} />} Financeiro</a>
+            <a href='##' className='p-3' onClick={() => {
+                window.location.replace("sale")
+            }} >{<Icon.ListChecks size={32} />} Checkout de compras</a>
+            <a href='##' className='p-3' onClick={props.handleLogout}
+            >{<Icon.SignOut size={32} />} Sair</a>
         </div>
     </>
 }

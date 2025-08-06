@@ -1,8 +1,9 @@
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { NavBar } from '../navbar/Navbar';
 import { TPerson } from '../../useCases/persons/type/TPerson';
+import * as Icon from 'phosphor-react';
 
-import '../../index'
+import './css/styles.css'
 import '../css/styles-forms.css'
 
 type Props = {
@@ -83,32 +84,31 @@ export function InvoiceSalesForm({
             />
              {message && <p id='msg-red'>{message}</p>}
              <p>
-            <button id='m-2' onClick={handleSubmitCard}>Pagar com Cartão</button>
-            <button id='m-2' onClick={handleSubmit}>Pagar com PIX ou BOLETO</button>
-            <button id='m-2' onClick={handleSubmitCred}>Pagar com Crediário Loja</button>
+            <a href='##' className='m-3' onClick={handleSubmitCard}>{<Icon.CreditCard size={32} />} Cartão</a>
+            <a href='##' className='m-3' onClick={handleSubmit}>{<Icon.QrCode size={32} />} Pix/Boleto</a>
+            <a href='##' className='m-3' onClick={handleSubmitCred}>{<Icon.Wallet size={32} />}Crediário</a>
              </p>
             <p>
-            <a href='/person_update'>Atualizar cadastro</a>
+            <a href='/person_update'>{<Icon.Checks size={32} />} Atualizar Cadastro</a>
             <a href='invoice_sales'>{token}</a>
             </p>
-            <span className='load-list-itens' >{loadItens}</span>
             {children.tNote > 0 && <div id='vals'>
-              <label>S-Total: {currencyFormat(children.tItens)}</label>
-              <label>Desc: {currencyFormat(children.disc_sale)}</label>
-              <label>T-Nota: {currencyFormat(children.tNote)}</label>
-              <label>Val-Pagar: {currencyFormat(children.paySale - children.disc_sale)}</label>
+              <div>Soma Total, R$ {currencyFormat(children.tItens)}</div>
+              <div>Desconto na Nota {currencyFormat(children.disc_sale)}</div>
+              <div>Total na Nota {currencyFormat(children.tNote)}</div>
+              <div className='final' >Total a Pagar {currencyFormat(children.paySale - children.disc_sale)}</div>
             </div>}
-            {children.person.cpf_pers && <div id='data'>
-              <hr></hr>
-              <h1>Dados para entrega</h1>
-            <span>Telefone: {children.person.phone_pers}</span>
-            <span>CPF: {children.person.cpf_pers}</span>
-            <span>Endereço: {children.person.address.address_pers}</span>
-            <span>Número: {children.person.address.num_address}</span>
-            <span>Bairro: {children.person.address.bairro_pers}</span>
-            <span>Cidade: {children.person.address.name_city}</span>
-            <span>Estado: {children.person.address.uf}</span>
-            <span>CEP: {children.person.address.num_cep}</span>
+            <span className='load-list-itens' >{loadItens}</span>
+            {children.person.cpf_pers && <div className='container'>
+              <p className='entrega-titulo'>Confira os Dados de Entrega ! !</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>Telefone</b> {children.person.phone_pers}</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>CPF</b> {children.person.cpf_pers}</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>Endereço</b> {children.person.address.address_pers}</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>Número</b> {children.person.address.num_address}</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>Bairro</b> {children.person.address.bairro_pers}</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>Cidade</b> {children.person.address.name_city}</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>Estado</b> {children.person.address.uf}</p>
+            <p>{<Icon.Check size={18} color='blue' />}<b>CEP</b> {children.person.address.num_cep}</p>
             </div>}
           </div>
   </>

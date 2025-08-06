@@ -4,7 +4,6 @@ import { Itens } from "../../components/sales/Itens";
 import { TProduct, TItens } from "../products/type/TProducts";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
 import { postList } from "../../services/handleService";
-import { handleLinksDir } from "../../components/utils/backHome/BackHome";
 
 export function RegisterSale() {
 
@@ -30,7 +29,7 @@ export function RegisterSale() {
     };
 
     useEffect(() => {
-        postList('products_list',setProducts)
+        postList('products_list', setProducts)
     }, [products]);
 
     function updateListProduct(item: TItens) {
@@ -219,15 +218,6 @@ export function RegisterSale() {
 
     return (
         <>
-        <div className="container">{handleLinksDir(
-            'dashboardefault',
-            'Painel',
-            '##',
-            'Comprar',
-            '##',
-            'Checkout'
-        )}</div>
-            
             <RegisterSaleForm
                 handleChange={handleChange}
                 handleSaveUpdate={handleSaveUpdate}

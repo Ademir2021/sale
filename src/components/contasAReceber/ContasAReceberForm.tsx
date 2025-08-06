@@ -51,7 +51,7 @@ export function ContasAreceberForm({
     )}</>
 
     const headerContasReceber =
-        <label>Contas a Receber em Aberto</label>
+        <b>Contas a Receber em Aberto</b>
 
     const sumbit = <>
         <a href="##"
@@ -67,7 +67,6 @@ export function ContasAreceberForm({
             onClick={submitfluxoDeCaixa}
         >Fluxo de caixa</a>
         <div id="m-2"><b>Saldo à receber </b>{currencyFormat(saldo)}</div>
-        <div>{token}</div>
     </>
 
     const inputReceberValor = <div
@@ -166,6 +165,7 @@ export function ContasAreceberForm({
             {links}
             {checkAdminPrivilege() === '2' && sumbit}
             {headerContasReceber}
+            {token}
             {checkAdminPrivilege() === '2' ? inputReceberValor : <div>Contas em aberto do cliente</div>}
             {<div>{msg}</div>}
         </div>

@@ -1,9 +1,12 @@
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { TProduct } from '../../useCases/products/type/TProducts';
+import * as Icon from 'phosphor-react';
 
 import '../../index.css'
 import './css/styles.css'
 import '../css/styles-forms.css'
+import { handleLinksDir } from '../utils/backHome/BackHome';
+import { NavBar } from '../navbar/Navbar';
 
 type Props = {
   children: string | number | readonly string[] | undefined | any;
@@ -38,6 +41,14 @@ export function RegisterSaleForm({
   item_img,
   msg
 }: Props) {
+  const links =      <div className="container">{handleLinksDir(
+            'dashboardefault',
+            'Painel',
+            '##',
+            'Comprar',
+            '##',
+            'Checkout'
+        )}</div>
   const val_items = <div>
     <b>Valor Unitário: </b>
     <>{currencyFormat(parseFloat(children.valor))}</>
@@ -47,8 +58,10 @@ export function RegisterSaleForm({
   </div>
   const sub_total = <><b>Sub Total: </b>{totalItens}</>
   return <>
+  <NavBar/>
       <div className='form' >
-        <h1 >PDV - Checkout de Compras</h1>
+        {links}
+        <>PDV - Checkout de Compras</>
         {item_img && <img className='img-checkout' src={item_img} alt='Aguardando item ...'></img>}
         <div id='msg-red'>{item}</div>
         <datalist id="data-itens">
@@ -84,10 +97,10 @@ export function RegisterSaleForm({
         {totalItens && sub_total}
         </p>
         {msg && <label>{msg}</label>}
-        <button id='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</button>
-        <button id='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</button>
-        <button id='m-2' onClick={handleDelete}>Deletar Item</button>
-        <button id='m-2' onClick={handleSearchItem}>Buscar Item / Importar Carrinho</button>
+        <a href='##' className='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</a>
+        <a href='##' className='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</a>
+        <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' />}</a>
+        <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' />}</a>
       </div>
       <div className='text-center p-1'>{loadItens}</div>
     </>

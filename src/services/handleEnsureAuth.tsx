@@ -1,5 +1,7 @@
 import api from "../services/api/api";
 
+import * as Icon from 'phosphor-react';
+
 export async function handleEnsureAuth() {
     const user = { username: "", password: "" }
     const res = localStorage.getItem('u')
@@ -26,7 +28,11 @@ export async function handleEnsureAuth() {
 }
 
 export function handleTokenMessage(link:string, tokenMessage:string){
-    const msg =   <dd className="text-center mt-1"><a style={{color:'green'}} href={link}>Atualizar</a></dd>
-    if (tokenMessage === 'expired_token')
-        return msg
+    const msga =   <a className="m-5" href={link}>{<Icon.Lock size={32} />}</a>
+    const msgb =   <a className="m-5" href={link}>{<Icon.LockKeyOpen size={32} />}</a>
+    if (tokenMessage !== 'expired_token'){
+        return msga
+    }else{
+        return msgb
+    }
 }

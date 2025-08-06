@@ -40,8 +40,7 @@ function ContasAPagarForm({
 
     const handleContasAPagar = new HandleFinanceiro()
 
-    const headerContasPagar =
-        <b>Contas a Pagar em Aberto.</b>
+    const headerContasPagar = <b>Contas a Pagar em Aberto</b>
 
     const sumbit =
         <>
@@ -58,7 +57,6 @@ function ContasAPagarForm({
                 onClick={submitfluxoDeCaixa}
             >Fluxo de caixa</a>
             <div id="m-2"><b>Saldo à pagar </b>{currencyFormat(saldo)}</div>
-            {token}
         </>
 
     const inputPagarValor = <div id="main-inputs-row">
@@ -163,6 +161,7 @@ function ContasAPagarForm({
             )}
             {checkAdminPrivilege() == '2' && sumbit}
             {headerContasPagar}
+            {token}
             {msg && <div>{msg}</div>}
             {checkAdminPrivilege() == '2' && inputPagarValor}
         </div>

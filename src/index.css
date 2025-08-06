@@ -66,19 +66,8 @@ code {
   font-size: 14px;
 }
 
-#data{
-  display: flex;
-  flex-direction: column;
-  color:gray;
-  padding: 16px;
-}
-#vals{
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  color:blue;
-  gap: 7px;
-}
+
+
 #main img {
   display: flex;
   margin: auto;

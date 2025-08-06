@@ -1,5 +1,6 @@
 import { TItens } from "../../useCases/products/type/TProducts";
 import { currencyFormat } from "../utils/currentFormat/CurrentFormat";
+import * as Icon from 'phosphor-react';
 
 import './css/styles.css'
 
@@ -17,13 +18,14 @@ export function Itens({ itens, updateListProduct }: TProps) {
             <td id="center">{item.amount}</td>
             <td>{currencyFormat(item.valor)}</td>
             <td>{currencyFormat(item.tItem)}</td>
-            <td id="center">{<a href="#"><button className="btn btn-primary" onClick={() =>
-                updateListProduct(item)}>E</button></a>}</td>
+            <td id="center">{<a href="##" onClick={() =>
+                updateListProduct(item)}>{<Icon.Pencil size={18} color="blue" />}</a>}</td>
         </tr>
     ))
 
-    return (
-        <table className='table bg-light mt-1'>
+    return <>
+    <div className="table-container">
+        <table className='table'>
             <thead>
                 <tr>
                     <th id="center">ID</th>
@@ -39,5 +41,6 @@ export function Itens({ itens, updateListProduct }: TProps) {
                 {list}
             </tbody>
         </table>
-    )
+        </div>
+    </>
 }
