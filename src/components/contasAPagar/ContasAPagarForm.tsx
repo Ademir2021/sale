@@ -45,18 +45,18 @@ function ContasAPagarForm({
 
     const sumbit =
         <>
-            <button
+            <a href="##"
                 id="m-2"
                 onClick={submitContasAPagarRegister}
-            >Emitir título</button>
-            <button
+            >Emitir Título</a>
+            <a href="##"
                 id="m-2"
                 onClick={submitInserirValor}
-            >Pagar</button>
-            <button
+            >Pagar Valor</a>
+            <a href="##"
                 id="m-2"
                 onClick={submitfluxoDeCaixa}
-            >Fluxo de caixa</button>
+            >Fluxo de caixa</a>
             <div id="m-2"><b>Saldo à pagar </b>{currencyFormat(saldo)}</div>
             {token}
         </>
@@ -99,7 +99,7 @@ function ContasAPagarForm({
                 <td>Recebimento</td>
                 <td>Pagamento</td>
                 <td>Observação</td>
-                <td>Receber</td>
+                <td>Pagar</td>
             </tr>
         </thead>
         <tbody>
@@ -121,7 +121,7 @@ function ContasAPagarForm({
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.pagamento !== null ? handleContasAPagar.formatDate(conta.pagamento) : null}</td>
                     <td>{conta.observacao}</td>
-                    <td><button onClick={() => pagarValor(conta)} >Pagar</button></td>
+                    <td><a href="##" onClick={() => pagarValor(conta)} >Pagar</a></td>
                 </tr>
             ))}
         </tbody>

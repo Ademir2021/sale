@@ -54,18 +54,18 @@ export function ContasAreceberForm({
         <label>Contas a Receber em Aberto</label>
 
     const sumbit = <>
-        <button
+        <a href="##"
             id='m-2'
             onClick={submitContasAReceberRegister}
-        >Emitir título</button>
-        <button
+        >Emitir Título</a>
+        <a href="##"
             id='m-2'
             onClick={submitInserirValor}
-        >Inserir valor</button>
-        <button
+        >Receber Valor</a>
+        <a href="##"
             id='m-2'
             onClick={submitfluxoDeCaixa}
-        >Fluxo de caixa</button>
+        >Fluxo de caixa</a>
         <div id="m-2"><b>Saldo à receber </b>{currencyFormat(saldo)}</div>
         <div>{token}</div>
     </>
@@ -128,8 +128,8 @@ export function ContasAreceberForm({
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.observacao}</td>
                     <td>{checkAdminPrivilege() === "2" ?
-                        <button onClick={() => receberValor(conta)}
-                        >Receber</button> : null}</td>
+                        <a href="##" onClick={() => receberValor(conta)}
+                        >Receber</a> : null}</td>
                 </tr>
             ))}
         </tbody>
@@ -157,7 +157,7 @@ export function ContasAreceberForm({
                 <td>{valRec.valor}</td>
                 <td>{handleContasAReceber.formatDate(valRec.data_recebimento)}</td>
                 <td>{valRec.descricao}</td>
-                <td><button onClick={() => printValorRecebido(valRec)}>Recibo</button></td>
+                <td><a href="##" onClick={() => printValorRecebido(valRec)}>Recibo</a></td>
             </tr>
         ))}</tbody>
     </table>
