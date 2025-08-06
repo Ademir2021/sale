@@ -15,9 +15,9 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
         '/',
         'Home',
         'pe',
-        'Carrinho de compras',
+        'Carrinho',
         '##',
-        'Painel de controle',
+        'Painel',
     )
     return <>
         <div className='form'>

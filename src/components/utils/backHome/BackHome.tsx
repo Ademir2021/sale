@@ -1,4 +1,5 @@
 import { checksUserLogged } from "../checksUserLogged/ChecksUserLogged"
+import * as Icon from 'phosphor-react';
 
 export const BackHome = () => {
     function handleLink() {
@@ -39,12 +40,12 @@ export function handleLinksDir(
     title_c: string
 ) {
     const links = <>
-        <p className="mt-2"><i>
+        <div className="mt-2">
             <a href={link_a}><b>{title_a}</b></a>
-            <>{' > '}</>
+            {<Icon.CaretRight size={32} color="blue" />}
             <a href={link_b}><b>{title_b}</b></a>
-            <>{' > '}</>
+             {<Icon.CaretRight size={32} color="blue" />}
             <a href={link_c}><b>{title_c}</b></a>
-        </i></p></>
+        </div></>
     return links;
 };
