@@ -84,14 +84,13 @@ export function PagSeguroCardForm({
                     placeholder="YY"
                     required
                 />
-                <label className="p-1">-</label>
                 <input
                     id="card-secure"
                     type="text"
                     name="secure_code"
                     onChange={handleChange}
                     value={children.secure_code}
-                    placeholder="Cód. de segurança ( CVV )"
+                    placeholder="Código de segurança ( CVV )"
                     required
                 />
                 <input
