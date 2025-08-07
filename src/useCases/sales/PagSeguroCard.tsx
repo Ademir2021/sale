@@ -16,8 +16,8 @@ export function PagSeguroCard() {
     });
     const [publicKey, setPublicKey] = useState({ public_key: "", created_at: "" })
     const [flagSales, setFlagSales] = useState<boolean>(false);
-    const [err, setErr] = useState("")
-    const [erro, setErro] = useState<TError>()
+    const [err, setErr] = useState('')
+    const [erro, setErro] = useState<TError | null>(null)
     const [encrypted, setEncripted] = useState("")
     const [pagSeguroCard, setPagSeguroCard] = useState(pagSeguroCard_JSON);
     const [cardRequest, setCardRequest] = useState<any>(cardRequest_JSON)
@@ -33,7 +33,6 @@ export function PagSeguroCard() {
     // const msgTaxId = 'CPF ou CNPJ inválido'
     const msgErr = 'Erro de comunicação, tente novamente'
     const msgSucess = 'Valor pago com sucesso.'
-    const msgSendFields = "Por favor, preencha todos os campos corretamente."
     const valPayCard = "Pagamento em " + sale.installments + " parcelas de " + currencyFormat(paySale / sale.installments)
 
     const handleChange = (e: any) => {
@@ -49,29 +48,16 @@ export function PagSeguroCard() {
         if (!errorCardStorage) return
         try {
             const errors = JSON.parse(errorCardStorage)
-            if (Array.isArray(errors) && errors[0]?.code === INVALID_NUMBER) {
+            if (Array.isArray(errors) && errors[0]?.code === INVALID_NUMBER)
                 setErr(INVALID_NUMBER_MSG)
-            }
         } catch (err) {
             console.error("Erro ao parsear os erros do localStorage:", err)
-        }
-    }, [cardRequest])
-
-    useEffect(() => {
-        const DECLINED = 'DECLINED'
-        const INVALID_DECLINER_MSG = 'Cartão recusado, verifique os dados: '
-        const INVALID_VAL_MSG = 'O valor da parcela é menor que o valor mínimo permitido. use um valor maior '
-        const VAL_MIN = '40002'
+        };
         const status = cardRequest?.charges?.[0]?.status
-        const errorCode = erro?.error_messages?.[0]?.code
-        if (!err) {
-            if (status === DECLINED) {
-                setErr(`${INVALID_DECLINER_MSG}${status}`)
-            } else if (errorCode === VAL_MIN && sale?.duplicatas[0]?.valor < 6) {
-                setErr(INVALID_VAL_MSG)
-            }
-        }
-    }, [cardRequest, erro, err])
+        const errorCode = erro?.error_messages?.[0]?.description
+        if (status || errorCode && err === "")
+            setErr(`${status}${errorCode}`)
+    }, [cardRequest, err, erro])
 
     useEffect(() => {
         const getSale = () => {
@@ -149,10 +135,10 @@ export function PagSeguroCard() {
     }, [encrypted])
 
     async function registerPagSeguroCard() {
-        if (!encrypted) return
+        if (encrypted) return
         try {
             const response = await api.post<any>("card", pagSeguroCard)
-            const error:TError = response.data
+            const error: TError = response.data
             setErro(error)
             const res: TCardRequest = response.data
             if (res.charges) {
@@ -171,6 +157,7 @@ export function PagSeguroCard() {
         }
         if (paid !== 0) {
             clearStorageCard()
+            setPaidSucess(msgSucess)
         }
         if (paid !== 0 && flagSales === false) {
             registerSale() // Se paid for maior que 0 gera a venda.
@@ -192,21 +179,20 @@ export function PagSeguroCard() {
         localStorage.removeItem('card')
         localStorage.removeItem('hasErrors')
         localStorage.removeItem('errors')
-        setPaidSucess(msgSucess)
     }
 
     function handleSubmitCard(e: Event) {
         e.preventDefault();
-            if (paySale !== 0) {
-                if (paid === 0) {
-                    if (card.public_key !== "") {
-                        localStorage.setItem('card', JSON.stringify(card))
-                        window.location.replace("/pagsegurocard")
-                    }
+        if (paySale !== 0) {
+            if (paid === 0) {
+                if (card.public_key !== "") {
+                    localStorage.setItem('card', JSON.stringify(card))
+                    window.location.replace("/pagsegurocard")
                 }
-            } else {
-                setErr(msgPay)
             }
+        } else {
+            setErr(msgPay)
+        }
     }
 
     useEffect(() => {
@@ -214,7 +200,7 @@ export function PagSeguroCard() {
     }, [paid, flagSales])
 
     return <>
-        {/* <p>{JSON.stringify(sale?.duplicatas[1]?.valor)}</p> */}
+        {/* <p>{JSON.stringify(sale?.duplicatas[0]?.valor)}</p> */}
         <PagSeguroCardForm
             handleSubmit={handleSubmitCard}
             handleChange={handleChange}

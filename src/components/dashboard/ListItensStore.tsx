@@ -82,7 +82,7 @@ export function ListItensStore({
             </div>
             {itens.length === 0 && <a href="##"
                 id='m-2'
-                onClick={() => { window.location.replace("/") }}>Voltar as Compras {<Icon.ArrowSquareOut size={32} />}</a>}
+                onClick={() => { window.location.replace("/") }}>{<Icon.ArrowSquareOut size={32} />}Voltar as Compras</a>}
             {list}
         </div>
     </>
