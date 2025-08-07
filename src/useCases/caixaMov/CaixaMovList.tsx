@@ -1,11 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CaixaMovListComp } from "../../components/caixaMov/CaixaMovList";
 import { TCaixaMov } from "./type/TCaixaMov";
 import { TDespesa, TValPago } from "../contasAPagar/type/TContasAPagar";
 import { TValsRecebidos } from "../contasAReceber/type/TContasAReceber";
-import { getList, postList } from "../../services/handleService";
+import { getList, postAuthHandle, postList } from "../../services/handleService";
+
+import { AuthContext } from "../../context/auth";
+import { handleTokenMessage } from "../../services/handleEnsureAuth";
 
 export function CaixaMovList() {
+
+    const { user: isLogged }: any = useContext(AuthContext);
+    const [tokenMessage, setTokenMessage] = useState('')
+
     const [caixaMov, setCaixaMov] = useState<TCaixaMov[]>([])
     const [despesas, setDespesas] = useState<TDespesa[]>([])
     const [valsPagos, setValsPagos] = useState<TValPago[]>([])
@@ -13,19 +20,25 @@ export function CaixaMovList() {
 
     useEffect(() => {
         postList('caixa_movs', setCaixaMov)
-    }, [caixaMov]);
+    }, []);
 
     useEffect(() => {
         getList('despesas', setDespesas)
-    }, [despesas])
+    }, [])
 
     useEffect(() => {
-        getList('vals_pagos', setValsPagos)
-    }, [valsPagos])
+        async function getValsPagos() {
+            await postAuthHandle('vals_pagos_list', setTokenMessage, setValsPagos, isLogged)
+        }
+        getValsPagos()
+    }, [])
 
     useEffect(() => {
-        getList('vals_recebidos', setValsRecebidos)
-    }, [valsRecebidos])
+        async function getValsRecebidos() {
+            await postAuthHandle('vals_recebidos_list', setTokenMessage, setValsRecebidos, isLogged)
+        }
+        getValsRecebidos()
+    }, [])
 
     function findNameMovCaixaDebito(id: number) {
         for (let val of valsPagos)
@@ -52,14 +65,11 @@ export function CaixaMovList() {
                             return val.fk_venda
     }
 
-    return (
-        <>
-            <CaixaMovListComp
-                caixaMov={caixaMov}
-                findNameMovCaixaDebito={findNameMovCaixaDebito}
-                findNameMovCaixaCredito={findNameMovCaixaCredito}
-                findVendaMovCaixaCredito={findVendaMovCaixaCredito}
-            />
-        </>
-    )
+    return <> <CaixaMovListComp
+        token={handleTokenMessage('caixa_mov', tokenMessage)}
+        caixaMov={caixaMov}
+        findNameMovCaixaDebito={findNameMovCaixaDebito}
+        findNameMovCaixaCredito={findNameMovCaixaCredito}
+        findVendaMovCaixaCredito={findVendaMovCaixaCredito}
+    /> </>
 }

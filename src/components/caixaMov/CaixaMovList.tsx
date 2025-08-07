@@ -9,33 +9,35 @@ type Props = {
     findNameMovCaixaDebito: Function //(id:number)
     findNameMovCaixaCredito: Function //(id:number)
     findVendaMovCaixaCredito: Function //(id:number)
+    token: JSX.Element
 }
 
-export function CaixaMovListComp({
+export const CaixaMovListComp: React.FC<Props> = ({
     caixaMov,
     findNameMovCaixaDebito,
     findNameMovCaixaCredito,
-    findVendaMovCaixaCredito
-}: Props) {
+    findVendaMovCaixaCredito,
+    token
+}: Props) => {
 
     const handleContasAReceber = new HandleFinanceiro()
-    
-          const links = <>
-                    {handleLinksDir(
-                        'dashboardefault',
-                        'Painel',
-                        '##',
-                        'Financeiro',
-                        '##',
-                        'Caixa movimento'
-                    )}
-                    {<a href="contas_pagar">Contas a pagar</a>} {'<< Financeiro >>'}  <a href="contas_receber">Contas a receber</a>
-                </>
+    const headers = <div className="form">
+        {handleLinksDir(
+            'dashboardefault',
+            'Painel',
+            '##',
+            'Financeiro',
+            '##',
+            'Caixa Movimento'
+        )}
+        {<a href="contas_pagar">Contas a Pagar</a>} {'<< Financeiro >>'}  <a href="contas_receber">Contas a Receber</a>
+        <h1>Caixa Movimento</h1>
+        <span>{caixaMov.length > 0 && "Saldo => R$ " + currencyFormat(caixaMov[0].saldo)}</span>
+        {token}
+    </div>
 
     const caixaMovList = <div className="table-container">
-        {links}
-        <p>Caixa movimento</p>
-    <table className='table'>
+        <table className='table'>
             <thead>
                 <tr>
                     <th id="center">ID</th>
@@ -62,15 +64,16 @@ export function CaixaMovListComp({
                             findVendaMovCaixaCredito(caixa.fk_val) : null}</td>
                         <td id="center">{caixa.credito === null ? "D" : "C"}</td>
                         <td>{caixa.credito === null ?
-                        parseFloat(caixa.debito).toFixed(2) :
-                        parseFloat(caixa.credito).toFixed(2)}</td>
+                            parseFloat(caixa.debito).toFixed(2) :
+                            parseFloat(caixa.credito).toFixed(2)}</td>
                         <td>{parseFloat(caixa.saldo).toFixed(2)}</td>
                     </tr>
                 ))}
             </tbody>
         </table>
-         <label>
-            {caixaMov.length > 0 && "Saldo R$ " + currencyFormat(caixaMov[0].saldo)}</label>
     </div>
-    return <> {caixaMovList} </>
+    return <>
+        {headers}
+        {caixaMovList}
+    </>
 }
