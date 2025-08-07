@@ -1,13 +1,14 @@
 import { TCaixaMov } from "../../useCases/caixaMov/type/TCaixaMov"
 import { handleLinksDir } from "../utils/backHome/BackHome"
+import { currencyFormat } from "../utils/currentFormat/CurrentFormat"
 import { HandleFinanceiro } from "../utils/financeiro/HandleFinanceiro"
 
 
 type Props = {
     caixaMov: TCaixaMov[]
-    findNameMovCaixaDebito: any // (id:number)
-    findNameMovCaixaCredito: any // (id:number)
-    findVendaMovCaixaCredito: any //(id:number
+    findNameMovCaixaDebito: Function //(id:number)
+    findNameMovCaixaCredito: Function //(id:number)
+    findVendaMovCaixaCredito: Function //(id:number)
 }
 
 export function CaixaMovListComp({
@@ -18,7 +19,7 @@ export function CaixaMovListComp({
 }: Props) {
 
     const handleContasAReceber = new HandleFinanceiro()
-
+    
           const links = <>
                     {handleLinksDir(
                         'dashboardefault',
@@ -28,10 +29,13 @@ export function CaixaMovListComp({
                         '##',
                         'Caixa movimento'
                     )}
-                    <>{<a href="contas_pagar">Contas a pagar</a>} {'<< Financeiro >>'}  <a href="contas_receber">Contas a receber</a></>
+                    {<a href="contas_pagar">Contas a pagar</a>} {'<< Financeiro >>'}  <a href="contas_receber">Contas a receber</a>
                 </>
 
-    const caixaMovList = <table className='table bg-light mt-1'>
+    const caixaMovList = <div className="table-container">
+        {links}
+        <p>Caixa movimento</p>
+    <table className='table'>
             <thead>
                 <tr>
                     <th id="center">ID</th>
@@ -65,13 +69,8 @@ export function CaixaMovListComp({
                 ))}
             </tbody>
         </table>
-    return (
-        <>
-         <div className='text-center'>{links}</div>
-            <div className="container">
-                <div className="mt-2">Caixa movimento</div>
-                {caixaMovList}
-            </div>
-            </>
-    )
+         <label>
+            {caixaMov.length > 0 && "Saldo R$ " + currencyFormat(caixaMov[0].saldo)}</label>
+    </div>
+    return <> {caixaMovList} </>
 }

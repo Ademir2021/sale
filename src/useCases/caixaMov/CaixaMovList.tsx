@@ -4,7 +4,6 @@ import { TCaixaMov } from "./type/TCaixaMov";
 import { TDespesa, TValPago } from "../contasAPagar/type/TContasAPagar";
 import { TValsRecebidos } from "../contasAReceber/type/TContasAReceber";
 import { getList, postList } from "../../services/handleService";
-import { currencyFormat } from '../../components/utils/currentFormat/CurrentFormat';
 
 export function CaixaMovList() {
     const [caixaMov, setCaixaMov] = useState<TCaixaMov[]>([])
@@ -61,8 +60,6 @@ export function CaixaMovList() {
                 findNameMovCaixaCredito={findNameMovCaixaCredito}
                 findVendaMovCaixaCredito={findVendaMovCaixaCredito}
             />
-            <p className="container"><b>Saldo atual = </b>
-            R${caixaMov.length > 0 ? currencyFormat(caixaMov[0].saldo) : 0}</p>
         </>
     )
 }
