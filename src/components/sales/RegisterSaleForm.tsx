@@ -41,14 +41,6 @@ export function RegisterSaleForm({
   item_img,
   msg
 }: Props) {
-  const links =      <div className="container">{handleLinksDir(
-            'dashboardefault',
-            'Painel',
-            '##',
-            'Comprar',
-            '##',
-            'Checkout'
-        )}</div>
   const val_items = <div>
     <b>Valor Unitário: </b>
     <>{currencyFormat(parseFloat(children.valor))}</>
@@ -60,8 +52,7 @@ export function RegisterSaleForm({
   return <>
   <NavBar/>
       <div className='form' >
-        {links}
-        <>PDV - Checkout de Compras</>
+        <label>PDV - Checkout de Compras</label>
         {item_img && <img className='img-checkout' src={item_img} alt='Aguardando item ...'></img>}
         <div id='msg-red'>{item}</div>
         <datalist id="data-itens">

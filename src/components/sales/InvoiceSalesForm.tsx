@@ -12,9 +12,7 @@ type Props = {
   handleSubmitCard: any
   handleSubmit: any
   handleSubmitCred: any
-  loadItens?: any
-  alert: string
-  message: string
+  msg: string
   backHomeInvoice: any;
   token: string | any
   installments: any
@@ -28,8 +26,7 @@ export function InvoiceSalesForm({
   handleSubmit,
   handleSubmitCred,
   children,
-  loadItens,
-  message,
+  msg,
   token,
   installments,
   idPerson,
@@ -82,11 +79,11 @@ export function InvoiceSalesForm({
               disabled
               onChange={handleChange}
             />
-             {message && <p id='msg-red'>{message}</p>}
+             {msg && <p id='msg-red'>{msg}</p>}
              <p>
-            <a href='##' className='m-2' onClick={handleSubmitCard}>{<Icon.CreditCard size={32} />} Cartão</a>
-            <a href='##' className='m-2' onClick={handleSubmit}>{<Icon.QrCode size={32} />} Pix/Boleto</a>
-            <a href='##' className='m-2' onClick={handleSubmitCred}>{<Icon.Wallet size={32} />}Crediário</a>
+            <a href='##' className='m-2' onClick={handleSubmitCard}>{<Icon.CreditCard size={32} color='green' />} Cartão</a>
+            <a href='##' className='m-2' onClick={handleSubmit}>{<Icon.QrCode size={32} color='green' />} Pix/Boleto</a>
+            <a href='##' className='m-2' onClick={handleSubmitCred}>{<Icon.Wallet size={32} color='green' />}Crediário</a>
              </p>
             <p>
             <a href='/person_update'>{<Icon.Checks size={32} />} Atualizar Cadastro</a>
@@ -98,17 +95,16 @@ export function InvoiceSalesForm({
               <div>Total na Nota {currencyFormat(children.tNote)}</div>
               <div className='final' >Total a Pagar {currencyFormat(children.paySale - children.disc_sale)}</div>
             </div>}
-            <span className='load-list-itens' >{loadItens}</span>
-            {children.person.cpf_pers && <div className='container'>
-              <p className='entrega-titulo'>Confira os Dados de Entrega ! !</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>Telefone</b> {children.person.phone_pers}</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>CPF</b> {children.person.cpf_pers}</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>Endereço</b> {children.person.address.address_pers}</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>Número</b> {children.person.address.num_address}</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>Bairro</b> {children.person.address.bairro_pers}</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>Cidade</b> {children.person.address.name_city}</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>Estado</b> {children.person.address.uf}</p>
-            <p>{<Icon.Check size={18} color='blue' />}<b>CEP</b> {children.person.address.num_cep}</p>
+            {children.person.cpf_pers && <div id='entrega'>
+              <label>Confira os Dados de Entrega</label>
+            <i>[ <b>Telefone</b> {children.person.phone_pers} ]</i>
+            <i>[ <b>CPF</b> {children.person.cpf_pers} ]</i>
+            <i>[ <b>Endereço</b> {children.person.address.address_pers} ]</i>
+            <i>[ <b>Número</b> {children.person.address.num_address} ]</i>
+            <i>[ <b>Bairro</b> {children.person.address.bairro_pers} ]</i>
+            <i>[ <b>Cidade</b> {children.person.address.name_city} ]</i>
+            <i>[ <b>Estado</b> {children.person.address.uf} ]</i>
+            <i>[ <b>CEP</b> {children.person.address.num_cep} ]</i>
             </div>}
           </div>
   </>

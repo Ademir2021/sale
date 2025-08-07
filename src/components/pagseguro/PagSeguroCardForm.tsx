@@ -8,7 +8,7 @@ import '../../index'
 import './css/styles.css'
 
 type PropsPagSeguroCardForm = {
-    children:TCard
+    children: TCard
     handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
     handleSubmit: any;
     paidSucess: string | number
@@ -36,9 +36,9 @@ export function PagSeguroCardForm({
         <form onSubmit={handleSubmit} className="form">
             <h1>Cartões aceitos</h1>
             <dd>Aceitamos as principais bandeiras de cartão de crédito para a sua conveniência.</dd>
-                   <img id='img-band-card'
+            <img id='img-band-card'
                 src="img/band_cartao_creditos.png"
-                alt="Cartões aceitos"/>
+                alt="Cartões aceitos" />
             <b>Visa, MasterCard, American Express (AMEX), Elo, Hipercard, Discover, Diners Club.</b>
             <p>Você tambêm pode usar o seu cartão de debito ou outras opções de pagamento <a href="invoice_sales">on-line</a> disponíveis.</p>
             <input
@@ -61,32 +61,37 @@ export function PagSeguroCardForm({
                 name="number"
                 onChange={handleChange}
                 value={children.number}
-                placeholder="Número no cartão"
+                placeholder="Nº do cartão"
                 required
             />
             <div id="main-inputs-row" >
                 <input
+                    id="card-yy-aa"
                     type="text"
                     name="ex_month"
                     onChange={handleChange}
                     value={children.ex_month}
-                    placeholder="Dia valídade"
+                    placeholder="MM"
                     required
                 />
+                <label className="p-1">/</label>
                 <input
+                    id="card-yy-aa"
                     type="text"
                     name="ex_year"
                     onChange={handleChange}
                     value={children.ex_year}
-                    placeholder="Ano valídade"
+                    placeholder="YY"
                     required
                 />
+                <label className="p-1">-</label>
                 <input
+                    id="card-secure"
                     type="text"
                     name="secure_code"
                     onChange={handleChange}
                     value={children.secure_code}
-                    placeholder="Código CVV"
+                    placeholder="Código de segurança ( CVV )"
                     required
                 />
                 <input

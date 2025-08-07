@@ -102,7 +102,8 @@ button:hover {
   justify-content: space-between;
   margin: 6px 0;
   font-size: 16px;
-  color: #333;
+  /* color: #333; */
+  color:#1d4ed8;
 }
 
 #vals div::before {
@@ -115,4 +116,15 @@ button:hover {
   font-weight: bold;
   color: #007b00; /* verde */
 }
+
+#entrega label{
+  margin-bottom: 2px;
+}
+#entrega{
+  color:#2563eb;
+}
+#entrega b{
+  color: #333;
+}
+
 

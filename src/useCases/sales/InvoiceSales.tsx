@@ -13,7 +13,7 @@ import { handleTokenMessage } from "../../services/handleEnsureAuth";
 export function InvoiceSales() {
     const [ceps, setCeps] = useState<ICeps[]>([])
     const [cities, setCities] = useState<ICities[]>([])
-    const [msg, setMsg] = useState<string>('')
+    const [msg, setMsg] = useState('')
     const [sum, setSum] = useState<number>(0)
     const [itens, setItens] = useState<TItens[]>([]);
     const [persons, setPersons] = useState<TPerson[]>([])
@@ -186,9 +186,7 @@ export function InvoiceSales() {
         payment()
     }
 
-    return (
-        <>
-            {/* <p>{JSON.stringify(persons)}</p> */}
+    return ( <>
             <InvoiceSalesForm
                 token={handleTokenMessage('invoice_sales', tokenMessage)}
                 backHomeInvoice={<BackHome />}
@@ -197,8 +195,7 @@ export function InvoiceSales() {
                 handleSubmitCred={handleSubmitCred}
                 handleSubmit={installments === 1 ? handleSubmit :
                     () => (setMsg('Parcelado somente com cartão de crédito.'))}
-                alert=""
-                message={msg}
+                msg={msg}
                 installments={setInstallments}
                 persons={persons}
                 idPerson={setIdPerson}
