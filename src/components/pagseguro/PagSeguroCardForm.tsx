@@ -86,7 +86,7 @@ export function PagSeguroCardForm({
                     name="secure_code"
                     onChange={handleChange}
                     value={children.secure_code}
-                    placeholder="Cód. de segurança ( CVV )"
+                    placeholder="Cód. de segurança (CVV)"
                     required
                 />
                 <input
