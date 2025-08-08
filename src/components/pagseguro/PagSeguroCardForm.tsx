@@ -3,6 +3,7 @@ import { currencyFormat } from "../utils/currentFormat/CurrentFormat";
 import { Globais } from "../globais/Globais";
 import { NavBar } from "../navbar/Navbar";
 import { TCard } from "../../useCases/sales/type/TSale";
+import * as Icon from 'phosphor-react';
 
 import '../../index'
 import './css/styles.css'
@@ -10,9 +11,9 @@ import './css/styles.css'
 type PropsPagSeguroCardForm = {
     children: TCard
     handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
-    handleSubmit: any;
-    paidSucess: string | number
-    paid: number | null | undefined
+    handleSubmit: any
+    paidSucess: string
+    paid: number
     paySale: number | any
     URLNoteSubmit: number
     err: string
@@ -34,13 +35,8 @@ export function PagSeguroCardForm({
             <NavBar />
         </div>
         <form onSubmit={handleSubmit} className="form">
-            <h1>Cartões aceitos</h1>
-            <dd>Aceitamos as principais bandeiras de cartão de crédito para a sua conveniência.</dd>
-            <img id='img-band-card'
-                src="img/band_cartao_creditos.png"
-                alt="Cartões aceitos" />
-            <b>Visa, MasterCard, American Express (AMEX), Elo, Hipercard, Discover, Diners Club.</b>
-            <p>Você tambêm pode usar o seu cartão de debito ou outras opções de pagamento <a href="invoice_sales">on-line</a> disponíveis.</p>
+            <a href="invoice_sales">{<Icon.X size={18} color="gray" />}</a>
+            <label>Inserir Cartão de Crédito</label>
             <input
                 type="hidden"
                 name="public_key"
@@ -81,7 +77,7 @@ export function PagSeguroCardForm({
                     name="ex_year"
                     onChange={handleChange}
                     value={children.ex_year}
-                    placeholder="YY"
+                    placeholder="AAAA"
                     required
                 />
                 <input
@@ -101,12 +97,13 @@ export function PagSeguroCardForm({
                     disabled
                 />
             </div>
-            {paidSucess || paid && <label id='msg-red'>{paidSucess} {paid}</label>}
+            {paidSucess && <label id="msg-green">{paidSucess}</label>}
+            {paid > 0 && <label id="msg-green">{paid}</label>}
             {err && <label id="msg-red">{err}</label>}
             <label id='msg-green'>{!URLNoteSubmit ? currencyFormat(paySale) : null}</label>
-            {!URLNoteSubmit && <button id='m-2'>Pagar Compra</button>}
-            {URLNoteSubmit != 0 && <button id='m-2' onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Emitir Nota</button>}
-            {URLNoteSubmit != 0 && <button id='m-2' onClick={() => { window.location.replace('dashboardefault') }}>Sair</button>}
+            {!URLNoteSubmit && <button id='m-2'>Pagar</button>}
+            {URLNoteSubmit !== 0 && <a href="##" className='m-3' onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>{<Icon.Note size={32} />}Emitir Nota</a>}
+            {URLNoteSubmit !== 0 && <a href="##" className='m-3' onClick={() => { window.location.replace('dashboardefault') }}>{<Icon.SignOut size={32} />}Sair</a>}
         </form>
     </>
 }

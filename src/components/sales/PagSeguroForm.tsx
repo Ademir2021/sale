@@ -1,6 +1,7 @@
 import { Globais } from '../globais/Globais';
 import { NavBar } from '../navbar/Navbar';
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
+import * as Icon from 'phosphor-react';
 
 import '../../index'
 import './css/styles.css'
@@ -35,33 +36,35 @@ export function PagSeguroForm({
     error
 }: Props) {
     return <>
-            <NavBar />
-                {<form className='form' >
-                    <h1>Pague com PIX ou Boleto</h1>
-                    <p>{currencyFormat(paySale)}</p>
-                    <button onClick={handleBoleto}>Emitir BOLETO</button>
-                    <label>Vencim. boleto</label>
-                    <input
-                    type="date"
-                    value={datavenc}
-                    onChange={(e) => setInt(e.target.value)}
-                    />
-                    {barCodeBoleto !== "" ? <div className='text-center' ><label>Código de Barras gerado com sucesso !</label>
-                        <hr></hr>
-                        <label>{"< CÓDIGO DE BARRAS SEM FORMATAÇÃO />"}</label>
-                        <strong style={{ fontSize: '10px' }}>{barCodeBoleto}</strong>
-                        <label>{"< CÓDIGO DE BARRAS FORMATADO />"}</label>
-                        <strong style={{ fontSize: '10px' }}>{barCodeBoletoFormated}</strong></div> :
-                        <dd>Aguardando código de barras</dd>}
-                    <hr></hr>
-                    <button onClick={handleQrCode}>Gerar QR-CODE</button>
-                    {qrcode_img && <img id='img-qrcode' src={qrcode_img} alt='Aguarde o qrcode'></img>}
-                    <dd><b>PIX</b> {payPix}</dd>
-                    <dd id='msg-red'>{error}</dd>
-                    <dd>{qrCodeGeneratedSuccessfully}</dd>
-                    <hr></hr>
-                    {URLNoteSubmit && <a id='m-2' href={Globais.URL_NOTE + '/' + URLNoteSubmit}>Emitir Nota</a>}
-                    {URLNoteSubmit ? <a id='m-2' href='/dashboardefault'>Sair</a> : null}
-                </form >}
-        </>
+        <NavBar />
+        {<form className='form' >
+              <a href="invoice_sales">{<Icon.X size={18} color="gray" />}</a>
+            <label>Emitir Boleto</label>
+            <label><b>À Pagar</b> {currencyFormat(paySale)}</label>
+            <label>Vencim. boleto</label>
+            <input
+                type="date"
+                value={datavenc}
+                onChange={(e) => setInt(e.target.value)}
+            />
+            {barCodeBoleto !== "" ? <div className='text-center' ><label>Código de Barras gerado com sucesso</label>
+                <hr></hr>
+                <label>{"< CÓDIGO DE BARRAS SEM FORMATAÇÃO />"}</label>
+                <strong style={{ fontSize: '10px' }}>{barCodeBoleto}</strong>
+                <label>{"< CÓDIGO DE BARRAS FORMATADO />"}</label>
+                <strong style={{ fontSize: '10px' }}>{barCodeBoletoFormated}</strong></div> :
+                <label>Aguardando código de barras</label>}
+            <button onClick={handleBoleto}>Emitir BOLETO</button>
+            <hr></hr>
+            <label>Gerar PIX</label>
+            {qrcode_img && <img id='img-qrcode' src={qrcode_img} alt='Qrcode'></img>}
+            {qrcode_img && <label><b>PIX</b> {payPix}</label>}
+            {error && <label id='msg-red'>{error}</label>}
+            <dd>{qrCodeGeneratedSuccessfully}</dd>
+            <button onClick={handleQrCode}>Gerar QR-CODE</button>
+            <hr></hr>
+            {URLNoteSubmit > 0 && <a className='m-3' href={Globais.URL_NOTE + '/' + URLNoteSubmit}>{<Icon.Note size={32} />}Emitir Nota</a>}
+            {URLNoteSubmit > 0 && <a className='m-3' href='/dashboardefault'>{<Icon.SignOut size={32} />}Sair</a>}
+        </form >}
+    </>
 }

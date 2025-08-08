@@ -50,17 +50,12 @@ export function PagCredLoja() {
         }
     }
 
-    return (
-        <>
-            <NavBar />
-            <PagCredLojaForm
-                handleSubmit={handleSubmit}
-                duplicatas={sale.duplicatas}
-                toGoBackInvoiceSale={() => { window.location.replace('invoice_sales') }}
-                URLNoteSubmit={numNote}
-                dinheiro={sale.dinheiro}
-                msg={msg}
-            />
-        </>
-    )
+    return <> <NavBar />
+        <PagCredLojaForm
+            handleSubmit={handleSubmit}
+            duplicatas={sale.duplicatas}
+            URLNoteSubmit={numNote}
+            dinheiro={sale.dinheiro}
+            msg={msg}
+        /> </>
 }

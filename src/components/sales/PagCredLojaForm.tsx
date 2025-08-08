@@ -2,6 +2,7 @@ import { TContaAreceber } from "../../useCases/contasAReceber/type/TContasAReceb
 import { Globais } from "../globais/Globais"
 import { currencyFormat } from "../utils/currentFormat/CurrentFormat"
 import { HandleFinanceiro } from "../utils/financeiro/HandleFinanceiro"
+import * as Icon from 'phosphor-react';
 
 import '../../index'
 import '../css/styles-forms.css'
@@ -9,8 +10,7 @@ import '../css/styles-forms.css'
 type Props = {
     duplicatas: TContaAreceber[]
     handleSubmit: any
-    toGoBackInvoiceSale: any
-    URLNoteSubmit: any
+    URLNoteSubmit: number
     dinheiro: number
     msg: string
 }
@@ -18,7 +18,6 @@ type Props = {
 export function PagCredLojaForm({
     handleSubmit,
     duplicatas,
-    toGoBackInvoiceSale,
     URLNoteSubmit,
     dinheiro,
     msg
@@ -54,20 +53,17 @@ export function PagCredLojaForm({
         </div>
     return <>
         <div className="form">
-            <h1>Crediário Loja</h1>
-            {msg && <div id='msg-red'>{msg}</div>}
-            <button id='m-2'
-                onClick={handleSubmit}
-            >Finalizar compra</button>
-            <button id="m-2"
-                onClick={toGoBackInvoiceSale}
-            >Modificar forma de pagamento</button>
-            {dinheiro > 0 || duplicatas.length > 0 ? <h1 className="mt-2">Forma de pagamento</h1> : <></>}
-            {dinheiro > 0 && <dd><b>Em dinheiro: </b>{currencyFormat(dinheiro)}</dd>}
-            {duplicatas.length > 0 && <b>Crediario Loja:</b>}
+              <a href="invoice_sales">{<Icon.X size={18} color="gray" />}</a>
+            <label>Crediário Loja</label>
+            {dinheiro > 0 || duplicatas.length > 0 && <label>Forma de pagamento</label>}
+            {dinheiro > 0 && <dd><label>Em dinheiro </label>{currencyFormat(dinheiro)}</dd>}
+            {duplicatas.length > 0 && <label>Crediario Loja</label>}
             {duplicatas.length > 0 && listDuplicatas}
-            <>{URLNoteSubmit ? <button id='m-2'
-                onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>Imprimir compra</button> : null}</>
+            {msg && <div id='msg-red'>{msg}</div>}
+            <button className='m-3' onClick={handleSubmit}
+            >Finalizar</button>
+            <>{URLNoteSubmit > 0 && <a href="##" id='m-2'
+                onClick={() => { window.location.replace(Globais.URL_NOTE + '/' + URLNoteSubmit) }}>{<Icon.Note size={32} />}Imprimir</a>}</>
         </div>
     </>
 }
