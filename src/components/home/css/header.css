@@ -1,15 +1,16 @@
 :root {
     --main-white-color:rgb(197, 197, 197);
-    --font-size:18px;
+    --font-size:16px;
 }
 .header{
     display: flex;
     padding: 4px;
-    gap: 12px;
+    gap: 2%;
     align-items: center;
     justify-content: left;
     background-color: rgb(75, 71, 71);
 }
+/* @media screen and (max-width:768px) {} */
 .header-car {
     font-size: var(--font-size);
     color:var(--main-white-color);
