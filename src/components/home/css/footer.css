@@ -3,10 +3,10 @@ p a {
 }
 
 footer {
-    background-color: rgb(247, 245, 245);
-    color: black;
-    padding: 12px;
-    border-radius: 3px;
+    /* background-color: rgb(247, 245, 245); */
+    color:black;
+    padding: 2%;
+    /* border-radius: 3px; */
 }
 
 a:hover {
@@ -16,12 +16,11 @@ a:hover {
 .social-icons {
     width: 36px;
     height: 36px;
-    padding: 3px;
-    margin-top: -14px;
+    padding: 2px;
 }
 
 .social-icons:hover {
-  margin-top: -18px;
+  margin-top: -16px;
 }
 
 .btn-top {
@@ -39,8 +38,8 @@ a:hover {
 
 .site-ssl {
     border-radius: 2px;
-    width: 90px;
-    height: 38px;
+    width: 100px;
+    height: 50px;
 }
 
 .footer-delivery {
@@ -55,9 +54,7 @@ a:hover {
 
 .maps {
     width: 100%;
-    border-radius: 2px;
-    border: 8px solid white;
-    background-color: white;
+    border-radius: 16px;
 }
 
 .text-footer {
@@ -84,8 +81,7 @@ a:hover {
 }
 
 #header-channel-title{
-    color: rgb(4, 4, 85);
-    margin-bottom:1px;
+    margin-bottom:-1%;
 }
 @media screen and (max-width:768px){
 #header-channel-title{

@@ -3,7 +3,7 @@ import * as Icon from 'phosphor-react';
 import { Globais } from '../globais/Globais'
 
 import './css/footer.css'
-import './css/cookies.css'
+
 
 export function FooterHome() {
 
@@ -11,8 +11,8 @@ export function FooterHome() {
 
     return (
             <footer className='text-center'>
-                {/* <p id="cookies"></p> */}
-                <div style={{fontSize:'12px', margin:'2px'}}>Baixe nosso App-Store.</div >
+                <p>
+                <dd>Baixe nosso App-Store !</dd>
                 <a
                 href={linkApp}
                 hrefLang='pt-br'
@@ -21,21 +21,20 @@ export function FooterHome() {
                 <img
                 src='img/android_downl_app.png'
                 alt='Baixar nosso aplicativo para Android'
-                style={{marginBottom:'18px', borderRadius:'12px'}}
                 ></img></a>
+                </p>
                 <p>
-                    <div><dd>SIGA-NOS</dd></div>
+                    <dd>Siga-nos !</dd>
                     <a target="_blank" href="https://www.facebook.com/profile.php?id=61568577861214&sk=about"><img className="social-icons" src="img/social/facebook.ico" alt='Icon Facebook'></img></a>
                     <a target="_blank" href='https://www.instagram.com/centroinfo_dev/'><img className="social-icons" src="img//social//instagram.ico" alt='Icon Intagram'></img></a>
-                    {/* <a target="_blank" href="https://linkedin.com/in/ademir-dev"><img className="social-icons" src="img//social//linkedin.png"></img></a> */}
+                    <a target="_blank" href="https://linkedin.com/in/ademir-dev"><img className="social-icons" src="img//social//linkedin.png"></img></a>
                     <a target="_blank" href="https://github.com/Ademir2021"><img className="social-icons" src="img//social//github.ico" alt='Icon Github'></img></a>
-                    {/* <a target="_blank" href="https://twitter.com/AdemirDeveloper"><img className="social-icons" src="img//social//twitter.png"></img></a> */}
+                    <a target="_blank" href="https://twitter.com/AdemirDeveloper"><img className="social-icons" src="img//social//twitter.png"></img></a>
                 </p>
 
-                <p>Loja on-line | Fácil de comprar - Rapidez e segurança em suas compras</p>
+                <p>Loja on-line. Fácil de comprar, Rapidez e segurança em suas compras</p>
 
-                <p>CANAIS DE ACESSO</p>
-                <hr></hr>
+                <b>Canais para acesso Rápido</b>
                 <div id='header-channel'>
                 <div id='header-channel-left'>
                         <b id='header-channel-title'>Compras</b>
@@ -54,7 +53,7 @@ export function FooterHome() {
                     <b id='header-channel-title'>Canais</b>
                         <a href='sale'>PDV de compras</a>
                         <a href={"contact"}>Fale conosco</a>
-                        <a href='user_update'>Sua conta</a>
+                        <a href='login'>Sua conta</a>
                         <a href='contacts_list'>Posts</a>
                     </div>
              
