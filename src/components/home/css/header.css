@@ -5,7 +5,7 @@
 .header{
     display: flex;
     padding: 4px;
-    gap: 2%;
+    gap: 3%;
     align-items: center;
     justify-content: left;
     background-color: rgb(75, 71, 71);
