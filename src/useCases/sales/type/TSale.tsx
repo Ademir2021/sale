@@ -1,9 +1,10 @@
 import { TContaAreceber } from "../../contasAReceber/type/TContasAReceber"
+import { TItens } from "../../products/type/TProducts"
 
 export type TSale = {
     filial: number
     user: {
-        user_id: number
+        user_id: number 
         user_name: string
     }
     person: {
@@ -13,6 +14,7 @@ export type TSale = {
         phone_pers: string
         address: {
             address_pers: string
+            num_address:string
             bairro_pers: string
             fk_cep: number
             name_city: string
@@ -26,7 +28,7 @@ export type TSale = {
     dinheiro: any
     tItens: number
     tNote: number
-    itens: []
+    itens: TItens[]
     duplicatas: TContaAreceber[]
 }
 
@@ -45,54 +47,3 @@ export type TSaleList = {
     chave_nfe?: string
     protocolo_nfe?: string
 };
-
-export type TCardRequest = {
-    charges: [
-        {
-            id: string
-            reference_id: string
-            status: string
-            created_at: string
-            paid_at: string
-            description: string
-            amount: {
-                value: number
-                currency: string
-                summary: {
-                    total: number
-                    paid: number
-                    refunded: number
-                }
-            }
-
-        }
-    ],
-    error_messages: [
-        {
-            code: string
-            description: string
-            parameter_name: string
-        }
-    ]
-}
-
-export type TCard = {
-    public_key: string
-    holder: string
-    number: string
-    ex_month: string
-    ex_year: string
-    secure_code: string
-    encrypted: string
-}
-
-export type TError = {
-    error_messages: [
-        {
-            code: string
-            error: string
-            description: string
-            parameter_name: string
-        }
-    ]
-}

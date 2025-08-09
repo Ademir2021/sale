@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { PagSeguroForm } from '../../components/sales/PagSeguroForm';
-import sale_JSON from "./sale.json"
-import pagSeguroPix_JSON from "./pagSeguroPix.json"
-import pagSeguroTicket_JSON from "./pagSeguroTicket.json"
-import ticketRequest_JSON from './ticketRequest.json'
+import sale_JSON from "./JSON/sale.json"
+import pagSeguroPix_JSON from "./JSON/pagSeguroPix.json"
+import pagSeguroTicket_JSON from "./JSON/pagSeguroTicket.json"
+import ticketRequest_JSON from './JSON/ticketRequest.json'
 import { currencyFormat } from '../../components/utils/currentFormat/CurrentFormat';
 import { handleInstallments } from "./handlePayment/HandlePayment";
 
@@ -35,7 +35,7 @@ export function PagSeguro() {
             if (store_sale){
                 const res = JSON.parse(store_sale)
                 setSale(res)
-        handleInstallments(res, 'Pix/Boleto')
+        handleInstallments(res, 'Pix/Boleto', "Aguardando Pagamento")
             }
         };
         getSale()

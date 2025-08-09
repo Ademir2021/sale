@@ -13,7 +13,7 @@ function ControlledCarousel() {
     <Carousel
       prevIcon={<Icon.CaretDoubleLeft size={32} color='black' />}
       nextIcon={<Icon.CaretDoubleRight size={32} color='black' />}
-      variant='dark' //dark
+      variant='' //dark
       activeIndex={index}
       onSelect={handleSelect}>
       <Carousel.Item interval={800}>

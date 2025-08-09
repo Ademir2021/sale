@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import sale_JSON from "./sale.json"
+import sale_JSON from "./JSON/sale.json"
 import { PagCredLojaForm } from "../../components/sales/PagCredLojaForm"
 import { NavBar } from "../../components/navbar/Navbar";
 import { handleInstallments } from "./handlePayment/HandlePayment";
@@ -20,7 +20,7 @@ export function PagCredLoja() {
         if (store_sale) {
             const res = JSON.parse(store_sale)
             setSale(res)
-            handleInstallments(res, 'Cred')
+            handleInstallments(res, 'Cred', "Crediário Loja")
         }
     };
     useEffect(() => {

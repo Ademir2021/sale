@@ -33,7 +33,7 @@ export type TPagSeguroCard = {
         "https://meusite.com/notificacoes" | string
     ],
     charges: [
-        {
+        {   
             reference_id: string,
             description: string,
             amount: {
@@ -55,4 +55,14 @@ export type TPagSeguroCard = {
             }
         }
     ]
+}
+
+export type TCard = {
+    public_key: string
+    holder: string
+    number: string
+    ex_month: string
+    ex_year: string
+    secure_code: string
+    encrypted: string
 }

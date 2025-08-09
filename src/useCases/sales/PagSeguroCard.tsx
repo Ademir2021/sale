@@ -2,9 +2,12 @@ import { useState, useEffect } from "react"
 import { PagSeguroCardForm } from "../../components/pagseguro/PagSeguroCardForm";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
 import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
-import { TCard, TCardRequest } from "./type/TSale";
-import { TPagSeguroCard } from "./type/TPagSeguroCard";
-import saleJSON from "./sale.json"
+import { TSale } from "./type/TSale";
+import { TCard, TPagSeguroCard } from "./type/TPagSeguroCard";
+import { TPagSeguroRequest } from "./type/TPagSeguroRequest";
+import saleJSON from "./JSON/sale.json"
+import pagSeguroCardJSON from "./JSON/pagSeguroCard.json"
+import pagSeguroRequestJSON from "./JSON/pagSeguroRequest.json"
 import api from './../../services/api/api';
 
 // Adiciona a definição de PagSeguro ao tipo Window
@@ -20,7 +23,6 @@ export function PagSeguroCard() {
     const [err, setErr] = useState<string | any>('')
     const [paidSucess, setPaidSucess] = useState("")
     const [paid, setPaid] = useState(0)
-    const [sale, setSale] = useState<any>(saleJSON);
     const [numNote, setNumNote] = useState(0)
 
     const [publicKey, setPublicKey] = useState({ public_key: "", created_at: "" })
@@ -30,64 +32,14 @@ export function PagSeguroCard() {
         ex_month: "", ex_year: "", secure_code: "", encrypted: ""
     });
 
-    const [pagSeguroCard, setPagSeguroCard] = useState<TPagSeguroCard>({
-        "reference_id": "",
-        "description": "",
-        "customer": {
-            "name": "",
-            "email": "",
-            "tax_id": "",
-            "phones": [
-                {
-                    "country": "55",
-                    "area": "44",
-                    "number": "",
-                    "type": "MOBILE"
-                }
-            ]
-        },
-        "items": [
+    const sale_: any = saleJSON
+    const [sale, setSale] = useState<TSale | any>(sale_);
 
-        ],
-        "shipping": {
-            "address": {
-                "street": "",
-                "number": "",
-                "complement": "",
-                "locality": "",
-                "city": "",
-                "region_code": "PR",
-                "country": "BRA",
-                "postal_code": ""
-            }
-        },
-        "notification_urls": [
-            "https://meusite.com/notificacoes"
-        ],
-        "charges": [
-            {
-                "reference_id": "",
-                "description": "",
-                "amount": {
-                    "value": 0,
-                    "currency": "BRL"
-                },
-                "payment_method": {
-                    "type": "CREDIT_CARD",
-                    "installments": 1,
-                    "capture": true,
-                    "card": {
-                        "encrypted": "",
-                        "store": false
-                    },
-                    "holder": {
-                        "name": "",
-                        "tax_id": ""
-                    }
-                }
-            }
-        ]
-    });
+    const pagSeguroCard_: any = pagSeguroCardJSON
+    const [pagSeguroCard, setPagSeguroCard] = useState<TPagSeguroCard>(pagSeguroCard_);
+
+    const pagSeguroRequest_: any = pagSeguroRequestJSON
+    const [pagSeguroRequest, setPagSeguroRequest] = useState<TPagSeguroRequest>(pagSeguroRequest_)
 
     const payment = sale.paySale - sale.dinheiro - sale.disc_sale
     const paySale: number = payment
@@ -109,25 +61,25 @@ export function PagSeguroCard() {
             if (store_sale !== null) {
                 const res = JSON.parse(store_sale)
                 setSale(res)
-                handleInstallments(res, 'Card')
+                handleInstallments(res, 'Card', pagSeguroRequest.charges[0].id || "Pago com Cartão")
             }
         };
         getSale()
     }, []);
 
-    function arrayItems(obj: Object | any) {
+    function arrayItems(items_: any) {
         for (let i = 0; sale.itens.length > i; i++) {
-            const items = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
-            items.reference_id = sale.itens[i].item
-            items.name = sale.itens[i].descric
-            items.quantity = sale.itens[i].amount
-            items.unit_amount = sale.itens[i].valor.replace(/[.]/g, '')
-            obj.items.push(items)
+            const item = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
+            item.reference_id = sale.itens[i].item.toString()
+            item.name = sale.itens[i].descric.toString()
+            item.quantity = sale.itens[i].amount
+            item.unit_amount = sale.itens[i].valor.replace(/[.]/g, '')
+            items_.items.push(item)
         }
     };
 
     function getPargSeguroCard(pagSeguroCard: TPagSeguroCard) {
-        pagSeguroCard.reference_id = sale.user.user_id
+        pagSeguroCard.reference_id = sale.user.user_id.toString()
         pagSeguroCard.description = "pagamento da nota"
         pagSeguroCard.customer.name = sale.person.name_pers
         pagSeguroCard.customer.email = sale.user.user_name
@@ -144,7 +96,7 @@ export function PagSeguroCard() {
         pagSeguroCard.shipping.address.region_code = sale.person.address.uf
         pagSeguroCard.shipping.address.country = 'BRA'
         pagSeguroCard.shipping.address.postal_code = sale.person.address.num_cep.replace(/[..-]/g, '')
-        pagSeguroCard.charges[0].reference_id = sale.user.user_id
+        pagSeguroCard.charges[0].reference_id = sale.user.user_id.toString()
         pagSeguroCard.charges[0].description = "Compras Online"
         pagSeguroCard.charges[0].payment_method.installments = parseInt(sale.installments)
         pagSeguroCard.charges[0].payment_method.holder.tax_id = sale.person.cpf_pers
@@ -179,6 +131,19 @@ export function PagSeguroCard() {
         }
     }, [paid, flagSales])
 
+    async function registerPagSeguroCard() {
+        try {
+            const response = await api.post<TPagSeguroRequest>("card", pagSeguroCard)
+            const res: TPagSeguroRequest = response.data
+            setPagSeguroRequest(res)
+            if (res.charges) {
+                const paid = res.charges[0].amount.summary.paid
+                setPaid(paid)
+            }
+        } catch (error: unknown) {
+            setErr("Erro " + error)
+        }
+    }
 
     const sdkPagSeguro = async () => {
         if (!window.PagSeguro || !publicKey) {
@@ -215,19 +180,6 @@ export function PagSeguroCard() {
         }
     };
 
-    async function registerPagSeguroCard() {
-        try {
-            const response = await api.post("card", pagSeguroCard)
-            const res: TCardRequest = response.data
-            if (res.charges) {
-                const paid = res.charges[0].amount.summary.paid
-                setPaid(paid)
-            }
-        } catch (error: unknown) {
-            setErr("Erro " + error)
-        }
-    }
-
     async function registerSale() {
         await api.post('sale_register', sale)
             .then(response => {
@@ -255,7 +207,7 @@ export function PagSeguroCard() {
     }, [paid, flagSales])
 
     return <>
-        {/* <p>{JSON.stringify(pagSeguroCard)}</p> */}
+        {/* <>{JSON.stringify(pagSeguroRequest)}</> */}
         <PagSeguroCardForm
             handleSubmit={handleSubmitCard}
             handleChange={handleChange}

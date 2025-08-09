@@ -164,8 +164,8 @@ export function RegisterSale() {
                 setMsg("Informe ao menos um item e clique em salvar !");
             } else {
                 setMsg("Seu pedido será gravado");
-                const itens_store_res: [] | any = localStorage.getItem('i');
-                if (itens_store_res === null) {
+                const itens_store_res = localStorage.getItem('i');
+                if (itens_store_res) {
                     localStorage.setItem("i", JSON.stringify(itens))
                     localStorage.setItem("s", JSON.stringify(sumItens().toFixed(2)));
                     setMsg("Pedido gravado com sucesso")
@@ -173,7 +173,7 @@ export function RegisterSale() {
                         window.location.replace("/invoice_sales");
                     }, 1000);
                 } else {
-                    setMsg("Aguarde retorno! existe um pedido  em aberto !");
+                    setMsg("Aguarde retorno! Existe Pedido em Aberto");
                 }
             }
         }
@@ -200,14 +200,15 @@ export function RegisterSale() {
     };
 
     function itensStore() {
-        const itens_store_res: TItens[] | any = localStorage.getItem('p');
-        if (itens_store_res !== null) {
+        const itens_store_res = localStorage.getItem('i');
+        if (itens_store_res) {
             const itens_store: TItens[] = JSON.parse(itens_store_res)
             setItenStorage(itens_store);
             for (let itemStorage of itenStorage) {
                 itens.push(itemStorage);
                 setItens(itens)
-                const res_id: any = localStorage.getItem('id');
+                const res_id = localStorage.getItem('id');
+                if(res_id)
                 setId(JSON.parse(res_id))
             }
         }

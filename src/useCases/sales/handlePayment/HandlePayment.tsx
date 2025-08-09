@@ -34,7 +34,7 @@ const setPrazo = (i: number) => {
     return prazo
 }
 
-export function handleInstallments(sale:TSale, cred:string) {
+export function handleInstallments(sale:TSale, cred:string, holder_id:string) {
     const installments = parseInt(sale.installments)
     let pay = parseFloat(sale.paySale) - sale.dinheiro - parseFloat(sale.disc_sale)
     sale.dinheiro = parseFloat(sale.dinheiro)
@@ -75,6 +75,7 @@ export function handleInstallments(sale:TSale, cred:string) {
             contaReceber.saldo = 0
             contaReceber.pagamento = null
             contaReceber.recebimento = 0
+            contaReceber.observacao = holder_id
             contaReceber.fk_pagador = sale.person.fk_name_pers
             sale.duplicatas.push(contaReceber)
         }

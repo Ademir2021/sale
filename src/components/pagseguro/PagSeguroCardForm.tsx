@@ -2,7 +2,7 @@ import React from "react";
 import { currencyFormat } from "../utils/currentFormat/CurrentFormat";
 import { Globais } from "../globais/Globais";
 import { NavBar } from "../navbar/Navbar";
-import { TCard } from "../../useCases/sales/type/TSale";
+import { TCard } from "../../useCases/sales/type/TPagSeguroCard";
 import * as Icon from 'phosphor-react';
 
 import '../../index'

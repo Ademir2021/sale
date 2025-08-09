@@ -71,13 +71,13 @@ export function Home() {
 
     useEffect(() => {
         function getItensStorage() {
-            const res_itens: any | undefined = localStorage.getItem('p')
+            const res_itens = localStorage.getItem('i')
             if (res_itens)
                 setItens(JSON.parse(res_itens))
-            const res_counter: any | undefined = localStorage.getItem('c')
+            const res_counter = localStorage.getItem('c')
             if (res_counter)
                 setCounter(JSON.parse(res_counter))
-            const res_sub_total: any | undefined = localStorage.getItem('t')
+            const res_sub_total = localStorage.getItem('t')
             if (res_sub_total)
                 setsubtotal(JSON.parse(res_sub_total))
         }
@@ -129,7 +129,7 @@ export function Home() {
             }
         }
         setsubtotal(sumItens)
-        localStorage.setItem("p", JSON.stringify(itens));
+        localStorage.setItem("i", JSON.stringify(itens));
         localStorage.setItem("id", JSON.stringify(id));
     }
 

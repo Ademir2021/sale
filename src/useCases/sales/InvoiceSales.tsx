@@ -4,7 +4,7 @@ import { BackHome } from "../../components/utils/backHome/BackHome";
 import { TPerson } from "../persons/type/TPerson";
 import { ICeps, ICities } from "../ceps/type/TCeps";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
-import saleJSON from "./sale.json"
+import saleJSON from "./JSON/sale.json"
 import { TItens } from "../products/type/TProducts";
 import { postAuthHandle, getList } from "../../services/handleService";
 import { AuthContext } from '../../context/auth'

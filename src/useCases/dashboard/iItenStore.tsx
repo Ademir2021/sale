@@ -12,7 +12,7 @@ export function ItenStore() {
 
     useEffect(() => {
         function getItensStorage() {
-            const itemsStore = localStorage.getItem('p');
+            const itemsStore = localStorage.getItem('i');
             if (itemsStore)
                 setItens(JSON.parse(itemsStore));
             const counterStore = localStorage.getItem('c');
@@ -39,7 +39,7 @@ export function ItenStore() {
             const index = itens.findIndex(item => item.id === item_.id);
             if (index !== -1) {
                 itens.splice(index, 1);
-                localStorage.setItem("p", JSON.stringify(itens));
+                localStorage.setItem("i", JSON.stringify(itens));
                 setMessages(item_.descric + ', foi removido com sucesso.');
                 let counterStore = localStorage.getItem('c');
                 if (counterStore) {
@@ -61,7 +61,7 @@ export function ItenStore() {
             if (item.id === item_.id) {
                 item.amount += 1
                 item.tItem = item.amount * item.valor
-                localStorage.setItem("p", JSON.stringify(itens));
+                localStorage.setItem("i", JSON.stringify(itens));
                 sumItens()
             }
         }
@@ -73,7 +73,7 @@ export function ItenStore() {
                 item.amount -= 1
                 if (item.amount > 0) {
                     item.tItem = item.amount * item.valor
-                    localStorage.setItem("p", JSON.stringify(itens));
+                    localStorage.setItem("i", JSON.stringify(itens));
                     sumItens()
                 }
             }
