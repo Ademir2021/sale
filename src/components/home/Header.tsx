@@ -1,27 +1,22 @@
-import { Globais } from '../globais/Globais';
+import * as Icon from 'phosphor-react';
 
 import './css/header.css'
 
 type Props = {
-    counter: number | string;
-    subtotal: number | string
+    counter: string | number
+    subtotal: string | number
 }
 
 export function Header(props: Props) {
-    return (
-        <div className='header-home'>
-            <a href='pe' > <b
-            className='header-home-carrinho' >
-                {props.counter}
-                <img alt='Carrinho'
-                    src="img/carrinho_counter.png">
-                </img></b></a>
-            {props.subtotal && <a className='header-home-sub-total'>
-                {props.subtotal}</a>}
-            {<a href={"/contact"}
-            className='header-contact'>
-                {Globais.phone}</a>}
-            {!props.subtotal &&  <div id='header-frete'>Aqui tem frete grátis</div>}
-        </div>
-    )
+    return <> <div className='header'>
+        <a href='pe' className='header-car' >
+            {props.counter}
+            {<Icon.ShoppingCart size={32} />}Carrinho</a>
+        {props.subtotal && <div className='header-sub-total'>
+            {props.subtotal}</div>}
+        {<a href={"contact"} className='header-contact'>
+            {<Icon.PhoneCall size={32} />}Contato</a>}
+        {<a href='contact' className='header-frete'>
+            {<Icon.Package size={32} />}Entrega</a>}
+    </div> </>
 }

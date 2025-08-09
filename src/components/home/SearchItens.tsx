@@ -41,7 +41,6 @@ export function SearchItens(props: Props) {
                     <input className='search-item-input' type="search"
                         placeholder="Do que você precisa" aria-label="Search"
                         list='data-itens' name='descric' value={props.descric}
-                        style={{ backgroundColor: 'white' }}
                         onChange={props.handleChange} />
                     <button className="btn-search">
                         <div className='search-items-img'>

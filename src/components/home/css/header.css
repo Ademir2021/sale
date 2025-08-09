@@ -1,36 +1,38 @@
 :root {
-    --main-white-color:#fff;
+    --main-white-color:rgb(197, 197, 197);
     --font-size:18px;
 }
-.header-home{
+.header{
     display: flex;
+    padding: 4px;
+    gap: 12px;
     align-items: center;
     justify-content: left;
-    padding-bottom: 3px;
-    background-color:#0c28c4;;
+    background-color: rgb(75, 71, 71);
 }
-.header-home-carrinho {
-    margin-left: 8px;
+.header-car {
     font-size: var(--font-size);
     color:var(--main-white-color);
 }
-.header-home-sub-total {
-    padding: 9px;
+.header-car:hover{
+    color: gray;
+}
+
+.header-sub-total {
     color:var(--main-white-color);
+     color: #fff;
 }
 .header-contact{
     font-size: var(--font-size);
-    padding: 6px;
     color:var(--main-white-color);
-    text-decoration: none;
 }
-@media screen and (max-width:768px) {
-    .header-contact{
-        font-size: 16px;
-    }
+.header-contact:hover{
+    color: gray;
 }
-#header-frete{
-    margin-left: 26px;
+.header-frete{
     font-size: var(--font-size);
     color:var(--main-white-color);
+}
+.header-frete:hover{
+    color: gray;
 }
