@@ -3,6 +3,7 @@ import { TUserLogin } from "../../useCases/users/type/TLogin"
 import * as Icon from 'phosphor-react';
 import { AuthContext } from "../../context/auth"
 import "./css/styles.css"
+import { CloseX } from "../utils/closeX/CloseX";
 
 type Props = {
     children: TUserLogin
@@ -66,7 +67,7 @@ const LoginComponent: React.FC<Props> = ({
     return <>
         <div className="login-wrapper">
             <div className="login-container">
-                <a href="/">{<Icon.X size={18} />}</a>
+                <CloseX/>
                 <h2>{loginRegister ? "Seja bem vindo(a)" : "Bem vindo(a) de volta"}</h2>
                 {children.id === 0 ? <>{!loginRecover ? <p>{loginRegister ? "Registrar a minha conta" :
                     "Entrar na minha conta"}</p> : <p>Digite um Email válido!</p>}</> : <p>Atualizar Conta</p>}

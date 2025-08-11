@@ -195,12 +195,12 @@ export function PagSeguroCard() {
             .catch(error => console.log(error));
     };
 
-    function handleSubmitCard(e: Event) {
+    const handleSubmitCard = (e: Event) => {
         e.preventDefault();
         if (paySale !== 0) {
-            if (paid === 0) {
+            if (paid === 0 || payResponseCode !== "20000") {
                 if (card.public_key) {
-                    sdkPagSeguro() // criptografa cartão
+                   sdkPagSeguro() // criptografa cartão
                 }
             }
         } else {

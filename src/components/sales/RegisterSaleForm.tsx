@@ -1,12 +1,11 @@
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { TProduct } from '../../useCases/products/type/TProducts';
 import * as Icon from 'phosphor-react';
+import { NavBar } from '../navbar/Navbar';
 
 import '../../index.css'
 import './css/styles.css'
 import '../css/styles-forms.css'
-import { handleLinksDir } from '../utils/backHome/BackHome';
-import { NavBar } from '../navbar/Navbar';
 
 type Props = {
   children: string | number | readonly string[] | undefined | any;

@@ -4,6 +4,7 @@ import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged"
 import { TPerson } from "../../useCases/persons/type/TPerson";
 
 import '../css/styles-forms.css'
+import { CloseX } from "../utils/closeX/CloseX";
 
 type Props = {
     children: TPerson
@@ -116,6 +117,7 @@ export const  PersonForm:React.FC<Props> = ({
     return (
 
         <form className="form" onSubmit={handleSubmit}>
+            <CloseX/>
             <b>Cadastrar Cliente</b>
             <p><a href='/invoice_sales'>
                 Já possui cadastro?

@@ -5,6 +5,7 @@ import { NavBar } from '../navbar/Navbar';
 
 import '../../index'
 import '../css/styles-forms.css'
+import { CloseX } from '../utils/closeX/CloseX';
 
 type Props = {
   children: TProduct
@@ -134,6 +135,7 @@ export function ProductForm({
     <>
       <NavBar />
       <div className='form'>
+        <CloseX/>
         {menu === 'geral' && <b id='m-2'>Cadastrar Produto</b>}
         {menu === 'fiscal' && <b id='m-2'>Situação fiscal do Produto</b>}
         {nav}
