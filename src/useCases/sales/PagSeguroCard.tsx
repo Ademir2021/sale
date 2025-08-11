@@ -3,7 +3,7 @@ import { PagSeguroCardForm } from "../../components/pagseguro/PagSeguroCardForm"
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
 import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
 import { TSale } from "./type/TSale";
-import { TCard, TPagSeguroCard } from "./type/TPagSeguroCard";
+import { TCard, TPagSeguroItems, TPagSeguroCard } from "./type/TPagSeguroCard";
 import { TPagSeguroRequest } from "./type/TPagSeguroRequest";
 import saleJSON from "./JSON/sale.json"
 import pagSeguroCardJSON from "./JSON/pagSeguroCard.json"
@@ -22,8 +22,6 @@ export function PagSeguroCard() {
     const [flagSales, setFlagSales] = useState<boolean>(false);
     const [err, setErr] = useState<string | any>('')
     const [paidSucess, setPaidSucess] = useState("")
-    const [paid, setPaid] = useState(0)
-    const [numNote, setNumNote] = useState(0)
 
     const [publicKey, setPublicKey] = useState({ public_key: "", created_at: "" })
 
@@ -34,15 +32,20 @@ export function PagSeguroCard() {
 
     const sale_: any = saleJSON
     const [sale, setSale] = useState<TSale | any>(sale_);
+    const [numNote, setNumNote] = useState(0)
+    const payment = sale.paySale - sale.dinheiro - sale.disc_sale
+    const paySale: number = payment
 
     const pagSeguroCard_: any = pagSeguroCardJSON
     const [pagSeguroCard, setPagSeguroCard] = useState<TPagSeguroCard>(pagSeguroCard_);
 
     const pagSeguroRequest_: any = pagSeguroRequestJSON
     const [pagSeguroRequest, setPagSeguroRequest] = useState<TPagSeguroRequest>(pagSeguroRequest_)
+    const [paid, setPaid] = useState(0)
+    const [payResponseCode, setPayResponseCode] = useState('')
+    const [payResponseMessage, setPayResponseMessage] = useState('')
+    const [payResponseIdCharge, setPayResponseIdCharge]= useState('')
 
-    const payment = sale.paySale - sale.dinheiro - sale.disc_sale
-    const paySale: number = payment
 
     const msgPay = 'Sem compras para pagar'
     const msgErr = 'Erro de comunicação, tente novamente'
@@ -61,20 +64,21 @@ export function PagSeguroCard() {
             if (store_sale !== null) {
                 const res = JSON.parse(store_sale)
                 setSale(res)
-                handleInstallments(res, 'Card', pagSeguroRequest.charges[0].id || "Pago com Cartão")
+                handleInstallments(res, 'Card', payResponseIdCharge || "Pago com Cartão")
             }
         };
         getSale()
     }, []);
 
-    function arrayItems(items_: any) {
+    function getPagSeguroArrayItems(items: TPagSeguroCard) {
+        items.items = []
         for (let i = 0; sale.itens.length > i; i++) {
-            const item = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
+            const item: TPagSeguroItems = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
             item.reference_id = sale.itens[i].item.toString()
             item.name = sale.itens[i].descric.toString()
             item.quantity = sale.itens[i].amount
             item.unit_amount = sale.itens[i].valor.replace(/[.]/g, '')
-            items_.items.push(item)
+            items.items.push(item)
         }
     };
 
@@ -101,7 +105,7 @@ export function PagSeguroCard() {
         pagSeguroCard.charges[0].payment_method.installments = parseInt(sale.installments)
         pagSeguroCard.charges[0].payment_method.holder.tax_id = sale.person.cpf_pers
         pagSeguroCard.charges[0].amount.value = payment.toFixed(2).replace(/[.]/g, '')
-        arrayItems(pagSeguroCard)
+        getPagSeguroArrayItems(pagSeguroCard)
         setPagSeguroCard(pagSeguroCard)
     };
 
@@ -122,14 +126,14 @@ export function PagSeguroCard() {
     }, [publicKey])
 
     useEffect(() => {
-        if (paid !== 0) {
+        if (paid !== 0 || payResponseCode === "20000" && flagSales === false) {
             setPaidSucess(msgSucess)
         }
-        if (paid !== 0 && flagSales === false) {
+        if (paid !== 0 || payResponseCode === "20000" && flagSales === false) {
             registerSale() // Se paid for maior que 0 gera a venda.
             setFlagSales(true)
         }
-    }, [paid, flagSales])
+    }, [paid, payResponseCode, flagSales])
 
     async function registerPagSeguroCard() {
         try {
@@ -137,8 +141,10 @@ export function PagSeguroCard() {
             const res: TPagSeguroRequest = response.data
             setPagSeguroRequest(res)
             if (res.charges) {
-                const paid = res.charges[0].amount.summary.paid
-                setPaid(paid)
+                setPaid(res.charges[0].amount.summary.paid)
+                setPayResponseCode(res.charges[0].payment_response.code)
+                setPayResponseMessage(res.charges[0].payment_response.message)
+                setPayResponseIdCharge(res.charges[0].id)
             }
         } catch (error: unknown) {
             setErr("Erro " + error)
@@ -169,10 +175,10 @@ export function PagSeguroCard() {
             if (encrypted.hasErrors === true) {
                 setErr(JSON.stringify(encrypted.errors[0].code))
             } else {
-                if (paid !== 0) {
+                if (paid !== 0 || payResponseCode === "20000") {
                     setErr("Cartão Aceito")
                 } else {
-                    setErr("Cartão Inválido ou Recusado. Tente Novamente.")
+                    setErr(payResponseMessage)
                 }
             }
         } catch (err: unknown) {
@@ -207,7 +213,7 @@ export function PagSeguroCard() {
     }, [paid, flagSales])
 
     return <>
-        {/* <>{JSON.stringify(pagSeguroRequest)}</> */}
+        {/* <>{JSON.stringify(payResponseCode)}</> */}
         <PagSeguroCardForm
             handleSubmit={handleSubmitCard}
             handleChange={handleChange}

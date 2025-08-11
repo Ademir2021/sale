@@ -14,9 +14,7 @@
             }
         ]
     },
-    "items": [
-     
-    ],
+    "items": [],
     "shipping": {
         "address": {
             "street": "",

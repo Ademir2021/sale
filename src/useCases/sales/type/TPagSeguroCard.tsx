@@ -1,6 +1,6 @@
 export type TPagSeguroCard = {
     reference_id: string,
-    description:string,
+    description: string,
     customer: {
         name: string,
         email: string,
@@ -14,9 +14,7 @@ export type TPagSeguroCard = {
             }
         ]
     },
-    items: [
-
-    ],
+    items:TPagSeguroItems [],
     shipping: {
         address: {
             street: string,
@@ -24,7 +22,7 @@ export type TPagSeguroCard = {
             complement: string | null,
             locality: string,
             city: string,
-            region_code:string,
+            region_code: string,
             country: string,
             postal_code: string
         }
@@ -33,7 +31,7 @@ export type TPagSeguroCard = {
         "https://meusite.com/notificacoes" | string
     ],
     charges: [
-        {   
+        {
             reference_id: string,
             description: string,
             amount: {
@@ -55,6 +53,13 @@ export type TPagSeguroCard = {
             }
         }
     ]
+}
+
+export type TPagSeguroItems = {
+    reference_id: string,
+    name: string,
+    quantity: string | number,
+    unit_amount: string | number
 }
 
 export type TCard = {

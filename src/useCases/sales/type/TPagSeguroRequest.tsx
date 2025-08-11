@@ -15,8 +15,12 @@ export type TPagSeguroRequest = {
                     paid: number
                     refunded: number
                 }
-            }
-
+            },
+            payment_response: {
+                code: string,
+                message: string,
+                reference: string
+            },
         }
     ],
     error_messages: [
