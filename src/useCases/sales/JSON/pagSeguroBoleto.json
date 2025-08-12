@@ -1,5 +1,6 @@
 {
   "reference_id": "",
+  "description":"",
   "customer": {
     "name": "",
     "email": "",
@@ -41,7 +42,10 @@
         "type": "",
         "boleto": {
           "due_date": "",
-          "instruction_lines": {},
+          "instruction_lines": {
+            "lines_1":"",
+            "lines_2":""
+          },
           "holder": {
             "name": "",
             "tax_id": "",

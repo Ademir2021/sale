@@ -1,76 +1,86 @@
 import { useState, useEffect } from "react";
 import { PagSeguroForm } from '../../components/sales/PagSeguroForm';
-import sale_JSON from "./JSON/sale.json"
-import pagSeguroPix_JSON from "./JSON/pagSeguroPix.json"
-import pagSeguroTicket_JSON from "./JSON/pagSeguroTicket.json"
-import ticketRequest_JSON from './JSON/ticketRequest.json'
+import saleJSON from "./JSON/sale.json"
+import pagSeguroPixJSON from "./JSON/pagSeguroPix.json"
+import pagSeguroBoletoJSON from "./JSON/pagSeguroBoleto.json"
+import boletoRequestJSON from './JSON/boletoRequest.json'
 import { currencyFormat } from '../../components/utils/currentFormat/CurrentFormat';
-import { handleInstallments } from "./handlePayment/HandlePayment";
-
+import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
+import { TPagSeguroBoleto } from "./type/TPagSeguroBoleto";
+import { TPagSeguroPix } from "./type/TPagSeguroPix";
+import { TPagSeguroItems } from "./type/TPagSeguroCard";
 import api from "../../services/api/api";
 
 export function PagSeguro() {
-    const [sendSale, setSendSale] = useState<boolean>(false)
-    const [sendPaid, setSendPaid] = useState(false);
-    const [messagesSucess, setMessagesSucess] = useState<string>('');
-    const [sale, setSale] = useState<any>(sale_JSON);
-    const [pagSeguroPix] = useState<any>(pagSeguroPix_JSON);
-    const [qrcodePagSeguro, setQrcode] = useState<any>({ "qr_codes": [{ "amount": { "value": 0 }, "expiration_date": "", "links": [{ "href": "" }] }] });
-    const [pagSeguroBoleto,] = useState<any>(pagSeguroTicket_JSON);
-    const [boletoPagSeguro, setBoletoPagSeguro] = useState<any>(ticketRequest_JSON);
-    const imgQrCode = qrcodePagSeguro.qr_codes[0].links[0].href
-    const valueQrCode: number = qrcodePagSeguro.qr_codes[0].amount.value
-    const barCodeBoleto = boletoPagSeguro.charges[0].payment_method.boleto.barcode
-    const barCodeBoletoFormated = boletoPagSeguro.charges[0].payment_method.boleto.formatted_barcode
-    const [numNote, setNumNote] = useState(0)
+    const [sendSale, setSendSale] = useState(false)
+    const [sendPaid, setSendPaid] = useState(false)
+    const [messagesSucess, setMessagesSucess] = useState('')
     const [error, setError] = useState("")
+
+    const [sale, setSale] = useState<any>(saleJSON);
+    const [numNote, setNumNote] = useState(0)
     const payment = sale.paySale - sale.dinheiro - sale.disc_sale
     const paySale: number = payment
+
+    const pagSeguroPix_: any = pagSeguroPixJSON
+    const [pagSeguroPix] = useState<TPagSeguroPix>(pagSeguroPix_);
+    const [qrcodePagSeguro, setQrcode] = useState({
+        "qr_codes": [
+            { "amount": { "value": 0 }, "expiration_date": "", "links": [{ "href": "" }] }]
+    })
+    const imgQrCode = qrcodePagSeguro.qr_codes[0].links[0].href
+    const valueQrCode: number = qrcodePagSeguro.qr_codes[0].amount.value
+    const pagSeguroBoleto_: any = pagSeguroBoletoJSON
+    const [pagSeguroBoleto,] = useState<TPagSeguroBoleto>(pagSeguroBoleto_);
+    const [boletoPagSeguro, setBoletoPagSeguro] = useState<any>(boletoRequestJSON);
+    const barCodeBoleto = boletoPagSeguro.charges[0].payment_method.boleto.barcode
+    const barCodeBoletoFormated = boletoPagSeguro.charges[0].payment_method.boleto.formatted_barcode
+
 
     const msgPay = 'Sem compras para pagar'
 
     useEffect(() => {
         const getSale = () => {
             const store_sale = localStorage.getItem('sl');
-            if (store_sale){
+            if (store_sale) {
                 const res = JSON.parse(store_sale)
                 setSale(res)
-        handleInstallments(res, 'Pix/Boleto', "Aguardando Pagamento")
+                handleInstallments(res, 'Pix/Boleto', "Aguardando Pagamento")
             }
         };
         getSale()
     }, []);
 
-    function arrayItems(obj: Object | any) {
+    function arrayItems(items: TPagSeguroBoleto | TPagSeguroPix) {
         for (let i = 0; sale.itens.length > i; i++) {
-            const items = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
-            items.reference_id = sale.itens[i].item
-            items.name = sale.itens[i].descric
-            items.quantity = sale.itens[i].amount
-            items.unit_amount = sale.itens[i].valor.replace(/[.]/g, '')
-            obj.items.push(items)
+            const item: TPagSeguroItems = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
+            item.reference_id = sale.itens[i].item
+            item.name = sale.itens[i].descric
+            item.quantity = sale.itens[i].amount
+            item.unit_amount = sale.itens[i].valor.replace(/[.]/g, '')
+            items.items.push(item)
         }
     };
 
-    function getPagSeguro(obj: any) {
-        obj.reference_id = sale.user.user_id
-        obj.description = "Compras On-line"
-        obj.customer.name = sale.person.name_pers
-        obj.customer.email = sale.user.user_name
-        obj.customer.tax_id = sale.person.cpf_pers
-        obj.customer.phones[0].number = sale.person.phone_pers.substring(2)
-        obj.customer.phones[0].country = '55'
-        obj.customer.phones[0].area = sale.person.phone_pers.slice(0, -9);
-        obj.customer.phones[0].type = "MOBILE"
-        obj.shipping.address.street = sale.person.address.address_pers
-        obj.shipping.address.number = parseInt(sale.person.address.num_address)
-        obj.shipping.address.complement = null
-        obj.shipping.address.locality = sale.person.address.bairro_pers
-        obj.shipping.address.city = sale.person.address.name_city
-        obj.shipping.address.region_code = sale.person.address.uf
-        obj.shipping.address.country = 'BRA'
-        obj.shipping.address.postal_code = sale.person.address.num_cep.replace(/[..-]/g, '')
-        arrayItems(obj)
+    function getPagSeguro(pagSeguro: TPagSeguroBoleto | TPagSeguroPix) {
+        pagSeguro.reference_id = sale.user.user_id
+        pagSeguro.description = "Compras On-line"
+        pagSeguro.customer.name = sale.person.name_pers
+        pagSeguro.customer.email = sale.user.user_name
+        pagSeguro.customer.tax_id = sale.person.cpf_pers
+        pagSeguro.customer.phones[0].number = sale.person.phone_pers.substring(2)
+        pagSeguro.customer.phones[0].country = '55'
+        pagSeguro.customer.phones[0].area = sale.person.phone_pers.slice(0, -9);
+        pagSeguro.customer.phones[0].type = "MOBILE"
+        pagSeguro.shipping.address.street = sale.person.address.address_pers
+        pagSeguro.shipping.address.number = parseInt(sale.person.address.num_address)
+        pagSeguro.shipping.address.complement = null
+        pagSeguro.shipping.address.locality = sale.person.address.bairro_pers
+        pagSeguro.shipping.address.city = sale.person.address.name_city
+        pagSeguro.shipping.address.region_code = sale.person.address.uf
+        pagSeguro.shipping.address.country = 'BRA'
+        pagSeguro.shipping.address.postal_code = sale.person.address.num_cep.replace(/[..-]/g, '')
+        arrayItems(pagSeguro)
     };
 
     function getPagSeguroPix() {
@@ -160,15 +170,15 @@ export function PagSeguro() {
         }
     };
 
+    async function registerSale() {
+        await api.post('sale_register', sale)
+            .then(response => {
+                const res = response.data
+                setNumNote(res)
+            })
+            .catch(error => setError((JSON.stringify(error))));
+    };
     useEffect(() => {
-        async function registerSale() {
-            await api.post('sale_register', sale)
-                .then(response => {
-                    const res = response.data
-                    setNumNote(res)
-                })
-                .catch(error => setError((JSON.stringify(error))));
-        };
         if (valueQrCode !== 0 || barCodeBoleto !== "")
             if (sendSale === false) {
                 registerSale()
@@ -177,20 +187,8 @@ export function PagSeguro() {
     }, [valueQrCode, barCodeBoleto])
 
     useEffect(() => {
-        function clearSaleStorage() {
-            if (valueQrCode !== 0 || barCodeBoleto !== "") {
-                setTimeout(() => {
-                    localStorage.removeItem('sl');
-                    localStorage.removeItem('i');
-                    localStorage.removeItem('c');
-                    localStorage.removeItem('t');
-                    localStorage.removeItem('s');
-                    localStorage.removeItem('id');
-                }, 2000);
-            }
-        };
-        clearSaleStorage()
-    }, [barCodeBoleto, valueQrCode])
+        clearSaleStorage(numNote)
+    }, [numNote])
 
     return (
         <>
