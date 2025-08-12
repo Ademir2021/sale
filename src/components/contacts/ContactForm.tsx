@@ -18,12 +18,7 @@ export function ContactForm({
     return <>
         <div className="contact-container">
     <form onSubmit={handleSubmit} className="contact-form">
-        <div className="contact-header">
-            <h1>Fale conosco</h1>
-            {/* <dd><b>Telefone:</b> {Globais.phone}</dd> */}
-            {/* <p className="contact-subtitle">Suporte, Garantia, Frete, Dúvidas?</p> */}
-        </div>
-        {/* <label htmlFor="name">Nome</label> */}
+            <label>Fale conosco</label>
         <input
             id="name"
             type="text"
@@ -34,7 +29,6 @@ export function ContactForm({
             onChange={handleChange}
             className="contact-input"
         />
-        {/* <label htmlFor="email">Email</label> */}
         <input
             id="email"
             type="email"
@@ -45,7 +39,6 @@ export function ContactForm({
             onChange={handleChange}
             className="contact-input"
         />
-        {/* <label htmlFor="phone">Telefone</label> */}
         <InputMask
             id="phone"
             mask="(99)99999-9999"
@@ -72,9 +65,9 @@ export function ContactForm({
             type="submit"
             className="contact-button"
         >Enviar</button>
+    <label>Telefone: {Globais.phone}</label>
     </form>
 </div>
 
-        
     </>
 }

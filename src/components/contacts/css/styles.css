@@ -12,7 +12,8 @@
     font-weight: 500;
     margin-top: 15px;
     display: block;
-    color: #333;
+    /* color: #333; */
+    color: #007bff;
 }
 
 .contact-input,
@@ -55,11 +56,6 @@
     background-color: #0056b3;
 }
 
-.contact-header h1 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-    color: #007bff;
-}
 
 .contact-subtitle {
     color: #666;

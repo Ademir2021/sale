@@ -55,6 +55,7 @@ export function PagCredLojaForm({
         <div className="form">
               <a href="invoice_sales">{<Icon.X size={18} color="gray" />}</a>
             <label>Crediário Loja</label>
+            <p>Compra sujeita a aprovação do crediário! Caso seja sua primeira compra utilize pagamento com cartão, ou entre em <a href="contact">Contato</a> para detalhes sobre.</p>
             {dinheiro > 0 || duplicatas.length > 0 && <label>Forma de pagamento</label>}
             {dinheiro > 0 && <dd><label>Em dinheiro </label>{currencyFormat(dinheiro)}</dd>}
             {duplicatas.length > 0 && <label>Crediario Loja</label>}
