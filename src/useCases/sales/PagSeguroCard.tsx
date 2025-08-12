@@ -7,7 +7,7 @@ import { TCard, TPagSeguroItems, TPagSeguroCard } from "./type/TPagSeguroCard";
 import { TPagSeguroRequest } from "./type/TPagSeguroRequest";
 import saleJSON from "./JSON/sale.json"
 import pagSeguroCardJSON from "./JSON/pagSeguroCard.json"
-import pagSeguroRequestJSON from "./JSON/pagSeguroRequest.json"
+// import pagSeguroRequestJSON from "./JSON/pagSeguroRequest.json"
 import api from './../../services/api/api';
 
 // Adiciona a definição de PagSeguro ao tipo Window
