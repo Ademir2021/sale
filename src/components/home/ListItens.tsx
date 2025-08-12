@@ -1,4 +1,4 @@
-import { checksUserLogged } from '../utils/checksUserLogged/ChecksUserLogged';
+// import { checksUserLogged } from '../utils/checksUserLogged/ChecksUserLogged';
 
 import './css/list-itens.css'
 
@@ -26,14 +26,10 @@ export function ListItens(props: Props) {
                 <ul>
                     <li><b>Item</b> {props.id}</li>
                     <li>{props.descric}</li>
-                    <div style={{color:'gray'}}>
-                    {<li><b>{props.amount}</b> <i>{props.unMed} no Carrinho</i></li>}
-                    </div>
                     <li><b>Marca</b> {props.brand}</li>
                     <li><b>Setor</b> {props.sector}</li>
-                    {checksUserLogged() !== undefined ? <li><b>R$</b> {props.valor}</li> : null}
+                    <li><b>R$</b> {props.valor}</li>
                 </ul>
-                {checksUserLogged() !== undefined ?
                     < select onChange={props.selectAmount}
                     ><option>{"Quant: 1"}</option>
                         <option>{2}</option>
@@ -45,11 +41,11 @@ export function ListItens(props: Props) {
                         <option>{8}</option>
                         <option>{9}</option>
                         <option>{10}</option>
-                    </select> : null}
-                {checksUserLogged() !== undefined ? <div className='mb-1'><a href='pe'>Ir para o Carrinho</a></div> : null}
-                {checksUserLogged() !== undefined ? <button className='btn btn-primary mb-2' onClick={() =>
-                    props.handleItem(props.itemParameter)}>Comprar</button> : <button className='btn btn-primary mb-2'
-                        onClick={() => { window.location.replace("/pe") }}>Ver Preço</button>}
+                    </select>
+                      <label><b>{props.amount}</b> {props.unMed} no Carrinho</label>
+                      <a href='pe'>Ir para o Carrinho</a>
+                <button  className='m-2' onClick={() =>
+                    props.handleItem(props.itemParameter)}>Comprar</button>
             </div>
         </div>
     )

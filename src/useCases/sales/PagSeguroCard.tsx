@@ -20,7 +20,7 @@ declare global {
 export function PagSeguroCard() {
 
     const [flagSales, setFlagSales] = useState<boolean>(false);
-    const [err, setErr] = useState<string | any>('')
+    const [err, setErr] = useState('')
     const [paidSucess, setPaidSucess] = useState("")
 
     const [publicKey, setPublicKey] = useState({ public_key: "", created_at: "" })

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import  { useContext } from 'react'
+import { useContext } from 'react'
 import { Home } from "./useCases/home/Home";
 import { DashboardDefault } from "./useCases/dashboard/DashboardDefault";
 import { ItenStore } from "./useCases/dashboard/iItenStore";
@@ -50,7 +50,7 @@ export function AppRoutes() {
         }
         return children
     }
-    
+
     return (
         <Router>
             <AuthProvider>
@@ -60,8 +60,8 @@ export function AppRoutes() {
                     <Route path="/logout" Component={Logout} />
                     <Route path="/contact" Component={Contacts} />
                     <Route path="/cookies" Component={CookieWarnings} />
+                    <Route path="/pe" Component={ItenStore} />
                     <Route path="/dashboardefault" element={<Private><DashboardDefault /></Private>} />
-                    <Route path="/pe" element={<Private><ItenStore /></Private>} />
                     <Route path="/users_list" element={<Private><UsersList /></Private>} />
                     <Route path="/invoice_sales" element={<Private><InvoiceSales /></Private>} />
                     <Route path="/pagseguro" element={<Private><PagSeguro /></Private>} />
@@ -86,8 +86,8 @@ export function AppRoutes() {
                     <Route path="/contas_pagar" element={<Private><ContasAPagar /></Private>} />
                     <Route path="/contas_pagar_register" element={<Private><ContasAPagarRegister /></Private>} />
                     <Route path="/pagar_valor" element={<Private><PagarValor /></Private>} />
-                    <Route path="/recibo_val_rec" element={<Private><ReciboValRc/></Private>} />
-                    <Route path="nfe" element={<Private><HandleNFe/></Private>}/>
+                    <Route path="/recibo_val_rec" element={<Private><ReciboValRc /></Private>} />
+                    <Route path="nfe" element={<Private><HandleNFe /></Private>} />
                     <Route path="*" Component={Error404} />
                 </Routes>
             </AuthProvider>
