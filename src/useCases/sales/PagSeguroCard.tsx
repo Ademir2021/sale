@@ -44,7 +44,7 @@ export function PagSeguroCard() {
     const [paid, setPaid] = useState(0)
     const [payResponseCode, setPayResponseCode] = useState('')
     const [payResponseMessage, setPayResponseMessage] = useState('')
-    const [payResponseIdCharge, setPayResponseIdCharge]= useState('')
+    const [payResponseIdCharge, setPayResponseIdCharge] = useState('')
 
 
     const msgPay = 'Sem compras para pagar'
@@ -68,7 +68,7 @@ export function PagSeguroCard() {
             }
         };
         getSale()
-    }, []);
+    }, [payResponseIdCharge]);
 
     function getPagSeguroArrayItems(items: TPagSeguroCard) {
         items.items = []
@@ -185,6 +185,9 @@ export function PagSeguroCard() {
             setErr('ErroEncryptCard: ' + err)
         }
     };
+    useEffect(() => {
+        setErr(payResponseMessage)
+    }, [payResponseMessage])
 
     async function registerSale() {
         await api.post('sale_register', sale)
@@ -200,7 +203,7 @@ export function PagSeguroCard() {
         if (paySale !== 0) {
             if (paid === 0 || payResponseCode !== "20000") {
                 if (card.public_key) {
-                   sdkPagSeguro() // criptografa cartão
+                    sdkPagSeguro() // criptografa cartão
                 }
             }
         } else {
@@ -213,7 +216,7 @@ export function PagSeguroCard() {
     }, [paid, flagSales])
 
     return <>
-        {/* <>{JSON.stringify(payResponseCode)}</> */}
+        {/* <>{JSON.stringify(pagSeguroRequest)}</> */}
         <PagSeguroCardForm
             handleSubmit={handleSubmitCard}
             handleChange={handleChange}

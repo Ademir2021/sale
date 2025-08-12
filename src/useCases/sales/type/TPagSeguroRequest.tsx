@@ -22,23 +22,6 @@ export type TPagSeguroRequest = {
                 reference: string
             },
         }
-    ],
-    error_messages: [
-        {
-            code: string
-            description: string
-            parameter_name: string
-        }
     ]
 }
 
-export type TError = {
-    error_messages: [
-        {
-            code: string
-            error: string
-            description: string
-            parameter_name: string
-        }
-    ]
-}
