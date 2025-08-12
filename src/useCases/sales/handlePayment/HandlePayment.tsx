@@ -2,12 +2,11 @@ import moment from "moment";
 import { TContaAreceber } from "../../contasAReceber/type/TContasAReceber";
 import { TSale } from "../type/TSale";
 
-export function clearSaleStorage(paid: number, flagSales: boolean) {
-    if (paid !== 0 && flagSales === true) {
+export function clearSaleStorage(numNote: number) {
+    if (numNote !== 0) {
         setTimeout(() => {
             localStorage.removeItem('sl');
             localStorage.removeItem('i');
-            localStorage.removeItem('p');
             localStorage.removeItem('c');
             localStorage.removeItem('t');
             localStorage.removeItem('s');
@@ -34,7 +33,7 @@ const setPrazo = (i: number) => {
     return prazo
 }
 
-export function handleInstallments(sale:TSale, cred:string, holder_id:string) {
+export function handleInstallments(sale: TSale, cred: string, holder_id: string) {
     const installments = parseInt(sale.installments)
     let pay = parseFloat(sale.paySale) - sale.dinheiro - parseFloat(sale.disc_sale)
     sale.dinheiro = parseFloat(sale.dinheiro)

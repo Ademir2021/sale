@@ -182,7 +182,6 @@ export function PagSeguro() {
                 setTimeout(() => {
                     localStorage.removeItem('sl');
                     localStorage.removeItem('i');
-                    localStorage.removeItem('p');
                     localStorage.removeItem('c');
                     localStorage.removeItem('t');
                     localStorage.removeItem('s');

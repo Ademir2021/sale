@@ -39,8 +39,8 @@ export function PagSeguroCard() {
     const pagSeguroCard_: any = pagSeguroCardJSON
     const [pagSeguroCard, setPagSeguroCard] = useState<TPagSeguroCard>(pagSeguroCard_);
 
-    const pagSeguroRequest_: any = pagSeguroRequestJSON
-    const [pagSeguroRequest, setPagSeguroRequest] = useState<TPagSeguroRequest>(pagSeguroRequest_)
+    // const pagSeguroRequest_: any = pagSeguroRequestJSON
+    // const [pagSeguroRequest, setPagSeguroRequest] = useState<TPagSeguroRequest>(pagSeguroRequest_)
     const [paid, setPaid] = useState(0)
     const [payResponseCode, setPayResponseCode] = useState('')
     const [payResponseMessage, setPayResponseMessage] = useState('')
@@ -127,10 +127,7 @@ export function PagSeguroCard() {
 
     useEffect(() => {
         if (paid !== 0 || payResponseCode === "20000" && flagSales === false) {
-            setPaidSucess(msgSucess)
-        }
-        if (paid !== 0 || payResponseCode === "20000" && flagSales === false) {
-            registerSale() // Se paid for maior que 0 gera a venda.
+            registerSale() // Gerar a Venda
             setFlagSales(true)
         }
     }, [paid, payResponseCode, flagSales])
@@ -139,7 +136,7 @@ export function PagSeguroCard() {
         try {
             const response = await api.post<TPagSeguroRequest>("card", pagSeguroCard)
             const res: TPagSeguroRequest = response.data
-            setPagSeguroRequest(res)
+            // setPagSeguroRequest(res)
             if (res.charges) {
                 setPaid(res.charges[0].amount.summary.paid)
                 setPayResponseCode(res.charges[0].payment_response.code)
@@ -178,7 +175,7 @@ export function PagSeguroCard() {
                 if (paid !== 0 || payResponseCode === "20000") {
                     setErr("Cartão Aceito")
                 } else {
-                    setErr(payResponseMessage)
+                    setErr(payResponseMessage || "Erro: Verifique os dados")
                 }
             }
         } catch (err: unknown) {
@@ -190,13 +187,17 @@ export function PagSeguroCard() {
     }, [payResponseMessage])
 
     async function registerSale() {
-        await api.post('sale_register', sale)
+        await api.post<number>('sale_register', sale)
             .then(response => {
-                const res = response.data
-                setNumNote(res)
+                setNumNote(response.data)
+                setPaidSucess(msgSucess)
             })
             .catch(error => console.log(error));
     };
+
+    useEffect(() => {
+        clearSaleStorage(numNote)
+    }, [numNote])
 
     const handleSubmitCard = (e: Event) => {
         e.preventDefault();
@@ -210,10 +211,6 @@ export function PagSeguroCard() {
             setErr(msgPay)
         }
     }
-
-    useEffect(() => {
-        clearSaleStorage(paid, flagSales)
-    }, [paid, flagSales])
 
     return <>
         {/* <>{JSON.stringify(pagSeguroRequest)}</> */}
