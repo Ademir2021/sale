@@ -67,10 +67,6 @@ a:hover {
 
 #header-channel {
     display: flex;
-    justify-content: center;
-    margin: 1%;
-    width: 100%;
-    height: auto;
     font-size: 14px;
     line-height: 28px;
 }
@@ -92,20 +88,20 @@ a:hover {
 #header-channel-left {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    text-align: auto;
     width: 100%;
 }
 
 #header-channel-center {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    text-align: auto;
     width: 100%;
 }
 
 #header-channel-right {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    text-align: auto;
     width: 100%;
 }

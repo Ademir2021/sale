@@ -3,6 +3,10 @@ import { Globais } from "../globais/Globais"
 import { Waiting } from "../utils/waiting/Waiting"
 import { FormatDate } from '../utils/formatDate/index';
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
+import { Dashboard } from "../../useCases/dashboard/Dashboard";
+import { handleTokenMessage } from "../../services/handleEnsureAuth";
+import { CloseX } from "../utils/closeX/CloseX";
+
 
 type Props = {
     sales: TSaleList[]
@@ -12,16 +16,24 @@ type Props = {
     setInt: Function
     setEnd: Function
     searchHandle: React.FormEventHandler<HTMLFormElement>
+    filteredSales: any
+    setFilteredSales: Function
+    tokenMessage: string
 }
 
 export function SalesList({
     sales, msg, int, setInt,
-    searchHandle, end, setEnd }: Props) {
+    searchHandle, end, setEnd, filteredSales,
+    setFilteredSales, tokenMessage }: Props) {
 
     const NFeStatus = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
 
     const form_ = <form onSubmit={searchHandle} className="form-container">
+        <CloseX/>
+        <div>Notas de Vendas</div>
+        <div>{handleTokenMessage('list_sale', tokenMessage)}</div>
         <div className="input-group">
+            {sales.length === 0 && <Waiting waiting="Aguardando Notas ..." />}
             <label htmlFor="data-inicial">Data Inicial</label>
             <input
                 id="data-inicial"
@@ -72,11 +84,16 @@ export function SalesList({
             <th>Imprimir</th>
         </tr>
     </thead>
+
     return <>
+        <Dashboard />
         {sales.length < 1 && form_}
         <div className="table-container">
+            {filteredSales.length > 0 && <a href="##"
+                onClick={() => { setFilteredSales([]) }}
+            >Limpar busca</a>}
             <table className='table'>
-                {sales.length === 0 ? <Waiting waiting="Aguardando Notas" /> : thead}
+                {sales.length > 0 && thead}
                 {sales.length > 0 && tbody}
             </table>
         </div>

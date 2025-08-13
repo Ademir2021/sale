@@ -34,27 +34,26 @@ export function FooterHome() {
 
                 <p>Loja on-line. Fácil de comprar, Rapidez e segurança em suas compras</p>
 
-                <b>Canais para acesso Rápido</b>
+                <b>Canais para acesso rápido</b>
                 <div id='header-channel'>
                 <div id='header-channel-left'>
-                        <b id='header-channel-title'>Compras</b>
-                        <a href='pe'>Carrinho de compras</a>
-                        <a href='invoice_sales'>Finalizar compras</a>
-                        <a href='contact'>Garantia dúvidas</a>
+                        <label id='header-channel-title'>{'[ + Comprar ]'}</label>
+                        <a href='pe'>Carrinho</a>
+                        <a href='invoice_sales'>Finalizar Compras</a>
+                        <a href='contact'>Garantias, Fretes</a>
                     </div>
                     <div id='header-channel-center'>
-                    <b id='header-channel-title'>Pagamento</b>
+                    <label id='header-channel-title'>{'[ + Formas para Pagar ]'}</label>
                         <a href='pagsegurocard'>Cartão de crédito</a>
                         <a href='pagcredloja'>Crediário loja</a>
-                        <a href='pagseguro'>PIX</a>
-                        <a href='pagseguro'>Boleto</a>
+                        <a href='pagseguro'>PIX, Boletos</a>
                     </div>
                     <div id='header-channel-right'>
-                    <b id='header-channel-title'>Canais</b>
-                        <a href='sale'>PDV de compras</a>
-                        <a href={"contact"}>Fale conosco</a>
-                        <a href='login'>Sua conta</a>
-                        <a href='contacts_list'>Posts</a>
+                    <label id='header-channel-title'>{ '[ + Miscelâneas ]'}</label>
+                        <a href='sale'>ChecKout de Compras</a>
+                        <a href={"contact"}>Fale Conosco</a>
+                        <a href='login'>Sua Conta</a>
+                        <a href='contacts_list'>Seus Posts</a>
                     </div>
              
                 </div>

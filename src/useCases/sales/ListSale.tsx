@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
 import { SalesList } from "../../components/sales/SaleList";
-import { Dashboard } from "../dashboard/Dashboard";
+// import { Dashboard } from "../dashboard/Dashboard";
 import { AuthContext } from '../../context/auth'
 import { postAuthHandle } from "../../services/handleService";
 import { TSaleList } from "./type/TSale";
-import { handleTokenMessage } from "../../services/handleEnsureAuth";
+// import { handleTokenMessage } from "../../services/handleEnsureAuth";
 
 export function ListSales() {
   const [created_int, setInt] = useState('');
@@ -47,24 +47,15 @@ export function ListSales() {
     }
   };
 
-  return (
-    <>
-      <Dashboard />
-      <h1 className="text-center">Listar de notas por período</h1>
-      <p className="text-center">
-        {filteredSales.length > 0 && <a href="##"
-        onClick={() => { setFilteredSales([]) }}
-      >Limpar busca</a>}
-        </p>
-      {handleTokenMessage('list_sale', tokenMessage)}
-      <SalesList
-        int={created_int}
-        setInt={setInt}
-        end={created_end}
-        setEnd={setEnd}
-        searchHandle={searchSales}
-        msg={msg}
-        sales={filteredSales} />
-    </>
-  );
+  return <> <SalesList
+    filteredSales={filteredSales}
+    setFilteredSales={setFilteredSales}
+    int={created_int}
+    setInt={setInt}
+    end={created_end}
+    setEnd={setEnd}
+    searchHandle={searchSales}
+    msg={msg}
+    sales={filteredSales}
+    tokenMessage={tokenMessage}/></>
 }
