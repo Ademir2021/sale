@@ -53,7 +53,7 @@ html, body {
 
 .visib-pass{
   position: relative;
-  top: 4vh;
-  left: 44vh;
+  top: 24px;
+  left: 90%;
   margin: -16px;
 }
