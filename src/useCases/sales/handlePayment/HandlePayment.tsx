@@ -5,13 +5,13 @@ import { TSale } from "../type/TSale";
 export function clearSaleStorage(numNote: number) {
     if (numNote !== 0) {
         setTimeout(() => {
-            localStorage.removeItem('sl');
-            localStorage.removeItem('i');
-            localStorage.removeItem('c');
-            localStorage.removeItem('t');
-            localStorage.removeItem('s');
-            localStorage.removeItem('id');
-        }, 2000);
+            localStorage.removeItem('sl')
+            localStorage.removeItem('i')
+            localStorage.removeItem('c')
+            localStorage.removeItem('t')
+            localStorage.removeItem('s')
+            localStorage.removeItem('id')
+        }, 2000)
     }
 };
 

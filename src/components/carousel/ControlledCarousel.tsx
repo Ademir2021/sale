@@ -38,6 +38,12 @@ function ControlledCarousel() {
            <img src='img/carousel/banner_lan.png'/>
             </div></a>
       </Carousel.Item>
+       <Carousel.Item interval={800}>
+        <a href='form_person'>
+          <div>
+           <img src='img/carousel/banner_compre_aqui.png'/>
+            </div></a>
+      </Carousel.Item>
       {/* <Carousel.Caption>
 </Carousel.Caption> */}
     </Carousel>
