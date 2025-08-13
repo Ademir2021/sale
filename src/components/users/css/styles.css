@@ -50,3 +50,10 @@ html, body {
 .login-container button:hover {
   background-color: #2980b9;
 }
+
+.visib-pass{
+  position: relative;
+  top: 4vh;
+  left: 44vh;
+  margin: -16px;
+}

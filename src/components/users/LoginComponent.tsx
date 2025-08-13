@@ -26,6 +26,13 @@ const LoginComponent: React.FC<Props> = ({
 
     const { user }: any = useContext(AuthContext);
 
+    const [eyeSlashPass_, setEyeSlashPass] = useState(false)
+    const [eyeSlashPassRep_, setEyeSlashPassRep] = useState(false)
+    const eyeSlashPass = <a href="##" onClick={()=>{setEyeSlashPass(true)}} className="visib-pass">{<Icon.EyeSlash size={32} />}</a>
+    const eyePass = <a href="##" onClick={()=>{setEyeSlashPass(false)}} className="visib-pass">{<Icon.Eye size={32} />}</a>
+    const eyeSlashPassRep = <a href="##"  onClick={()=>{setEyeSlashPassRep(true)}} className="visib-pass">{<Icon.EyeSlash size={32} />}</a>
+    const eyePassRep = <a href="##"  onClick={()=>{setEyeSlashPassRep(false)}} className="visib-pass">{<Icon.Eye size={32} />}</a>
+
     const clearFieldsLogin = () => {
         if (Array.isArray(user) && user.length > 0) {
             setLoginRegister(true)
@@ -67,7 +74,7 @@ const LoginComponent: React.FC<Props> = ({
     return <>
         <div className="login-wrapper">
             <div className="login-container">
-                <CloseX/>
+                <CloseX />
                 <h2>{loginRegister ? "Seja bem vindo(a)" : "Bem vindo(a) de volta"}</h2>
                 {children.id === 0 ? <>{!loginRecover ? <p>{loginRegister ? "Registrar a minha conta" :
                     "Entrar na minha conta"}</p> : <p>Digite um Email válido!</p>}</> : <p>Atualizar Conta</p>}
@@ -88,16 +95,20 @@ const LoginComponent: React.FC<Props> = ({
                         required
                         onChange={handleChange}
                     />
-                    {!loginRecover && <> <input
-                        type="password"
+                    {!loginRecover && <> 
+                    {eyeSlashPass_ ? eyePass : eyeSlashPass}
+                    <input
+                        type={eyeSlashPass_ ? "text": "password"}
                         placeholder="Senha"
-                        name="password"
+                        name={"password"}
                         value={children.password || ''}
                         required
                         onChange={handleChange}
                     />
-                        {loginRegister && <> <input
-                            type="password"
+                        {loginRegister && <>
+                        {eyeSlashPassRep_ ? eyePassRep : eyeSlashPassRep}
+                        <input
+                            type={eyeSlashPassRep_ ? "text" : "password"}
                             placeholder="Confirme a senha"
                             name="repeatPass"
                             value={children.repeatPass || ''}
