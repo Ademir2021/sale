@@ -24,11 +24,11 @@ export function ListItens(props: Props) {
             <div className='main-itens'>
                 <img className='itens-img' src={props.item_img} alt="Aguardando Item !"></img>
                 <ul>
-                    <li><b>Item</b> {props.id}</li>
-                    <li>{props.descric}</li>
-                    <li><b>Marca</b> {props.brand}</li>
-                    <li><b>Setor</b> {props.sector}</li>
-                    <li><b>R$</b> {props.valor}</li>
+                    <div><b>SKU</b> {String(props.id).padStart(8, '0')}</div>
+                    <div>{props.descric}</div>
+                    <div><b>Marca</b> {props.brand}</div>
+                    <div><b>Setor</b> {props.sector}</div>
+                    <div><b>R$</b> {props.valor}</div>
                 </ul>
                     < select onChange={props.selectAmount}
                     ><option>{"Quant: 1"}</option>
