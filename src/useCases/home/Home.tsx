@@ -206,7 +206,7 @@ export function Home() {
                 counter={counter !== 0 ? counter : 0}
                 subtotal={subtotal === 0 ? '' : currencyFormat(subtotal)}
             />
-            <NavBar />
+            
             <SearchItens
                 selectSector={(e: { target: { value: SetStateAction<string> } }) => setSelectSector(e.target.value)}
                 sectors={sectors}

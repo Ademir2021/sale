@@ -1,6 +1,7 @@
 import * as Icon from 'phosphor-react';
 
 import './css/header.css'
+import { NavBar } from '../navbar/Navbar';
 
 type Props = {
     counter: string | number
@@ -8,7 +9,8 @@ type Props = {
 }
 
 export function Header(props: Props) {
-    return <> <div className='header'>
+    return <>
+     <div className='header'>
         <a href='pe' className='header-car' >
             {props.counter}
             {<Icon.ShoppingCart size={32} />}Carrinho</a>
@@ -18,5 +20,9 @@ export function Header(props: Props) {
             {<Icon.PhoneCall size={32} />}Contato</a>}
         {<a href='contact' className='header-frete'>
             {<Icon.Package size={32} />}Entrega</a>}
-    </div> </>
+    </div>
+    <div className='header-navbar'>
+    <NavBar/>
+    </div>
+    </>
 }

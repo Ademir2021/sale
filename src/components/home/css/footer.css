@@ -4,7 +4,7 @@ p a {
 
 footer {
     /* background-color: rgb(247, 245, 245); */
-    color:black;
+    color: black;
     padding: 2%;
     /* border-radius: 3px; */
 }
@@ -20,10 +20,14 @@ a:hover {
 }
 
 .social-icons:hover {
-  margin-top: -16px;
+    margin-top: -16px;
 }
 
 .btn-top {
+    overflow: hidden;
+    position: fixed;
+    top: 70%;
+    left: 90%;
     width: 36px;
     height: 36px;
     float: right;
@@ -65,43 +69,31 @@ a:hover {
     background-color: white;
 }
 
-#header-channel {
-    display: flex;
-    font-size: 14px;
-    line-height: 28px;
-}
-@media screen and (max-width:768px) {
-    #header-channel {
-        font-size: 12px;
-    }
+.menu-footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f8f8f8;
+  padding: 10px 12px;
+  border-top: 1px solid #ccc;
+  flex-wrap: wrap; /* para responsividade */
 }
 
-#header-channel-title{
-    margin-bottom:-1%;
-}
-@media screen and (max-width:768px){
-#header-channel-title{
-    font-size: 14px
-}
-}
-
-#header-channel-left {
-    display: flex;
-    flex-direction: column;
-    text-align: auto;
-    width: 100%;
+.menu-footer-column {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1px;
+  min-width: 1px;
+  text-align: left;
 }
 
-#header-channel-center {
-    display: flex;
-    flex-direction: column;
-    text-align: auto;
-    width: 100%;
+.menu-footer-column a {
+  color: #333;
+  text-decoration: none;
+  margin-bottom: 8px;
+  font-size: 12px;
+  transition: color 0.3s ease;
 }
 
-#header-channel-right {
-    display: flex;
-    flex-direction: column;
-    text-align: auto;
-    width: 100%;
+.menu-footer-column a:hover {
+  color: #007bff;
 }

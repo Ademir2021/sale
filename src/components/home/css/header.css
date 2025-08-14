@@ -2,15 +2,27 @@
     --main-white-color:rgb(197, 197, 197);
     --font-size:16px;
 }
-.header{
+.header {
     display: flex;
-    padding: 4px;
-    gap: 3%;
     align-items: center;
     justify-content: left;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    margin-top: -33px;
+    padding: 4px;
+    gap: 3%;
     background-color: rgb(75, 71, 71);
+
 }
-/* @media screen and (max-width:768px) {} */
+@media screen and (max-width:768px) {
+     .header {
+          top: 33px;
+     }
+}
+.header-navbar{
+    margin-top: 5vh;
+}
 .header-car {
     font-size: var(--font-size);
     color:var(--main-white-color);
@@ -37,3 +49,4 @@
 .header-frete:hover{
     color: gray;
 }
+
