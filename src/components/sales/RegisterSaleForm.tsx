@@ -91,9 +91,9 @@ export function RegisterSaleForm({
         {msg && <label>{msg}</label>}
         <a href='##' className='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</a>
         <a href='##' className='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</a>
-        <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' />}</a>
-        {totalItens && <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' />}</a>}
-            {totalItens && <a href='##' className='m-2' onClick={clearItensStore}>{<Icon.X size={18} color='red' />}</a>}
+        <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' alt='Importar Carrinho' />}</a>
+        {totalItens && <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' alt='Remover Item' />}</a>}
+            {totalItens && <a href='##' className='m-2' onClick={clearItensStore}>{<Icon.ArrowSquareOut size={18} color='red' alt='Esvaziar Carrinho' />}</a>}
       </div>
       <div className='text-center p-1'>{loadItens}</div>
     </>
