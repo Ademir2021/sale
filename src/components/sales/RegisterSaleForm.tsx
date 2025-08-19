@@ -22,6 +22,7 @@ type Props = {
   totalItens: number | any;
   item_img: string;
   msg: string
+  clearItensStore:any
 }
 
 export function RegisterSaleForm({
@@ -38,7 +39,8 @@ export function RegisterSaleForm({
   loadItens,
   totalItens,
   item_img,
-  msg
+  msg,
+  clearItensStore
 }: Props) {
   const val_items = <div>
     <b>Valor Unitário: </b>
@@ -91,6 +93,7 @@ export function RegisterSaleForm({
         <a href='##' className='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</a>
         <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' />}</a>
         {totalItens && <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' />}</a>}
+            {totalItens && <a href='##' className='m-2' onClick={clearItensStore}>{<Icon.X size={18} color='red' />}</a>}
       </div>
       <div className='text-center p-1'>{loadItens}</div>
     </>

@@ -208,14 +208,28 @@ export function RegisterSale() {
                 itens.push(itemStorage);
                 setItens(itens)
                 const res_id = localStorage.getItem('id');
-                if(res_id)
-                setId(JSON.parse(res_id))
+                if (res_id)
+                    setId(JSON.parse(res_id))
             }
         }
     };
     useEffect(() => {
         itensStore()
     }, []);
+
+    const clearItensStore = () => {
+        if (window.confirm("Deseja Esvaziar o Carrinho ?")) {
+            localStorage.removeItem('sl')
+            localStorage.removeItem('i')
+            localStorage.removeItem('t')
+            localStorage.removeItem('c')
+            localStorage.removeItem('s')
+            setItens([])
+            setTotalItens(0)
+        } else {
+            return
+        }
+    }
 
     return (
         <>
@@ -224,6 +238,7 @@ export function RegisterSale() {
                 handleSaveUpdate={handleSaveUpdate}
                 handleSubmit={handleSubmit}
                 handleDelete={handleDelete}
+                clearItensStore={clearItensStore}
                 handleSearchItem={searchItem}
                 products={products}
                 item={(product.descric)}
