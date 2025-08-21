@@ -25,7 +25,7 @@ export function FooterHome() {
             </p>
             <p>
                 <dd>Siga-nos !</dd>
-                <a target="_blank" href="https://www.facebook.com/profile.php?id=61568577861214&sk=about"><img className="social-icons" src="img/social/facebook.ico" alt='Icon Facebook'></img></a>
+                <a target="_blank" href="https://www.facebook.com/profile.php?id=61568577861214"><img className="social-icons" src="img/social/facebook.ico" alt='Icon Facebook'></img></a>
                 <a target="_blank" href='https://www.instagram.com/centroinfo_dev/'><img className="social-icons" src="img//social//instagram.ico" alt='Icon Intagram'></img></a>
                 <a target="_blank" href="https://linkedin.com/in/ademir-dev"><img className="social-icons" src="img//social//linkedin.png"></img></a>
                 <a target="_blank" href="https://github.com/Ademir2021"><img className="social-icons" src="img//social//github.ico" alt='Icon Github'></img></a>
