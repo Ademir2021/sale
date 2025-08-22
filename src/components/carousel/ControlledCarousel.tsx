@@ -18,43 +18,55 @@ function ControlledCarousel() {
       onSelect={handleSelect}>
       <Carousel.Item interval={800}>
         <a href='form_person'><div>
-          <img src='img/carousel/banner_ubiquiti.png'/>
-          </div></a>
+          <img src='img/carousel/banner_ubiquiti.png' />
+        </div></a>
       </Carousel.Item>
       <Carousel.Item interval={800}>
         <a href='form_person'><div>
-           <img src='img/carousel/banner_century.png'/>
+          <img src='img/carousel/banner_century.png' />
+        </div></a>
+      </Carousel.Item>
+      <Carousel.Item interval={800}>
+        <a href='form_person'>
+          <div>
+            <img src='img/carousel/banner_cftv.png' />
           </div></a>
       </Carousel.Item>
       <Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
-           <img src='img/carousel/banner_cftv.png'/>
-            </div></a>
+            <img src='img/carousel/banner_lan.png' />
+          </div></a>
       </Carousel.Item>
-       <Carousel.Item interval={800}>
+      <Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
-           <img src='img/carousel/banner_lan.png'/>
-            </div></a>
+            <img src='img/carousel/banner_compre_aqui.png' />
+          </div></a>
       </Carousel.Item>
-       <Carousel.Item interval={800}>
+      <Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
-           <img src='img/carousel/banner_compre_aqui.png'/>
-            </div></a>
+            <img src='img/carousel/banner_kits_ants_parabol.png' />
+          </div></a>
       </Carousel.Item>
-       <Carousel.Item interval={800}>
+      <Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
-           <img src='img/carousel/banner_kits_ants_parabol.png'/>
-            </div></a>
+            <img src='img/carousel/banner1_maria.png' />
+          </div></a>
       </Carousel.Item>
-             <Carousel.Item interval={800}>
+            <Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
-           <img src='img/carousel/banner1_maria.png'/>
-            </div></a>
+            <img src='img/carousel/banner1_smart_tv_pro.png' />
+          </div></a>
+      </Carousel.Item>
+                  <Carousel.Item interval={800}>
+        <a href='form_person'>
+          <div>
+            <img src='img/carousel/banner1_vibe.png' />
+          </div></a>
       </Carousel.Item>
       {/* <Carousel.Caption>
 </Carousel.Caption> */}
