@@ -56,16 +56,22 @@ function ControlledCarousel() {
             <img src='img/carousel/banner1_maria.png' />
           </div></a>
       </Carousel.Item>
-            <Carousel.Item interval={800}>
+      <Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
             <img src='img/carousel/banner1_smart_tv_pro.png' />
           </div></a>
       </Carousel.Item>
-                  <Carousel.Item interval={800}>
+      <Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
             <img src='img/carousel/banner1_vibe.png' />
+          </div></a>
+      </Carousel.Item>
+      <Carousel.Item interval={800}>
+        <a href='form_person'>
+          <div>
+            <img src='img/carousel/banner1_tvbox_aquario.png' />
           </div></a>
       </Carousel.Item>
       {/* <Carousel.Caption>
