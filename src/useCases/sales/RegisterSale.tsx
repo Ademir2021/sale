@@ -164,8 +164,8 @@ export function RegisterSale() {
                 setMsg("Informe ao menos um item e clique em salvar !");
             } else {
                 setMsg("Seu pedido será gravado");
-                const itens_store_res = localStorage.getItem('i');
-                if (itens_store_res) {
+                const sale_store = localStorage.getItem('sl');
+                if (!sale_store) {
                     localStorage.setItem("i", JSON.stringify(itens))
                     localStorage.setItem("s", JSON.stringify(sumItens().toFixed(2)));
                     setMsg("Pedido gravado com sucesso")
@@ -173,7 +173,7 @@ export function RegisterSale() {
                         window.location.replace("/invoice_sales");
                     }, 1000);
                 } else {
-                    setMsg("Aguarde retorno! Existe Pedido em Aberto");
+                    setMsg("Aguarde ... ! Existe Venda em Aberto");
                 }
             }
         }
