@@ -12,10 +12,10 @@ import { getList, getListQuery } from '../../services/handleService'
 import api from '../../services/api/api'
 
 type TProdListQuery = {
-    id_product:number
-    descric_product:string
-    fk_brand:number
-    fk_sector:number
+    id_product: number
+    descric_product: string
+    fk_brand: number
+    fk_sector: number
 }
 
 export function Home() {
@@ -54,14 +54,20 @@ export function Home() {
                 await api.post<TProduct[]>('products_list')
                     .then(response => {
                         const resultProducts: TProduct[] = []
+                        const items_remove_services: TProduct[] = []
                         const items: TProduct[] = response.data
                         if (flgItens === false) {
-                            setlistProd(items)
+                            for (let item of items) {
+                                if (item.fk_sector !== 7)
+                                    items_remove_services.push(item)
+                                setlistProd(items_remove_services)
+                            }
                             setFlgItens(true)
                         }
                         for (let item of items) {
-                            if (item.fk_sector === idSector(selectSector)?.id_sector) resultProducts.push(item);
-                            selectSector !== "Todos" ? setProducts(resultProducts) : setProducts(items);
+                            if (item.fk_sector === idSector(selectSector)?.id_sector && item.fk_sector !== 7)
+                                resultProducts.push(item);
+                            selectSector !== "Todos" ? setProducts(resultProducts) : setProducts(items_remove_services);
                         }
                     })
             } catch (err) { console.log("error occurred !" + err) }
@@ -187,17 +193,17 @@ export function Home() {
 
     const [descricProd, setDescricProd] = useState<any>(null)
 
-    const prod:TProdListQuery = {
-        id_product:0,
-        descric_product:descricProd,
-        fk_brand:0,
-        fk_sector:0
+    const prod: TProdListQuery = {
+        id_product: 0,
+        descric_product: descricProd,
+        fk_brand: 0,
+        fk_sector: 0
     }
 
-    function filterItens(e:Event){
+    function filterItens(e: Event) {
         e.preventDefault()
         setlistProd([])
-        getListQuery('product_list_query', setlistProd, {params:prod})
+        getListQuery('product_list_query', setlistProd, { params: prod })
     }
 
     return (
@@ -206,7 +212,7 @@ export function Home() {
                 counter={counter !== 0 ? counter : 0}
                 subtotal={subtotal === 0 ? '' : currencyFormat(subtotal)}
             />
-            
+
             <SearchItens
                 selectSector={(e: { target: { value: SetStateAction<string> } }) => setSelectSector(e.target.value)}
                 sectors={sectors}
@@ -218,13 +224,13 @@ export function Home() {
                 checkSearch={(e: boolean | any) => setCheckSearch(e.target.checked)}
                 checkedSearch={checkSearch}
             />
-            { checkSearch ?
-            <FilterItens
-            onSubmit={filterItens}
-            handleChange={(e: { target: { value: SetStateAction<string> } }) => setDescricProd(e.target.value)}
-            listProd={listProd}
-            />
-            : null }
+            {checkSearch ?
+                <FilterItens
+                    onSubmit={filterItens}
+                    handleChange={(e: { target: { value: SetStateAction<string> } }) => setDescricProd(e.target.value)}
+                    listProd={listProd}
+                />
+                : null}
             {selectSector === "Todos" ? <ControlledCarousel /> : null}
             {(listProd.map((item: TProduct) => (
                 <ListItens
@@ -241,7 +247,7 @@ export function Home() {
                     itemParameter={item}
                     unMed={nameUniMeds(item.fk_un_med)}
                 />
-                
+
             )))}
             <FooterHomePage />
         </>
