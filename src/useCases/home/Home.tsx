@@ -54,20 +54,20 @@ export function Home() {
                 await api.post<TProduct[]>('products_list')
                     .then(response => {
                         const resultProducts: TProduct[] = []
-                        const items_remove_services: TProduct[] = []
+                        const itemsRemoveServices: TProduct[] = []
                         const items: TProduct[] = response.data
                         if (flgItens === false) {
                             for (let item of items) {
                                 if (item.fk_sector !== 7)
-                                    items_remove_services.push(item)
-                                setlistProd(items_remove_services)
+                                    itemsRemoveServices.push(item)
+                                setlistProd(itemsRemoveServices)
                             }
                             setFlgItens(true)
                         }
                         for (let item of items) {
                             if (item.fk_sector === idSector(selectSector)?.id_sector && item.fk_sector !== 7)
                                 resultProducts.push(item);
-                            selectSector !== "Todos" ? setProducts(resultProducts) : setProducts(items_remove_services);
+                            selectSector !== "Todos" ? setProducts(resultProducts) : setProducts(itemsRemoveServices);
                         }
                     })
             } catch (err) { console.log("error occurred !" + err) }
