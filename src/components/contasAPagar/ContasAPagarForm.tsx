@@ -4,7 +4,6 @@ import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 import { handleLinksDir } from "../utils/backHome/BackHome";
 
-import './css/styles.css'
 import '../css/styles-forms.css'
 import { NavBar } from "../navbar/Navbar";
 

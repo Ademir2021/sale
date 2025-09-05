@@ -3,7 +3,6 @@ import InputMask from "react-input-mask";
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 import { TPerson } from "../../useCases/persons/type/TPerson";
 
-import '../css/styles-forms.css'
 
 type Props = {
     children: TPerson

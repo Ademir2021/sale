@@ -11,13 +11,11 @@ export function NotaRecebidaForm({
     handleChange,
     handleSubmit,
 }: Props) {
-    return (
-        <>
+    return <>
         <NavBar/>
-        <div className="container-global">
-            <div className="main-global">
+        <div className="form">
             <div>Lançar Nota de Entrada</div>
-                <div className="main-global-form">
+            
                     <dd>ID do Fornecedor</dd>
                     <input
                         type='number'
@@ -116,12 +114,8 @@ export function NotaRecebidaForm({
                         disabled
                     />
                     <button
-                        className='btn btn-primary'
                         onClick={handleSubmit}
                     >Inserir Dados</button>
                 </div>
-            </div>
-        </div>
         </>
-    )
 }

@@ -2,8 +2,6 @@ import { useState } from "react";
 import InputMask from "react-input-mask";
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 import { TPerson } from "../../useCases/persons/type/TPerson";
-
-import '../css/styles-forms.css'
 import { CloseX } from "../utils/closeX/CloseX";
 
 type Props = {

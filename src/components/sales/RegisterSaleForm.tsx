@@ -4,8 +4,6 @@ import * as Icon from 'phosphor-react';
 import { NavBar } from '../navbar/Navbar';
 
 import '../../index.css'
-import './css/styles.css'
-import '../css/styles-forms.css'
 
 type Props = {
   children: string | number | readonly string[] | undefined | any;

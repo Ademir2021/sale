@@ -4,8 +4,6 @@ import { currencyFormat } from "../utils/currentFormat/CurrentFormat"
 import { HandleFinanceiro } from "../utils/financeiro/HandleFinanceiro"
 import * as Icon from 'phosphor-react';
 
-import '../../index'
-import '../css/styles-forms.css'
 
 type Props = {
     duplicatas: TContaAreceber[]

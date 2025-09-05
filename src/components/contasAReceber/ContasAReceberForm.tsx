@@ -5,9 +5,6 @@ import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged"
 import { handleLinksDir } from "../utils/backHome/BackHome";
 import { NavBar } from "../navbar/Navbar";
 
-import './css/styles.css'
-import '../css/styles-forms.css'
-import '../../index'
 
 type Props = {
     contasAReceber: TContaAreceber[]

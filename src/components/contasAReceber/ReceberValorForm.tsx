@@ -1,9 +1,5 @@
 import { handleLinksDir } from '../utils/backHome/BackHome'
-
-import './css/styles.css'
-import '../css/styles-forms.css'
 import { TValsRecebidos } from '../../useCases/contasAReceber/type/TContasAReceber'
-
 
 type Props = {
     children: TValsRecebidos

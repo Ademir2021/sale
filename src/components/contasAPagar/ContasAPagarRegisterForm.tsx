@@ -1,8 +1,5 @@
 import { handleLinksDir } from '../utils/backHome/BackHome'
 
-import './css/styles.css'
-import '../css/styles-forms.css'
-
 type Props = {
     children: any
     handleSubmit: any
