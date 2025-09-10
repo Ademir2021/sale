@@ -17,6 +17,12 @@ function ControlledCarousel() {
       activeIndex={index}
       onSelect={handleSelect}>
       <Carousel.Item interval={800}>
+        <a href='form_person'>
+          <div>
+            <img src='img/carousel/banner_compre_aqui.png' />
+          </div></a>
+      </Carousel.Item>
+            <Carousel.Item interval={800}>
         <a href='form_person'><div>
           <img src='img/carousel/banner_ubiquiti.png' />
         </div></a>
@@ -36,12 +42,6 @@ function ControlledCarousel() {
         <a href='form_person'>
           <div>
             <img src='img/carousel/banner_lan.png' />
-          </div></a>
-      </Carousel.Item>
-      <Carousel.Item interval={800}>
-        <a href='form_person'>
-          <div>
-            <img src='img/carousel/banner_compre_aqui.png' />
           </div></a>
       </Carousel.Item>
       <Carousel.Item interval={800}>
