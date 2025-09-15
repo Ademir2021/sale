@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 /* Itens do carousel com imagem ajustada */
@@ -11,7 +11,7 @@
   width: 100%;
   height: auto; /* mantém a proporção da imagem */
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 1px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.4s ease;
 }
@@ -45,7 +45,7 @@
 @media (max-width: 768px) {
   .carousel-item img {
     height: auto;
-    border-radius: 8px;
+    border-radius: 0px;
   }
 
   .carousel-control-prev-icon,
