@@ -83,7 +83,7 @@ export function InvoiceSalesForm({
              <p>
             <a href='##' className='m-2' onClick={handleSubmitCard}>{<Icon.CreditCard size={32} color='green' />} Cartão</a>
             <a href='##' className='m-2' onClick={handleSubmit}>{<Icon.QrCode size={32} color='green' />} Pix/Boleto</a>
-            <a href='##' className='m-2' onClick={handleSubmitCred}>{<Icon.Wallet size={32} color='green' />}Crediário</a>
+            <a href='##' className='m-2' onClick={handleSubmitCred}>{<Icon.Wallet size={32} color='green' />}Crediário/Dinheiro</a>
              </p>
             <p>
             <a href='/person_update'>{<Icon.Checks size={32} />} Atualizar Cadastro</a>
