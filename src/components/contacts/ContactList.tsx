@@ -1,5 +1,4 @@
 import ListComponent from '../listComponent/ListComponent';
-import { BackHome } from '../utils/backHome/BackHome';
 import { FormatDate } from '../utils/formatDate/index';
 
 export type Props = {

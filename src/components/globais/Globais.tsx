@@ -43,15 +43,18 @@ const setMonth = () => {
     else if (month === 12)
         return "dez"
 }
+
+const year_open:any = process.env.REACT_APP_YEAR_OPEN
+
 export class Globais {
     static calendar = saudacao + ' ' + day + ' ' + setMonth() + ' ' + year + ' ' + H + ':' + M + ':' + S
     static checksUserLogged = undefined;
     static privilAdmin = '2'
-    static rights_reserved = '2007 | ' + year + ', All rights reserved Centro Informática';
-    static address = 'Avenida Castro Alves 1241, Barbosa Ferraz, PR. CEP 86960-000';
-    static phone = '+55 (44) 98852-1033'
-    static title = 'Centro Informática';
-    static company = "Centro Informática"
+    static rights_reserved = year_open + " " + year + process.env.REACT_APP_RIGHTS_RESERVED
+    static address = process.env.REACT_APP_ADDRESS
+    static phone = process.env.REACT_APP_PHONE
+    static title = process.env.REACT_APP_TITLE
+    static company = process.env.REACT_APP_COMPANY
     static CNPJ =process.env.REACT_APP_CNPJ
     static URL=process.env.REACT_APP_URL
     static API_URL=process.env.REACT_APP_API_URL

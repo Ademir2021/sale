@@ -77,7 +77,6 @@ export function FormPerson() {
 
     return (
         <>
-        {/* <p>{JSON.stringify(person)}</p> */}
             <Dashboard />
             <PersonForm
                 handleSubmit={handleSubmit}
