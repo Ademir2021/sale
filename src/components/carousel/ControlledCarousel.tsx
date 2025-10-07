@@ -6,55 +6,27 @@ import './css/styles.css'
 
 function ControlledCarousel() {
   const [index, setIndex] = useState(0);
+  const res_banners: any = process.env.REACT_APP_BANNERS
+  const banners: [] = JSON.parse(res_banners)
   const handleSelect = (selectedIndex: SetStateAction<number>) => {
     setIndex(selectedIndex);
   };
   return <>
-    <Carousel
+    {banners.length > 0 && <Carousel
       prevIcon={<Icon.CaretDoubleLeft size={32} color='black' />}
       nextIcon={<Icon.CaretDoubleRight size={32} color='black' />}
       variant='' //dark
       activeIndex={index}
       onSelect={handleSelect}>
-      <Carousel.Item interval={800}>
+      {banners.map((banner) => (<Carousel.Item interval={800}>
         <a href='form_person'>
           <div>
-            <img src='img/carousel/banner_compre_aqui.png' />
+            <img src={'img/carousel/' + banner} />
           </div></a>
-      </Carousel.Item>
-      <Carousel.Item interval={800}>
-        <a href='form_person'>
-          <div>
-            <img src='img/carousel/banner_lan.png' />
-          </div></a>
-      </Carousel.Item>
-      <Carousel.Item interval={800}>
-        <a href='form_person'>
-          <div>
-            <img src='img/carousel/banner1_maria.png' />
-          </div></a>
-      </Carousel.Item>
-      <Carousel.Item interval={800}>
-        <a href='form_person'>
-          <div>
-            <img src='img/carousel/banner1_smart_tv_pro.png' />
-          </div></a>
-      </Carousel.Item>
-      <Carousel.Item interval={800}>
-        <a href='form_person'>
-          <div>
-            <img src='img/carousel/banner1_vibe.png' />
-          </div></a>
-      </Carousel.Item>
-      <Carousel.Item interval={800}>
-        <a href='form_person'>
-          <div>
-            <img src='img/carousel/banner1_tvbox_aquario.png' />
-          </div></a>
-      </Carousel.Item>
+      </Carousel.Item>))}
       {/* <Carousel.Caption>
 </Carousel.Caption> */}
-    </Carousel>
+    </Carousel>}
   </>
 }
 
