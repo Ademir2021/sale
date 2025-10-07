@@ -2,7 +2,7 @@ import "./Logo.css"
 
 export function Logo() {
     const logo = <img
-        src='img/logo_centroinfo.png'
+        src={'img/' + process.env.REACT_APP_IMG_LOGO}
         className="logo"
         alt={process.env.REACT_APP_TITLE}
     ></img>
