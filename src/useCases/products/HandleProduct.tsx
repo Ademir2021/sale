@@ -1,10 +1,20 @@
-import { TBrand, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd } from "./type/TProducts";
+import { TBrand, TSector, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd, TProduct } from "./type/TProducts";
 
 class HandleProducts {
-    public nameSubSector(idSubSector: number, sectors: TSubSector[]) {
-        for (let sector of sectors) {
-            if (sector.id_sub_sector === idSubSector)
-                return sector.name_sub_sector
+
+    findSector(products: TProduct[], sectors: TSector[] | any[], fk_sub_sector: number) {
+        for (let p of products)
+            if (p.fk_sub_sector === fk_sub_sector)
+                for (let s of sectors)
+                    if (p.fk_sub_sector === s.id_sector)
+                        return s.name_sector
+
+    }
+
+    nameSubSector(idSubSector: number, subSectors: TSubSector[]) {
+        for (let subSector of subSectors) {
+            if (subSector.id_sub_sector === idSubSector)
+                return subSector.name_sub_sector
         }
     };
     nameBrands(idBrand: number, brands: TBrand[]) {

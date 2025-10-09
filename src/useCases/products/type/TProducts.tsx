@@ -43,6 +43,12 @@ export type TSubSector = {
     fk_sector:number;
 };
 
+export type TSector = {
+    id_sector: number;
+    name_sector: string;
+};
+
+
 export type TUnMed = {
     id_un: number;
     un_med: string;

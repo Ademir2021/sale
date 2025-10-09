@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TProduct, TBrand, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd } from "./type/TProducts"
+import { TProduct, TBrand, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd, TSector } from "./type/TProducts"
 import { FormatDate } from "../../components/utils/formatDate";
 import { ProductList } from "../../components/products/ProductList";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
@@ -11,6 +11,7 @@ export function ProductsList() {
     const handleProducts: HandleProducts = new HandleProducts();
     const [products, setproducts] = useState<TProduct[]>([]);
     const [brands, setBrands] = useState<TBrand[]>([]);
+    const [sectors, setSectors] = useState<TSubSector[]>([]);
     const [subSectors, setSubSectors] = useState<TSubSector[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
     const [classesProds, setClassesProds] = useState<TClasseProd[]>([])
@@ -26,24 +27,30 @@ export function ProductsList() {
     }, [brands])
 
     useEffect(() => {
-       getList('sub_sectors', setSubSectors)
+        getList('sectors', setSectors)
+    }, [sectors])
+
+    useEffect(() => {
+        getList('sub_sectors', setSubSectors)
     }, [subSectors])
 
     useEffect(() => {
-        getList('un_med',setUnMeds)
+        getList('un_med', setUnMeds)
     }, [unMeds])
 
     useEffect(() => {
-        getList('classes_prods',setClassesProds)
+        getList('classes_prods', setClassesProds)
     }, [classesProds])
 
     useEffect(() => {
-        getList('grupos_fiscais',setGruposFiscais)
+        getList('grupos_fiscais', setGruposFiscais)
     }, [gruposFiscais])
 
     useEffect(() => {
-   getList('tipos_prods',setTiposProds)
+        getList('tipos_prods', setTiposProds)
     }, [tiposProds])
+
+
 
     return (
         <>
@@ -62,6 +69,7 @@ export function ProductsList() {
                         val_min={currencyFormat(product.val_min_product)}
                         brand={handleProducts.nameBrands(product.fk_brand, brands)}
                         name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
+                        name_sector={handleProducts.findSector(products, sectors, product.fk_sub_sector)}
                         un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
                         bar_code={product.bar_code}
                         image={product.image}

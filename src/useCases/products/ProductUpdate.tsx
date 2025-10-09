@@ -20,6 +20,7 @@ export function ProductUpdate() {
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
     const [msg, setMsg] = useState("")
     const handleProducts: HandleProducts = new HandleProducts()
+    const [sectors, setSectors] = useState<TSubSector[]>([]);
     const [subSectors, setSubSectors] = useState<TSubSector[]>([]);
     const [brands, setBrands] = useState<TBrand[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
@@ -78,6 +79,10 @@ export function ProductUpdate() {
     useEffect(() => {
         getList('brands', setBrands)
     }, [brands])
+
+      useEffect(() => {
+        getList('sectors', setSectors)
+    }, [sectors])
 
     useEffect(() => {
         getList('sub_sectors', setSubSectors)
@@ -285,6 +290,7 @@ export function ProductUpdate() {
                         val_min={currencyFormat(product.val_min_product)}
                         brand={handleProducts.nameBrands(product.fk_brand, brands)}
                         name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
+                        name_sector={handleProducts.findSector(products, sectors, product.fk_sub_sector)}
                         un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
                         bar_code={product.bar_code}
                         image={product.image}

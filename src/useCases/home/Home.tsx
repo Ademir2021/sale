@@ -10,6 +10,7 @@ import ControlledCarousel from '../../components/carousel/ControlledCarousel';
 import { FilterItens } from '../../components/home/FilterItens';
 import { getList, getListQuery } from '../../services/handleService'
 import api from '../../services/api/api'
+import { HandleProducts } from '../products/HandleProduct';
 
 type TProdListQuery = {
     id_product: number
@@ -29,11 +30,13 @@ export function Home() {
     const [itens, setItens] = useState<TItens[]>([]);
     const [item, setItem] = useState<TItem>({ descric: '' });
     const [brands, setBrand] = useState<TBrand[]>([]);
+    const [sectors, setSector] = useState<TSubSector[]>([]);
     const [subSectors, setSubSector] = useState<TSubSector[]>([]);
     const [uniMeds, setUniMeds] = useState<TUnMed[]>([])
     const [selectSector, setSelectSector] = useState<string>("Todos")
     const [flgItens, setFlgItens] = useState<boolean>(false)
     const [checkSearch, setCheckSearch] = useState<boolean>(false)
+    const handleProducts: HandleProducts = new HandleProducts()
 
     const handleChange = (e: any) => {
         const name = e.target.name;
@@ -139,7 +142,7 @@ export function Home() {
         localStorage.setItem("id", JSON.stringify(id));
     }
 
-    function handleProducts() {
+    function handleProducts_() {
         if (item.descric !== '') {
             const resp: TProduct[] = []
             for (let i = 0; products.length > 0; i++) {
@@ -155,12 +158,16 @@ export function Home() {
 
     function handleSubmit(e: Event) {
         e.preventDefault()
-        handleProducts()
+        handleProducts_()
     }
 
     useEffect(() => {
         getList('brands', setBrand)
     }, [])
+
+     useEffect(() => {
+        getList('sectors', setSector)
+    }, [sectors])
 
     useEffect(() => {
         getList('sub_sectors', setSubSector)
@@ -212,8 +219,6 @@ export function Home() {
                 counter={counter !== 0 ? counter : 0}
                 subtotal={subtotal === 0 ? '' : currencyFormat(subtotal)}
             />
-            {/* {<p className='container'>{JSON.stringify(subSectors)}</p>} */}
-
             <SearchItens
                 selectSector={(e: { target: { value: SetStateAction<string> } }) => setSelectSector(e.target.value)}
                 sectors={subSectors}
@@ -239,6 +244,7 @@ export function Home() {
                     item_img={item.image !== null ? `./img/img_itens/${item.image}` : itemImg}
                     id={item.id_product}
                     brand={nameBrands(item.fk_brand)}
+                    name_sector={handleProducts.findSector(listProd, sectors, item.fk_sub_sector)}
                     name_sub_sector={nameSubSector(item.fk_sub_sector)}
                     descric={item.descric_product}
                     amount={item.amount ? item.amount : "0"}

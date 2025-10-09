@@ -9,6 +9,7 @@ type Props = {
     val_min: string | number;
     brand: string | undefined;
     name_sub_sector: string | undefined;
+    name_sector: string | undefined;
     un_med: string | undefined;
     bar_code: string;
     update: any,
@@ -31,6 +32,7 @@ export function ProductList(props: Props) {
                     <div><b>Valor mínimo</b> {props.val_min}</div>
                     <div><b>Marca</b> {props.brand}</div>
                     <div><b>SubSetor</b> {props.name_sub_sector}</div>
+                    <div><b>Setor</b> {props.name_sector}</div>
                     <div><b>Un Medida</b> {props.un_med}</div>
                     <div><b>Barras</b> {props.bar_code}</div>
                     <div><b>Imagem</b> {props.image}</div>
