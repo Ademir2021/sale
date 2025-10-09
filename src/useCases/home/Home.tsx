@@ -1,6 +1,6 @@
 import { useState, useEffect, SetStateAction } from 'react';
 import { NavBar } from "../../components/navbar/Navbar";
-import { TProduct, TItem, TItens, TBrand, TSector, TUnMed } from '../products/type/TProducts';
+import { TProduct, TItem, TItens, TBrand, TSubSector, TUnMed } from '../products/type/TProducts';
 import { ListItens } from '../../components/home/ListItens';
 import { Header } from '../../components/home/Header';
 import { FooterHomePage } from './FooterHome';
@@ -15,7 +15,7 @@ type TProdListQuery = {
     id_product: number
     descric_product: string
     fk_brand: number
-    fk_sector: number
+    fk_sub_sector: number
 }
 
 export function Home() {
@@ -29,7 +29,7 @@ export function Home() {
     const [itens, setItens] = useState<TItens[]>([]);
     const [item, setItem] = useState<TItem>({ descric: '' });
     const [brands, setBrand] = useState<TBrand[]>([]);
-    const [sectors, setSector] = useState<TSector[]>([]);
+    const [subSectors, setSubSector] = useState<TSubSector[]>([]);
     const [uniMeds, setUniMeds] = useState<TUnMed[]>([])
     const [selectSector, setSelectSector] = useState<string>("Todos")
     const [flgItens, setFlgItens] = useState<boolean>(false)
@@ -42,10 +42,10 @@ export function Home() {
     };
 
     useEffect(() => {
-        function idSector(nameSector: string) {
-            for (let i = 0; i < sectors.length; i++) {
-                if (sectors[i].name_sector === nameSector) {
-                    return sectors[i]
+        function idSector(nameSubSector: string) {
+            for (let i = 0; i < subSectors.length; i++) {
+                if (subSectors[i].name_sub_sector === nameSubSector) {
+                    return subSectors[i]
                 }
             }
         };
@@ -58,14 +58,14 @@ export function Home() {
                         const items: TProduct[] = response.data
                         if (flgItens === false) {
                             for (let item of items) {
-                                if (item.fk_sector !== 7)
+                                if (item.fk_sub_sector !== 7)
                                     itemsRemoveServices.push(item)
                                 setlistProd(itemsRemoveServices)
                             }
                             setFlgItens(true)
                         }
                         for (let item of items) {
-                            if (item.fk_sector === idSector(selectSector)?.id_sector && item.fk_sector !== 7)
+                            if (item.fk_sub_sector === idSector(selectSector)?.id_sub_sector && item.fk_sub_sector !== 7)
                                 resultProducts.push(item);
                             selectSector !== "Todos" ? setProducts(resultProducts) : setProducts(itemsRemoveServices);
                         }
@@ -73,7 +73,7 @@ export function Home() {
             } catch (err) { console.log("error occurred !" + err) }
         }
         getProducts()
-    }, [flgItens, selectSector, sectors])
+    }, [flgItens, selectSector, subSectors])
 
     useEffect(() => {
         function getItensStorage() {
@@ -163,8 +163,8 @@ export function Home() {
     }, [])
 
     useEffect(() => {
-        getList('sectors', setSector)
-    }, [sectors])
+        getList('sub_sectors', setSubSector)
+    }, [subSectors])
 
     useEffect(() => {
         getList('un_meds', setUniMeds)
@@ -177,10 +177,10 @@ export function Home() {
         }
     }
 
-    function nameSector(idSector: number) {
-        for (let sector of sectors) {
-            if (sector.id_sector === idSector)
-                return sector.name_sector
+    function nameSubSector(idSubSector: number) {
+        for (let subSector of subSectors) {
+            if (subSector.id_sub_sector === idSubSector)
+                return subSector.name_sub_sector
         }
     }
 
@@ -197,7 +197,7 @@ export function Home() {
         id_product: 0,
         descric_product: descricProd,
         fk_brand: 0,
-        fk_sector: 0
+        fk_sub_sector: 0
     }
 
     function filterItens(e: Event) {
@@ -212,10 +212,11 @@ export function Home() {
                 counter={counter !== 0 ? counter : 0}
                 subtotal={subtotal === 0 ? '' : currencyFormat(subtotal)}
             />
+            {/* {<p className='container'>{JSON.stringify(subSectors)}</p>} */}
 
             <SearchItens
                 selectSector={(e: { target: { value: SetStateAction<string> } }) => setSelectSector(e.target.value)}
-                sectors={sectors}
+                sectors={subSectors}
                 messageItems={''}
                 products={products}
                 descric={item.descric}
@@ -238,7 +239,7 @@ export function Home() {
                     item_img={item.image !== null ? `./img/img_itens/${item.image}` : itemImg}
                     id={item.id_product}
                     brand={nameBrands(item.fk_brand)}
-                    sector={nameSector(item.fk_sector)}
+                    name_sub_sector={nameSubSector(item.fk_sub_sector)}
                     descric={item.descric_product}
                     amount={item.amount ? item.amount : "0"}
                     valor={item.val_max_product}

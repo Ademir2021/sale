@@ -8,7 +8,7 @@ type Props = {
     item_img: string;
     item?: number;
     descric: string | number | any;
-    sector: number | string | undefined;
+    name_sub_sector: number | string | undefined;
     brand: number | string | undefined;
     amount: number | boolean | string;
     valor: number;
@@ -27,7 +27,7 @@ export function ListItens(props: Props) {
                     <div><b>SKU</b> {String(props.id).padStart(8, '0')}</div>
                     <div>{props.descric}</div>
                     <div><b>Marca</b> {props.brand}</div>
-                    <div><b>Setor</b> {props.sector}</div>
+                    <div><b>Sub Setor</b> {props.name_sub_sector}</div>
                     <div><b>R$</b> {props.valor}</div>
                 </ul>
                     < select onChange={props.selectAmount}

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { ProductForm } from '../../components/products/ProductForm';
 import { postRegister, getList } from "../../services/handleService";
-import { TProduct, TBrand, TSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd, TNcm } from "./type/TProducts"
+import { TProduct, TBrand, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd, TNcm } from "./type/TProducts"
 import ncmJSON from './NCM.json'
 import { ProductValFields } from "./valsFields/ValsFields";
 
 export function FormProduct() {
     const [msg, setMsg] = useState("")
     const [brands, setBrands] = useState<TBrand[]>([]);
-    const [sectors, setSectors] = useState<TSector[]>([]);
+    const [subSectors, setSubSectors] = useState<TSubSector[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
     const [classesProds, setClassesProds] = useState<TClasseProd[]>([])
     const [gruposFiscais, setGruposFiscais] = useState<TGrupoFiscal[]>([])
@@ -25,13 +25,13 @@ export function FormProduct() {
     const [product, setProduct] = useState<TProduct>({
         id_product: 0, descric_product: '',
         val_max_product: 0.00, val_min_product: 0.00,
-        fk_brand: 1, fk_sector: 1, fk_un_med: 1,
+        fk_brand: 1, fk_sub_sector: 1, fk_un_med: 1,
         bar_code: '', image: '', fk_classe: 1,
         fk_grupo_fiscal: 1, fk_tipo_prod: 1, ncm: ''
     });
 
     product.fk_brand = parseInt(selectedIdBrand);
-    product.fk_sector = parseInt(selectedIdSector);
+    product.fk_sub_sector = parseInt(selectedIdSector);
     product.fk_un_med = parseInt(selectedIdUnMed)
     product.fk_classe = parseInt(selectedIdClasseProd)
     product.fk_grupo_fiscal = parseInt(selectedIdGrupoFiscal)
@@ -48,8 +48,8 @@ export function FormProduct() {
     }, [brands])
 
     useEffect(() => {
-       getList('sectors',setSectors)
-    }, [sectors])
+       getList('sub_sectors', setSubSectors)
+    }, [subSectors])
 
     useEffect(() => {
         getList('un_med',setUnMeds)
@@ -102,12 +102,12 @@ export function FormProduct() {
                 listSector={<select
                     onChange={e => setSelectedIdSector(e.target.value)}
                 >
-                    {sectors.map((sector: TSector) => (
+                    {subSectors.map((subSector: TSubSector) => (
                         <option
-                            key={sector.id_sector}
-                            value={sector.id_sector}
+                            key={subSector.id_sub_sector}
+                            value={subSector.id_sub_sector}
                         >
-                            {sector.name_sector}
+                            {subSector.name_sub_sector}
                         </option>))}</select>}
 
                 listUn={<select

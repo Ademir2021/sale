@@ -108,7 +108,7 @@ function HandleNFe() {
 
     async function handleGerarNFe(sale: TSaleList) {
         const resp = await putUpdate(sale, 'gerar_nfe')
-        console.log(resp)
+        // console.log(resp)
     }
 
     function gerarNFe(sale: TSaleList) {

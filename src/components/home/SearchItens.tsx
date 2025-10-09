@@ -1,4 +1,4 @@
-import { TProduct, TSector } from '../../useCases/products/type/TProducts'
+import { TProduct, TSubSector } from '../../useCases/products/type/TProducts'
 import * as Icon from 'phosphor-react';
 import './css/search-itens.css'
 
@@ -8,7 +8,7 @@ type Props = {
     descric: string;
     messageItems: string;
     selectSector: React.ChangeEventHandler<HTMLSelectElement> | undefined;
-    sectors: TSector[]
+    sectors: TSubSector[]
     products: TProduct[]
     checkSearch: boolean | any
     checkedSearch: boolean
@@ -34,9 +34,9 @@ export function SearchItens(props: Props) {
                     </select></datalist>
                     <select className='search-select' onChange={props.selectSector} >
                         <option>Todos</option>
-                        {props.sectors.map((sector: TSector) => (
-                            <option key={sector.id_sector}>
-                                {sector.name_sector}</option>))}
+                        {props.sectors.map((sector: TSubSector) => (
+                            <option key={sector.id_sub_sector}>
+                                {sector.name_sub_sector}</option>))}
                     </select>
                     <input className='search-item-input' type="search"
                         placeholder="Do que você precisa" aria-label="Search"

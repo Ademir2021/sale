@@ -1,10 +1,10 @@
-import { TBrand, TSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd } from "./type/TProducts";
+import { TBrand, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd } from "./type/TProducts";
 
 class HandleProducts {
-    public nameSector(idSector: number, sectors: TSector[]) {
+    public nameSubSector(idSubSector: number, sectors: TSubSector[]) {
         for (let sector of sectors) {
-            if (sector.id_sector === idSector)
-                return sector.name_sector
+            if (sector.id_sub_sector === idSubSector)
+                return sector.name_sub_sector
         }
     };
     nameBrands(idBrand: number, brands: TBrand[]) {

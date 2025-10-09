@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TProduct, TBrand, TSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd } from "./type/TProducts"
+import { TProduct, TBrand, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoProd } from "./type/TProducts"
 import { FormatDate } from "../../components/utils/formatDate";
 import { ProductList } from "../../components/products/ProductList";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
@@ -11,7 +11,7 @@ export function ProductsList() {
     const handleProducts: HandleProducts = new HandleProducts();
     const [products, setproducts] = useState<TProduct[]>([]);
     const [brands, setBrands] = useState<TBrand[]>([]);
-    const [sectors, setSectors] = useState<TSector[]>([]);
+    const [subSectors, setSubSectors] = useState<TSubSector[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
     const [classesProds, setClassesProds] = useState<TClasseProd[]>([])
     const [gruposFiscais, setGruposFiscais] = useState<TGrupoFiscal[]>([])
@@ -26,8 +26,8 @@ export function ProductsList() {
     }, [brands])
 
     useEffect(() => {
-       getList('sectors',setSectors)
-    }, [sectors])
+       getList('sub_sectors', setSubSectors)
+    }, [subSectors])
 
     useEffect(() => {
         getList('un_med',setUnMeds)
@@ -61,7 +61,7 @@ export function ProductsList() {
                         val_max={currencyFormat(product.val_max_product)}
                         val_min={currencyFormat(product.val_min_product)}
                         brand={handleProducts.nameBrands(product.fk_brand, brands)}
-                        sector={handleProducts.nameSector(product.fk_sector, sectors)}
+                        name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
                         un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
                         bar_code={product.bar_code}
                         image={product.image}

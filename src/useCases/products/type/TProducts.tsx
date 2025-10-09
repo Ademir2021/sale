@@ -7,7 +7,7 @@ export type TProduct = {
     val_max_product: number;
     val_min_product: number;
     fk_brand: number | any;
-    fk_sector: number | any;
+    fk_sub_sector: number | any;
     fk_un_med: number | any;
     bar_code: string;
     image?: | string;
@@ -36,9 +36,11 @@ export type TBrand = {
     name_brand: string;
 };
 
-export type TSector = {
-    id_sector: number;
-    name_sector: string;
+export type TSubSector = {
+    id_sub_sector: number;
+    name_sub_sector: string;
+    description_sub_sector:string;
+    fk_sector:number;
 };
 
 export type TUnMed = {

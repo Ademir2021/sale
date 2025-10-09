@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import ncmJSON from './NCM.json'
 import { FormatDate } from "../../components/utils/formatDate";
-import { TProduct, TSector, TBrand, TClasseProd, TGrupoFiscal, TTipoProd, TUnMed, TNcm } from "./type/TProducts";
+import { TProduct, TSubSector, TBrand, TClasseProd, TGrupoFiscal, TTipoProd, TUnMed, TNcm } from "./type/TProducts";
 import { postAuthHandle, postRegister, putUpdate, getList } from "../../services/handleService";
 import { ProductFormUpdate } from "../../components/products/ProductFormUpdate";
 import { ProductList } from "../../components/products/ProductList";
@@ -20,7 +20,7 @@ export function ProductUpdate() {
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
     const [msg, setMsg] = useState("")
     const handleProducts: HandleProducts = new HandleProducts()
-    const [sectors, setSectors] = useState<TSector[]>([]);
+    const [subSectors, setSubSectors] = useState<TSubSector[]>([]);
     const [brands, setBrands] = useState<TBrand[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
     const [classesProds, setClassesProds] = useState<TClasseProd[]>([])
@@ -39,7 +39,7 @@ export function ProductUpdate() {
     const [product, setProduct] = useState<TProduct>({
         id_product: 0, descric_product: '',
         val_max_product: 0.00, val_min_product: 0.00,
-        fk_brand: 1, fk_sector: 1, fk_un_med: 1,
+        fk_brand: 1, fk_sub_sector: 1, fk_un_med: 1,
         bar_code: '', image: '', fk_classe: 1,
         fk_grupo_fiscal: 1, fk_tipo_prod: 1, ncm: ''
     });
@@ -50,7 +50,7 @@ export function ProductUpdate() {
         product.fk_brand = parseInt(selectedIdBrand);
     }
     if (selectedIdSector !== 1) {
-        product.fk_sector = parseInt(selectedIdSector);
+        product.fk_sub_sector = parseInt(selectedIdSector);
     }
     if (selectedIdUnMed !== 1) {
         product.fk_un_med = parseInt(selectedIdUnMed)
@@ -80,8 +80,8 @@ export function ProductUpdate() {
     }, [brands])
 
     useEffect(() => {
-        getList('sectors', setSectors)
-    }, [sectors])
+        getList('sub_sectors', setSubSectors)
+    }, [subSectors])
 
     useEffect(() => {
         getList('un_med', setUnMeds)
@@ -116,7 +116,7 @@ export function ProductUpdate() {
         product.val_max_product = product_.val_max_product
         product.val_min_product = product_.val_min_product
         product.fk_brand = product_.fk_brand
-        product.fk_sector = product_.fk_sector
+        product.fk_sub_sector = product_.fk_sub_sector
         product.fk_un_med = product_.fk_un_med
         product.bar_code = product_.bar_code
         product.image = product_.image
@@ -165,7 +165,7 @@ export function ProductUpdate() {
         setProduct({
             id_product: 0, descric_product: '',
             val_max_product: 0.00, val_min_product: 0.00,
-            fk_brand: 1, fk_sector: 1, fk_un_med: 1,
+            fk_brand: 1, fk_sub_sector: 1, fk_un_med: 1,
             bar_code: '', image: '', fk_classe: 1,
             fk_grupo_fiscal: 1, fk_tipo_prod: 1, ncm: ''
         })
@@ -199,12 +199,12 @@ export function ProductUpdate() {
                 listSector={<select
                     onChange={e => setSelectedIdSector(e.target.value)}
                 >
-                    {sectors.map((sector: TSector) => (
+                    {subSectors.map((sector: TSubSector) => (
                         <option
-                            key={sector.id_sector}
-                            value={sector.id_sector}
+                            key={sector.id_sub_sector}
+                            value={sector.id_sub_sector}
                         >
-                            {sector.name_sector}
+                            {sector.name_sub_sector}
                         </option>))}</select>}
 
                 listUn={<select
@@ -284,7 +284,7 @@ export function ProductUpdate() {
                         val_max={currencyFormat(product.val_max_product)}
                         val_min={currencyFormat(product.val_min_product)}
                         brand={handleProducts.nameBrands(product.fk_brand, brands)}
-                        sector={handleProducts.nameSector(product.fk_sector, sectors)}
+                        name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
                         un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
                         bar_code={product.bar_code}
                         image={product.image}

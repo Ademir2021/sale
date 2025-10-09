@@ -25,9 +25,11 @@ function HandleNFeForm(
 
     // const NFeStatus = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
 
-    const header = <> <h1 className="text-center">Acompanhamento NFe </h1>
+    const header = <> 
+      <div className="container">
+        <h1>Acompanhamento NFe </h1>
         <div className="container">
-            <dd>Selecione as opções desejada</dd>
+            <label>Selecione as opções desejada</label>
             <table>
                 <td>
                     <tr><input
@@ -79,6 +81,7 @@ function HandleNFeForm(
             <button onClick={handleSubmit} className="m-1 btn btn-primary">Atualizar</button>
             <button onClick={handleClear} className="btn btn-primary">limpar</button>
         </form>
+        </div>
     </>
     const thead = <thead>
         <tr>
@@ -95,14 +98,14 @@ function HandleNFeForm(
             <th>Situação</th>
             <th>Chave</th>
             <th>Protocolo</th>
-            <th>Emitir NFe</th>
+            <th>Emitir</th>
         </tr>
     </thead>
 
     return (
         <>
             {header}
-            <table className='table bg-light mt-1 container'>
+            <table className='table'>
                 {sales.length === 0 ? <Waiting waiting="Aguardando Notas" /> : thead}
                 <tbody>
                     {sales.map((sale: TSaleList) => (
@@ -114,7 +117,7 @@ function HandleNFeForm(
                             <td>{findPerson(sale.fk_name_pers)}</td>
                             <td>{FormatDate(sale.created_at)}</td>
                             <td>{sale.doc_nfe ? sale.doc_nfe : 'null'}</td>
-                            <td>{currencyFormat(sale.created_at)}</td>
+                            <td>{FormatDate(sale.created_at)}</td>
                             <td>{currencyFormat(sale.total_sale)}</td>
                             <td>{'email'}</td>
                             <td>{sale.situacao_nfe ? sale.situacao_nfe : 'null'}</td>
