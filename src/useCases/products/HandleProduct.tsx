@@ -2,13 +2,23 @@ import { TBrand, TSector, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoPr
 
 class HandleProducts {
 
-    findSector(products: TProduct[], sectors: TSector[] | any[], fk_sub_sector: number) {
-        for (let p of products)
-            if (p.fk_sub_sector === fk_sub_sector)
-                for (let s of sectors)
-                    if (p.fk_sub_sector === s.id_sector)
-                        return s.name_sector
+    findSectorNameBySubSector(
+        products: TProduct[],
+        subSectors: TSubSector[],
+        sectors: TSector[],
+        fk_sub_sector: number
+    ): string | undefined {
+        // 1. Verifica se há um produto com esse fk_sub_sector
+        const product = products.find(p => p.fk_sub_sector === fk_sub_sector);
+        if (!product) return undefined;
 
+        // 2. Busca o subsetor correspondente
+        const subSector = subSectors.find(ss => ss.id_sub_sector === fk_sub_sector);
+        if (!subSector) return undefined;
+
+        // 3. Busca o setor correspondente ao fk_sector do subsetor
+        const sector = sectors.find(s => s.id_sector === subSector.fk_sector);
+        return sector?.name_sector;
     }
 
     nameSubSector(idSubSector: number, subSectors: TSubSector[]) {

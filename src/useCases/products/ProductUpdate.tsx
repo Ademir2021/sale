@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import ncmJSON from './NCM.json'
 import { FormatDate } from "../../components/utils/formatDate";
-import { TProduct, TSubSector, TBrand, TClasseProd, TGrupoFiscal, TTipoProd, TUnMed, TNcm } from "./type/TProducts";
+import { TProduct, TSubSector, TBrand, TClasseProd, TGrupoFiscal, TTipoProd, TUnMed, TNcm, TSector } from "./type/TProducts";
 import { postAuthHandle, postRegister, putUpdate, getList } from "../../services/handleService";
 import { ProductFormUpdate } from "../../components/products/ProductFormUpdate";
 import { ProductList } from "../../components/products/ProductList";
@@ -20,7 +20,7 @@ export function ProductUpdate() {
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
     const [msg, setMsg] = useState("")
     const handleProducts: HandleProducts = new HandleProducts()
-    const [sectors, setSectors] = useState<TSubSector[]>([]);
+    const [sectors, setSectors] = useState<TSector[]>([]);
     const [subSectors, setSubSectors] = useState<TSubSector[]>([]);
     const [brands, setBrands] = useState<TBrand[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
@@ -290,7 +290,7 @@ export function ProductUpdate() {
                         val_min={currencyFormat(product.val_min_product)}
                         brand={handleProducts.nameBrands(product.fk_brand, brands)}
                         name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
-                        name_sector={handleProducts.findSector(products, sectors, product.fk_sub_sector)}
+                        name_sector={handleProducts.findSectorNameBySubSector(products, subSectors, sectors, product.fk_sub_sector)}
                         un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
                         bar_code={product.bar_code}
                         image={product.image}

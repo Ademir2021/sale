@@ -1,6 +1,6 @@
 import { useState, useEffect, SetStateAction } from 'react';
 import { NavBar } from "../../components/navbar/Navbar";
-import { TProduct, TItem, TItens, TBrand, TSubSector, TUnMed } from '../products/type/TProducts';
+import { TProduct, TItem, TItens, TBrand, TSubSector, TUnMed, TSector } from '../products/type/TProducts';
 import { ListItens } from '../../components/home/ListItens';
 import { Header } from '../../components/home/Header';
 import { FooterHomePage } from './FooterHome';
@@ -30,7 +30,7 @@ export function Home() {
     const [itens, setItens] = useState<TItens[]>([]);
     const [item, setItem] = useState<TItem>({ descric: '' });
     const [brands, setBrand] = useState<TBrand[]>([]);
-    const [sectors, setSector] = useState<TSubSector[]>([]);
+    const [sectors, setSector] = useState<TSector[]>([]);
     const [subSectors, setSubSector] = useState<TSubSector[]>([]);
     const [uniMeds, setUniMeds] = useState<TUnMed[]>([])
     const [selectSector, setSelectSector] = useState<string>("Todos")
@@ -244,7 +244,7 @@ export function Home() {
                     item_img={item.image !== null ? `./img/img_itens/${item.image}` : itemImg}
                     id={item.id_product}
                     brand={nameBrands(item.fk_brand)}
-                    name_sector={handleProducts.findSector(listProd, sectors, item.fk_sub_sector)}
+                    name_sector={handleProducts.findSectorNameBySubSector(listProd, subSectors, sectors, item.fk_sub_sector)}
                     name_sub_sector={nameSubSector(item.fk_sub_sector)}
                     descric={item.descric_product}
                     amount={item.amount ? item.amount : "0"}

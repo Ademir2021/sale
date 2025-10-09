@@ -11,7 +11,7 @@ export function ProductsList() {
     const handleProducts: HandleProducts = new HandleProducts();
     const [products, setproducts] = useState<TProduct[]>([]);
     const [brands, setBrands] = useState<TBrand[]>([]);
-    const [sectors, setSectors] = useState<TSubSector[]>([]);
+    const [sectors, setSectors] = useState<TSector[]>([]);
     const [subSectors, setSubSectors] = useState<TSubSector[]>([]);
     const [unMeds, setUnMeds] = useState<TUnMed[]>([])
     const [classesProds, setClassesProds] = useState<TClasseProd[]>([])
@@ -53,7 +53,9 @@ export function ProductsList() {
 
 
     return (
-        <>
+        <><p className="container">
+        {/* {JSON.stringify(handleProducts.findSectorNameBySubSector(products, subSectors, sectors, 1))} */}
+        </p>
             <Dashboard />
             <h1 className="text-center" >Lista de Items</h1>
             {products.length === 0 ? <p>Carregando...</p> : (
@@ -69,7 +71,7 @@ export function ProductsList() {
                         val_min={currencyFormat(product.val_min_product)}
                         brand={handleProducts.nameBrands(product.fk_brand, brands)}
                         name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
-                        name_sector={handleProducts.findSector(products, sectors, product.fk_sub_sector)}
+                        name_sector={handleProducts.findSectorNameBySubSector(products, subSectors, sectors, product.fk_sub_sector)}
                         un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
                         bar_code={product.bar_code}
                         image={product.image}
