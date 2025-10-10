@@ -61,14 +61,14 @@ export function Home() {
                         const items: TProduct[] = response.data
                         if (flgItens === false) {
                             for (let item of items) {
-                                if (item.fk_sub_sector !== 7)
+                                if (item.fk_sub_sector !== 0)
                                     itemsRemoveServices.push(item)
                                 setlistProd(itemsRemoveServices)
                             }
                             setFlgItens(true)
                         }
                         for (let item of items) {
-                            if (item.fk_sub_sector === idSector(selectSector)?.id_sub_sector && item.fk_sub_sector !== 7)
+                            if (item.fk_sub_sector === idSector(selectSector)?.id_sub_sector && item.fk_sub_sector !== 0)
                                 resultProducts.push(item);
                             selectSector !== "Todos" ? setProducts(resultProducts) : setProducts(itemsRemoveServices);
                         }

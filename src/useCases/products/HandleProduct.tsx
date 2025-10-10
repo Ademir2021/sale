@@ -2,14 +2,14 @@ import { TBrand, TSector, TSubSector, TUnMed, TClasseProd, TGrupoFiscal, TTipoPr
 
 class HandleProducts {
 
-    findSectorNameBySubSector(
+   findSectorNameBySubSector(
         products: TProduct[],
         subSectors: TSubSector[],
         sectors: TSector[],
         fk_sub_sector: number
     ): string | undefined {
         // 1. Verifica se há um produto com esse fk_sub_sector
-        const product = products.find(p => p.fk_sub_sector === fk_sub_sector);
+      const product = products.find(p => p.fk_sub_sector === fk_sub_sector);
         if (!product) return undefined;
 
         // 2. Busca o subsetor correspondente
