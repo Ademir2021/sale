@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import { addDays, format, parseISO } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
 class HandleFinanceiro {
@@ -27,11 +27,20 @@ class HandleFinanceiro {
         const data = new Date()
         return data.toISOString()
     };
+    // formatDate(date: string) {
+    //     return format(parseISO(date), "dd' ' MMM ' ' yyyy ' ' HH:mm'h'", {
+    //         locale: ptBR
+    //     })
+    // };
+
     formatDate(date: string) {
-        return format(parseISO(date), "dd ' ' MMM ' ' yyyy ' ' HH:mm'h'", {
-            locale: ptBR
-        })
-    };
+    const parsedDate = parseISO(date);
+    const nextDay = addDays(parsedDate, 0);
+
+    return format(nextDay, "dd' 'MMM' 'yyyy' 'HH:mm'h'", {
+        locale: ptBR
+    });
+}
 }
 
 export { HandleFinanceiro }

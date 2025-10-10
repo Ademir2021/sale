@@ -1,5 +1,4 @@
 import { useState, useEffect, SetStateAction } from 'react';
-import { NavBar } from "../../components/navbar/Navbar";
 import { TProduct, TItem, TItens, TBrand, TSubSector, TUnMed, TSector } from '../products/type/TProducts';
 import { ListItens } from '../../components/home/ListItens';
 import { Header } from '../../components/home/Header';
