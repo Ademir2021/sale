@@ -35,7 +35,7 @@ class HandleFinanceiro {
 
     formatDate(date: string) {
     const parsedDate = parseISO(date);
-    const nextDay = addDays(parsedDate, 0);
+    const nextDay = addDays(parsedDate, 1);
 
     return format(nextDay, "dd' 'MMM' 'yyyy' 'HH:mm'h'", {
         locale: ptBR
