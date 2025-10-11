@@ -34,6 +34,7 @@ import { Error404 } from "./components/utils/errors/Error404";
 import { ReciboValRc } from "./useCases/contasAReceber/ReciboValRec";
 import { HandleNFe } from "./useCases/nfe/HandleNFe";
 import { Login } from "./useCases/users/Login";
+import { Sector } from "./useCases/sector/Sector";
 
 export function AppRoutes() {
     const Private = ({ children }: any) => {
@@ -88,6 +89,7 @@ export function AppRoutes() {
                     <Route path="/pagar_valor" element={<Private><PagarValor /></Private>} />
                     <Route path="/recibo_val_rec" element={<Private><ReciboValRc /></Private>} />
                     <Route path="nfe" element={<Private><HandleNFe /></Private>} />
+                    <Route path="sector" Component={Sector}/>
                     <Route path="*" Component={Error404} />
                 </Routes>
             </AuthProvider>

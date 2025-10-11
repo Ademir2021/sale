@@ -68,7 +68,9 @@ export function ProductForm({
       >Cadastro do Produto</a>/
       <a href='##'
         onClick={() => (setMenu('fiscal'))}
-      >Situação Fiscal</a>
+      >Situação Fiscal</a>/
+      <a href='sector'
+      >Incluir Setor</a>
   </p>
   </>
 
