@@ -21,10 +21,11 @@ const Sector = () => {
 
     useEffect(() => {
         getList('sectors', setSectors)
-    }, [])
+    }, [sectors])
 
     const updateSector = (Sector:TSector)=>{
         setSector(Sector)
+        setMsg('')
     }
 
     const handleSectorRegister = async () => {
@@ -39,7 +40,9 @@ const Sector = () => {
         await api.put('/sector', sector)
             .then(response => {
                 const res: any = response.data
-                setMsg(res[0].msg)
+                // setMsg(res[0].msg)
+                if(!res)
+                    setMsg("Atualizado com sucesso")
             }).catch(error => setMsg(error))
     }
 
