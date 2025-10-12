@@ -28,6 +28,37 @@ const FilialForm = ({
 
     const register = <form className="form" id="up_form_" onSubmit={handleSubmit}>
         <a href="form_product">Sair</a>
+
+        <label>Filial</label>
+        <input
+            type="text"
+            placeholder=""
+            name="id_filial"
+            value={children.id_filial}
+            onChange={handleChange}
+            required
+            disabled
+        />
+        <label>Data Abertura</label>
+        <input
+            type="text"
+            placeholder="Data Abertura"
+            name="created_at"
+            value={children.created_at || ''}
+            onChange={handleChange}
+            required
+            disabled
+        />
+        <label>Ultima Alteraçaão</label>
+        <input
+            type="text"
+            placeholder="Data Abertura"
+            name="updated_at"
+            value={children.updated_at || ''}
+            onChange={handleChange}
+            required
+            disabled
+        />
         <label>Nome da Filial da Empresa</label>
         <input
             type="text"
@@ -36,6 +67,7 @@ const FilialForm = ({
             value={children.name_filial}
             onChange={handleChange}
             required
+            disabled
         />
         <label>Nome Fantasia da Empresa</label>
         <input
@@ -45,6 +77,46 @@ const FilialForm = ({
             value={children.fantasia}
             onChange={handleChange}
             required
+        />
+        <label>Cidade</label>
+        <input
+            type="text"
+            placeholder="Endereço"
+            name="address"
+            value={children.address}
+            onChange={handleChange}
+            required
+            disabled
+        />
+        <label>CNPJ</label>
+        <input
+            type="text"
+            placeholder="CNPJ"
+            name="cnpj"
+            value={children.cnpj}
+            onChange={handleChange}
+            required
+            disabled
+        />
+        <label>Inscrição Estadual</label>
+        <input
+            type="text"
+            placeholder="CNPJ"
+            name="inscric"
+            value={children.inscric}
+            onChange={handleChange}
+            required
+            disabled
+        />
+        <label>Email</label>
+        <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={children.email}
+            onChange={handleChange}
+            required
+        // disabled
         />
         <label>ID da Empresa/Pessoa Selecionada</label>
         <input
@@ -86,7 +158,7 @@ const FilialForm = ({
         </tr>
     </thead>
 
-    const listSectors = <table className="table">
+    const listFiliais = <table className="table">
         {filiais.length > 0 ? thead : <p>Inlua uma nova Filial</p>}
         <tbody>
             {filiais.map((filial: TFilial) => (
@@ -118,7 +190,7 @@ const FilialForm = ({
     return (<>
         {register}
         <div className="container m-4">
-            {listFilial}
+            {listFiliais}
         </div>
     </>
     )

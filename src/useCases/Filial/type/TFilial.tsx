@@ -1,7 +1,7 @@
 export type TFilial = {
     id_filial: number
-    created_at:Date
-    updated_at:Date
+    created_at:Date | any
+    updated_at:Date | any
     name_filial: string
     fantasia: string
     address: string
