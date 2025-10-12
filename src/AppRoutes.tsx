@@ -36,6 +36,7 @@ import { HandleNFe } from "./useCases/nfe/HandleNFe";
 import { Login } from "./useCases/users/Login";
 import { Sector } from "./useCases/sector/Sector";
 import { SubSector } from "./useCases/subSector/SubSector";
+import { Brand } from "./useCases/Brand/Brand";
 
 export function AppRoutes() {
     const Private = ({ children }: any) => {
@@ -92,6 +93,7 @@ export function AppRoutes() {
                     <Route path="nfe" element={<Private><HandleNFe /></Private>} />
                     <Route path="sector" element={<Private><Sector/></Private>} />
                     <Route path="sub_sector" element={<Private><SubSector/></Private>} />
+                      <Route path="brand" element={<Private><Brand/></Private>} />
                     <Route path="*" Component={Error404} />
                 </Routes>
             </AuthProvider>

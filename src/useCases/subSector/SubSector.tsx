@@ -51,7 +51,9 @@ const SubSector = () => {
         await api.post('/sub_sector', subSector)
             .then(response => {
                 const res: any = response.data
-                setMsg(res[0].msg)
+                // setMsg(res[0].msg)
+                if(!res)
+                    setMsg("Inserido com Sucesso")
             }).catch(error => setMsg(error))
     }
 
@@ -77,7 +79,6 @@ const SubSector = () => {
     }
 
     return <>
-        <p>{JSON.stringify(subSector)}</p>
         <SubSectorForm
             subSectors={subSectors}
             handleChange={handleChange}

@@ -20,7 +20,7 @@ const SectorForm = ({
     setSector
 }: Props) => {
 
-    const register = <form className="form" onSubmit={handleSubmit}>
+    const register = <form className="form" id="up_form_" onSubmit={handleSubmit}>
         <a href="form_product">Sair</a>
         <label>Nome do Setor</label>
         <input
@@ -55,7 +55,7 @@ const SectorForm = ({
                 <tr key={sector.id_sector}>
                     <th className="text-center">{sector.id_sector}</th>
                     <th>{sector.name_sector}</th>
-                    <th><a href="##" onClick={() => updateSector(sector)}>Atualizar</a></th>
+                    <th><a href="#up_form_" onClick={() => updateSector(sector)}>Atualizar</a></th>
                     <th><a href="##" onClick={() => setSector({
                         id_sector: 0,
                         name_sector: ''

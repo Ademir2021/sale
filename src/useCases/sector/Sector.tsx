@@ -32,7 +32,9 @@ const Sector = () => {
         await api.post('/sector', sector)
             .then(response => {
                 const res: any = response.data
-                setMsg(res[0].msg)
+                // setMsg(res[0].msg)
+                if(!res)
+                setMsg('inserido com sucesso')
             }).catch(error => setMsg(error))
     }
 

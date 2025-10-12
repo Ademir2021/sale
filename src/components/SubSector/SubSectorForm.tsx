@@ -26,7 +26,7 @@ const SubSectorForm = ({
     findNameSector
 }: Props) => {
 
-    const register = <form className="form" onSubmit={handleSubmit}>
+    const register = <form className="form" id="up_form_" onSubmit={handleSubmit}>
         <a href="form_product">Sair</a>
         <label>Nome do Sub Setor</label>
         <input
@@ -61,8 +61,9 @@ const SubSectorForm = ({
         <button className="container" >{children.id_sub_sector == 0 ? 'Inserir' : 'Atualizar'}</button>
         <button className="container" onClick={() => setSubSector({
                         id_sub_sector: 0,
-                        name_sub__sector: '',
-                        description_sub_sector:''
+                        name_sub_sector: '',
+                        description_sub_sector:'',
+                        fk_sector:1
                     })}>Cancelar</button>
     </form>
 
@@ -88,11 +89,12 @@ const SubSectorForm = ({
                     <th>{subSector.description_sub_sector}</th>
                     <th className="text-center">{subSector.fk_sector}</th>
                     <th>{findNameSector(subSector)}</th>
-                    <th className="text-center"><a href="##" onClick={() => updateSubSector(subSector)}>Atualizar</a></th>
+                    <th className="text-center"><a href="#up_form_" onClick={() => updateSubSector(subSector)}>Atualizar</a></th>
                     <th className="text-center"><a href="##" onClick={() => setSubSector({
                         id_sub_sector: 0,
                         name_sub_sector: '',
-                        description_sub_sector:''
+                        description_sub_sector:'',
+                        fk_sector:1
                     })}>Cancelar</a></th>
                 </tr>
             ))}
