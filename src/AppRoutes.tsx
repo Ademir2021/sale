@@ -31,6 +31,7 @@ import { ContasAPagar } from "./useCases/contasAPagar/ContasAPagar";
 import { ContasAPagarRegister } from "./useCases/contasAPagar/ContasAPagarRegister";
 import { PagarValor } from "./useCases/contasAPagar/PagarValor";
 import { Error404 } from "./components/utils/errors/Error404";
+import { NotAuthorized } from "./components/utils/notAuthorized/notAuthorized";
 import { ReciboValRc } from "./useCases/contasAReceber/ReciboValRec";
 import { HandleNFe } from "./useCases/nfe/HandleNFe";
 import { Login } from "./useCases/users/Login";
@@ -39,7 +40,13 @@ import { SubSector } from "./useCases/subSector/SubSector";
 import { Brand } from "./useCases/Brand/Brand";
 import { Filial } from "./useCases/Filial/Filial";
 
+import { checkAdminPrivilege } from "./../src/components/utils/checksUserLogged/ChecksUserLogged";
+import { Globais } from "./components/globais/Globais";
+
 export function AppRoutes() {
+
+    const privilAdmin = Globais.privilAdmin;
+
     const Private = ({ children }: any) => {
         const { authenticated, loading }: any = useContext(AuthContext)
         if (loading) {
@@ -72,9 +79,9 @@ export function AppRoutes() {
                     <Route path="/pagsegurocard" element={<Private><PagSeguroCard /></Private>} />
                     <Route path="/sale" element={<Private><RegisterSale /></Private>} />
                     <Route path="/list_sale" element={<Private><ListSales /></Private>} />
-                    <Route path="/form_product" element={<Private><FormProduct /></Private>} />
+                    <Route path="/form_product" element={<Private>{checkAdminPrivilege() === privilAdmin ? <FormProduct /> : <NotAuthorized />}</Private>} />
                     <Route path="/product_list" element={<Private><ProductsList /></Private>} />
-                    <Route path="product_update" element={<Private><ProductUpdate /></Private>} />
+                    <Route path="product_update" element={<Private>{checkAdminPrivilege() === privilAdmin ? <ProductUpdate /> : <NotAuthorized />}</Private>} />
                     <Route path="/form_person" element={<Private><FormPerson /></Private>} />
                     <Route path="/person_list" element={<Private><PersonsList /></Private>} />
                     <Route path="/person_update" element={<Private><PersonUpdate /></Private>} />
@@ -85,17 +92,17 @@ export function AppRoutes() {
                     <Route path="/pagcredloja" element={<Private><PagCredLoja /></Private>} />
                     <Route path="/contas_receber_register" element={<Private><ContasAReceberRegister /></Private>} />
                     <Route path="/receber_valor" element={<Private><ReceberValor /></Private>} />
-                    <Route path="/caixa_mov" element={<Private><CaixaMovList /></Private>} />
+                    <Route path="/caixa_mov" element={<Private>{checkAdminPrivilege() === privilAdmin ? <CaixaMovList /> : <NotAuthorized/>}</Private>} />
                     <Route path="/nota_recebida" element={<Private><NotaRecebida /></Private>} />
                     <Route path="/contas_pagar" element={<Private><ContasAPagar /></Private>} />
                     <Route path="/contas_pagar_register" element={<Private><ContasAPagarRegister /></Private>} />
                     <Route path="/pagar_valor" element={<Private><PagarValor /></Private>} />
                     <Route path="/recibo_val_rec" element={<Private><ReciboValRc /></Private>} />
-                    <Route path="nfe" element={<Private><HandleNFe /></Private>} />
-                    <Route path="sector" element={<Private><Sector/></Private>} />
-                    <Route path="sub_sector" element={<Private><SubSector/></Private>} />
-                    <Route path="brand" element={<Private><Brand/></Private>} />
-                    <Route path="filial" element={<Private><Filial/></Private>} />
+                    <Route path="nfe" element={<Private>{checkAdminPrivilege() === privilAdmin ? <HandleNFe /> : <NotAuthorized />}</Private>} />
+                    <Route path="sector" element={<Private>{checkAdminPrivilege() === privilAdmin ? <Sector /> : <NotAuthorized />}</Private>} />
+                    <Route path="sub_sector" element={<Private>{checkAdminPrivilege() === privilAdmin ? <SubSector /> : <NotAuthorized />}</Private>} />
+                    <Route path="brand" element={<Private>{checkAdminPrivilege() === privilAdmin ? <Brand /> : <NotAuthorized />}</Private>} />
+                    <Route path="filial" element={<Private>{checkAdminPrivilege() === privilAdmin ? <Filial /> : <NotAuthorized />}</Private>} />
                     <Route path="*" Component={Error404} />
                 </Routes>
             </AuthProvider>
