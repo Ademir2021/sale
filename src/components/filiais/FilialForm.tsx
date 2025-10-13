@@ -1,4 +1,4 @@
-import { TFilial } from "../../useCases/Filial/type/TFilial"
+import { TFilial } from "../../useCases/filial/type/TFilial"
 import { CloseX } from "../utils/closeX/CloseX"
 
 type Props = {
@@ -68,7 +68,7 @@ const FilialForm = ({
                 onChange={handleChange}
                 required
             />
-            <label>Cidade</label>
+            <label>Endereço</label>
             <input
                 type="text"
                 name="address"

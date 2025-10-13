@@ -8,17 +8,17 @@ export function Error404() {
             return window.location.replace('/')
     }, [])
     return <>
-        <div className="container text-center p-3">
             <BackHome />
+        <div className="text-center">
+            <a href="/">Home</a>
             <hr />
-            <b>Error 404 - </b> <label>O endereço URL informado é inválido !
-            </label>
             <img className="p-3"
                 src="img\error_404.jpeg"
                 style={{ borderRadius: "67px" }}
-            />
+                />
+                <div><b>Error 404 - </b>  O endereço URL informado é inválido !
             <hr></hr>
-            <a href="/">Home</a>
+                </div>
         </div>
     </>
 }

@@ -38,7 +38,7 @@ import { Login } from "./useCases/users/Login";
 import { Sector } from "./useCases/sector/Sector";
 import { SubSector } from "./useCases/subSector/SubSector";
 import { Brand } from "./useCases/Brand/Brand";
-import { Filial } from "./useCases/Filial/Filial";
+import { Filial } from "./useCases/filial/Filial";
 
 import { checkAdminPrivilege } from "./../src/components/utils/checksUserLogged/ChecksUserLogged";
 import { Globais } from "./components/globais/Globais";

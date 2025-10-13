@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { getList, postAuthHandle } from "../../services/handleService";
 import api from "../../services/api/api";
-import { FilialForm } from "../../components/Filiais/FilialForm";
+import { FilialForm } from "../../components/filiais/FilialForm";
 import { TPerson } from "../persons/type/TPerson";
 import { TFilial } from "./type/TFilial";
 
@@ -66,7 +66,8 @@ const Filial = () => {
   const handleFilialRegister = async () => {
     try {
       const response = await api.post('/filial', filial);
-      setMsg("Inserido com Sucesso");
+      if (!response.data)
+        setMsg("Inserido com Sucesso");
     } catch (error) {
       console.error(error);
       setMsg("Erro ao inserir filial");
@@ -76,7 +77,8 @@ const Filial = () => {
   const handleFilialUpdate = async () => {
     try {
       const response = await api.put('/filial', filial);
-      setMsg("Atualizado com Sucesso");
+      if (!response.data)
+        setMsg("Atualizado com Sucesso");
     } catch (error) {
       console.error(error);
       setMsg("Erro ao atualizar filial");
@@ -95,6 +97,20 @@ const Filial = () => {
     } else {
       handleFilialUpdate();
     }
+
+    setFilial({
+      id_filial: 0,
+      created_at: '',
+      updated_at: '',
+      name_filial: '',
+      fantasia: '',
+      address: '',
+      cnpj: '',
+      inscric: '',
+      phone: '',
+      email: '',
+      fk_person: 0
+    })
   };
 
   const updateFilial = (filial: TFilial) => {
@@ -110,7 +126,6 @@ const Filial = () => {
   return (
     <>
       {handleTokenMessage('filial', tokenMessage)}
-
       <FilialForm
         filial={filial}
         filiais={filiais}

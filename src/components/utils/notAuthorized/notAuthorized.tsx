@@ -3,17 +3,17 @@ import { BackHome } from "../backHome/BackHome";
 export function NotAuthorized() {
 
     return <>
-        <div className="container text-center p-3">
             <BackHome />
+        <div className="text-center">
+            <a href="/">Home</a>
             <hr />
-            <b>Error 401 - </b> <label>O Usuário não está Autorizado !
-            </label>
             <img className="p-3"
                 src="img\error_401.jpeg"
                 style={{ borderRadius: "67px" }}
-            />
+                />
+                 <div><b>Error 401 - </b>O Usuário não está Autorizado !
+                </div>
             <hr></hr>
-            <a href="/">Home</a>
         </div>
     </>
 }
