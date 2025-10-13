@@ -1,4 +1,5 @@
 import { TFilial } from "../../useCases/Filial/type/TFilial"
+import { CloseX } from "../utils/closeX/CloseX"
 
 type Props = {
     filial: TFilial
@@ -28,47 +29,91 @@ const FilialForm = ({
 
     const register = (
         <form className="form" id="up_form_" onSubmit={handleSubmit}>
-            <a href="form_product">Sair</a>
-
+            <CloseX/>
             <label>Filial</label>
             <input type="text" name="id_filial" value={filial.id_filial} onChange={handleChange} required disabled />
 
             <label>Data Abertura</label>
-            <input type="text" name="created_at" value={filial.created_at || ''} onChange={handleChange} required disabled />
-
+            <input
+                type="text"
+                name="created_at"
+                value={filial.created_at || ''}
+                onChange={handleChange}
+                required
+                disabled
+            />
             <label>Última Alteração</label>
-            <input type="text" name="updated_at" value={filial.updated_at || ''} onChange={handleChange} required disabled />
-
+            <input
+                type="text"
+                name="updated_at"
+                value={filial.updated_at || ''}
+                onChange={handleChange}
+                required
+                disabled
+            />
             <label>Nome da Filial da Empresa</label>
-            <input type="text" name="name_filial" value={filial.name_filial} onChange={handleChange} required disabled />
-
+            <input
+                type="text"
+                name="name_filial"
+                value={filial.name_filial}
+                onChange={handleChange}
+                required
+                disabled
+            />
             <label>Nome Fantasia da Empresa</label>
-            <input type="text" name="fantasia" value={filial.fantasia} onChange={handleChange} required />
-
+            <input
+                type="text"
+                name="fantasia"
+                value={filial.fantasia}
+                onChange={handleChange}
+                required
+            />
             <label>Cidade</label>
-            <input type="text" name="address" value={filial.address} onChange={handleChange} required disabled />
-
+            <input
+                type="text"
+                name="address"
+                value={filial.address}
+                onChange={handleChange}
+                required
+                disabled
+            />
             <label>CNPJ</label>
-            <input type="text" name="cnpj" value={filial.cnpj} onChange={handleChange} required disabled />
-
+            <input
+                type="text"
+                name="cnpj"
+                value={filial.cnpj}
+                onChange={handleChange}
+                required
+                disabled />
             <label>Inscrição Estadual</label>
-            <input type="text" name="inscric" value={filial.inscric} onChange={handleChange} required disabled />
-
+            <input
+                type="text"
+                name="inscric"
+                value={filial.inscric}
+                onChange={handleChange}
+                required
+                disabled
+            />
             <label>Email</label>
-            <input type="email" name="email" value={filial.email} onChange={handleChange} required />
-
+            <input
+                type="email"
+                name="email"
+                value={filial.email}
+                onChange={handleChange}
+                required
+            />
             <label>ID da Empresa/Pessoa Selecionada</label>
-            <input type="text" value={selectedIdPerson} disabled />
-
+            <input
+                type="text"
+                value={selectedIdPerson}
+                disabled
+            />
             <label>Selecionar Cadastro</label>
             {listPerson}
-
             {msg && <dd>{msg}</dd>}
-
             <button className="container">
-                {filial.id_filial === 0 ? 'Inserir' : 'Atualizar'}
+                {filial.id_filial == 0 ? 'Inserir' : 'Atualizar'}
             </button>
-
             <button
                 className="container"
                 type="button"
@@ -85,9 +130,7 @@ const FilialForm = ({
                     email: '',
                     fk_person: 0
                 })}
-            >
-                Cancelar
-            </button>
+            >Cancelar</button>
         </form>
     );
 
@@ -119,11 +162,11 @@ const FilialForm = ({
                         <td className="text-center">{filial.id_filial}</td>
                         <td>{filial.name_filial}</td>
                         <td>{filial.fantasia}</td>
-                         <td>{filial.address}</td>
-                          <td>{filial.cnpj}</td>
-                           <td>{filial.inscric}</td>
-                            <td>{filial.phone}</td>
-                             <td>{filial.email}</td>
+                        <td>{filial.address}</td>
+                        <td>{filial.cnpj}</td>
+                        <td>{filial.inscric}</td>
+                        <td>{filial.phone}</td>
+                        <td>{filial.email}</td>
                         <td className="text-center">{filial.fk_person}</td>
                         <td>{findNamePerson(filial)}</td>
                         <td className="text-center">
@@ -149,7 +192,6 @@ const FilialForm = ({
             </tbody>
         </table>
     );
-
     return (
         <>
             {register}
