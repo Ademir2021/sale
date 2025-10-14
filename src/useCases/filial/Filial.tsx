@@ -4,7 +4,6 @@ import api from "../../services/api/api";
 import { FilialForm } from "../../components/filiais/FilialForm";
 import { TPerson } from "../persons/type/TPerson";
 import { TFilial } from "./type/TFilial";
-
 import { AuthContext } from '../../context/auth'
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
 import { FormatDate } from "../../components/utils/formatDate";
