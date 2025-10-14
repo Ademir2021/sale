@@ -1,3 +1,4 @@
+import { HandleFilial } from "../../useCases/filial/HandleFilial"
 import { TFilial } from "../../useCases/filial/type/TFilial"
 import { CloseX } from "../utils/closeX/CloseX"
 
@@ -26,6 +27,8 @@ const FilialForm = ({
     selectedIdPerson,
     findNamePerson
 }: Props) => {
+
+    const handleFilial = new HandleFilial()
 
     const register = (
         <form className="form" id="up_form_" onSubmit={handleSubmit}>
@@ -117,19 +120,7 @@ const FilialForm = ({
             <button
                 className="container"
                 type="button"
-                onClick={() => setFilial({
-                    id_filial: 0,
-                    created_at: '',
-                    updated_at: '',
-                    name_filial: '',
-                    fantasia: '',
-                    address: '',
-                    cnpj: '',
-                    inscric: '',
-                    phone: '',
-                    email: '',
-                    fk_person: 0
-                })}
+                onClick={() => setFilial(handleFilial.clearFieldFilial(filial))}
             >Cancelar</button>
         </form>
     );
@@ -173,19 +164,7 @@ const FilialForm = ({
                             <a href="#up_form_" onClick={() => updateFilial(filial)}>Atualizar</a>
                         </td>
                         <td className="text-center">
-                            <a href="##" onClick={() => setFilial({
-                                id_filial: 0,
-                                created_at: '',
-                                updated_at: '',
-                                name_filial: '',
-                                fantasia: '',
-                                address: '',
-                                cnpj: '',
-                                inscric: '',
-                                phone: '',
-                                email: '',
-                                fk_person: 0
-                            })}>Cancelar</a>
+                            <a href="##" onClick={() => setFilial(handleFilial.clearFieldFilial(filial))}>Cancelar</a>
                         </td>
                     </tr>
                 ))}

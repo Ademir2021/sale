@@ -8,8 +8,12 @@ import { TFilial } from "./type/TFilial";
 import { AuthContext } from '../../context/auth'
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
 import { FormatDate } from "../../components/utils/formatDate";
+import { HandleFilial } from "./HandleFilial";
 
 const Filial = () => {
+
+  const handleFilial = new HandleFilial()
+
   const { user: isLogged }: any = useContext(AuthContext);
   const [tokenMessage, setTokenMessage] = useState("Usuário Autenticado!");
   const [msg, setMsg] = useState('');
@@ -97,20 +101,8 @@ const Filial = () => {
     } else {
       handleFilialUpdate();
     }
-
-    setFilial({
-      id_filial: 0,
-      created_at: '',
-      updated_at: '',
-      name_filial: '',
-      fantasia: '',
-      address: '',
-      cnpj: '',
-      inscric: '',
-      phone: '',
-      email: '',
-      fk_person: 0
-    })
+    
+    setFilial(handleFilial.clearFieldFilial(filial))
   };
 
   const updateFilial = (filial: TFilial) => {
