@@ -1,4 +1,5 @@
 import { TSubSector } from "../../useCases/products/type/TProducts"
+import { HandleSubSector } from "../../useCases/subSector/handleSubSector"
 
 type Props = {
     children: TSubSector
@@ -25,6 +26,8 @@ const SubSectorForm = ({
     selectedIdSector,
     findNameSector
 }: Props) => {
+
+     const handleSubSector = new HandleSubSector()
 
     const register = <form className="form" id="up_form_" onSubmit={handleSubmit}>
         <a href="form_product">Sair</a>
@@ -59,12 +62,7 @@ const SubSectorForm = ({
         {listSector}
         {msg && <dd>{msg}</dd>}
         <button className="container" >{children.id_sub_sector == 0 ? 'Inserir' : 'Atualizar'}</button>
-        <button className="container" onClick={() => setSubSector({
-                        id_sub_sector: 0,
-                        name_sub_sector: '',
-                        description_sub_sector:'',
-                        fk_sector:1
-                    })}>Cancelar</button>
+        <button className="container" onClick={() => setSubSector(handleSubSector.clearFieldSubSector(children))}>Cancelar</button>
     </form>
 
     const thead = <thead>
@@ -90,12 +88,7 @@ const SubSectorForm = ({
                     <th className="text-center">{subSector.fk_sector}</th>
                     <th>{findNameSector(subSector)}</th>
                     <th className="text-center"><a href="#up_form_" onClick={() => updateSubSector(subSector)}>Atualizar</a></th>
-                    <th className="text-center"><a href="##" onClick={() => setSubSector({
-                        id_sub_sector: 0,
-                        name_sub_sector: '',
-                        description_sub_sector:'',
-                        fk_sector:1
-                    })}>Cancelar</a></th>
+                    <th className="text-center"><a href="##" onClick={() => setSubSector(handleSubSector.clearFieldSubSector(subSector))}>Cancelar</a></th>
                 </tr>
             ))}
         </tbody>
