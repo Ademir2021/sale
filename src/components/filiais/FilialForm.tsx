@@ -32,7 +32,7 @@ const FilialForm = ({
 
     const register = (
         <form className="form" id="up_form_" onSubmit={handleSubmit}>
-            <CloseX/>
+            <CloseX />
             <label>Filial</label>
             <input type="text" name="id_filial" value={filial.id_filial} onChange={handleChange} required disabled />
 
@@ -105,7 +105,7 @@ const FilialForm = ({
                 onChange={handleChange}
                 required
             />
-            <label>ID da Empresa/Pessoa Selecionada</label>
+            <label>ID da Empresa/Cadastro Selecionado</label>
             <input
                 type="text"
                 value={selectedIdPerson}

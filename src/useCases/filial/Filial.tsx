@@ -100,7 +100,7 @@ const Filial = () => {
     } else {
       handleFilialUpdate();
     }
-    
+
     setFilial(handleFilial.clearFieldFilial(filial))
   };
 
