@@ -34,7 +34,7 @@ const Brand = () => {
                 const res: any = response.data
                 // setMsg(res[0].msg)
                 if (!res)
-                    setMsg('inserido com sucesso')
+                    setMsg('Inserido com sucesso')
             }).catch(error => setMsg(error))
     }
 

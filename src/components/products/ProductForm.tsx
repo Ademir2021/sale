@@ -74,7 +74,9 @@ export function ProductForm({
          <a href='sub_sector'
       >SubSetor</a>/
          <a href='brand'
-      >Marca</a>
+      >Marca</a>/
+      <a href='classe_prod'
+      >Classe</a>
   </p>
   </>
 
