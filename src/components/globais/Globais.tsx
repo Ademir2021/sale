@@ -59,6 +59,6 @@ export class Globais {
     static URL=process.env.REACT_APP_URL
     static API_URL=process.env.REACT_APP_API_URL
     static URL_NOTE=process.env.REACT_APP_URL_NOTE
-    static URL_CENTROINFO=process.env.REACT_APP_URL_CENTROINFO
+    static URL_SITE=process.env.REACT_APP_URL_SITE
  }
 
