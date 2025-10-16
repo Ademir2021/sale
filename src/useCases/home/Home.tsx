@@ -44,38 +44,45 @@ export function Home() {
     };
 
     useEffect(() => {
-        function idSector(nameSubSector: string) {
-            for (let i = 0; i < subSectors.length; i++) {
-                if (subSectors[i].name_sub_sector === nameSubSector) {
-                    return subSectors[i]
-                }
-            }
-        };
         async function getProducts() {
             try {
                 await api.post<TProduct[]>('products_list')
                     .then(response => {
-                        const resultProducts: TProduct[] = []
-                        const itemsRemoveServices: TProduct[] = []
-                        const items: TProduct[] = response.data
+                        const resp: TProduct[] = response.data
                         if (flgItens === false) {
-                            for (let item of items) {
-                                if (item.fk_sub_sector !== 0)
-                                    itemsRemoveServices.push(item)
-                                setlistProd(itemsRemoveServices)
-                            }
+                            setlistProd(resp)
                             setFlgItens(true)
                         }
-                        for (let item of items) {
-                            if (item.fk_sub_sector === idSector(selectSector)?.id_sub_sector && item.fk_sub_sector !== 0)
-                                resultProducts.push(item);
-                            selectSector !== "Todos" ? setProducts(resultProducts) : setProducts(itemsRemoveServices);
-                        }
+                        findSubSectorsOfItems(resp)
+
                     })
             } catch (err) { console.log("error occurred !" + err) }
         }
         getProducts()
-    }, [flgItens, selectSector, subSectors])
+    }, [flgItens, selectSector])
+
+
+    // Funções auxiliares de busca dos items
+    function findIdSector(nameSubSector: string) {
+        for (let subSector of subSectors) {
+            if (subSector.name_sub_sector === nameSubSector) {
+                return subSector
+            }
+        }
+    };
+    function findSubSectorsOfItems(items: TProduct[]) {
+        const resultProducts: TProduct[] = []
+        for (let item of items) {
+            if (item.fk_sub_sector === findIdSector(selectSector)?.id_sub_sector)
+                resultProducts.push(item);
+            selectSector !== "Todos" ? setProducts(resultProducts) : setAllItems(items)
+        }
+
+    };
+    function setAllItems(items: TProduct[]) {
+        setProducts(items)
+        setFlgItens(false);
+    }
 
     useEffect(() => {
         function getItensStorage() {
@@ -164,7 +171,7 @@ export function Home() {
         getList('brands', setBrand)
     }, [])
 
-     useEffect(() => {
+    useEffect(() => {
         getList('sectors', setSector)
     }, [sectors])
 
@@ -253,7 +260,6 @@ export function Home() {
                     itemParameter={item}
                     unMed={nameUniMeds(item.fk_un_med)}
                 />
-
             )))}
             <FooterHomePage />
         </>
