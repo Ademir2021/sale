@@ -21,11 +21,9 @@ function HandleNFe() {
     const { user: isLogged }: any = useContext(AuthContext);
     const [sales, setSales] = useState<TSaleList[]>([]);
     const [persons, setPersons] = useState<TPerson[]>([])
-    const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
-
-    const [msg, setMsg] = useState('xxxxxxxxxxx')
-
-    const [sales_autorizada, setSalesAutorizada] = useState<TSaleList[]>([])
+    const [tokenMessage, setTokenMessage] = useState("Usuário Autenticado !")
+    const [msg, setMsg] = useState('')
+    const [salesFound, setSalesFound] = useState<TSaleList[]>([])
 
     const [nfeStatus, setNFeStatus] = useState<INFeStatus>({
         nfe_autorizada: false,
@@ -49,7 +47,7 @@ function HandleNFe() {
             nfe_enviada: false,
             nfe_inutilizada: false
         }
-        setNFeStatus(nfeStatus)
+        return setNFeStatus(nfeStatus)
     }
 
     const handleChange = (e: any) => {
@@ -58,30 +56,33 @@ function HandleNFe() {
         setNFeStatus(values => ({ ...values, [name]: value }))
     }
 
+    function findAuthorizationSales(salesFound: TSaleList[]) {
+        for (let sale of sales)
+            if (nfeStatus.nfe_autorizada === true)
+                if (sale.chave_nfe !== null)
+                    salesFound.push(sale)
+    }
+
+    function findOpenSales(salesFound: TSaleList[]) {
+        for (let sale of sales)
+            if (nfeStatus.nfe_em_aberto === true)
+                if (sale.chave_nfe === null)
+                    salesFound.push(sale)
+    }
+
     const getSales = async () => {
-
-        if (sales_autorizada) {
-
-            await postAuthHandle('sale_user', setTokenMessage, setSales, isLogged)
-
-            for (let sale of sales)
-                if (nfeStatus.nfe_autorizada === true)
-                    if (sale.chave_nfe !== null)
-                        sales_autorizada.push(sale)
-
-            for (let sale of sales)
-                if (nfeStatus.nfe_em_aberto === true)
-                    if (sale.chave_nfe === null) {
-                        sales_autorizada.push(sale)
-
-                        if (sales_autorizada.length !== 0) {
-                            const sales_: TSaleList[] = []
-                            setSales(sales_)
-                        }
-                        clearNfeStatus()
-                    }
-        }
+        await postAuthHandle('sale_user', setTokenMessage, setSales, isLogged)
+        setTimeout(() => {
+            if (salesFound.length === 0)
+                findAuthorizationSales(salesFound)
+                findOpenSales(salesFound)
+                salesFound.length > 0  && setMsg("Notas Localizadas")
+        }, 1000)
     };
+
+    useEffect(() => {
+        getSales()
+    }, [])
 
     const getPersons = async () => {
         await postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
@@ -101,11 +102,12 @@ function HandleNFe() {
         getSales()
     }
 
-    function hanndleClear(e: Event) {
+    function handleClear(e: Event) {
         e.preventDefault()
         const sales: TSaleList[] = []
         clearNfeStatus()
-        setSalesAutorizada(sales)
+        setSalesFound(sales)
+        setMsg('')
     }
 
     async function handleGerarNFe(sale: TSaleList) {
@@ -116,20 +118,22 @@ function HandleNFe() {
     function gerarNFe(sale: TSaleList) {
         handleGerarNFe(sale)
         setMsg("Nota gerada com sucesso")
-        setTimeout(()=>{
-        setMsg("")
-        },3000)
+        setTimeout(() => {
+            setMsg("")
+        }, 3000)
     }
 
     return (
         <>
             <HandleNFeForm
+            tokenMessage={tokenMessage}
+            salesFound={salesFound}
                 msg={msg}
-                sales={sales_autorizada}
+                sales={salesFound}
                 findPerson={findPerson}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
-                handleClear={hanndleClear}
+                handleClear={handleClear}
                 gerarNFe={gerarNFe}
             >
                 {nfeStatus}

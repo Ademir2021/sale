@@ -1,3 +1,4 @@
+import { handleTokenMessage } from "../../services/handleEnsureAuth"
 import { TSaleList } from "../../useCases/sales/type/TSale"
 import { currencyFormat } from "../utils/currentFormat/CurrentFormat"
 import { FormatDate } from "../utils/formatDate"
@@ -5,24 +6,28 @@ import { Waiting } from "../utils/waiting/Waiting"
 
 type Props = {
     sales: TSaleList[]
+    salesFound:TSaleList[]
     findPerson: any // função findPerson
     children: string | number | readonly string[] | undefined | any
     handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined
-    handleSubmit: any // função listar Notas
+    handleSubmit?: any // função listar Notas
     handleClear: any // Função limpar lista de notas
     gerarNFe: any // Função para gerar NFe
     msg?:string
+    tokenMessage:any
 }
 
 function HandleNFeForm(
     {
         sales,
         findPerson,
+        salesFound,
         handleChange,
         handleSubmit,
         handleClear,
         gerarNFe,
-        msg
+        msg,
+        tokenMessage
     }: Props) {
 
     // const NFeStatus = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
@@ -30,6 +35,7 @@ function HandleNFeForm(
     const header = <> 
       <div className="container">
         <h1>Acompanhamento NFe </h1>
+          {handleTokenMessage('nfe', tokenMessage)}
         <div className="container">
             <label>Selecione as opções desejada</label>
             <table>
@@ -80,8 +86,10 @@ function HandleNFeForm(
             </table>
         </div>
         <form className="container p-3">
-            <button onClick={handleSubmit} className="m-1 btn btn-primary">Atualizar</button>
-            <button onClick={handleClear} className="btn btn-primary">limpar</button>
+            <button onClick={salesFound.length === 0 ?
+                handleSubmit : handleClear}
+                className="m-1 btn btn-primary">
+                    {salesFound.length === 0 ? "Pesquisar" : "Limpar"}</button>
             <div id="msg-green">{msg && msg}</div>
         </form>
         </div>
