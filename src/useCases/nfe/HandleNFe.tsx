@@ -17,14 +17,12 @@ type INFeStatus = {
 }
 
 function HandleNFe() {
-
     const { user: isLogged }: any = useContext(AuthContext);
     const [sales, setSales] = useState<TSaleList[]>([]);
     const [persons, setPersons] = useState<TPerson[]>([])
     const [tokenMessage, setTokenMessage] = useState("Usuário Autenticado !")
     const [msg, setMsg] = useState('')
     const [salesFound, setSalesFound] = useState<TSaleList[]>([])
-
     const [nfeStatus, setNFeStatus] = useState<INFeStatus>({
         nfe_autorizada: false,
         nfe_impressa: false,
@@ -75,8 +73,8 @@ function HandleNFe() {
         setTimeout(() => {
             if (salesFound.length === 0)
                 findAuthorizationSales(salesFound)
-                findOpenSales(salesFound)
-                salesFound.length > 0  && setMsg("Notas Localizadas")
+            findOpenSales(salesFound)
+            salesFound.length > 0 && setMsg("Notas Localizadas")
         }, 1000)
     };
 
@@ -126,8 +124,8 @@ function HandleNFe() {
     return (
         <>
             <HandleNFeForm
-            tokenMessage={tokenMessage}
-            salesFound={salesFound}
+                tokenMessage={tokenMessage}
+                salesFound={salesFound}
                 msg={msg}
                 sales={salesFound}
                 findPerson={findPerson}
