@@ -175,7 +175,7 @@ export function PagSeguroCard() {
                 if (paid !== 0 || payResponseCode === "20000") {
                     setErr("Cartão Aceito")
                 } else {
-                    setErr(payResponseMessage || "Erro: Verifique os dados")
+                    setErr(payResponseMessage || "Aguarde um instante ...")
                 }
             }
         } catch (err: unknown) {

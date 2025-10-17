@@ -23,7 +23,9 @@ function HandleNFe() {
     const [persons, setPersons] = useState<TPerson[]>([])
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
 
-    const [sales_autorizada, setSaleAutorizada] = useState<TSaleList[]>([])
+    const [msg, setMsg] = useState('xxxxxxxxxxx')
+
+    const [sales_autorizada, setSalesAutorizada] = useState<TSaleList[]>([])
 
     const [nfeStatus, setNFeStatus] = useState<INFeStatus>({
         nfe_autorizada: false,
@@ -37,7 +39,7 @@ function HandleNFe() {
     })
 
     function clearNfeStatus() {
-        const nfeStatus_: INFeStatus = {
+        const nfeStatus: INFeStatus = {
             nfe_autorizada: false,
             nfe_impressa: false,
             nfe_em_aberto: false,
@@ -47,7 +49,7 @@ function HandleNFe() {
             nfe_enviada: false,
             nfe_inutilizada: false
         }
-        setNFeStatus(nfeStatus_)
+        setNFeStatus(nfeStatus)
     }
 
     const handleChange = (e: any) => {
@@ -76,7 +78,7 @@ function HandleNFe() {
                             const sales_: TSaleList[] = []
                             setSales(sales_)
                         }
-                        // clearNfeStatus()
+                        clearNfeStatus()
                     }
         }
     };
@@ -101,9 +103,9 @@ function HandleNFe() {
 
     function hanndleClear(e: Event) {
         e.preventDefault()
-        const sales_: TSaleList[] = []
+        const sales: TSaleList[] = []
         clearNfeStatus()
-        setSaleAutorizada(sales_)
+        setSalesAutorizada(sales)
     }
 
     async function handleGerarNFe(sale: TSaleList) {
@@ -113,11 +115,16 @@ function HandleNFe() {
 
     function gerarNFe(sale: TSaleList) {
         handleGerarNFe(sale)
+        setMsg("Nota gerada com sucesso")
+        setTimeout(()=>{
+        setMsg("")
+        },3000)
     }
 
     return (
         <>
             <HandleNFeForm
+                msg={msg}
                 sales={sales_autorizada}
                 findPerson={findPerson}
                 handleChange={handleChange}

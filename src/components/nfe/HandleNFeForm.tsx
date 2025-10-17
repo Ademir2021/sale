@@ -11,6 +11,7 @@ type Props = {
     handleSubmit: any // função listar Notas
     handleClear: any // Função limpar lista de notas
     gerarNFe: any // Função para gerar NFe
+    msg?:string
 }
 
 function HandleNFeForm(
@@ -20,7 +21,8 @@ function HandleNFeForm(
         handleChange,
         handleSubmit,
         handleClear,
-        gerarNFe
+        gerarNFe,
+        msg
     }: Props) {
 
     // const NFeStatus = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
@@ -80,6 +82,7 @@ function HandleNFeForm(
         <form className="container p-3">
             <button onClick={handleSubmit} className="m-1 btn btn-primary">Atualizar</button>
             <button onClick={handleClear} className="btn btn-primary">limpar</button>
+            <div id="msg-green">{msg && msg}</div>
         </form>
         </div>
     </>
