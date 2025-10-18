@@ -30,7 +30,8 @@ function HandleNFeForm(
         tokenMessage
     }: Props) {
 
-    // const NFeStatus = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
+    const NFeAuth = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
+    const NFeOpen = <img src="img/NFe/status/emAberto.ico" alt="img NFe aberta"></img>
 
     const header = <> 
       <div className="container">
@@ -38,6 +39,7 @@ function HandleNFeForm(
           {handleTokenMessage('nfe', tokenMessage)}
         <div className="container">
             <label>Selecione as opções desejada</label>
+            <div>{NFeAuth}{" Autorizadas"}{" - "}{NFeOpen}{" Abertas"}</div>
             <table>
                 <td>
                     <tr><input
@@ -98,6 +100,7 @@ function HandleNFeForm(
         <tr>
             <th className='text-center'>Nota</th>
             <th className="text-center">NFe</th>
+            <th className="text-center">Situação</th>
             <th className="text-center">Filial</th>
             <th>Cliente</th>
             <th>Nome</th>
@@ -123,6 +126,7 @@ function HandleNFeForm(
                         <tr key={sale.id_sale}>
                             <th className='text-center'>{sale.id_sale}</th>
                             <th className="text-center">{sale.id_nfe}</th>
+                            <th className="text-center" >{sale.chave_nfe ? NFeAuth : NFeOpen}</th>
                             <th className="text-center">{sale.fk_name_filial}</th>
                             <td>{sale.fk_name_pers}</td>
                             <td>{findPerson(sale.fk_name_pers)}</td>
