@@ -57,10 +57,10 @@ const Sector = () => {
         } else {
             setMsg("Informe o nome do Setor")
         }
+        setSector({id_sector:0,name_sector:''})
     }
 
     return <>
-        {/* <p>{JSON.stringify(sector)}</p> */}
         <SectorForm
             sectors={sectors}
             handleChange={handleChange}

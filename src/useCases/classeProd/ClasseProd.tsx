@@ -65,7 +65,6 @@ const ClasseProd = () => {
     }
 
     return <>
-        {/* <p>{JSON.stringify(classe)}</p> */}
         <ClasseProdForm
             classes={classes}
             handleChange={handleChange}

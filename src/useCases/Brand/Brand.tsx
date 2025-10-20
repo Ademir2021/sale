@@ -57,6 +57,7 @@ const Brand = () => {
         } else {
             setMsg("Informe o nome da Marca")
         }
+        setBrand({id_brand:0,name_brand:''})
     }
 
     return <>
