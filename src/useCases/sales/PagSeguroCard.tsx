@@ -213,7 +213,6 @@ export function PagSeguroCard() {
     }
 
     return <>
-        {/* <>{JSON.stringify(pagSeguroRequest)}</> */}
         <PagSeguroCardForm
             handleSubmit={handleSubmitCard}
             handleChange={handleChange}

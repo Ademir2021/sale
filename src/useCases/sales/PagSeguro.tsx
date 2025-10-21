@@ -143,7 +143,7 @@ export function PagSeguro() {
                 setBoletoPagSeguro(response.data)
             }).catch(error => setError("Erro ao gerar BOLETO tente novamente"))
     };
-
+    
     function handleQrCode(e: Event) {
         e.preventDefault()
         if (paySale !== 0) {
@@ -192,7 +192,6 @@ export function PagSeguro() {
 
     return (
         <>
-            {/* {JSON.stringify(sale)} */}
             <PagSeguroForm
                 handleBoleto={handleBoleto}
                 datavenc={getboletoDueDate}

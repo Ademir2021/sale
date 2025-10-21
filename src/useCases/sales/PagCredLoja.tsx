@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import sale_JSON from "./JSON/sale.json"
 import { PagCredLojaForm } from "../../components/sales/PagCredLojaForm"
 import { NavBar } from "../../components/navbar/Navbar";
-import { handleInstallments } from "./handlePayment/HandlePayment";
+import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
 
 import api from "../../services/api/api";
 
@@ -35,6 +35,10 @@ export function PagCredLoja() {
             })
             .catch(error => console.log(error));
     };
+
+        useEffect(() => {
+            clearSaleStorage(numNote)
+        }, [numNote])
 
     const handleSubmit = () => {
         if (sale.dinheiro != 0 || sale.duplicatas.length > 0) {
