@@ -1,6 +1,7 @@
 .container-itens {
    display: inline-block;
    vertical-align: top;
+   justify-content: center;
    max-width: 96%;
    margin: 1px;
    padding: 1px;
@@ -10,12 +11,11 @@
 .main-itens {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     flex-direction: column;
     width: 96%;
     height: auto;
-    /* margin-right: 12px; */
-    margin-left: 4px;
+    margin-right: auto;
+    margin-left: auto;
     box-shadow: 2px rgba(0, 0, 0, 0.2);
     background-color:#fff;
     border-radius: 3px;
@@ -30,9 +30,9 @@
 }
 
 .itens-img {
-    margin-top: 6px;
-    max-height: 96%;
-    max-width: 96%;
+    margin-top: auto;
+    max-height: 80%;
+    max-width: 80%;
     height: auto;
     width: auto;
     border-radius: 2px;
