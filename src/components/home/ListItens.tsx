@@ -28,7 +28,7 @@ export function ListItens(props: Props) {
                     <div><b>SKU</b> {String(props.id).padStart(8, '0')}</div>
                     <div>{props.descric}</div>
                     <div><b>Marca</b> {props.brand}</div>
-                    <div><b>Sub_S</b> {props.name_sub_sector}</div>
+                    <div><b>Sub</b> {props.name_sub_sector}</div>
                     <div><b>Setor</b> {props.name_sector}</div>
                     <div><b>R$</b> {props.valor}</div>
                 </ul>
