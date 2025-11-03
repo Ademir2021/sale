@@ -11,7 +11,7 @@ Recursos:
 - `Checkout para finalização dos Pagamentos`
 
 Segurança:
-- `Autenticação segura do usuários`
+- `Autenticação segura dos usuários`
 - `Segurança controlada com (JWT Web Token)`
 
 Integração:
