@@ -123,9 +123,9 @@ export function ContasAreceberForm({
                     <td>{conta.pagamento !== null ? handleContasAReceber.formatDate(conta.pagamento) : null}</td>
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.observacao}</td>
-                    <td>{checkAdminPrivilege() === "2" ?
+                    <td>{checkAdminPrivilege() === "2" &&
                         <a href="##" onClick={() => receberValor(conta)}
-                        >Receber</a> : null}</td>
+                        >Receber</a>}</td>
                 </tr>
             ))}
         </tbody>

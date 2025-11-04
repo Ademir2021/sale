@@ -6,13 +6,15 @@ import { postAuthHandle, postRegister } from "../../services/handleService";
 
 import { AuthContext } from '../../context/auth'
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
+import { HandleContaAReceber } from "./handleContaAReceber";
 
 export function ContasAReceberRegister() {
+    // const handleContaAReceber = new HandleContaAReceber()
     const [IdPerson, setIdPerson] = useState<number>(0)
-    const [sendConta, setSendConta] = useState<boolean>(false)
     const [msg, setMsg] = useState<string>('Aguardando titulo')
     const [persons, setPersons] = useState<TPerson[]>([])
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
+    const [contasAReceber, setContasAReceber] = useState<TContaAreceber[]>([])
     const { user: isLogged }: any = useContext(AuthContext);
     const [contaAReceber, setContaAReceber] = useState<TContaAreceber>({
         id_conta: 0,
@@ -42,7 +44,11 @@ export function ContasAReceberRegister() {
     };
 
     useEffect(() => {
-        postAuthHandle('persons_user',setTokenMessage,setPersons,isLogged)
+        postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
+    }, [])
+
+    useEffect(() => {
+        postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
     }, [persons])
 
     function getContaAReceber() {
@@ -53,27 +59,68 @@ export function ContasAReceberRegister() {
         contaAReceber.fk_filial = persons[0].fk_name_filial
     }
 
-    function clerFields(){
-        contaAReceber.valor = 0
-        contaAReceber.vencimento = ''
-        contaAReceber.observacao = ''
+    useEffect(()=>{
+        if(contaAReceber.vencimento)
+        getContaAReceber()
+    },[IdPerson])
+
+
+    function contaReceberUpdate(contaAReceber: TContaAreceber) {
+        setContaAReceber(contaAReceber)
     }
 
-    function handleSubmit(e:Event) {
-        e.preventDefault()
+    const contaAReceberClear: TContaAreceber  = {
+      id_conta: 0,
+        fk_filial: 0,
+        tipo: "Leg",
+        fk_venda: 0,
+        fk_user: isLogged[0].id,
+        parcela: '1/1',
+        valor: 0,
+        multa: 0,
+        juros: 0,
+        desconto: 0,
+        emissao: new Date().toISOString(),
+        vencimento: '',
+        saldo: 0,
+        pagamento: null,
+        recebimento: 0,
+        observacao: "",
+        fk_pagador: 0
+    }
+
+    function handleContasAReceberUpdate() {
+        setContaAReceber(contaAReceberClear)
+        setMsg('Titulo Atualizado com sucesso')
+    }
+
+    function handleContaReceberRegister() {
         getContaAReceber()
-        if (sendConta === false) {
-            postRegister(contaAReceber, 'contas_receber')
-            setMsg('Titulo gravado com sucesso')
-            clerFields()
-            setSendConta(true)
-        } else { setMsg('Titulo já foi enviado') }
+        // postRegister(contaAReceber, 'contas_receber')
+        setContaAReceber(contaAReceberClear)
+        setMsg('Titulo gravado com sucesso')
+
+    }
+
+    function handleSubmit(e: Event) {
+        e.preventDefault()
+        if (contaAReceber.valor !== 0) {
+            contaAReceber.id_conta === 0 ?
+                handleContaReceberRegister() :
+                handleContasAReceberUpdate()
+        } else {
+            setMsg("Informe um valor para o Título")
+        }
     }
 
     return (
         <>
+            <p>{JSON.stringify(contaAReceber)}</p>
             {handleTokenMessage('contas_receber_register', tokenMessage)}
             <ContasAReceberRegisterForm
+                contasAReceber={contasAReceber}
+                contaReceberUpdate={contaReceberUpdate}
+                setContaAReceber={setContaAReceber}
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
                 msg={msg}
@@ -82,14 +129,14 @@ export function ContasAReceberRegister() {
                 >
                     <option>Selecione um pagador</option>
                     {persons.map((person: TPerson) => (
-                    <option
-                        key={person.id_person}
-                        value={person.id_person}
-                    >
-                        { person.name_pers }
-                        {" - " + person.cpf_pers }
-                    </option>
-                ))}</select>}
+                        <option
+                            key={person.id_person}
+                            value={person.id_person}
+                        >
+                            {person.name_pers}
+                            {" - " + person.cpf_pers}
+                        </option>
+                    ))}</select>}
             >
                 {contaAReceber}
             </ContasAReceberRegisterForm>
