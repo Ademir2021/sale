@@ -12,6 +12,7 @@ type Props = {
     handleChange: any
     msg: string
     listPersons: any
+    handleTokenMessage:any
 }
 
 export function ContasAReceberRegisterForm({
@@ -22,7 +23,8 @@ export function ContasAReceberRegisterForm({
     handleSubmit,
     handleChange,
     msg,
-    listPersons
+    listPersons,
+    handleTokenMessage
 }: Props) {
 
     const handleContaAReceber = new HandleContaAReceber()
@@ -40,6 +42,7 @@ export function ContasAReceberRegisterForm({
 
     const text_title = ' o Título de Conta a Receber'
     const emitirTitulo = <form onSubmit={handleSubmit} className="form" id="up_form_">
+        <>{handleTokenMessage}</>
         <>{links}</>
         <p>{children.id_conta === 0 ? 'Emitir' + text_title : 'Atualizar' + text_title}</p>
         <input
@@ -49,6 +52,48 @@ export function ContasAReceberRegisterForm({
             onChange={handleChange}
             placeholder="Digite o valor"
         />
+        <label>Multa</label>
+        <input
+            type="number"
+            name="multa"
+            value={children.multa || 0}
+            onChange={handleChange}
+            placeholder="Multa Aplicada"
+        />
+         <label>Juros</label>
+        <input
+            type="number"
+            name="juros"
+            value={children.juros || 0}
+            onChange={handleChange}
+            placeholder="Juros Aplicados"
+        />
+         <label>Desconto</label>
+        <input
+            type="number"
+            name="desconto"
+            value={children.desconto || 0}
+            onChange={handleChange}
+            placeholder="Desconto Concedido"
+        />
+         <label>Recebimentos</label>
+        <input
+            type="number"
+            name="recebimento"
+            value={children.recebimento || ""}
+            onChange={handleChange}
+            placeholder="Valores Recebidos"
+        />
+        <label>Saldo</label>
+        <input
+            type="number"
+            name="saldo"
+            value={children.saldo = children.valor - children.recebimento - children.desconto || 0}
+            onChange={handleChange}
+            placeholder="Valores Recebidos"
+            disabled
+        />
+        <label>Vencimento</label>
         <input
             type="date"
             name="vencimento"

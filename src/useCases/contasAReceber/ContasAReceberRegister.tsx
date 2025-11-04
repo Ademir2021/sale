@@ -3,18 +3,17 @@ import { ContasAReceberRegisterForm } from "../../components/contasAReceber/Cont
 import { TContaAreceber } from "./type/TContasAReceber";
 import { TPerson } from "../persons/type/TPerson";
 import { postAuthHandle, postRegister } from "../../services/handleService";
-
 import { AuthContext } from '../../context/auth'
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
-import { HandleContaAReceber } from "./handleContaAReceber";
+import api from "../../services/api/api";
 
 export function ContasAReceberRegister() {
-    // const handleContaAReceber = new HandleContaAReceber()
     const [IdPerson, setIdPerson] = useState<number>(0)
     const [msg, setMsg] = useState<string>('Aguardando titulo')
     const [persons, setPersons] = useState<TPerson[]>([])
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
     const [contasAReceber, setContasAReceber] = useState<TContaAreceber[]>([])
+     const [contasAReceberOpen, setContasAReceberOpen] = useState<TContaAreceber[]>([])
     const { user: isLogged }: any = useContext(AuthContext);
     const [contaAReceber, setContaAReceber] = useState<TContaAreceber>({
         id_conta: 0,
@@ -45,7 +44,16 @@ export function ContasAReceberRegister() {
 
     useEffect(() => {
         postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
-    }, [])
+    }, [contaAReceber])
+
+    useEffect(()=>{
+        const res:TContaAreceber[] = []
+        for(let c of contasAReceber)
+            if(c.recebimento <= c.saldo){
+                res.push(c)
+            }
+            setContasAReceberOpen(res)
+    },[contasAReceber])
 
     useEffect(() => {
         postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
@@ -59,18 +67,18 @@ export function ContasAReceberRegister() {
         contaAReceber.fk_filial = persons[0].fk_name_filial
     }
 
-    useEffect(()=>{
-        if(contaAReceber.vencimento)
-        getContaAReceber()
-    },[IdPerson])
+    useEffect(() => {
+        if (contaAReceber.vencimento)
+            getContaAReceber()
+    }, [IdPerson])
 
 
     function contaReceberUpdate(contaAReceber: TContaAreceber) {
         setContaAReceber(contaAReceber)
     }
 
-    const contaAReceberClear: TContaAreceber  = {
-      id_conta: 0,
+    const contaAReceberClear: TContaAreceber = {
+        id_conta: 0,
         fk_filial: 0,
         tipo: "Leg",
         fk_venda: 0,
@@ -89,14 +97,20 @@ export function ContasAReceberRegister() {
         fk_pagador: 0
     }
 
-    function handleContasAReceberUpdate() {
+    const handleContasAReceberUpdate = async () => {
+        await api.put<TContaAreceber>('contas_receber', contaAReceber)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err))
+
         setContaAReceber(contaAReceberClear)
         setMsg('Titulo Atualizado com sucesso')
     }
 
     function handleContaReceberRegister() {
         getContaAReceber()
-        // postRegister(contaAReceber, 'contas_receber')
+        postRegister(contaAReceber, 'contas_receber')
         setContaAReceber(contaAReceberClear)
         setMsg('Titulo gravado com sucesso')
 
@@ -115,10 +129,10 @@ export function ContasAReceberRegister() {
 
     return (
         <>
-            <p>{JSON.stringify(contaAReceber)}</p>
-            {handleTokenMessage('contas_receber_register', tokenMessage)}
+            {}
             <ContasAReceberRegisterForm
-                contasAReceber={contasAReceber}
+            handleTokenMessage={handleTokenMessage('contas_receber_register', tokenMessage)}
+                contasAReceber={contasAReceberOpen}
                 contaReceberUpdate={contaReceberUpdate}
                 setContaAReceber={setContaAReceber}
                 handleSubmit={handleSubmit}
