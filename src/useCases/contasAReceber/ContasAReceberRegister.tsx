@@ -9,11 +9,12 @@ import api from "../../services/api/api";
 
 export function ContasAReceberRegister() {
     const [IdPerson, setIdPerson] = useState<number>(0)
+    const [statusTitulo, setStatusTitulo] = useState<boolean>(false)
     const [msg, setMsg] = useState<string>('Aguardando titulo')
     const [persons, setPersons] = useState<TPerson[]>([])
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
     const [contasAReceber, setContasAReceber] = useState<TContaAreceber[]>([])
-     const [contasAReceberOpen, setContasAReceberOpen] = useState<TContaAreceber[]>([])
+    const [contasAReceberOpen, setContasAReceberOpen] = useState<TContaAreceber[]>([])
     const { user: isLogged }: any = useContext(AuthContext);
     const [contaAReceber, setContaAReceber] = useState<TContaAreceber>({
         id_conta: 0,
@@ -36,24 +37,29 @@ export function ContasAReceberRegister() {
 
     });
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
         setContaAReceber(values => ({ ...values, [name]: value }))
+    };
+
+    const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStatusTitulo(e.target.checked);
     };
 
     useEffect(() => {
         postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
     }, [contaAReceber])
 
-    useEffect(()=>{
-        const res:TContaAreceber[] = []
-        for(let c of contasAReceber)
-            if(c.recebimento <= c.saldo){
+    useEffect(() => {
+        const res: TContaAreceber[] = []
+        for (let c of contasAReceber)
+            if (c.recebimento <= c.saldo) {
                 res.push(c)
             }
-            setContasAReceberOpen(res)
-    },[contasAReceber])
+        setContasAReceberOpen(res)
+    }, [contasAReceber])
+
 
     useEffect(() => {
         postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
@@ -127,34 +133,32 @@ export function ContasAReceberRegister() {
         }
     }
 
-    return (
-        <>
-            {}
-            <ContasAReceberRegisterForm
+    return <>
+        <ContasAReceberRegisterForm
             handleTokenMessage={handleTokenMessage('contas_receber_register', tokenMessage)}
-                contasAReceber={contasAReceberOpen}
-                contaReceberUpdate={contaReceberUpdate}
-                setContaAReceber={setContaAReceber}
-                handleSubmit={handleSubmit}
-                handleChange={handleChange}
-                msg={msg}
-                listPersons={<select
-                    onChange={e => setIdPerson(parseInt(e.target.value))}
-                >
-                    <option>Selecione um pagador</option>
-                    {persons.map((person: TPerson) => (
-                        <option
-                            key={person.id_person}
-                            value={person.id_person}
-                        >
-                            {person.name_pers}
-                            {" - " + person.cpf_pers}
-                        </option>
-                    ))}</select>}
+            contasAReceber={statusTitulo ? contasAReceberOpen : contasAReceber}
+            contaReceberUpdate={contaReceberUpdate}
+            setContaAReceber={setContaAReceber}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            handleChangeStatus={handleChangeStatus}
+            msg={msg}
+            listPersons={<select
+                onChange={e => setIdPerson(parseInt(e.target.value))}
             >
-                {contaAReceber}
-            </ContasAReceberRegisterForm>
-        </>
-    )
+                <option>Selecione um pagador</option>
+                {persons.map((person: TPerson) => (
+                    <option
+                        key={person.id_person}
+                        value={person.id_person}
+                    >
+                        {person.name_pers}
+                        {" - " + person.cpf_pers}
+                    </option>
+                ))}</select>}
+        >
+            {contaAReceber}
+        </ContasAReceberRegisterForm>
+    </>
 }
 

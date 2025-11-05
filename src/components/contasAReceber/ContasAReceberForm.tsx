@@ -19,6 +19,7 @@ type Props = {
     saldo: number
     printValorRecebido: any
     token: string | any
+    handleChangeStatus:any
 }
 
 export function ContasAreceberForm({
@@ -33,7 +34,8 @@ export function ContasAreceberForm({
     submitfluxoDeCaixa,
     saldo,
     printValorRecebido,
-    token
+    token,
+    handleChangeStatus
 }: Props) {
 
     const handleContasAReceber = new HandleFinanceiro()
@@ -157,6 +159,14 @@ export function ContasAreceberForm({
             </tr>
         ))}</tbody>
     </table>
+      const statusJurosMulta = <div className="container">
+        <input
+        type="checkbox"
+        name="statusTitulo"
+        onChange={handleChangeStatus}
+    />
+        <label className="p-2">Calcular Juros e Multa</label>
+    </div>
     return <><NavBar />
         <div className="form">
             {links}
@@ -166,6 +176,7 @@ export function ContasAreceberForm({
             {checkAdminPrivilege() === '2' ? inputReceberValor : <div>Contas em aberto do cliente</div>}
             {<div>{msg}</div>}
         </div>
+        {statusJurosMulta}
         {contasAReceber.length > 0 ? <div className="table-container" >{listaContasReceber}</div> : <h1 className="text-center">Cliente sem título para pagar !</h1>}
         {valoresRecebidos.length > 0 && <div className="table-container">{listaValoresRecebidos}</div>}
     </>

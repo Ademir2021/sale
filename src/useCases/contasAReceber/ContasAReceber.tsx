@@ -21,6 +21,7 @@ function ContasAReceber() {
     const [msg, setMsg] = useState('')
     const [valor, setValor] = useState(0)
     const [desconto, setDesconto] = useState(0)
+    const [statusJurosEMulta, setStatusJurosEMulta ] = useState<boolean>(false)
     const [contasAReceber, setContasAReceber] = useState<TContaAreceber[]>([])
     const [openAccounts, setOpenAccounts] = useState<TContaAreceber[]>([])
     const [valsRecebido] = useState<TValsRecebidos[]>([])
@@ -29,6 +30,10 @@ function ContasAReceber() {
     const [persons, setPersons] = useState<TPerson[]>([])
     const [sales, setSales] = useState<TSaleList[]>([]);
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
+
+      const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStatusJurosEMulta(e.target.checked);
+    };
 
     useEffect(() => {
         setTimeout(() => {
@@ -79,13 +84,13 @@ function ContasAReceber() {
         contaAReceber.saldo = saldo.toFixed(3)
     }
 
-    useEffect(() => {
-        function calcContasAReceber() {
-            for (let contaAReceber of openAccounts) {
+    function calcContasAReceber() {
+        for (let contaAReceber of openAccounts) {
 
-                const venc_original = new Date(contaAReceber.vencimento).getTime();
-                const diaPagamento = new Date().getTime()
+            const venc_original = new Date(contaAReceber.vencimento).getTime();
+            const diaPagamento = new Date().getTime()
 
+            if(statusJurosEMulta === true){
                 if (venc_original < diaPagamento) { // se vencer calcular juros e multa
                     const difference = handleContasAReceber.dateDifference(venc_original, diaPagamento);
 
@@ -95,11 +100,14 @@ function ContasAReceber() {
                         contaAReceber.multa = diasCalcJuros > 5 ? contaAReceber.valor * (3 / 100) : 0.00
                     }
                 }
-                getSaldo(contaAReceber)
             }
+            getSaldo(contaAReceber)
         }
+    }
+    
+    useEffect(() => {
         calcContasAReceber();
-    }, [openAccounts])
+    }, [openAccounts, statusJurosEMulta])
 
     async function registerValRecebido(valRecebido: TValsRecebidos) {
         await api.post<TValsRecebidos>('val_recebido', valRecebido)
@@ -248,6 +256,7 @@ function ContasAReceber() {
     return (
         <>
             <ContasAreceberForm
+            handleChangeStatus={handleChangeStatus}
                 token={handleTokenMessage('contas_receber', tokenMessage)}
                 contasAReceber={openAccounts}
                 valoresRecebidos={valsRecebidos}

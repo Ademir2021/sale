@@ -10,9 +10,10 @@ type Props = {
     setContaAReceber: Function
     handleSubmit: any
     handleChange: any
+    handleChangeStatus:any
     msg: string
     listPersons: any
-    handleTokenMessage:any
+    handleTokenMessage: any
 }
 
 export function ContasAReceberRegisterForm({
@@ -22,6 +23,7 @@ export function ContasAReceberRegisterForm({
     setContaAReceber,
     handleSubmit,
     handleChange,
+    handleChangeStatus,
     msg,
     listPersons,
     handleTokenMessage
@@ -60,7 +62,7 @@ export function ContasAReceberRegisterForm({
             onChange={handleChange}
             placeholder="Multa Aplicada"
         />
-         <label>Juros</label>
+        <label>Juros</label>
         <input
             type="number"
             name="juros"
@@ -68,7 +70,7 @@ export function ContasAReceberRegisterForm({
             onChange={handleChange}
             placeholder="Juros Aplicados"
         />
-         <label>Desconto</label>
+        <label>Desconto</label>
         <input
             type="number"
             name="desconto"
@@ -76,7 +78,7 @@ export function ContasAReceberRegisterForm({
             onChange={handleChange}
             placeholder="Desconto Concedido"
         />
-         <label>Recebimentos</label>
+        <label>Recebimentos</label>
         <input
             type="number"
             name="recebimento"
@@ -149,8 +151,18 @@ export function ContasAReceberRegisterForm({
         </tbody>
     </table>
 
+    const statusTitulo = <div className="container">
+        <input
+        type="checkbox"
+        name="statusTitulo"
+        onChange={handleChangeStatus}
+    />
+        <label className="p-2">Listar Somente os Títulos em Abertos</label>
+    </div>
+
     return <>
         {emitirTitulo}
+        {statusTitulo}
         {listContasAReceber}
     </>
 }
