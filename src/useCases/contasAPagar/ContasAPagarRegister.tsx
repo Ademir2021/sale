@@ -138,7 +138,7 @@ export function ContasAPagarRegister() {
 
     return (
         <>
-            <p>{JSON.stringify(contaAPagar)}</p>
+            {/* <p>{JSON.stringify(contaAPagar)}</p> */}
             <ContasAPagarRegisterForm
                 handleTokenMessage={handleTokenMessage('contas_pagar_register', tokenMessage)}
                 contasAPagar={contasAPagar}
