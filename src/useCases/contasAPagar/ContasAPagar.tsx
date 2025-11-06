@@ -8,14 +8,10 @@ import api from "../../services/api/api"
 import { handleTokenMessage } from "../../services/handleEnsureAuth"
 
 function ContasAPagar() {
-
     const handleContasAPagar = new HandleFinanceiro()
-
     const { user: isLogged }: any = useContext(AuthContext);
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
-    
     const [msg, setMsg] = useState('')
-
     const [contasAPagar, setContasAPagar] = useState<TContaAPagar[]>([])
     const [contasAPagarUser, setContasAPagarUser] = useState<TContaAPagar[]>([])
     const [desconto, setDesconto] = useState(0)
@@ -42,30 +38,30 @@ function ContasAPagar() {
         }
     }
 
+    async function getContasAPagar() {
+        await postAuthHandle('contas_pagar_list', setTokenMessage, setContasAPagarUser, isLogged)
+        const contas_: TContaAPagar[] = []
+        for (let conta of contasAPagarUser)
+            if (conta.saldo > 0 || conta.recebimento == 0) {
+                contas_.push(conta)
+                setContasAPagar(contas_)
+            }
+    }
     useEffect(() => {
-        async function getContasAPagar() {
-            await postAuthHandle('contas_pagar_list', setTokenMessage, setContasAPagarUser, isLogged)
-            const contas_: TContaAPagar[] = []
-            for (let conta of contasAPagarUser)
-                if (conta.saldo > 0 || conta.recebimento == 0) {
-                    contas_.push(conta)
-                    setContasAPagar(contas_)
-                }
-        }
         if (contasAPagar.length === 0) {
             getContasAPagar()
         }
     }, [contasAPagarUser])
 
+    async function getValsPagos() {
+        await postAuthHandle('vals_pagos_list', setTokenMessage, setValsPagosUser, isLogged)
+        const vals: TValPago[] = []
+        for (let val of valsPagosUser)
+            if (val.fk_user)
+                vals.push(val)
+        setValsPagosList(vals)
+    }
     useEffect(() => {
-        async function getValsPagos() {
-            await postAuthHandle('vals_pagos_list', setTokenMessage, setValsPagosUser, isLogged)
-            const vals: TValPago[] = []
-            for (let val of valsPagosUser)
-                if (val.fk_user)
-                    vals.push(val)
-            setValsPagosList(vals)
-        }
         getValsPagos()
     }, [valsPagosUser])
 

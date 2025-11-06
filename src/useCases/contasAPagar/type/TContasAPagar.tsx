@@ -14,7 +14,7 @@ export type TContaAPagar = {
     saldo:number | any 
     pagamento:Date | any | null
     recebimento: number | any
-    observacao:string | null
+    observacao:string | null | any
     fk_beneficiario:number
     fk_despesa:number
 }

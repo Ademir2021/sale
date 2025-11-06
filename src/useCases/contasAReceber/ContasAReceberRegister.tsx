@@ -109,7 +109,6 @@ export function ContasAReceberRegister() {
                 console.log(response.data)
             })
             .catch(err => console.log(err))
-
         setContaAReceber(contaAReceberClear)
         setMsg('Titulo Atualizado com sucesso')
     }

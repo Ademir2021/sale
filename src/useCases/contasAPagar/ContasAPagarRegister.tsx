@@ -8,17 +8,14 @@ import { ContasAPagarRegisterForm } from "../../components/contasAPagar/ContasAP
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
 
 export function ContasAPagarRegister() {
-
     const { user: isLogged }: any = useContext(AuthContext);
     const [tokenMessage, setTokenMessage] = useState("Usuário Autenticado !")
-
-    const [msg, setMsg] = useState('Aguardando titulo')
-
-    const [idPerson, setIdPerson] = useState<number>(0)
-    const [sendConta, setSendConta] = useState<boolean>(false)
+    const [msg, setMsg] = useState('Aguardando Conta ou Despesa')
+    const [person, setPerson] = useState<TPerson | any>(null)
     const [persons, setPersons] = useState<TPerson[]>([])
     const [despesas, setDespesas] = useState<TDespesa[]>([]) //criar no banco
     const [idDespesa, setIdDespesa] = useState<number>(0)
+    const [contasAPagar, setContasAPagar] = useState<TContaAPagar[]>([])
     const [contaAPagar, setContaAPagar] = useState<TContaAPagar>({
         id_conta: 0,
         fk_filial: 0,
@@ -46,80 +43,132 @@ export function ContasAPagarRegister() {
         setContaAPagar(values => ({ ...values, [name]: value }))
     };
 
+    const handleSelectPerson = (e: any) => {
+        const selectedId = Number(e.target.value);
+        const person: TPerson | any = persons.find((u) => u.id_person === selectedId);
+        setPerson(person);
+    };
+
+    const getContasAPagar = async () => {
+        await postAuthHandle('contas_pagar_list', setTokenMessage, setContasAPagar, isLogged)
+    }
+
     useEffect(() => {
-        const getDespesas = async () => {
-            try {
-                await api.get<TDespesa[]>('despesas')
-                    .then(response => {
-                        setDespesas(response.data)
-                    })
-            } catch (err) { console.log("err: " + err) }
-        };
+        getContasAPagar()
+    }, [contaAPagar])
+
+    const getDespesas = async () => {
+        try {
+            await api.get<TDespesa[]>('despesas')
+                .then(response => {
+                    setDespesas(response.data)
+                })
+        } catch (err) { console.log("err: " + err) }
+    };
+    useEffect(() => {
         getDespesas()
     }, [despesas])
 
     useEffect(() => {
-       postAuthHandle('persons_user',setTokenMessage,setPersons,isLogged)
+        postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
     }, [persons])
 
     function getContaAPagar() {
         contaAPagar.vencimento = new Date(contaAPagar.vencimento).toISOString()
         contaAPagar.valor = parseFloat(contaAPagar.valor).toFixed(3)
         if (persons.length > 0)
-            contaAPagar.fk_beneficiario = idPerson
+            contaAPagar.fk_beneficiario = person?.id_person | 0
         contaAPagar.fk_filial = persons[0].fk_name_filial
         if (despesas.length > 0)
             contaAPagar.fk_despesa = idDespesa
     }
 
-    function clerFields() {
-        contaAPagar.valor = 0
-        contaAPagar.vencimento = ''
-        contaAPagar.observacao = ''
+    function contaPagarUpdate(contaAReceber: TContaAPagar) {
+        setContaAPagar(contaAReceber)
     }
 
-    function handleSubmit(e:Event) {
-        e.preventDefault()
+    const contaAPagarClear: TContaAPagar = {
+        id_conta: 0,
+        fk_filial: 0,
+        tipo: "Desp",
+        fk_compra: 0,
+        fk_user: isLogged[0].id,
+        parcela: '1/1',
+        valor: 0,
+        multa: 0,
+        juros: 0,
+        desconto: 0,
+        emissao: new Date().toISOString(),
+        vencimento: '',
+        saldo: 0,
+        pagamento: null,
+        recebimento: 0,
+        observacao: "",
+        fk_beneficiario: 0,
+        fk_despesa: 1
+    }
+
+    const handleContasAPagarUpdate = async () => {
+        await api.put<TContaAPagar>('contas_pagar', contaAPagar)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err))
+        setContaAPagar(contaAPagarClear)
+        setMsg('Conta Atualizada com sucesso')
+    }
+
+    function handleContaPagarRegister() {
         getContaAPagar()
-        if (sendConta === false) {
-            postRegister(contaAPagar, 'contas_pagar')
-            setMsg('Titulo gravado com sucesso')
-            clerFields()
-            setSendConta(true)
-        } else { setMsg('Titulo já foi enviado') }
+        // postRegister(contaAPagar, 'contas_pagar')
+        // setContaAPagar(contaAPagarClear)
+        // setMsg('Conta Gravada com sucesso')
+    }
+
+    function handleSubmit(e: Event) {
+        e.preventDefault()
+        if (contaAPagar.valor !== 0) {
+            contaAPagar.id_conta === 0 ?
+                handleContaPagarRegister() :
+                handleContasAPagarUpdate()
+        } else {
+            setMsg("Informe um valor para a Conta")
+        }
     }
 
     return (
         <>
-        {handleTokenMessage('contas_pagar_register',tokenMessage)}
+            <p>{JSON.stringify(contaAPagar)}</p>
             <ContasAPagarRegisterForm
+                handleTokenMessage={handleTokenMessage('contas_pagar_register', tokenMessage)}
+                contasAPagar={contasAPagar}
+                setContaAPagar={setContaAPagar}
+                contaPagarUpdate={contaPagarUpdate}
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
                 msg={msg}
-                listPersons={<select
-                    onChange={e => setIdPerson(parseInt(e.target.value))}
-                >
-                    <option>Selecione o beneficiario</option>
-                    {persons.map((person: TPerson) => (
-                        <option
-                            key={person.id_person}
-                            value={person.id_person}
-                        >
-                            {person.name_pers}
-                            {" - " + person.cpf_pers}
-                        </option>
-                    ))}</select>}
+                listPersons={<div>
+                    {/* <b>Selecione um Beneficiário:</b> */}
+                    <select onChange={handleSelectPerson} defaultValue="">
+                        <option value="" disabled>Selecione o Beneficiário...</option>
+                        {persons.map((person: TPerson) => (
+                            <option key={person.id_person} value={person.id_person}>
+                                {person.id_person + " - " + person.name_pers}
+                            </option>
+                        ))}
+                    </select>
+                </div>}
 
                 listDespesas={<select
-                    onChange={e => setIdDespesa(parseInt(e.target.value))}
+                    onChange={e => setIdDespesa(parseInt(e.target.value))} defaultValue=""
                 >
-                    <option>Selecione a Despesa</option>
+                    <option disabled value="">Selecione a Despesa...</option>
                     {despesas.map((despesa: TDespesa) => (
                         <option
                             key={despesa.id}
                             value={despesa.id}
                         >
-                            {despesa.name}
+                            {despesa.id + " - " + despesa.name}
                         </option>
                     ))}
                 </select>}
