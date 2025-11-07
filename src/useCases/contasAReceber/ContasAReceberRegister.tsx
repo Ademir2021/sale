@@ -75,11 +75,10 @@ export function ContasAReceberRegister() {
         if (persons.length > 0)
             contaAReceber.fk_pagador = IdPerson
         contaAReceber.fk_filial = persons[0].fk_name_filial
-    }
+    };
 
     useEffect(() => {
-        if (contaAReceber.vencimento)
-            getContaAReceber()
+        contaAReceber.fk_pagador = IdPerson
     }, [IdPerson])
 
 

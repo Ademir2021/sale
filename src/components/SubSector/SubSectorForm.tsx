@@ -9,9 +9,9 @@ type Props = {
     msg: string
     updateSubSector: Function
     setSubSector: Function
-    listSector:any
-    selectedIdSector:number
-    findNameSector:Function
+    listSector: any
+    selectedIdSector: number
+    findNameSector: Function
 }
 
 const SubSectorForm = ({
@@ -27,7 +27,7 @@ const SubSectorForm = ({
     findNameSector
 }: Props) => {
 
-     const handleSubSector = new HandleSubSector()
+    const handleSubSector = new HandleSubSector()
 
     const register = <form className="form" id="up_form_" onSubmit={handleSubmit}>
         <a href="form_product">Sair</a>
@@ -40,7 +40,7 @@ const SubSectorForm = ({
             onChange={handleChange}
             required
         />
-          <label>Descrição do Sub Setor</label>
+        <label>Descrição do Sub Setor</label>
         <input
             type="text"
             placeholder="Descrição Sub Setor do Produto"
@@ -50,13 +50,10 @@ const SubSectorForm = ({
             required
         />
         <label>ID do Setor Selecionado</label>
-          <input
+        <input
             type="text"
             placeholder="ID Setor Selecionado"
-            // name="selectedIdSector"
             value={selectedIdSector}
-            // onChange={handleChange}
-            // required
             disabled
         />
         {listSector}
@@ -73,7 +70,7 @@ const SubSectorForm = ({
             <th className="text-center">ID Setor</th>
             <th>Nome Setor</th>
             <th className="text-center">Atualizar</th>
-            <th  className="text-center">Cancelar</th>
+            <th className="text-center">Cancelar</th>
         </tr>
     </thead>
 

@@ -12,10 +12,10 @@ export function ContasAPagarRegister() {
     const [tokenMessage, setTokenMessage] = useState("Usuário Autenticado !")
     const [msg, setMsg] = useState('Aguardando Conta ou Despesa')
     const [statusTitulo, setStatusTitulo] = useState<boolean>(false)
-    const [person, setPerson] = useState<TPerson | any>(null)
+    const [idPerson, setIdPerson] = useState(0)
     const [persons, setPersons] = useState<TPerson[]>([])
     const [despesas, setDespesas] = useState<TDespesa[]>([]) //criar no banco
-    const [idDespesa, setIdDespesa] = useState<number>(0)
+    const [idDespesa, setIdDespesa] = useState(0)
     const [contasAPagar, setContasAPagar] = useState<TContaAPagar[]>([])
     const [contasAPagarOpen, setContasAPagarOpen] = useState<TContaAPagar[]>([])
     const [contaAPagar, setContaAPagar] = useState<TContaAPagar>({
@@ -49,11 +49,7 @@ export function ContasAPagarRegister() {
         setStatusTitulo(e.target.checked);
     };
 
-    const handleSelectPerson = (e: any) => {
-        const selectedId = Number(e.target.value);
-        const person: TPerson | any = persons.find((u) => u.id_person === selectedId);
-        setPerson(person);
-    };
+
 
     const getContasAPagar = async () => {
         await postAuthHandle('contas_pagar_list', setTokenMessage, setContasAPagar, isLogged)
@@ -61,7 +57,7 @@ export function ContasAPagarRegister() {
 
     useEffect(() => {
         getContasAPagar()
-    }, [contaAPagar])
+    }, [contasAPagar])
 
     const getContasAPagarOpen = () => {
         const res: TContaAPagar[] = []
@@ -104,18 +100,22 @@ export function ContasAPagarRegister() {
                 return p.name_pers
     }
 
+    useEffect(()=>{
+        contaAPagar.fk_beneficiario = idPerson
+    },[idPerson])
+
     function getContaAPagar() {
         contaAPagar.vencimento = new Date(contaAPagar.vencimento).toISOString()
         contaAPagar.valor = parseFloat(contaAPagar.valor).toFixed(3)
-        if (persons.length > 0)
-            contaAPagar.fk_beneficiario = person?.id_person | 0
+        // if (persons.length > 0)
+        //     contaAPagar.fk_beneficiario = idPerson
         contaAPagar.fk_filial = persons[0].fk_name_filial
         if (despesas.length > 0)
             contaAPagar.fk_despesa = idDespesa
     }
 
-    function contaPagarUpdate(contaAReceber: TContaAPagar) {
-        setContaAPagar(contaAReceber)
+    function contaPagarUpdate(contaAPagar: TContaAPagar) {
+        setContaAPagar(contaAPagar)
     }
 
     const contaAPagarClear: TContaAPagar = {
@@ -140,7 +140,6 @@ export function ContasAPagarRegister() {
     }
 
     const handleContasAPagarUpdate = async () => {
-        getContaAPagar()
         await api.put<TContaAPagar>('contas_pagar', contaAPagar)
             .then(response => {
                 console.log(response.data)
@@ -151,7 +150,6 @@ export function ContasAPagarRegister() {
     }
 
     function handleContaPagarRegister() {
-        getContaAPagar()
         postRegister(contaAPagar, 'contas_pagar')
         setContaAPagar(contaAPagarClear)
         setMsg('Conta Gravada com sucesso')
@@ -159,6 +157,7 @@ export function ContasAPagarRegister() {
 
     function handleSubmit(e: Event) {
         e.preventDefault()
+        getContaAPagar()
         if (contaAPagar.valor !== 0) {
             contaAPagar.id_conta === 0 ?
                 handleContaPagarRegister() :
@@ -170,7 +169,7 @@ export function ContasAPagarRegister() {
 
     return (
         <>
-            {/* <p>{JSON.stringify(contaAPagar)}</p> */}
+            {/* <p>{JSON.stringify(idPerson)}</p> */}
             <ContasAPagarRegisterForm
                 handleChangeStatus={handleChangeStatus}
                 handleTokenMessage={handleTokenMessage('contas_pagar_register', tokenMessage)}
@@ -184,7 +183,7 @@ export function ContasAPagarRegister() {
                 msg={msg}
                 listPersons={<div>
                     {/* <b>Selecione um Beneficiário:</b> */}
-                    <select onChange={handleSelectPerson} defaultValue="">
+                    <select onChange={(e:any)=>setIdPerson(parseInt(e.target.value))} defaultValue="">
                         <option value="" disabled>Selecione o Beneficiário...</option>
                         {persons.map((person: TPerson) => (
                             <option key={person.id_person} value={person.id_person}>
