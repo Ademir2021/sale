@@ -1,6 +1,5 @@
 import { HandleContaAPagar } from '../../useCases/contasAPagar/handleContaAPagar'
 import { TContaAPagar } from '../../useCases/contasAPagar/type/TContasAPagar'
-import { TPerson } from '../../useCases/persons/type/TPerson'
 import { handleLinksDir } from '../utils/backHome/BackHome'
 import { FormatDate } from '../utils/formatDate'
 
@@ -17,6 +16,7 @@ type Props = {
     listDespesas: any
     findDespesa: Function
     findPerson: Function
+    handleChangeStatus:any
 }
 
 export function ContasAPagarRegisterForm({
@@ -31,10 +31,15 @@ export function ContasAPagarRegisterForm({
     listPersons,
     listDespesas,
     findDespesa,
-    findPerson
+    findPerson,
+    handleChangeStatus
 }: Props) {
 
     const handleContaAPagar = new HandleContaAPagar()
+
+    const nav = <p>
+        <a href='despesa'>Despesa</a>
+    </p>
 
     const links = <>
         {handleLinksDir(
@@ -51,6 +56,7 @@ export function ContasAPagarRegisterForm({
         {handleTokenMessage}
         <>{links}</>
         <p>{children.id_conta === 0 ? 'Emitir' + text_title : 'Atualizar' + text_title} </p>
+        {nav}
         <input
             type="number"
             name="valor"
@@ -160,9 +166,18 @@ export function ContasAPagarRegisterForm({
             ))}
         </tbody>
     </table>
+      const statusTitulo = <div className="container">
+        <input
+        type="checkbox"
+        name="statusTitulo"
+        onChange={handleChangeStatus}
+    />
+        <label className="p-2">Listar Somente os Títulos em Abertos</label>
+    </div>
       
     return <>
         {emitirTitulo}
+        {statusTitulo}
         {listContasAPagar}
     </>
 }

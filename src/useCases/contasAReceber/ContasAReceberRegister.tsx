@@ -51,13 +51,17 @@ export function ContasAReceberRegister() {
         postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
     }, [contaAReceber])
 
-    useEffect(() => {
+    const getcontasAReceberOpen = () => {
         const res: TContaAreceber[] = []
         for (let c of contasAReceber)
             if (c.recebimento <= c.saldo) {
                 res.push(c)
             }
         setContasAReceberOpen(res)
+    };
+
+    useEffect(() => {
+        getcontasAReceberOpen()
     }, [contasAReceber])
 
 

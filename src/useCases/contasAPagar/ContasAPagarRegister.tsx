@@ -11,11 +11,13 @@ export function ContasAPagarRegister() {
     const { user: isLogged }: any = useContext(AuthContext);
     const [tokenMessage, setTokenMessage] = useState("Usuário Autenticado !")
     const [msg, setMsg] = useState('Aguardando Conta ou Despesa')
+    const [statusTitulo, setStatusTitulo] = useState<boolean>(false)
     const [person, setPerson] = useState<TPerson | any>(null)
     const [persons, setPersons] = useState<TPerson[]>([])
     const [despesas, setDespesas] = useState<TDespesa[]>([]) //criar no banco
     const [idDespesa, setIdDespesa] = useState<number>(0)
     const [contasAPagar, setContasAPagar] = useState<TContaAPagar[]>([])
+    const [contasAPagarOpen, setContasAPagarOpen] = useState<TContaAPagar[]>([])
     const [contaAPagar, setContaAPagar] = useState<TContaAPagar>({
         id_conta: 0,
         fk_filial: 0,
@@ -43,6 +45,10 @@ export function ContasAPagarRegister() {
         setContaAPagar(values => ({ ...values, [name]: value }))
     };
 
+    const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStatusTitulo(e.target.checked);
+    };
+
     const handleSelectPerson = (e: any) => {
         const selectedId = Number(e.target.value);
         const person: TPerson | any = persons.find((u) => u.id_person === selectedId);
@@ -51,11 +57,24 @@ export function ContasAPagarRegister() {
 
     const getContasAPagar = async () => {
         await postAuthHandle('contas_pagar_list', setTokenMessage, setContasAPagar, isLogged)
-    }
+    };
 
     useEffect(() => {
         getContasAPagar()
     }, [contaAPagar])
+
+    const getContasAPagarOpen = () => {
+        const res: TContaAPagar[] = []
+        for (let c of contasAPagar)
+            if (c.recebimento <= c.saldo) {
+                res.push(c)
+            }
+        setContasAPagarOpen(res)
+    }
+
+    useEffect(() => {
+        getContasAPagarOpen()
+    }, [contasAPagar])
 
     const getDespesas = async () => {
         try {
@@ -69,9 +88,9 @@ export function ContasAPagarRegister() {
         getDespesas()
     }, [despesas])
 
-    function findDespesa  (ContaAPagar:TContaAPagar) {
-        for(let d of despesas)
-            if(d.id === ContaAPagar.fk_despesa)
+    function findDespesa(ContaAPagar: TContaAPagar) {
+        for (let d of despesas)
+            if (d.id === ContaAPagar.fk_despesa)
                 return d.name
     }
 
@@ -79,9 +98,9 @@ export function ContasAPagarRegister() {
         postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
     }, [persons])
 
-    function findPerson(ContaAPagar:TContaAPagar){
-        for(let p of persons)
-            if(p.id_person === ContaAPagar.fk_beneficiario)
+    function findPerson(ContaAPagar: TContaAPagar) {
+        for (let p of persons)
+            if (p.id_person === ContaAPagar.fk_beneficiario)
                 return p.name_pers
     }
 
@@ -121,6 +140,7 @@ export function ContasAPagarRegister() {
     }
 
     const handleContasAPagarUpdate = async () => {
+        getContaAPagar()
         await api.put<TContaAPagar>('contas_pagar', contaAPagar)
             .then(response => {
                 console.log(response.data)
@@ -132,9 +152,9 @@ export function ContasAPagarRegister() {
 
     function handleContaPagarRegister() {
         getContaAPagar()
-        // postRegister(contaAPagar, 'contas_pagar')
-        // setContaAPagar(contaAPagarClear)
-        // setMsg('Conta Gravada com sucesso')
+        postRegister(contaAPagar, 'contas_pagar')
+        setContaAPagar(contaAPagarClear)
+        setMsg('Conta Gravada com sucesso')
     }
 
     function handleSubmit(e: Event) {
@@ -152,8 +172,9 @@ export function ContasAPagarRegister() {
         <>
             {/* <p>{JSON.stringify(contaAPagar)}</p> */}
             <ContasAPagarRegisterForm
+                handleChangeStatus={handleChangeStatus}
                 handleTokenMessage={handleTokenMessage('contas_pagar_register', tokenMessage)}
-                contasAPagar={contasAPagar}
+                contasAPagar={statusTitulo ? contasAPagarOpen : contasAPagar}
                 setContaAPagar={setContaAPagar}
                 contaPagarUpdate={contaPagarUpdate}
                 handleSubmit={handleSubmit}
