@@ -20,6 +20,7 @@ type Props = {
     saldo: number
     findNameDespesa: any // (id: number)
     token: string | any
+    handleChangeStatus:any
 }
 
 function ContasAPagarForm({
@@ -34,11 +35,20 @@ function ContasAPagarForm({
     submitfluxoDeCaixa,
     saldo,
     findNameDespesa,
-    token
+    token,
+    handleChangeStatus
 }: Props) {
 
-    const handleContasAPagar = new HandleFinanceiro()
+    const links = <> {handleLinksDir(
+                'dashboardefault',
+                'Painel',
+                '##',
+                'Financeiro',
+                '##',
+                'Contas a pagar'
+            )}</>
 
+    const handleContasAPagar = new HandleFinanceiro()
     const headerContasPagar = <b>Contas a Pagar em Aberto</b>
 
     const sumbit =
@@ -148,22 +158,24 @@ function ContasAPagarForm({
             </tr>
         ))}</tbody>
     </table>
+     const statusJurosMulta = <div className="container">
+        <input
+        type="checkbox"
+        name="statusTitulo"
+        onChange={handleChangeStatus}
+    />
+        <label className="p-2">Calcular Juros e Multa</label>
+    </div>
     return <> <NavBar />
         <div className="form">
-            {handleLinksDir(
-                'dashboardefault',
-                'Painel',
-                '##',
-                'Financeiro',
-                '##',
-                'Contas a pagar'
-            )}
+            {links}
             {checkAdminPrivilege() == '2' && sumbit}
             {headerContasPagar}
             {token}
             {msg && <div>{msg}</div>}
             {checkAdminPrivilege() == '2' && inputPagarValor}
         </div>
+        {statusJurosMulta}
         {contasAPagar.length > 0 && <div className="table-container">{listaContasPagar}</div>}
         {valoresPagos.length > 0 && <div className="table-container">{listaValoresPago}</div>}
     </>

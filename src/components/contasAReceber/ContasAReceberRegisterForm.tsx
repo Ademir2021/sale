@@ -111,7 +111,7 @@ export function ContasAReceberRegisterForm({
         <>{listPersons}</>
         <button className="container">{children.id_conta === 0 ? 'Inserir' : 'Atualizar'}</button>
         <button className="container" onClick={() => setContaAReceber(children)}>Cancelar</button>
-        <p>{msg}</p>
+          {msg && <p className='p-2 text-center'>{msg}</p>}
     </form>
 
     const thead = <thead>

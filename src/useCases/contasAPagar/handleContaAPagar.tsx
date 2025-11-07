@@ -21,7 +21,8 @@ class HandleContaAPagar {
             observacao: "",
             fk_beneficiario: 0,
             fk_despesa: 1
-        })
+        });
+        return res
     }
 }
 

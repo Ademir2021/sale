@@ -12,6 +12,7 @@ function ContasAPagar() {
     const { user: isLogged }: any = useContext(AuthContext);
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
     const [msg, setMsg] = useState('')
+    const [statusJurosEMulta, setStatusJurosEMulta] = useState<boolean>(false)
     const [contasAPagar, setContasAPagar] = useState<TContaAPagar[]>([])
     const [contasAPagarUser, setContasAPagarUser] = useState<TContaAPagar[]>([])
     const [desconto, setDesconto] = useState(0)
@@ -20,6 +21,10 @@ function ContasAPagar() {
     const [valsPagos] = useState<TValPago[]>([])
     const [valsPagosList, setValsPagosList] = useState<TValPago[]>([])
     const [valsPagosUser, setValsPagosUser] = useState<TValPago[]>([])
+
+    const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStatusJurosEMulta(e.target.checked);
+    };
 
     useEffect(() => {
         setTimeout(() => {
@@ -73,27 +78,29 @@ function ContasAPagar() {
             .catch(err => console.log(err))
     }
 
-    useEffect(() => {
-        function calcContasAPagar() {
-            for (let contaAPagar of contasAPagar) {
-                const venc_original = new Date(contaAPagar.vencimento).getTime();
-                const diaPagamento = new Date().getTime()
+    function calcContasAPagar() {
+        for (let contaAPagar of contasAPagar) {
+            const venc_original = new Date(contaAPagar.vencimento).getTime();
+            const diaPagamento = new Date().getTime()
+            if (statusJurosEMulta === true) {
                 if (venc_original < diaPagamento) { // se vencer calcular juros e multa
                     const difference = handleContasAPagar.dateDifference(venc_original, diaPagamento);
                     const diasCalcJuros: number | any = (difference.diffInDays).toFixed(0)
                     contaAPagar.juros = contaAPagar.valor !== 0.00 ? contaAPagar.valor * diasCalcJuros * (0.10 / 100) : 0.00
                     contaAPagar.multa = diasCalcJuros > 5 ? contaAPagar.valor * (3 / 100) : 0.00
                 }
-                const saldo =
-                    parseFloat(contaAPagar.valor) -
-                    parseFloat(contaAPagar.recebimento) +
-                    parseFloat(contaAPagar.juros) +
-                    parseFloat(contaAPagar.multa)
-                contaAPagar.saldo = saldo.toFixed(3)
             }
+            const saldo =
+                parseFloat(contaAPagar.valor) -
+                parseFloat(contaAPagar.recebimento) +
+                parseFloat(contaAPagar.juros) +
+                parseFloat(contaAPagar.multa)
+            contaAPagar.saldo = saldo.toFixed(3)
         }
+    }
+    useEffect(() => {
         calcContasAPagar();
-    }, [contasAPagar])
+    }, [contasAPagar, statusJurosEMulta])
 
     const registerValPago = async (valPago: TValPago) => {
         await api.post<TValPago>('val_pago', valPago)
@@ -186,7 +193,7 @@ function ContasAPagar() {
     }
     return (
         <ContasAPagarForm
-        token={handleTokenMessage('contas_pagar', tokenMessage)}
+            token={handleTokenMessage('contas_pagar', tokenMessage)}
             contasAPagar={contasAPagar}
             valoresPagos={valsPagosList}
             pagarValor={valor > 0 ? handleSumbit : () => { setMsg('Informe um novo valor') }}
@@ -202,6 +209,7 @@ function ContasAPagar() {
             submitfluxoDeCaixa={() => { window.location.assign("caixa_mov") }}
             saldo={sumSaldoAPagar()}
             findNameDespesa={findNameDespesa}
+            handleChangeStatus={handleChangeStatus}
         />
     )
 }

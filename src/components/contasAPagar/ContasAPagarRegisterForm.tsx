@@ -15,6 +15,8 @@ type Props = {
     msg: string;
     listPersons: any
     listDespesas: any
+    findDespesa: Function
+    findPerson: Function
 }
 
 export function ContasAPagarRegisterForm({
@@ -27,7 +29,9 @@ export function ContasAPagarRegisterForm({
     handleChange,
     msg,
     listPersons,
-    listDespesas
+    listDespesas,
+    findDespesa,
+    findPerson
 }: Props) {
 
     const handleContaAPagar = new HandleContaAPagar()
@@ -46,7 +50,7 @@ export function ContasAPagarRegisterForm({
     const emitirTitulo = <form onSubmit={handleSubmit} className='form' id='up_form_'>
         {handleTokenMessage}
         <>{links}</>
-        <p>{children.id_conta == 0 ? 'Emitir' + text_title : 'Atualizar' + text_title} </p>
+        <p>{children.id_conta === 0 ? 'Emitir' + text_title : 'Atualizar' + text_title} </p>
         <input
             type="number"
             name="valor"
@@ -76,6 +80,20 @@ export function ContasAPagarRegisterForm({
             value={children.desconto || 0}
             onChange={handleChange}
         />
+        <label>Recebimentos</label>
+        <input
+            type="number"
+            name="Recebimento"
+            value={children.recebimento || 0}
+            onChange={handleChange}
+        />
+        <label>Saldo</label>
+        <input
+            type="saldo"
+            name="desconto"
+            value={children.saldo = children.valor - children.recebimento - children.desconto || 0}
+            onChange={handleChange}
+        />
         <input
             type="date"
             name="vencimento"
@@ -88,16 +106,25 @@ export function ContasAPagarRegisterForm({
             onChange={handleChange}
             placeholder="Observação"
         />
+        <label>Beneficiário</label>
+        {children && <p>{findPerson(children)}</p>}
         {listPersons}
+        <label>Despesa:</label>
+        {children && <p>{findDespesa(children)}</p>}
         {listDespesas}
-        <button>{children.id_conta === 0 ? 'Inserir Conta' : 'Atualizar Conta'}</button>
-        {msg && <p className='p-2'>{msg}</p>}
+        <button className='container'>{children.id_conta === 0 ? 'Inserir Conta' : 'Atualizar Conta'}</button>
+        <button className='container' onClick={() => setContaAPagar(handleContaAPagar.clearFields(children))}>Cancelar</button>
+        {msg && <p className='p-2 text-center'>{msg}</p>}
     </form>
     const thead = <thead>
         <tr>
             <th className='text-center'>ID</th>
             <th className="text-center">Compra</th>
             <th>BenefID</th>
+            <th>Beneficiário</th>
+            <th>DespID</th>
+            <th>Despesa</th>
+            <th>Observação</th>
             <th>Emissão</th>
             <th>Valor</th>
             <th>Vencimento</th>
@@ -116,7 +143,11 @@ export function ContasAPagarRegisterForm({
                 <tr key={contaAPagar.id_conta}>
                     <th className="text-center">{contaAPagar.id_conta}</th>
                     <th className="text-center">{contaAPagar.fk_compra}</th>
+                    <th className="text-center">{contaAPagar.fk_beneficiario}</th>
+                    <th>{findPerson(contaAPagar)}</th>
                     <th className="text-center">{contaAPagar.fk_despesa}</th>
+                    <th>{findDespesa(contaAPagar)}</th>
+                    <th>{contaAPagar.observacao}</th>
                     <th className="">{FormatDate(contaAPagar.emissao)}</th>
                     <th>{contaAPagar.valor}</th>
                     <th>{FormatDate(contaAPagar.vencimento)}</th>
@@ -129,6 +160,7 @@ export function ContasAPagarRegisterForm({
             ))}
         </tbody>
     </table>
+      
     return <>
         {emitirTitulo}
         {listContasAPagar}

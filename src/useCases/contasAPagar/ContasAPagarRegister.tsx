@@ -69,9 +69,21 @@ export function ContasAPagarRegister() {
         getDespesas()
     }, [despesas])
 
+    function findDespesa  (ContaAPagar:TContaAPagar) {
+        for(let d of despesas)
+            if(d.id === ContaAPagar.fk_despesa)
+                return d.name
+    }
+
     useEffect(() => {
         postAuthHandle('persons_user', setTokenMessage, setPersons, isLogged)
     }, [persons])
+
+    function findPerson(ContaAPagar:TContaAPagar){
+        for(let p of persons)
+            if(p.id_person === ContaAPagar.fk_beneficiario)
+                return p.name_pers
+    }
 
     function getContaAPagar() {
         contaAPagar.vencimento = new Date(contaAPagar.vencimento).toISOString()
@@ -146,6 +158,8 @@ export function ContasAPagarRegister() {
                 contaPagarUpdate={contaPagarUpdate}
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
+                findDespesa={findDespesa}
+                findPerson={findPerson}
                 msg={msg}
                 listPersons={<div>
                     {/* <b>Selecione um Beneficiário:</b> */}
