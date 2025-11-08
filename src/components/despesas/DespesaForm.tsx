@@ -8,6 +8,9 @@ type Props = {
     handleSubmit: any
     despesaUpdate: Function
     setDespesa: Function
+    listSetorDespesas: any
+    findSetorDespesa:Function
+    msg:string
 }
 
 const DespesaForm = ({
@@ -16,7 +19,10 @@ const DespesaForm = ({
     handleChange,
     handleSubmit,
     despesaUpdate,
-    setDespesa
+    setDespesa,
+    listSetorDespesas,
+    findSetorDespesa,
+    msg
 }: Props) => {
 
     const handleDespesa = new HandleDespesa()
@@ -28,6 +34,7 @@ const DespesaForm = ({
             value={children.id || ""}
             onChange={handleChange}
             placeholder="ID"
+            disabled
         />
         <input
             type="text"
@@ -36,15 +43,17 @@ const DespesaForm = ({
             onChange={handleChange}
             placeholder="Descrição da Despesa"
         />
-        <button>{children.id  === 0 ? 'Inserir' : 'Atualizar'}</button>
+        {listSetorDespesas}
+        <button>{children.id === 0 ? 'Inserir' : 'Atualizar'}</button>
+        {msg && <p className="m-2">{msg}</p> }
     </form>
 
     const thead = <thead>
         <tr>
             <th className='text-center'>ID</th>
-            <th className="text-center">Despesa</th>
+            <th>Descrição da Despesa</th>
             <th className="text-center">IdSetor</th>
-            <th className="text-center">Nome Setor</th>
+            <th>Nome do Setor e Tipo</th>
             <th className="text-center">Atualizar</th>
             <th className="text-center">Cancelar</th>
         </tr>
@@ -56,9 +65,9 @@ const DespesaForm = ({
             {despesas.map((despesa: TDespesa) => (
                 <tr key={despesa.id}>
                     <th className="text-center">{despesa.id}</th>
-                    <th className="text-center">{despesa.name}</th>
+                    <th>{despesa.name}</th>
                     <th className="text-center">{despesa.fk_setor}</th>
-                    <th className="text-center">{'setor XX'}</th>
+                    <th>{findSetorDespesa(despesa).name + " - " + findSetorDespesa(despesa).tipo}</th>
                     <th className="text-center"><a href="#up_form_" onClick={() => despesaUpdate(despesa)}>Atualizar</a></th>
                     <th className="text-center"><a href="#up_form_" onClick={() => setDespesa(handleDespesa.clearField(despesa))}>Cancelar</a></th>
                 </tr>
