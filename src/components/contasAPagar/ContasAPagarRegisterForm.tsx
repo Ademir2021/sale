@@ -48,7 +48,7 @@ export function ContasAPagarRegisterForm({
             'contas_pagar',
             'Financeiro',
             '##',
-            'Emitir titulos a pagar'
+            'Emitir Despesa'
         )}
     </>
     const text_title = ' Provisão da Despesas'

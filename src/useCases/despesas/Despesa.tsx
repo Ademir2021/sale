@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { DespesaForm } from "../../components/despesas/DespesaForm"
 import { TDespesa, TSetorDespesa } from "../contasAPagar/type/TContasAPagar"
 import api from "../../services/api/api"
+import { postRegister } from "../../services/handleService"
 
 const Despesa = () => {
     const [msg, setMsg] = useState('Aguardando Descrição da Despesas')
@@ -47,7 +48,7 @@ const Despesa = () => {
     };
     useEffect(() => {
         getDespesas()
-    }, [despesas])
+    }, [despesa, despesas])
 
     const findSetorDespesa = (Despesa: TDespesa) => {
         for (let s of setorDespesas)
@@ -59,21 +60,38 @@ const Despesa = () => {
         setDespesa(Despesa)
     };
 
-    const handleDespesaUpdate = () => {setMsg('Update')}
-    const handleDespesaRegister = () => {alert('Register')}
+    const despesaClear: TDespesa = ({
+        id: 0,
+        name: '',
+        fk_setor: 0
+    })
+
+    const handleDespesaUpdate = async () => {
+        await api.put<TDespesa>('despesa', despesa)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(err => console.log(err))
+        setDespesa(despesaClear)
+        setMsg('Despesa Atualizada com sucesso')
+    }
+    const handleDespesaRegister = () => {
+        postRegister(despesa, 'despesa')
+        setDespesa(despesaClear)
+        setMsg('Despesa Gravada com sucesso')
+    }
 
     const handleSubmit = (e: Event) => {
         e.preventDefault()
-        if(despesa.name !=""){
+        if (despesa.name != "" && despesa.fk_setor != 0) {
             despesa.id === 0 ? handleDespesaRegister() :
-            handleDespesaUpdate()
-        }else{
-            
+                handleDespesaUpdate()
+        } else {
+            setMsg("Insira à Descrição da Despesa e Selecione o Setor")
         }
     };
 
     return <>
-        {/* <p>{JSON.stringify(iDSetorDespesa)}</p> */}
         <DespesaForm
             despesas={despesas}
             handleChange={handleChange}

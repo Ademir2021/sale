@@ -37,8 +37,12 @@ export type TDespesa = {
     fk_setor:number
 }
 
+export type TTipoSetor = {
+    tipo: 'Fixa' | 'Variavel'
+}
+
 export type TSetorDespesa = {
     id:number
     name:string 
-    tipo:string
+    tipo:TTipoSetor | ''
 }

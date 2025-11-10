@@ -41,6 +41,7 @@ import { Filial } from "./useCases/filial/Filial";
 import { HandleNotAuthorized } from "./components/utils/notAuthorized/HandleNotAuthorized";
 import { ClasseProd } from "./useCases/classeProd/ClasseProd";
 import { Despesa } from "./useCases/despesas/Despesa";
+import { SetorDespesa } from "./useCases/despesas/SetorDespesa";
 
 export function AppRoutes() {
 
@@ -103,7 +104,8 @@ export function AppRoutes() {
                     <Route path="brand" element={<Private>{handleNotAuthorized.checkAdminAuthorization(<Brand />)}</Private>} />
                     <Route path="filial" element={<Private>{handleNotAuthorized.checkAdminAuthorization(<Filial />)}</Private>} />
                     <Route path="classe_prod" element={<Private>{handleNotAuthorized.checkAdminAuthorization(<ClasseProd />)}</Private>} />
-                     <Route path="despesa" element={<Private>{handleNotAuthorized.checkAdminAuthorization(<Despesa />)}</Private>} />
+                    <Route path="despesa" element={<Private>{handleNotAuthorized.checkAdminAuthorization(<Despesa />)}</Private>} />
+                    <Route path="setor_despesa" element={<Private>{handleNotAuthorized.checkAdminAuthorization(<SetorDespesa />)}</Private>} />
                     <Route path="*" Component={Error404} />
                 </Routes>
             </AuthProvider>

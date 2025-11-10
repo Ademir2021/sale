@@ -1,5 +1,6 @@
 import { TDespesa } from "../../useCases/contasAPagar/type/TContasAPagar"
 import { HandleDespesa } from "../../useCases/despesas/handleDespesa"
+import { handleLinksDir } from "../utils/backHome/BackHome"
 
 type Props = {
     children: TDespesa
@@ -9,8 +10,8 @@ type Props = {
     despesaUpdate: Function
     setDespesa: Function
     listSetorDespesas: any
-    findSetorDespesa:Function
-    msg:string
+    findSetorDespesa: Function
+    msg: string
 }
 
 const DespesaForm = ({
@@ -26,8 +27,12 @@ const DespesaForm = ({
 }: Props) => {
 
     const handleDespesa = new HandleDespesa()
-
-    const emitirDespesa = <form onSubmit={handleSubmit} className="form">
+    const text_title = '  Despesa'
+    
+    const emitirDespesa = <form onSubmit={handleSubmit} className="form" id="up_form_">
+         <a href="contas_pagar_register">Sair</a>
+          <p>{children.id === 0 ? 'Emitir' + text_title : 'Atualizar' + text_title} </p>
+          <a href="setor_despesa">Setor</a>
         <input
             type="number"
             name="id"
@@ -45,7 +50,7 @@ const DespesaForm = ({
         />
         {listSetorDespesas}
         <button>{children.id === 0 ? 'Inserir' : 'Atualizar'}</button>
-        {msg && <p className="m-2">{msg}</p> }
+        {msg && <p className="m-2">{msg}</p>}
     </form>
 
     const thead = <thead>
