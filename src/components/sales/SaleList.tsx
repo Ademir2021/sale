@@ -29,7 +29,7 @@ export function SalesList({
     const NFeStatus = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
 
     const form_ = <form onSubmit={searchHandle} className="form-container">
-        <CloseX/>
+        <CloseX link="/"/>
         <div>Notas de Vendas</div>
         <div>{handleTokenMessage('list_sale', tokenMessage)}</div>
         <div className="input-group">

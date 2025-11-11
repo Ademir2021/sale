@@ -74,7 +74,7 @@ const LoginComponent: React.FC<Props> = ({
     return <>
         <div className="login-wrapper">
             <div className="login-container">
-                <CloseX />
+                <CloseX link="/"/>
                 <h2>{loginRegister ? "Seja bem vindo(a)" : "Bem vindo(a) de volta"}</h2>
                 {children.id === 0 ? <>{!loginRecover ? <p>{loginRegister ? "Registrar a minha conta" :
                     "Entrar na minha conta"}</p> : <p>Digite um Email válido!</p>}</> : <p>Atualizar Conta</p>}

@@ -1,5 +1,6 @@
 import { TSetorDespesa } from "../../useCases/contasAPagar/type/TContasAPagar"
 import { HandleDespesa } from "../../useCases/despesas/handleDespesa"
+import { CloseX } from "../utils/closeX/CloseX"
 
 type Props = {
     children:TSetorDespesa
@@ -27,8 +28,8 @@ const SetorDespesaForm = ({
       const text_title = '  Setor da Despesa'
 
     const emitirSetorDespesa = <form onSubmit={handleSubmit} className="form">
-         <a href="despesa">Sair</a>
-          <p>{children.id === 0 ? 'Inserir' + text_title : 'Atualizar' + text_title} </p>
+         <CloseX link="despesa" />
+          <label>{children.id === 0 ? 'Inserir' + text_title : 'Atualizar' + text_title} </label>
        {children.id !== 0 && <label>{"ID Setor: " + children.id}</label> }
         <label>Descrição do Setor para Despesas</label>
         <input

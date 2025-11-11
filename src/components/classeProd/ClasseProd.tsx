@@ -1,4 +1,5 @@
 import { TClasseProd } from "../../useCases/products/type/TProducts"
+import { CloseX } from "../utils/closeX/CloseX"
 
 type Props = {
     children: TClasseProd
@@ -21,7 +22,7 @@ const ClasseProdForm = ({
 }: Props) => {
 
     const register = <form className="form" id="up_form_" onSubmit={handleSubmit}>
-        <a href="form_product">Sair</a>
+        <CloseX link="form_product"/>
         <label>Nome da Classe</label>
         <input
             type="text"

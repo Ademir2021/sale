@@ -1,5 +1,6 @@
 import { TSubSector } from "../../useCases/products/type/TProducts"
 import { HandleSubSector } from "../../useCases/subSector/handleSubSector"
+import { CloseX } from "../utils/closeX/CloseX"
 
 type Props = {
     children: TSubSector
@@ -30,7 +31,7 @@ const SubSectorForm = ({
     const handleSubSector = new HandleSubSector()
 
     const register = <form className="form" id="up_form_" onSubmit={handleSubmit}>
-        <a href="form_product">Sair</a>
+        <CloseX link='form_product' />
         <label>Nome do Sub Setor</label>
         <input
             type="text"

@@ -115,12 +115,12 @@ export const  PersonForm:React.FC<Props> = ({
     return (
 
         <form className="form" onSubmit={handleSubmit}>
-            <CloseX/>
-            <b>Cadastrar Cliente</b>
-            <p><a href='/invoice_sales'>
+            <CloseX link="/"/>
+            <label>Cadastro de Clientes</label>
+            <label><a href='/invoice_sales'>
                 Já possui cadastro?
-                <b> finalizar</b></a>
-            </p>
+                <> Retornar</></a>
+            </label>
             <select onChange={(e) => setTpPerson(e.target.value)}>
                 <option>{'Pessoa-Fisica'}</option>
                 <option>{'Pessoa-Juridica'}</option>
@@ -199,7 +199,7 @@ export const  PersonForm:React.FC<Props> = ({
             {checkAdminPrivilege() === "2" && limiteCredito}
             {checkAdminPrivilege() === "2" && grupo}
             {msg && <dd id="msg-red">{msg}</dd>}
-            <button>Inserir Dados</button>
+            <button className="container">Inserir Dados</button>
         </form>
     )
 }

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { TProduct } from '../../useCases/products/type/TProducts';
 import { UploadImagem } from '../../useCases/products/UploadImage';
 import { NavBar } from '../navbar/Navbar';
-
-import '../../index'
 import '../css/styles-forms.css'
 import { CloseX } from '../utils/closeX/CloseX';
+
+import '../../index'
 
 type Props = {
   children: TProduct
@@ -128,7 +128,7 @@ export function ProductForm({
     />
     <UploadImagem />
     {msg && <div id='msg-red'>{msg}</div>}
-    <button>Inserir Produto</button>
+    <button className='container'>Inserir Produto</button>
   </>
 
   const fiscal = <div id='m-2'>
@@ -139,19 +139,16 @@ export function ProductForm({
     <span id='m-2'>{msgNcm}</span>
   </div>
 
-  return (
-    <>
-      <NavBar />
+  return <> <NavBar />
       <div className='form'>
-        <CloseX/>
-        {menu === 'geral' && <b id='m-2'>Cadastrar Produto</b>}
-        {menu === 'fiscal' && <b id='m-2'>Situação fiscal do Produto</b>}
+        <CloseX link='/' />
+        {menu === 'geral' && <label id='m-2'>Cadastrar Produto</label>}
+        {menu === 'fiscal' && <label id='m-2'>Situação Fiscal do Produto</label>}
         {nav}
         <form onSubmit={handleSubmit}>
-          {menu === 'fiscal' ? fiscal : null}
-          {menu === "geral" ? geral : null}
+          {menu === 'fiscal' && fiscal}
+          {menu === "geral" && geral}
         </form>
       </div>
     </>
-  )
 };

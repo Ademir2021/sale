@@ -1,6 +1,7 @@
 import { TDespesa } from "../../useCases/contasAPagar/type/TContasAPagar"
 import { HandleDespesa } from "../../useCases/despesas/handleDespesa"
 import { handleLinksDir } from "../utils/backHome/BackHome"
+import { CloseX } from "../utils/closeX/CloseX"
 
 type Props = {
     children: TDespesa
@@ -30,8 +31,8 @@ const DespesaForm = ({
     const text_title = '  Despesa'
     
     const emitirDespesa = <form onSubmit={handleSubmit} className="form" id="up_form_">
-         <a href="contas_pagar_register">Sair</a>
-          <p>{children.id === 0 ? 'Emitir' + text_title : 'Atualizar' + text_title} </p>
+          <CloseX link='contas_pagar_register' />
+          <label>{children.id === 0 ? 'Emitir' + text_title : 'Atualizar' + text_title} </label>
           <a href="setor_despesa">Setor</a>
         <input
             type="number"

@@ -1,6 +1,11 @@
 import * as Icon from 'phosphor-react';
-export const CloseX: React.FC = () => {
+
+type Props = {
+    link: string
+}
+
+export const CloseX: React.FC<Props> = ({ link }: Props) => {
     return <>
-        <a href="/">{<Icon.X size={18} />}</a>
+        <a href={link}>{<Icon.X size={18} />}</a>
     </>
 }

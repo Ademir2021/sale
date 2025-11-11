@@ -32,7 +32,7 @@ const FilialForm = ({
 
     const register = (
         <form className="form" id="up_form_" onSubmit={handleSubmit}>
-            <CloseX />
+            <CloseX link="/" />
             <label>Filial</label>
             <input type="text" name="id_filial" value={filial.id_filial} onChange={handleChange} required disabled />
 
