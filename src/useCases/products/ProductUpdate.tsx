@@ -80,7 +80,7 @@ export function ProductUpdate() {
         getList('brands', setBrands)
     }, [brands])
 
-      useEffect(() => {
+    useEffect(() => {
         getList('sectors', setSectors)
     }, [sectors])
 
@@ -115,20 +115,8 @@ export function ProductUpdate() {
     const [dropdown, setDropdown] = useState<string>("");
     const modalRef = useRef<any>(null);
 
-    function listUpdate(product_: TProduct) {
-        product.id_product = product_.id_product
-        product.descric_product = product_.descric_product
-        product.val_max_product = product_.val_max_product
-        product.val_min_product = product_.val_min_product
-        product.fk_brand = product_.fk_brand
-        product.fk_sub_sector = product_.fk_sub_sector
-        product.fk_un_med = product_.fk_un_med
-        product.bar_code = product_.bar_code
-        product.image = product_.image
-        product.fk_classe = product_.fk_classe
-        product.fk_grupo_fiscal = product_.fk_grupo_fiscal
-        product.fk_tipo_prod = product_.fk_tipo_prod
-        product.ncm = product_.ncm
+    const updateProduct = (Product: TProduct) => {
+        setProduct(Product)
         toggleDropdown()
     }
 
@@ -177,59 +165,59 @@ export function ProductUpdate() {
     };
 
     return <>
-            <Dashboard />
-            <h1 className='text-center'>Escolha o Item para atualizar</h1>
-            {handleTokenMessage('product_update', tokenMessage)}
-            < ProductFormUpdate
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                handleUpdate={handleUpdate}
-                handleNewProduct={handleNewProduct}
-                flagRegister={flagRegister}
-                modalRef={modalRef}
-                className={dropdown}
-                close={closeDropdown}
-                msg={msg}
-                listBrand={<select
-                    onChange={e => setSelectedIdBrand(e.target.value)}
-                    defaultValue=""
-                ><option disabled value="">Selecione uma Marca ...</option>
-                    {brands.map((brand) => (
-                        <option
-                            key={brand.id_brand}
-                            value={brand.id_brand}
-                        >
-                            {brand.name_brand}
-                        </option>))}</select>}
-                listSector={<select
-                    onChange={e => setSelectedIdSector(e.target.value)}
-                    defaultValue=""
-                ><option disabled value=''>Selecione um SubSetor ...</option>
-                    {subSectors.map((sector: TSubSector) => (
-                        <option
-                            key={sector.id_sub_sector}
-                            value={sector.id_sub_sector}
-                        >
-                            {sector.name_sub_sector}
-                        </option>))}</select>}
+        <Dashboard />
+        <h1 className='text-center'>Escolha o Item para atualizar</h1>
+        {handleTokenMessage('product_update', tokenMessage)}
+        < ProductFormUpdate
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            handleUpdate={handleUpdate}
+            handleNewProduct={handleNewProduct}
+            flagRegister={flagRegister}
+            modalRef={modalRef}
+            className={dropdown}
+            close={closeDropdown}
+            msg={msg}
+            listBrand={<select
+                onChange={e => setSelectedIdBrand(e.target.value)}
+                defaultValue=""
+            ><option disabled value="">Selecione uma Marca ...</option>
+                {brands.map((brand) => (
+                    <option
+                        key={brand.id_brand}
+                        value={brand.id_brand}
+                    >
+                        {brand.name_brand}
+                    </option>))}</select>}
+            listSector={<select
+                onChange={e => setSelectedIdSector(e.target.value)}
+                defaultValue=""
+            ><option disabled value=''>Selecione um SubSetor ...</option>
+                {subSectors.map((sector: TSubSector) => (
+                    <option
+                        key={sector.id_sub_sector}
+                        value={sector.id_sub_sector}
+                    >
+                        {sector.name_sub_sector}
+                    </option>))}</select>}
 
-                listUn={<select
-                    onChange={e => setSelectedIdUn(e.target.value)}
-                    defaultValue=""
-                ><option disabled value="">Selecione uma Unidade de Medida ...</option>
-                    {unMeds.map((un: TUnMed) => (
-                        <option
-                            key={un.id_un}
-                            value={un.id_un}
-                        >
-                            {un.un_med}
-                        </option>))}</select>}
+            listUn={<select
+                onChange={e => setSelectedIdUn(e.target.value)}
+                defaultValue=""
+            ><option disabled value="">Selecione uma Unidade de Medida ...</option>
+                {unMeds.map((un: TUnMed) => (
+                    <option
+                        key={un.id_un}
+                        value={un.id_un}
+                    >
+                        {un.un_med}
+                    </option>))}</select>}
 
-                listClasse={<select
-                    onChange={e => setSelectedIdClasseProd(e.target.value)}
-                    defaultValue=""
-                ><option disabled value=''>Selecione uma Classe ...</option>
-                    {classesProds.map((classe: TClasseProd) => (
+            listClasse={<select
+                onChange={e => setSelectedIdClasseProd(e.target.value)}
+                defaultValue=""
+            ><option disabled value=''>Selecione uma Classe ...</option>
+                {classesProds.map((classe: TClasseProd) => (
                     <option
                         key={classe.id_classe}
                         value={classe.id_classe}
@@ -237,11 +225,11 @@ export function ProductUpdate() {
                         {classe.name_classe}
                     </option>))}</select>}
 
-                listGrupoFiscal={<select
-                    onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
-                    defaultValue=""
-                ><option disabled value="" >Selecione um Grupo Fiscal</option>
-                    {gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
+            listGrupoFiscal={<select
+                onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
+                defaultValue=""
+            ><option disabled value="" >Selecione um Grupo Fiscal</option>
+                {gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
                     <option
                         key={grupoFiscal.id_grupo_fiscal}
                         value={grupoFiscal.id_grupo_fiscal}
@@ -249,11 +237,11 @@ export function ProductUpdate() {
                         {grupoFiscal.name_grupo_fiscal}
                     </option>))}</select>}
 
-                listTipoProd={<select
-                    onChange={e => setSelectdIdTipoProd(e.target.value)}
-                    defaultValue=""
-                ><option disabled value="">Selecione o Tipo de Produto</option>
-                    {tiposProds.map((tipoProd: TTipoProd) => (
+            listTipoProd={<select
+                onChange={e => setSelectdIdTipoProd(e.target.value)}
+                defaultValue=""
+            ><option disabled value="">Selecione o Tipo de Produto</option>
+                {tiposProds.map((tipoProd: TTipoProd) => (
                     <option
                         key={tipoProd.id_tipo}
                         value={tipoProd.id_tipo}
@@ -262,53 +250,53 @@ export function ProductUpdate() {
                     </option>
                 ))}</select>}
 
-                listNcm={<><datalist
-                ><select
-                >{ncms.map((ncm: TNcm) => (
-                    <option
-                        key={ncm.Codigo}
-                        value={ncm.Codigo}
-                    >
-                        {ncm.Descricao}
-                    </option>
-                ))};
-                    </select></datalist>
-                    <input
-                        placeholder="Pequisar o NCM do produto"
-                        type="search"
-                        list="data-itens"
-                        onChange={e => setSelectdIdNcm(e.target.value)}
-                    />
-                </>}
-                msgNcm={product.ncm === "00000" ? product.ncm : "NCM Localizado: " + product.ncm}
-            >
-                {product}
-            </ProductFormUpdate>
-            {products.length === 0 ? <p>Carregando ...</p> : (
-                products.map((product: TProduct) => (
-                    <ProductList
-                        key={product.id_product}
-                        id={product.id_product}
-                        created_at={FormatDate(product.created_at)}
-                        updated_at={product.updated_at === null ?
-                            "Não houve atualização"
-                            : FormatDate(product.updated_at)}
-                        name={product.descric_product}
-                        val_max={currencyFormat(product.val_max_product)}
-                        val_min={currencyFormat(product.val_min_product)}
-                        brand={handleProducts.nameBrands(product.fk_brand, brands)}
-                        name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
-                        name_sector={handleProducts.findSectorNameBySubSector(products, subSectors, sectors, product.fk_sub_sector)}
-                        un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
-                        bar_code={product.bar_code}
-                        image={product.image}
-                        classe={handleProducts.nameClasseProd(product.fk_classe, classesProds)}
-                        grupo_fiscal={handleProducts.nameGruposFiscais(product.fk_grupo_fiscal, gruposFiscais)}
-                        tipo_prod={handleProducts.nameTiposProds(product.fk_tipo_prod, tiposProds)}
-                        ncm={product.ncm}
-                        update={<a href="##" onClick={() => listUpdate(product)}>Atualizar</a>}
-                        dropdown={dropdown}
-                    />
-                )))}
-        </>
+            listNcm={<><datalist
+            ><select
+            >{ncms.map((ncm: TNcm) => (
+                <option
+                    key={ncm.Codigo}
+                    value={ncm.Codigo}
+                >
+                    {ncm.Descricao}
+                </option>
+            ))};
+                </select></datalist>
+                <input
+                    placeholder="Pequisar o NCM do produto"
+                    type="search"
+                    list="data-itens"
+                    onChange={e => setSelectdIdNcm(e.target.value)}
+                />
+            </>}
+            msgNcm={product.ncm === "00000" ? product.ncm : "NCM Localizado: " + product.ncm}
+        >
+            {product}
+        </ProductFormUpdate>
+        {products.length === 0 ? <p>Carregando ...</p> : (
+            products.map((product: TProduct) => (
+                <ProductList
+                    key={product.id_product}
+                    id={product.id_product}
+                    created_at={FormatDate(product.created_at)}
+                    updated_at={product.updated_at === null ?
+                        "Não houve atualização"
+                        : FormatDate(product.updated_at)}
+                    name={product.descric_product}
+                    val_max={currencyFormat(product.val_max_product)}
+                    val_min={currencyFormat(product.val_min_product)}
+                    brand={handleProducts.nameBrands(product.fk_brand, brands)}
+                    name_sub_sector={handleProducts.nameSubSector(product.fk_sub_sector, subSectors)}
+                    name_sector={handleProducts.findSectorNameBySubSector(products, subSectors, sectors, product.fk_sub_sector)}
+                    un_med={handleProducts.nameUnMeds(product.fk_un_med, unMeds)}
+                    bar_code={product.bar_code}
+                    image={product.image}
+                    classe={handleProducts.nameClasseProd(product.fk_classe, classesProds)}
+                    grupo_fiscal={handleProducts.nameGruposFiscais(product.fk_grupo_fiscal, gruposFiscais)}
+                    tipo_prod={handleProducts.nameTiposProds(product.fk_tipo_prod, tiposProds)}
+                    ncm={product.ncm}
+                    update={<a href="##" onClick={() => updateProduct(product)}>Atualizar</a>}
+                    dropdown={dropdown}
+                />
+            )))}
+    </>
 }

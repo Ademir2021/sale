@@ -75,8 +75,7 @@ export function FormPerson() {
         }
     }
 
-    return (
-        <>
+    return <>
             <Dashboard />
             <PersonForm
                 handleSubmit={handleSubmit}
@@ -86,5 +85,4 @@ export function FormPerson() {
                 {person}
             </PersonForm>
         </>
-    )
 }

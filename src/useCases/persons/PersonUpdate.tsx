@@ -18,16 +18,11 @@ export function PersonUpdate() {
 
     const { user: isLogged }: any = useContext(AuthContext)
     const isLoggedParams: number = isLogged[0].id
-
-    const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
-
+    const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado")
     const [dropdown, setDropdown] = useState<string>("");
     const modalRef = useRef<any>(null);
-
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
-
     const [msg, setMsg] = useState('')
-
     const [persons, setPersons] = useState<TPerson[]>([])
     const [ceps, setCeps] = useState<ICeps[]>([])
     const [cities, setCities] = useState<ICities[]>([])
@@ -74,25 +69,9 @@ export function PersonUpdate() {
         setPerson(cleared);
     };
 
-    function listUpdate(persUpdate: TPerson) {
-        person.id_person = persUpdate.id_person
-        person.name_pers = persUpdate.name_pers
-        person.cpf_pers = persUpdate.cpf_pers
-        person.phone_pers = persUpdate.phone_pers
-        person.address_pers = persUpdate.address_pers
-        person.num_address = persUpdate.num_address
-        person.bairro_pers = persUpdate.bairro_pers
-        person.num_cep = persUpdate.num_cep
+    const updatePerson = (Person: TPerson) => {
         person.fk_cep = setNumCep(person.num_cep);
-        person.name_city = persUpdate.name_city
-        person.uf = persUpdate.uf
-        person.rg = persUpdate.rg
-        person.cnpj = persUpdate.cnpj
-        person.inscricao = persUpdate.inscricao
-        person.fantasia = persUpdate.fantasia
-        person.limit_cred = persUpdate.limit_cred
-        person.fk_grupo = persUpdate.fk_grupo
-        person.date_of_birth = persUpdate.date_of_birth
+        setPerson(Person)
         toggleDropdown()
     };
 
@@ -113,7 +92,7 @@ export function PersonUpdate() {
     async function handleSubmit(e: Event) {
         e.preventDefault();
         if (PersonsValFields(person, setMsg)) {
-            listUpdate(person); // Atualiza o CEP do Cliente !!
+            updatePerson(person); // Atualiza o CEP do Cliente !!
             person.cpf_pers = person.cpf_pers.replace(/[..-]/g, '')
             person.phone_pers = person.phone_pers.replace(/[()-]/g, '')
             person.cnpj = person.cnpj.replace(/[../-]/g, '')
@@ -135,7 +114,7 @@ export function PersonUpdate() {
     async function handleUpdate(e: Event) {
         e.preventDefault();
         if (PersonsValFields(person, setMsg)) {
-            listUpdate(person); //Atualiza o CEP do Cliente
+            updatePerson(person); //Atualiza o CEP do Cliente
             person.cpf_pers = person.cpf_pers.replace(/[..-]/g, '')
             person.phone_pers = person.phone_pers.replace(/[()-]/g, '')
             person.cnpj = person.cnpj.replace(/[../-]/g, '')
@@ -156,7 +135,7 @@ export function PersonUpdate() {
         e.preventDefault()
         setFlagRegister(true)
         clearFields()
-        setMsg("Insira um novo Cliente !!")
+        setMsg("Insira um Novo Cliente")
     }
 
     function toggleDropdown(): void {
@@ -227,33 +206,31 @@ export function PersonUpdate() {
             {handleTokenMessage('person_update', tokenMessage)}
             <h1 className="text-center">Escolha o cliente para atualizar</h1>
             {persons.length === 0 ? <p>Carregando...</p> : (
-                persons.map((per: TPerson) => (
+                persons.map((Person: TPerson) => (
                     <PersonList
-                        key={per.id_person}
-                        id_person={per.id_person}
-                        created_at={FormatDate(per.created_at)}
-                        updated_at={per.updated_at === null ?
-                            "não houve atualização" : (FormatDate(per.updated_at))}
-                        name={per.name_pers}
-                        date_of_birth={per.date_of_birth ? FormatDate(per.date_of_birth) : "Não informado"}
-                        age={per.age && per.age}
-                        phone={per.phone_pers}
-                        address={per.address_pers}
-                        num_address={per.num_address}
-                        bairro={per.bairro_pers}
-                        num_cep={per.num_cep = setCep(per.fk_cep)?.num_cep}
-                        name_city={per.name_city = setCity(per.fk_cep)?.name_city}
-                        uf={per.uf = setCity(per.fk_cep)?.uf}
-                        cpf={per.cpf_pers}
-                        rg={per.rg}
-                        cnpj={per.cnpj}
-                        inscricao={per.inscricao}
-                        id_user={per.fk_id_user}
-                        filial={per.fk_name_filial}
-                        fk_grupo={per.fk_grupo}
-                        update={<a
-                            href="##"
-                            onClick={() => listUpdate(per)}>Atualizar</a>}
+                        key={Person.id_person}
+                        id_person={Person.id_person}
+                        created_at={FormatDate(Person.created_at)}
+                        updated_at={Person.updated_at === null ?
+                            "Não Houve Atualização" : (FormatDate(Person.updated_at))}
+                        name={Person.name_pers}
+                        date_of_birth={Person.date_of_birth ? FormatDate(Person.date_of_birth) : "Não Informado"}
+                        age={Person.age && Person.age}
+                        phone={Person.phone_pers}
+                        address={Person.address_pers}
+                        num_address={Person.num_address}
+                        bairro={Person.bairro_pers}
+                        num_cep={Person.num_cep = setCep(Person.fk_cep)?.num_cep}
+                        name_city={Person.name_city = setCity(Person.fk_cep)?.name_city}
+                        uf={Person.uf = setCity(Person.fk_cep)?.uf}
+                        cpf={Person.cpf_pers}
+                        rg={Person.rg}
+                        cnpj={Person.cnpj}
+                        inscricao={Person.inscricao}
+                        id_user={Person.fk_id_user}
+                        filial={Person.fk_name_filial}
+                        fk_grupo={Person.fk_grupo}
+                        update={<a href="##" onClick={() => updatePerson(Person)}>Atualizar</a>}
                         dropdown={dropdown}
                     />
                 )))}
