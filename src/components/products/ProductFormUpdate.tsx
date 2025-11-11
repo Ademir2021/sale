@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TProduct } from '../../useCases/products/type/TProducts';
 import { UploadImagem } from '../../useCases/products/UploadImage';
+import { CloseX } from '../utils/closeX/CloseX';
 
 import '../../index'
 import '../css/styles-forms.css'
@@ -145,9 +146,9 @@ export function ProductFormUpdate({
     </>
 
     const fiscal = <div>
-        <div>Classe {listClasse}</div>
-        <div>Grupo Fiscal {listGrupoFiscal}</div>
-        <div>Tipo de Produto {listTipoProd}</div>
+        <label>Classe {listClasse}</label>
+        <label>Grupo Fiscal {listGrupoFiscal}</label>
+        <label>Tipo de Produto {listTipoProd}</label>
         <div>Pesquise o NCM do Produto {listNcm}</div>
         <span>{msgNcm}</span>
     </div>
@@ -156,8 +157,9 @@ export function ProductFormUpdate({
         <>
             <div ref={modalRef} className={`${className} modal`}>
                 <div className='form'>
-                    {menu === 'geral' && <b>Atualizar Produto</b>}
-                    {menu === 'fiscal' && <b>Situação fiscal do Produto</b>}
+                       <CloseX link="product_update" />
+                    {menu === 'geral' && <label>Atualizar Produto</label>}
+                    {menu === 'fiscal' && <label>Situação fiscal do Produto</label>}
                     {nav}
                     <form>
                         {menu === "geral" ? geral : null}

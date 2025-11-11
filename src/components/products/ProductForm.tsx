@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { TProduct } from '../../useCases/products/type/TProducts';
 import { UploadImagem } from '../../useCases/products/UploadImage';
 import { NavBar } from '../navbar/Navbar';
-import '../css/styles-forms.css'
 import { CloseX } from '../utils/closeX/CloseX';
 
 import '../../index'
+import '../css/styles-forms.css'
 
 type Props = {
   children: TProduct
@@ -128,14 +128,14 @@ export function ProductForm({
     />
     <UploadImagem />
     {msg && <div id='msg-red'>{msg}</div>}
-    <button className='container'>Inserir Produto</button>
+    <button className='container mt-1'>Inserir Produto</button>
   </>
 
   const fiscal = <div id='m-2'>
-    <div>Classe {listClasse}</div>
-    <div>Grupo Fiscal {listGrupoFiscal}</div>
-    <div>Tipo de Produto {listTipoProd}</div>
-    <div>Pesquise o NCM do Produto {listNcm}</div>
+    <label>Classe {listClasse}</label>
+    <label>Grupo Fiscal {listGrupoFiscal}</label>
+    <label>Tipo de Produto {listTipoProd}</label>
+    <label>Pesquise o NCM do Produto {listNcm}</label>
     <span id='m-2'>{msgNcm}</span>
   </div>
 

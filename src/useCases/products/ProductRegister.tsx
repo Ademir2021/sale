@@ -48,23 +48,23 @@ export function FormProduct() {
     }, [brands])
 
     useEffect(() => {
-       getList('sub_sectors', setSubSectors)
+        getList('sub_sectors', setSubSectors)
     }, [subSectors])
 
     useEffect(() => {
-        getList('un_med',setUnMeds)
+        getList('un_med', setUnMeds)
     }, [unMeds])
 
     useEffect(() => {
-        getList('classes_prods',setClassesProds)
+        getList('classes_prods', setClassesProds)
     }, [classesProds])
 
     useEffect(() => {
-        getList('grupos_fiscais',setGruposFiscais)
+        getList('grupos_fiscais', setGruposFiscais)
     }, [gruposFiscais])
 
     useEffect(() => {
-   getList('tipos_prods',setTiposProds)
+        getList('tipos_prods', setTiposProds)
     }, [tiposProds])
     useEffect(() => {
         async function getNcms() {
@@ -83,47 +83,52 @@ export function FormProduct() {
         }
     };
 
-    return  <>
-            <ProductForm
-                handleSubmit={handleSubmit}
-                handleChange={handleChange}
-                msg={msg}
-                listBrand={<select
-                    onChange={e => setSelectedIdBrand(e.target.value)}
-                >
-                    {brands.map((brand) => (
-                        <option
-                            key={brand.id_brand}
-                            value={brand.id_brand}
-                        >
-                            {brand.name_brand}
-                        </option>))}</select>}
+    return <>
+        <ProductForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            msg={msg}
+            listBrand={<select
+                onChange={e => setSelectedIdBrand(e.target.value)}
+                defaultValue=""
+            ><option disabled value="">Selecione uma Marca ...</option>
+                {brands.map((brand) => (
+                    <option
+                        key={brand.id_brand}
+                        value={brand.id_brand}
+                    >
+                        {brand.name_brand}
+                    </option>))}</select>}
 
-                listSector={<select
-                    onChange={e => setSelectedIdSector(e.target.value)}
-                >
-                    {subSectors.map((subSector: TSubSector) => (
-                        <option
-                            key={subSector.id_sub_sector}
-                            value={subSector.id_sub_sector}
-                        >
-                            {subSector.name_sub_sector}
-                        </option>))}</select>}
+            listSector={<select
+                onChange={e => setSelectedIdSector(e.target.value)}
+                defaultValue=""
+            ><option disabled value=''>Selecione um SubSetor ...</option>
+                {subSectors.map((subSector: TSubSector) => (
+                    <option
+                        key={subSector.id_sub_sector}
+                        value={subSector.id_sub_sector}
+                    >
+                        {subSector.name_sub_sector}
+                    </option>))}</select>}
 
-                listUn={<select
-                    onChange={e => setSelectedIdUn(e.target.value)}
-                >
-                    {unMeds.map((un: TUnMed) => (
-                        <option
-                            key={un.id_un}
-                            value={un.id_un}
-                        >
-                            {un.un_med}
-                        </option>))}</select>}
+            listUn={<select
+                onChange={e => setSelectedIdUn(e.target.value)}
+                defaultValue=""
+            ><option disabled value=''>Selecione uma Unidade de Medida ...</option>
+                {unMeds.map((un: TUnMed) => (
+                    <option
+                        key={un.id_un}
+                        value={un.id_un}
+                    >
+                        {un.un_med}
+                    </option>))}</select>}
 
-                listClasse={<select
-                    onChange={e => setSelectedIdClasseProd(e.target.value)}
-                >{classesProds.map((classe: TClasseProd) => (
+            listClasse={<select
+                onChange={e => setSelectedIdClasseProd(e.target.value)}
+                defaultValue=""
+            ><option disabled value=''>Selecione uma Classe ...</option>
+                {classesProds.map((classe: TClasseProd) => (
                     <option
                         key={classe.id_classe}
                         value={classe.id_classe}
@@ -131,9 +136,11 @@ export function FormProduct() {
                         {classe.name_classe}
                     </option>))}</select>}
 
-                listGrupoFiscal={<select
-                    onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
-                >{gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
+            listGrupoFiscal={<select
+                onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
+                defaultValue=""
+            ><option disabled value=''>Selecione um Grupo Fiscal ...</option>
+                {gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
                     <option
                         key={grupoFiscal.id_grupo_fiscal}
                         value={grupoFiscal.id_grupo_fiscal}
@@ -141,9 +148,11 @@ export function FormProduct() {
                         {grupoFiscal.name_grupo_fiscal}
                     </option>))}</select>}
 
-                listTipoProd={<select
-                    onChange={e => setSelectdIdTipoProd(e.target.value)}
-                >{tiposProds.map((tipoProd: TTipoProd) => (
+            listTipoProd={<select
+                onChange={e => setSelectdIdTipoProd(e.target.value)}
+                defaultValue=""
+            ><option disabled value="">Selecione o Tipo de Produto ...</option>
+                {tiposProds.map((tipoProd: TTipoProd) => (
                     <option
                         key={tipoProd.id_tipo}
                         value={tipoProd.id_tipo}
@@ -152,27 +161,27 @@ export function FormProduct() {
                     </option>
                 ))}</select>}
 
-                listNcm={<><datalist
-                    id="data-itens"><select
-                    >{ncms.map((ncm: TNcm) => (
-                        <option
-                            key={ncm.Codigo}
-                            value={ncm.Codigo}
-                        >
-                            {ncm.Descricao}
-                        </option>
-                    ))};
-                    </select></datalist>
-                    <input
-                        placeholder="Pequisar o NCM do produto"
-                        type="search"
-                        list="data-itens"
-                        onChange={e => setSelectdIdNcm(e.target.value)}
-                    />
-                </>}
-                msgNcm={product.ncm === "00000" ? product.ncm : "NCM Localizado: " + product.ncm}
-            >
-                {product}
-            </ProductForm>
-        </>
+            listNcm={<><datalist
+                id="data-itens"><select
+                >{ncms.map((ncm: TNcm) => (
+                    <option
+                        key={ncm.Codigo}
+                        value={ncm.Codigo}
+                    >
+                        {ncm.Descricao}
+                    </option>
+                ))};
+                </select></datalist>
+                <input
+                    placeholder="Pequisar o NCM do produto"
+                    type="search"
+                    list="data-itens"
+                    onChange={e => setSelectdIdNcm(e.target.value)}
+                />
+            </>}
+            msgNcm={product.ncm === "00000" ? product.ncm : "NCM Localizado: " + product.ncm}
+        >
+            {product}
+        </ProductForm>
+    </>
 }

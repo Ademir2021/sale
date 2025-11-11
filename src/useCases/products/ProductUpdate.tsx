@@ -176,8 +176,7 @@ export function ProductUpdate() {
         })
     };
 
-    return (
-        <>
+    return <>
             <Dashboard />
             <h1 className='text-center'>Escolha o Item para atualizar</h1>
             {handleTokenMessage('product_update', tokenMessage)}
@@ -193,7 +192,8 @@ export function ProductUpdate() {
                 msg={msg}
                 listBrand={<select
                     onChange={e => setSelectedIdBrand(e.target.value)}
-                >
+                    defaultValue=""
+                ><option disabled value="">Selecione uma Marca ...</option>
                     {brands.map((brand) => (
                         <option
                             key={brand.id_brand}
@@ -203,7 +203,8 @@ export function ProductUpdate() {
                         </option>))}</select>}
                 listSector={<select
                     onChange={e => setSelectedIdSector(e.target.value)}
-                >
+                    defaultValue=""
+                ><option disabled value=''>Selecione um SubSetor ...</option>
                     {subSectors.map((sector: TSubSector) => (
                         <option
                             key={sector.id_sub_sector}
@@ -214,7 +215,8 @@ export function ProductUpdate() {
 
                 listUn={<select
                     onChange={e => setSelectedIdUn(e.target.value)}
-                >
+                    defaultValue=""
+                ><option disabled value="">Selecione uma Unidade de Medida ...</option>
                     {unMeds.map((un: TUnMed) => (
                         <option
                             key={un.id_un}
@@ -225,7 +227,9 @@ export function ProductUpdate() {
 
                 listClasse={<select
                     onChange={e => setSelectedIdClasseProd(e.target.value)}
-                >{classesProds.map((classe: TClasseProd) => (
+                    defaultValue=""
+                ><option disabled value=''>Selecione uma Classe ...</option>
+                    {classesProds.map((classe: TClasseProd) => (
                     <option
                         key={classe.id_classe}
                         value={classe.id_classe}
@@ -235,7 +239,9 @@ export function ProductUpdate() {
 
                 listGrupoFiscal={<select
                     onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
-                >{gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
+                    defaultValue=""
+                ><option disabled value="" >Selecione um Grupo Fiscal</option>
+                    {gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
                     <option
                         key={grupoFiscal.id_grupo_fiscal}
                         value={grupoFiscal.id_grupo_fiscal}
@@ -245,7 +251,9 @@ export function ProductUpdate() {
 
                 listTipoProd={<select
                     onChange={e => setSelectdIdTipoProd(e.target.value)}
-                >{tiposProds.map((tipoProd: TTipoProd) => (
+                    defaultValue=""
+                ><option disabled value="">Selecione o Tipo de Produto</option>
+                    {tiposProds.map((tipoProd: TTipoProd) => (
                     <option
                         key={tipoProd.id_tipo}
                         value={tipoProd.id_tipo}
@@ -303,5 +311,4 @@ export function ProductUpdate() {
                     />
                 )))}
         </>
-    )
 }
