@@ -203,9 +203,9 @@ export function PersonUpdate() {
                 {person}
             </PersonFormUpdate>
             <Dashboard />
-            {handleTokenMessage('person_update', tokenMessage)}
-            <h1 className="text-center">Escolha o cliente para atualizar</h1>
-            {persons.length === 0 ? <p>Carregando...</p> : (
+            <p className="text-center">{handleTokenMessage('person_update', tokenMessage)}</p>
+            <h1 className="text-center">Listar e Atualização de Clientes</h1>
+            {persons.length === 0 ? <p className="text-center">Carregando ...</p> : (
                 persons.map((Person: TPerson) => (
                     <PersonList
                         key={Person.id_person}
@@ -230,7 +230,7 @@ export function PersonUpdate() {
                         id_user={Person.fk_id_user}
                         filial={Person.fk_name_filial}
                         fk_grupo={Person.fk_grupo}
-                        update={<a href="##" onClick={() => updatePerson(Person)}>Atualizar</a>}
+                        update={<button className="container" onClick={() => updatePerson(Person)}>Atualizar</button>}
                         dropdown={dropdown}
                     />
                 )))}

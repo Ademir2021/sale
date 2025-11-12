@@ -46,9 +46,9 @@ export function PersonsList() {
 
     return <>
             <Dashboard />
-            <h1 className="text-center">Lista de Clientes</h1>
-            {handleTokenMessage('person_list', tokenMessage)}
-            {persons.length === 0 ? <p>Carregando...</p> : (
+            <p className="text-center">{handleTokenMessage('person_list', tokenMessage)}</p>
+            <h1 className="text-center">Listagem de Clientes</h1>
+            {persons.length === 0 ? <p className="text-center">Carregando ...</p> : (
                 persons.map((person) => (
                     <PersonList
                         key={person.id_person}
@@ -56,7 +56,7 @@ export function PersonsList() {
                         created_at={FormatDate(person.created_at)}
                         updated_at={person.updated_at ?
                             FormatDate(person.updated_at) :
-                            "Não houve atualização"
+                            "Não Houve Atualização"
                         }
                         name={person.name_pers}
                         date_of_birth={person.date_of_birth ?

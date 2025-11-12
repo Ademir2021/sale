@@ -68,6 +68,7 @@ export function ProductUpdate() {
     if (selectedIdNcm !== '0000.0') {
         product.ncm = selectedIdNcm
     }
+    
     const isLoggedParams: number = isLogged[0].id
 
     const handleChange = (e: any) => {
@@ -166,9 +167,10 @@ export function ProductUpdate() {
 
     return <>
         <Dashboard />
-        <h1 className='text-center'>Escolha o Item para atualizar</h1>
-        {handleTokenMessage('product_update', tokenMessage)}
+        <p className="text-center">{handleTokenMessage('product_update', tokenMessage)}</p>
+        <h1 className='text-center'>Escolha o Item para Atualizar</h1>
         < ProductFormUpdate
+        products={products}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             handleUpdate={handleUpdate}
@@ -279,7 +281,7 @@ export function ProductUpdate() {
                     id={product.id_product}
                     created_at={FormatDate(product.created_at)}
                     updated_at={product.updated_at === null ?
-                        "Não houve atualização"
+                        "Não Houve Atualização"
                         : FormatDate(product.updated_at)}
                     name={product.descric_product}
                     val_max={currencyFormat(product.val_max_product)}
@@ -294,7 +296,7 @@ export function ProductUpdate() {
                     grupo_fiscal={handleProducts.nameGruposFiscais(product.fk_grupo_fiscal, gruposFiscais)}
                     tipo_prod={handleProducts.nameTiposProds(product.fk_tipo_prod, tiposProds)}
                     ncm={product.ncm}
-                    update={<a href="##" onClick={() => updateProduct(product)}>Atualizar</a>}
+                    update={<button className="container" onClick={() => updateProduct(product)}>Atualizar</button>}
                     dropdown={dropdown}
                 />
             )))}

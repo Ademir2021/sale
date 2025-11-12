@@ -8,6 +8,7 @@ import '../css/styles-forms.css'
 
 type Props = {
     children: TProduct
+    products:TProduct[]
     handleChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
     handleSubmit?: any;
     handleUpdate?: any;
@@ -37,6 +38,7 @@ export function ProductFormUpdate({
     handleChange,
     handleSubmit,
     children,
+      products,
     handleUpdate,
     handleNewProduct,
     modalRef,
@@ -79,9 +81,10 @@ export function ProductFormUpdate({
     </p>
 
     const geral = <>
+    <label>{"ID do Produto: " + children.id_product}</label>
         <input
             type="hidden"
-            name="id_person"
+            name="id_product"
             value={children.id_product || ''}
             placeholder='ID produto'
             disabled
@@ -129,6 +132,7 @@ export function ProductFormUpdate({
             onChange={handleChange}
             placeholder='código de barras'
         />
+        <label>{"Próxima Imagem: " + (products.length + 1) + '.png' }</label>
         <input
             type="text"
             name="image"
