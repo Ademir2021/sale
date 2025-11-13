@@ -1,12 +1,11 @@
 import { TSaleList } from "../../useCases/sales/type/TSale"
 import { Globais } from "../globais/Globais"
 import { Waiting } from "../utils/waiting/Waiting"
-import { FormatDate } from '../utils/formatDate/index';
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { Dashboard } from "../../useCases/dashboard/Dashboard";
 import { handleTokenMessage } from "../../services/handleEnsureAuth";
 import { CloseX } from "../utils/closeX/CloseX";
-
+import { HandleFinanceiro } from "../utils/financeiro/HandleFinanceiro";
 
 type Props = {
     sales: TSaleList[]
@@ -26,10 +25,10 @@ export function SalesList({
     searchHandle, end, setEnd, filteredSales,
     setFilteredSales, tokenMessage }: Props) {
 
+    const handleFinanceiro = new HandleFinanceiro()
     const NFeStatus = <img src="img/NFe/status/autorizada.ico" alt="img NFe autorizada"></img>
-
     const form_ = <form onSubmit={searchHandle} className="form-container">
-        <CloseX link="/"/>
+        <CloseX link="/" />
         <div>Notas de Vendas</div>
         <div>{handleTokenMessage('list_sale', tokenMessage)}</div>
         <div className="input-group">
@@ -61,7 +60,7 @@ export function SalesList({
                 <th className='text-center'>{sale.id_sale}</th>
                 <th className="text-center">{sale.id_sale}</th>
                 <th className="text-center">{NFeStatus}</th>
-                <td>{FormatDate(sale.created_at)}</td>
+                <td>{handleFinanceiro.formatDate(sale.created_at)}</td>
                 <td>{sale.fk_name_pers}</td>
                 <td>{currencyFormat(sale.total_sale)}</td>
                 <td>{currencyFormat(sale.disc_sale)}</td>

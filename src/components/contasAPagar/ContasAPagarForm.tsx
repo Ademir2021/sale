@@ -48,7 +48,7 @@ function ContasAPagarForm({
                 'Contas a pagar'
             )}</>
 
-    const handleContasAPagar = new HandleFinanceiro()
+    const handleFinanceiro = new HandleFinanceiro()
     const headerContasPagar = <b>Contas a Pagar em Aberto</b>
 
     const sumbit =
@@ -118,15 +118,15 @@ function ContasAPagarForm({
                     <td id="center">{conta.fk_compra}</td>
                     <td id="center">{conta.fk_despesa}</td>
                     <td>{findNameDespesa(conta.fk_despesa)}</td>
-                    <td>{handleContasAPagar.formatDate(conta.emissao)}</td>
+                    <td>{handleFinanceiro.formatDate(conta.emissao)}</td>
                     <td>{parseFloat(conta.valor).toFixed(3)}</td>
-                    <td>{handleContasAPagar.formatDate(conta.vencimento)}</td>
+                    <td>{handleFinanceiro.formatDate(conta.vencimento)}</td>
                     <td>{parseFloat(conta.juros).toFixed(3)}</td>
                     <td>{parseFloat(conta.multa).toFixed(3)}</td>
                     <td>{parseFloat(conta.desconto).toFixed(3)}</td>
                     <td>{parseFloat(conta.saldo).toFixed(2)}</td>
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
-                    <td>{conta.pagamento !== null ? handleContasAPagar.formatDate(conta.pagamento) : null}</td>
+                    <td>{conta.pagamento !== null ? handleFinanceiro.formatDate(conta.pagamento) : null}</td>
                     <td>{conta.observacao}</td>
                     <td><a href="##" onClick={() => pagarValor(conta)} >Pagar</a></td>
                 </tr>
@@ -153,7 +153,7 @@ function ContasAPagarForm({
                 <td id="center">{valPago.fk_compra}</td>
                 <td id="center">{valPago.fk_user}</td>
                 <td>{valPago.valor}</td>
-                <td>{handleContasAPagar.formatDate(valPago.data_recebimento)}</td>
+                <td>{handleFinanceiro.formatDate(valPago.data_recebimento)}</td>
                 <td>{valPago.descricao}</td>
             </tr>
         ))}</tbody>
