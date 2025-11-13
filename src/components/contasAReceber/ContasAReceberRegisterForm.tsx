@@ -1,6 +1,7 @@
 import { HandleContaAReceber } from "../../useCases/contasAReceber/handleContaAReceber"
 import { TContaAreceber } from "../../useCases/contasAReceber/type/TContasAReceber"
 import { handleLinksDir } from "../utils/backHome/BackHome"
+import { HandleFinanceiro } from "../utils/financeiro/HandleFinanceiro"
 import { FormatDate } from "../utils/formatDate"
 
 type Props = {
@@ -29,6 +30,7 @@ export function ContasAReceberRegisterForm({
     handleTokenMessage
 }: Props) {
 
+     const handleFinanceiro = new HandleFinanceiro()
     const handleContaAReceber = new HandleContaAReceber()
 
     const links = <>
@@ -138,9 +140,9 @@ export function ContasAReceberRegisterForm({
                     <th className="text-center">{contaAReceber.id_conta}</th>
                     <th className="text-center">{contaAReceber.fk_venda}</th>
                     <th className="text-center">{contaAReceber.fk_pagador}</th>
-                    <th className="">{FormatDate(contaAReceber.emissao)}</th>
+                    <th className="">{ handleFinanceiro.formatDate(contaAReceber.emissao)}</th>
                     <th>{contaAReceber.valor}</th>
-                    <th>{FormatDate(contaAReceber.vencimento)}</th>
+                    <th>{handleFinanceiro.formatDate(contaAReceber.vencimento)}</th>
                     <th>{contaAReceber.pagamento ? contaAReceber.pagamento : 'Em aberto'}</th>
                     <th>{contaAReceber.saldo}</th>
                     <th>{contaAReceber.recebimento}</th>

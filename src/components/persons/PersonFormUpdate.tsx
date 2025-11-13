@@ -54,7 +54,6 @@ export function PersonFormUpdate({
             maskChar={null}
             value={children.cpf_pers || ""}
             onChange={handleChange}
-        // disabled
         />
         <label>RG</label>
         <InputMask
@@ -92,7 +91,6 @@ export function PersonFormUpdate({
             maskChar={null}
             value={children.cnpj || ""}
             onChange={handleChange}
-        // disabled
         />
         <label>Inscr. estadual</label>
         <InputMask

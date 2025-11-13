@@ -1,6 +1,7 @@
 import { HandleContaAPagar } from '../../useCases/contasAPagar/handleContaAPagar'
 import { TContaAPagar } from '../../useCases/contasAPagar/type/TContasAPagar'
 import { handleLinksDir } from '../utils/backHome/BackHome'
+import { HandleFinanceiro } from '../utils/financeiro/HandleFinanceiro'
 import { FormatDate } from '../utils/formatDate'
 
 type Props = {
@@ -35,6 +36,7 @@ export function ContasAPagarRegisterForm({
     handleChangeStatus
 }: Props) {
 
+    const handleFinanceiro = new HandleFinanceiro()
     const handleContaAPagar = new HandleContaAPagar()
 
     const nav = <p>
@@ -154,9 +156,9 @@ export function ContasAPagarRegisterForm({
                     <th className="text-center">{contaAPagar.fk_despesa}</th>
                     <th>{findDespesa(contaAPagar)}</th>
                     <th>{contaAPagar.observacao}</th>
-                    <th className="">{FormatDate(contaAPagar.emissao)}</th>
+                    <th className="">{handleFinanceiro.formatDate(contaAPagar.emissao)}</th>
                     <th>{contaAPagar.valor}</th>
-                    <th>{FormatDate(contaAPagar.vencimento)}</th>
+                    <th>{handleFinanceiro.formatDate(contaAPagar.vencimento)}</th>
                     <th>{contaAPagar.pagamento ? contaAPagar.pagamento : 'Em aberto'}</th>
                     <th>{contaAPagar.saldo}</th>
                     <th>{contaAPagar.recebimento}</th>
