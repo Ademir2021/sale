@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect } from "react";
-import { SalesList } from "../../components/sales/SaleList";
+import { useState, useContext } from "react";
+import { ListSalesForm } from "../../components/sales/ListSalesForm";
 import { AuthContext } from '../../context/auth'
 import { postAuthHandle } from "../../services/handleService";
 import { TSaleList } from "./type/TSale";
@@ -23,8 +23,7 @@ export function ListSales() {
     if (!validateDates()) {
       setMsg("Preencha os Campos do Período Desejado");
       return;
-    }
-
+    };
     await fetchSales();
     filterSales();
   };
@@ -35,7 +34,7 @@ export function ListSales() {
 
   const filterSales = () => {
     const filtered = sales.filter(sale =>
-      sale.created_at >= created_int &&  sale.created_at <= created_end
+      sale.created_at >= created_int && sale.created_at <= created_end
     );
     setFilteredSales(filtered);
 
@@ -44,8 +43,7 @@ export function ListSales() {
     }
   };
 
-  return <> 
-  <SalesList
+  return <> <ListSalesForm
     filteredSales={filteredSales}
     setFilteredSales={setFilteredSales}
     int={created_int}
@@ -55,5 +53,5 @@ export function ListSales() {
     searchHandle={searchSales}
     msg={msg}
     sales={filteredSales}
-    tokenMessage={tokenMessage}/></>
+    tokenMessage={tokenMessage} /></>
 }

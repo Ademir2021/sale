@@ -4,43 +4,46 @@ import * as Icon from 'phosphor-react';
 
 import './css/styles.css'
 
-type TProps = {
+type Props = {
     itens: TItens[]
     updateListProduct: any
 }
 
-export function Itens({ itens, updateListProduct }: TProps) {
-    const list = itens.map((item: TItens) => (
-        <tr key={item.id}>
-            <th id="center">{item.id}</th>
-            <td id="center">{item.item}</td>
-            <td>{item.descric}</td>
-            <td id="center">{item.amount}</td>
-            <td>{currencyFormat(item.valor)}</td>
-            <td>{currencyFormat(item.tItem)}</td>
-            <td id="center">{<a href="##" onClick={() =>
-                updateListProduct(item)}>{<Icon.Pencil size={18} color="blue" />}</a>}</td>
+const Itens: React.FC<Props> = ({
+    itens,
+    updateListProduct
+}: Props) => {
+    const thead = <thead>
+        <tr>
+            <th id="center">ID</th>
+            <th id="center">ITEM</th>
+            <th>DESCRIÇÃO</th>
+            <th id='center'>QUANT</th>
+            <th>UN</th>
+            <th>TOTAL</th>
+            <th id="center">EDITAR</th>
         </tr>
-    ))
-
-    return <>
-    <div className="table-container">
-        <table className='table'>
-            <thead>
-                <tr>
-                    <th id="center">ID</th>
-                    <th id="center">ITEM</th>
-                    <th>DESCRIÇÃO</th>
-                    <th id='center'>QUANT</th>
-                    <th>UN</th>
-                    <th>TOTAL</th>
-                    <th id="center">EDITAR</th>
-                </tr>
-            </thead>
-            <tbody>
-                {list}
-            </tbody>
-        </table>
+    </thead>
+    const list = itens.map((item: TItens) => (
+        <div className="table-container">
+            <table className='table'>
+                {thead}
+                <tbody>
+                    <tr key={item.id}>
+                        <th id="center">{item.id}</th>
+                        <td id="center">{item.item}</td>
+                        <td>{item.descric}</td>
+                        <td id="center">{item.amount}</td>
+                        <td>{currencyFormat(item.valor)}</td>
+                        <td>{currencyFormat(item.tItem)}</td>
+                        <td id="center">{<a href="##" onClick={() =>
+                            updateListProduct(item)}
+                        >{<Icon.Pencil size={18} color="blue" />}</a>}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </>
+    ))
+    return <> {list} </>
 }
+export { Itens }
