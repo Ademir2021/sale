@@ -51,7 +51,7 @@ const RegisterSaleForm:React.FC<Props> = ({
   return <>
   <NavBar/>
       <div className='form' >
-        <h1 className='text-center p-2'>PDV - Checkout de Compras</h1>
+        <h1 className='text-center p-2'>Checkout de Compras</h1>
         {item_img && <img className='img-checkout' src={item_img} alt='Aguardando item ...'></img>}
         {item && <p className='item'>{item}</p>}
         <datalist id="data-itens">
