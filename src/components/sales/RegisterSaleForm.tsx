@@ -51,9 +51,9 @@ const RegisterSaleForm:React.FC<Props> = ({
   return <>
   <NavBar/>
       <div className='form' >
-        <label>PDV - Checkout de Compras</label>
+        <h1 className='text-center p-2'>PDV - Checkout de Compras</h1>
         {item_img && <img className='img-checkout' src={item_img} alt='Aguardando item ...'></img>}
-        <div id='msg-red'>{item}</div>
+        {item && <p className='item'>{item}</p>}
         <datalist id="data-itens">
           <select>{products.map((product: TProduct) => (
             <option key={product.id_product}>
@@ -84,9 +84,7 @@ const RegisterSaleForm:React.FC<Props> = ({
         />
         <p>
         {children.valor > 0 && val_items}
-        {totalItens && <label
-        className='text-center'
-        >SubTotal {totalItens}</label>}
+        {totalItens && <label>SubTotal {totalItens}</label>}
         </p>
         {msg && <label>{msg}</label>}
         <a href='##' className='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</a>
