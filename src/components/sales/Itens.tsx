@@ -25,25 +25,27 @@ const Itens: React.FC<Props> = ({
         </tr>
     </thead>
     const list = itens.map((item: TItens) => (
+        <tbody>
+            <tr key={item.id}>
+                <th id="center">{item.id}</th>
+                <td id="center">{item.item}</td>
+                <td>{item.descric}</td>
+                <td id="center">{item.amount}</td>
+                <td>{currencyFormat(item.valor)}</td>
+                <td>{currencyFormat(item.tItem)}</td>
+                <td id="center">{<a href="##" onClick={() =>
+                    updateListProduct(item)}
+                >{<Icon.Pencil size={18} color="blue" />}</a>}</td>
+            </tr>
+        </tbody>
+    ))
+    return <>
         <div className="table-container">
             <table className='table'>
                 {thead}
-                <tbody>
-                    <tr key={item.id}>
-                        <th id="center">{item.id}</th>
-                        <td id="center">{item.item}</td>
-                        <td>{item.descric}</td>
-                        <td id="center">{item.amount}</td>
-                        <td>{currencyFormat(item.valor)}</td>
-                        <td>{currencyFormat(item.tItem)}</td>
-                        <td id="center">{<a href="##" onClick={() =>
-                            updateListProduct(item)}
-                        >{<Icon.Pencil size={18} color="blue" />}</a>}</td>
-                    </tr>
-                </tbody>
+                {list}
             </table>
         </div>
-    ))
-    return <> {list} </>
+    </>
 }
 export { Itens }

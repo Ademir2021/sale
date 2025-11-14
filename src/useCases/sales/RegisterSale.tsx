@@ -5,74 +5,74 @@ import { TProduct, TItens } from "../products/type/TProducts";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
 import { postList } from "../../services/handleService";
 
-export function RegisterSale() {
+const RegisterSale: React.FC = () => {
 
     const [msg, setMsg] = useState('')
-    const [product, setProduct] = useState<TItens>(
-        { id: 0, item: 0, descric: "", valor: 0, amount: 1, tItem: 0 });
-    const [products, setProducts] = useState<TProduct[]>([]);
-    const [itens, setItens] = useState<TItens[]>([]);
-    const [id, setId] = useState<number>(1);
-    const [editId, setEditId] = useState<number | null | any>(null);
-    const [, setPreco] = useState<number>(0);
-    const [totalItens, setTotalItens] = useState<number>(0)
+    const [id, setId] = useState(1);
+    const [editId, setEditId] = useState<any>(null);
+    const [, setPreco] = useState(0);
+    const [totalItens, setTotalItens] = useState(0)
     const [statusBtnSaleSubmit, setStatusBtnSaleSubmit] = useState<"Iniciar Pedido" | "Faturar Pedido">("Iniciar Pedido");
     const [statusBtnSaveUpdate, setStatusBtnSaveUpdate] = useState<"Salvar Item" | "Atualizar Item">("Salvar Item");
-    const [itemImg, setIemImg] = useState<string>('');
+    const [itemImg, setIemImg] = useState('');
     const [itenStorage, setItenStorage] = useState<TItens[]>([]);
-    const [statuStore, setStatuStore] = useState<boolean>(false)
+    const [statuStore, setStatuStore] = useState(false)
+    const [products, setProducts] = useState<TProduct[]>([]);
+    const [itens, setItens] = useState<TItens[]>([]);
+    const [item, setItem] = useState<TItens>(
+        { id: 0, item: 0, descric: "", valor: 0, amount: 1, tItem: 0 });
 
     const handleChange = (e: any) => {
         const name = e.target.name;
         const value = e.target.value;
-        setProduct(values => ({ ...values, [name]: value }))
+        setItem(values => ({ ...values, [name]: value }))
     };
 
     useEffect(() => {
         postList('products_list', setProducts)
     }, [products]);
 
-    function updateListProduct(item: TItens) {
+    const updateListProduct = (Item: TItens) => {
         setStatusBtnSaveUpdate("Atualizar Item");
-        setEditId(item.id);
-        product.id = item.id;
-        product.item = item.item;
-        product.descric = item.descric;
-        product.amount = item.amount;
-        product.valor = item.valor;
-        product.tItem = item.amount * item.valor;
-        product.image = item.image;
-        if (product.image === null) {
+        setEditId(Item.id);
+        item.id = Item.id;
+        item.item = Item.item;
+        item.descric = Item.descric;
+        item.amount = Item.amount;
+        item.valor = Item.valor;
+        item.tItem = Item.amount * Item.valor;
+        item.image = Item.image;
+        if (item.image === null) {
             setIemImg('')
         } else {
             findProducts();
         }
     };
 
-    function findProducts() {
-        for (let prod of products) {
-            if (product.descric == prod.id_product
-                || product.descric === prod.bar_code
-                || product.descric === prod.descric_product) {
+    const findProducts = () => {
+        for (let p of products) {
+            if (item.descric == p.id_product
+                || item.descric === p.bar_code
+                || item.descric === p.descric_product) {
                 if (editId !== null) {
-                    product.id = editId;
+                    item.id = editId;
                 } else {
-                    product.id = id;
+                    item.id = id;
                 }
-                product.item = prod.id_product;
-                product.descric = prod.descric_product;
-                product.valor = prod.val_max_product;
-                product.tItem = product.valor * product.amount;
-                if (prod.image === null) {
+                item.item = p.id_product;
+                item.descric = p.descric_product;
+                item.valor = p.val_max_product;
+                item.tItem = item.valor * item.amount;
+                if (p.image === null) {
                     setIemImg('')
                 } else {
-                    setIemImg("./img/img_itens/" + prod.image);
+                    setIemImg("./img/img_itens/" + p.image);
                 }
             }
         }
     };
 
-    function deleteProduct() {
+    const deleteProduct = () => {
         for (let i = 0; itens.length > i; i++) {
             setEditId(editId)
             if (itens[i].id === editId) {
@@ -85,32 +85,32 @@ export function RegisterSale() {
         }
     };
 
-    function verifItem(product: TItens) {
-        if (product.item !== 0) {
+    const verifItem = (Item: TItens) => {
+        if (Item.item !== 0) {
             for (let item of itens)
-                if (product.item === item.item && editId == null) {
+                if (Item.item === item.item && editId == null) {
                     return setMsg("Item já foi lançado")
                 }
             setId(id + 1);
-            return itens.push(product)
+            return itens.push(Item)
         } else {
             setMsg("Item não localizado")
         }
     };
 
-    function verifItemUP(product: TItens) {
+    function verifItemForUpdate(Item: TItens) {
         for (let item of itens)
-            if (product.item === item.item && editId !== null) {
-                item.amount = product.amount
-                item.tItem = product.amount * product.valor
-                return setMsg("Item já foi lançado ! a quantidade é de " + product.amount + " item(s)")
+            if (Item.item === item.item && editId !== null) {
+                item.amount = Item.amount
+                item.tItem = Item.amount * Item.valor
+                return setMsg("Item já foi lançado ! a quantidade é de " + Item.amount + " item(s)")
             }
         deleteProduct();
         setItens(itens);
-        return itens.push(product);
+        return itens.push(Item);
     };
 
-    function sumItens() {
+    const sumItens = () => {
         let sum = 0
         for (let item of itens) {
             sum += (item.amount * item.valor)
@@ -119,17 +119,17 @@ export function RegisterSale() {
         return sum
     };
 
-    function handleSaveUpdate(e: Event) {
+    const handleSaveUpdate = (e: Event) => {
         e.preventDefault();
         if (editId === null) {
             findProducts();
-            verifItem(product);
+            verifItem(item);
             sumItens();
             openClearNewSale();
             setStatusBtnSaleSubmit("Faturar Pedido");
         } else {
             findProducts();
-            verifItemUP(product);
+            verifItemForUpdate(item);
             sumItens();
             openClearNewSale();
             setEditId(null);
@@ -137,25 +137,25 @@ export function RegisterSale() {
         }
     };
 
-    function handleDelete(e: Event) {
+    const handleDelete = (e: Event) => {
         e.preventDefault();
         if (editId !== null) {
             if (window.confirm(
-                "Realmente deseja remover o Item de ID: "
+                "Realmente Deseja Remover o Item de ID: "
                 + editId + " ?")) {
                 deleteProduct();
                 openClearNewSale();
             }
         } else {
-            setMsg("Busque um novo item !");
+            setMsg("Busque um Novo Item !");
             openClearNewSale();
         }
     };
 
-    function handleSubmit(e: Event) {
+    const handleSubmit = (e: Event) => {
         e.preventDefault();
         if (statusBtnSaleSubmit === "Iniciar Pedido") {
-            itens.length === 0 ? setMsg("Iniciar compra !") :
+            itens.length === 0 ? setMsg("Iniciar Compra !") :
                 openClearNewSale();
             setStatusBtnSaleSubmit("Faturar Pedido");
         } else {
@@ -173,14 +173,14 @@ export function RegisterSale() {
                         window.location.replace("/invoice_sales");
                     }, 1000);
                 } else {
-                    setMsg("Aguarde ... ! Existe Venda em Aberto");
+                    setMsg("Aguarde ... ! Existe Pedido em Aberto");
                 }
             }
         }
     };
 
-    function openClearNewSale() {
-        setProduct({ id: 0, item: 0, descric: '', valor: 0, amount: 1, tItem: 0 });
+    const openClearNewSale = () => {
+        setItem({ id: 0, item: 0, descric: '', valor: 0, amount: 1, tItem: 0 });
         setStatusBtnSaveUpdate("Salvar Item");
         setStatusBtnSaleSubmit("Iniciar Pedido");
         setEditId(null);
@@ -188,7 +188,7 @@ export function RegisterSale() {
         setIemImg('')
     };
 
-    function searchItem(e: Event) {
+    const searchItem = (e: Event) => {
         e.preventDefault();
         if (statuStore === false) {
             itensStore()
@@ -196,10 +196,10 @@ export function RegisterSale() {
             sumItens()
         }
         findProducts();
-        setPreco(product.valor);
+        setPreco(item.valor);
     };
 
-    function itensStore() {
+    const itensStore = () => {
         const itens_store_res = localStorage.getItem('i');
         if (itens_store_res) {
             const itens_store: TItens[] = JSON.parse(itens_store_res)
@@ -231,30 +231,29 @@ export function RegisterSale() {
         }
     }
 
-    return (
-        <>
-            <RegisterSaleForm
-                handleChange={handleChange}
-                handleSaveUpdate={handleSaveUpdate}
-                handleSubmit={handleSubmit}
-                handleDelete={handleDelete}
-                clearItensStore={clearItensStore}
-                handleSearchItem={searchItem}
-                products={products}
-                item={(product.descric)}
-                statusBtnSaveUpdate={statusBtnSaveUpdate}
-                statusBtnSaleSubmit={statusBtnSaleSubmit}
-                item_img={itemImg}
-                msg={msg}
-                totalItens={totalItens <= 0 ? '' : currencyFormat(totalItens)}
-                loadItens={itens.length === 0 ? "Carregando" :
-                    <Itens
-                        itens={itens}
-                        updateListProduct={updateListProduct}
-                    />}
-            >
-                {product}
-            </RegisterSaleForm>
-        </>
-    )
+    return <>
+        <RegisterSaleForm
+            handleChange={handleChange}
+            handleSaveUpdate={handleSaveUpdate}
+            handleSubmit={handleSubmit}
+            handleDelete={handleDelete}
+            clearItensStore={clearItensStore}
+            handleSearchItem={searchItem}
+            products={products}
+            item={(item.descric)}
+            statusBtnSaveUpdate={statusBtnSaveUpdate}
+            statusBtnSaleSubmit={statusBtnSaleSubmit}
+            item_img={itemImg}
+            msg={msg}
+            totalItens={totalItens <= 0 ? '' : currencyFormat(totalItens)}
+            loadItens={itens.length === 0 ? "Carregando" :
+                <Itens
+                    itens={itens}
+                    updateListProduct={updateListProduct}
+                />}
+        >
+            {item}
+        </RegisterSaleForm> </>
 }
+
+export { RegisterSale }

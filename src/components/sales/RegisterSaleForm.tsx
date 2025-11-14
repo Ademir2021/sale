@@ -1,12 +1,12 @@
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
-import { TProduct } from '../../useCases/products/type/TProducts';
+import { TItens, TProduct } from '../../useCases/products/type/TProducts';
 import * as Icon from 'phosphor-react';
 import { NavBar } from '../navbar/Navbar';
 
 import '../../index.css'
 
 type Props = {
-  children: string | number | readonly string[] | undefined | any;
+  children:TItens
   handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   handleSubmit: any;
   handleDelete: any;
@@ -22,8 +22,7 @@ type Props = {
   msg: string
   clearItensStore:any
 }
-
-export function RegisterSaleForm({
+const RegisterSaleForm:React.FC<Props> = ({
   handleChange,
   handleSubmit,
   children,
@@ -39,15 +38,17 @@ export function RegisterSaleForm({
   item_img,
   msg,
   clearItensStore
-}: Props) {
+}: Props)=> {
+  const valor:number = children.valor
+  const amount:any = valor * children.amount
   const val_items = <div>
-    <b>Valor Unitário: </b>
-    <>{currencyFormat(parseFloat(children.valor))}</>
-    <> {'>>'} </>
-    <b>Total Item: </b>
-    <>{currencyFormat(parseFloat(children.valor) * children.amount)}</>
+    <b>Unitário: </b>
+    <>{valor}</>
+    <> {' '} </>
+    <b>T Item: </b>
+    <>{parseFloat(amount).toFixed(3)}</>
   </div>
-  const sub_total = <><b>Sub Total: </b>{totalItens}</>
+
   return <>
   <NavBar/>
       <div className='form' >
@@ -84,7 +85,9 @@ export function RegisterSaleForm({
         />
         <p>
         {children.valor > 0 && val_items}
-        {totalItens && sub_total}
+        {totalItens && <label
+        className='text-center'
+        >SubTotal {totalItens}</label>}
         </p>
         {msg && <label>{msg}</label>}
         <a href='##' className='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</a>
@@ -96,3 +99,5 @@ export function RegisterSaleForm({
       <div className='text-center p-1'>{loadItens}</div>
     </>
 }
+
+export { RegisterSaleForm }
