@@ -1,4 +1,3 @@
-import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { TItens, TProduct } from '../../useCases/products/type/TProducts';
 import * as Icon from 'phosphor-react';
 import { NavBar } from '../navbar/Navbar';
