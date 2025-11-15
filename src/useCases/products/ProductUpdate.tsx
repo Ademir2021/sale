@@ -15,7 +15,7 @@ import { AuthContext } from '../../context/auth'
 
 import "../../App.css"
 
-export function ProductUpdate() {
+const ProductUpdate:React.FC = () => {
     const { user: isLogged }: any = useContext(AuthContext);
     const [flagRegister, setFlagRegister] = useState<boolean>(false)
     const [msg, setMsg] = useState("")
@@ -230,7 +230,7 @@ export function ProductUpdate() {
             listGrupoFiscal={<select
                 onChange={e => setSelectedIdGrupoFiscal(e.target.value)}
                 defaultValue=""
-            ><option disabled value="" >Selecione um Grupo Fiscal</option>
+            ><option disabled value="" >Selecione um Grupo Fiscal ...</option>
                 {gruposFiscais.map((grupoFiscal: TGrupoFiscal) => (
                     <option
                         key={grupoFiscal.id_grupo_fiscal}
@@ -242,7 +242,7 @@ export function ProductUpdate() {
             listTipoProd={<select
                 onChange={e => setSelectdIdTipoProd(e.target.value)}
                 defaultValue=""
-            ><option disabled value="">Selecione o Tipo de Produto</option>
+            ><option disabled value="">Selecione o Tipo de Produto ...</option>
                 {tiposProds.map((tipoProd: TTipoProd) => (
                     <option
                         key={tipoProd.id_tipo}
@@ -302,3 +302,5 @@ export function ProductUpdate() {
             )))}
     </>
 }
+
+export { ProductUpdate }

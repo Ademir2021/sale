@@ -34,11 +34,11 @@ type IUpdateImagem = {
     preview: string
 }
 
-export function ProductFormUpdate({
+const ProductFormUpdate:React.FC<Props> = ({
     handleChange,
     handleSubmit,
     children,
-      products,
+    products,
     handleUpdate,
     handleNewProduct,
     modalRef,
@@ -54,7 +54,7 @@ export function ProductFormUpdate({
     listNcm,
     msgNcm,
     flagRegister,
-}: Props) {
+}: Props)=> {
 
     const [menu, setMenu] = useState("geral")
 
@@ -77,7 +77,7 @@ export function ProductFormUpdate({
         onClick={() => (setMenu('geral'))}
     >Produto</a> / < a href='##'
         onClick={() => (setMenu('fiscal'))}
-    >Situação fiscal</a>
+    >Situação Fiscal</a>
     </p>
 
     const geral = <>
@@ -174,3 +174,5 @@ export function ProductFormUpdate({
         </>
     )
 }
+
+export { ProductFormUpdate }
