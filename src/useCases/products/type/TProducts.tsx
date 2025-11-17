@@ -22,7 +22,7 @@ export type TItem = {
 };
 
 export type TItens = {
-    id: number;
+    id: number ;
     item: number;
     descric: string | number;
     amount: number;
