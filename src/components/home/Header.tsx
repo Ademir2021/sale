@@ -1,11 +1,11 @@
 import * as Icon from 'phosphor-react';
+import { NavBar } from '../navbar/Navbar';
 
 import './css/header.css'
-import { NavBar } from '../navbar/Navbar';
 
 type Props = {
     counter: string | number
-    subtotal: string | number
+    subtotal: number | any
 }
 
 export function Header(props: Props) {

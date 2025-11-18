@@ -21,9 +21,9 @@ const Home = () => {
 
     const [msg, setMsg] = useState('')
     const [id, setId] = useState(1);
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState(1)
     const [counter, setCounter] = useState(0)
-    const [subtotal, setsubtotal] = useState(0)
+    const [subTotal, setSubtotal] = useState(0)
     const [products, setProducts] = useState<TProduct[]>([]);
     const [listProd, setlistProd] = useState<TProduct[]>([]);
     const [itens, setItens] = useState<TItens[]>([]);
@@ -52,7 +52,6 @@ const Home = () => {
                         setFlgItens(true)
                     }
                     findSubSectorsOfItems(resp)
-
                 })
         } catch (err) { console.error("error occurred !" + err) }
     }
@@ -92,7 +91,7 @@ const Home = () => {
             setCounter(JSON.parse(res_counter))
         const res_sub_total = localStorage.getItem('t')
         if (res_sub_total)
-            setsubtotal(JSON.parse(res_sub_total))
+            setSubtotal(JSON.parse(res_sub_total))
     }
     useEffect(() => {
         getItensStorage()
@@ -103,7 +102,7 @@ const Home = () => {
         for (let item of itens) {
             sum += (item.amount * item.valor)
         }
-        setsubtotal(sum)
+        setSubtotal(sum)
         localStorage.setItem("t", JSON.stringify(sum));
         return sum
     }
@@ -136,16 +135,12 @@ const Home = () => {
                 Item.amount = item_.amount
             }
         }
-        setsubtotal(sumItens)
-        if (getItem.amount !== 0) {
+        setSubtotal(sumItens)
             itemAlreadyExists(getItem)
             localStorage.setItem("i", JSON.stringify(itens))
             localStorage.setItem("id", JSON.stringify(id))
-            setAmount(0)
+            setAmount(1)
             setMsg('')
-        } else {
-            setMsg("Selecione uma Quantidade")
-        }
     }
 
     const handleProducts = () => {
@@ -221,7 +216,7 @@ const Home = () => {
     return <>
         <Header
             counter={counter !== 0 ? counter : 0}
-            subtotal={subtotal === 0 ? '' : currencyFormat(subtotal)}
+            subtotal={subTotal !== 0 && currencyFormat(subTotal)}
         />
         <SearchItens
             selectSector={e => setSelectSector(e.target.value)}
