@@ -6,7 +6,7 @@
    margin: 1px;
    /* padding: 0 auto; */
    width: 24%;
-   min-width: 200px;
+   min-width: 196px;
 }
 .main-itens {
     /* display: flex; */
@@ -21,8 +21,8 @@
     margin-bottom: 1px;
     transition: 2s ease-in-out;
     color: black;
-    margin-right: 3%;
-    margin-left: 3%;
+    margin-right: 8%;
+    margin-left: 14%;
     border: solid rgb(248, 244, 244) 1px;
 }
 
