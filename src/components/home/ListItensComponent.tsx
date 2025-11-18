@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { TProduct, TSector, TSubSector, TUnMed } from '../../useCases/products/type/TProducts';
+import { useEffect, useState } from 'react';
+import { TItens, TProduct, TSector, TSubSector, TUnMed } from '../../useCases/products/type/TProducts';
 import { HandleProducts } from '../../useCases/products/HandleProduct';
-import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
-import * as Icon from 'phosphor-react';
 
 import './css/list-itens.css'
 
@@ -17,6 +15,8 @@ type Props = {
     sectors: TSector[]
     subSectors: TSubSector[]
     nameUniMeds: Function
+    amount: number 
+    itens:TItens[]
 }
 
 const ListItensComponent: React.FC<Props> = ({
@@ -29,20 +29,33 @@ const ListItensComponent: React.FC<Props> = ({
     sectors,
     subSectors,
     nameUniMeds,
+    amount,
+    itens
 }: Props) => {
 
-    const handleProducts: HandleProducts = new HandleProducts()
+    // const handleProducts: HandleProducts = new HandleProducts()
 
     const [itemImg,] = useState('./img/img_itens/sale_avatar.png');
 
     const valMin = (Item: TProduct) => {
-        return <div className='itens-valor'>{currencyFormat(Item.val_min_product)} á vista</div>
+        const valor: any = Item.val_min_product
+        return <div className='itens-valor'>R$ {parseFloat(valor).toFixed(2)} <span className='itens-valor-vista'>á vista</span></div>
     }
 
     const valMax = (Item: TProduct) => {
         const installments = 4
         const installment = Item.val_max_product / installments
-        return <div className='itens-valor'>{installments}x de R$ {installment} no cartão ou loja</div>
+        return <div className='itens-valor-inst'>{installments}x de R$ {installment.toFixed(2)} no prazo</div>
+    }
+
+
+    const viewAmont = (Item: TProduct) => {
+            for (let i of itens) {
+                if (i.item === Item.id_product){
+                    if(i.amount > 0)
+                    return <label id='msg-green'><b>{Item.amount}</b> {nameUniMeds(Item.fk_un_med)} no Carrinho</label>
+                }
+            }
     }
 
     const selectAmount = <>
@@ -64,7 +77,7 @@ const ListItensComponent: React.FC<Props> = ({
         </select></>
 
     const cardsProds = <> {(listProd.map((Item: TProduct) => (
-        <div className='container-itens' key={Item.id_product}>
+        <form className='container-itens' key={Item.id_product}>
             <div className='main-itens'>
                 <img className='itens-img' src={Item.image !== null ?
                     `./img/img_itens/${Item.image}` :
@@ -74,16 +87,15 @@ const ListItensComponent: React.FC<Props> = ({
                     {valMin(Item)}
                     {valMax(Item)}
                     {selectAmount}
-                    <button
-                        className='itens-btn'
-                        onClick={(e: Event | any) => {
-                            e.preventDefault()
-                            handleAddItem(Item)
-                        }}>Comprar agora</button>
-                    {Item.amount > 0 && <p><b>{Item.amount}</b> {nameUniMeds(Item.fk_un_med)} no Carrinho</p>}
+                    <button onClick={(e: any) => {
+                        e.preventDefault()
+                        handleAddItem(Item)
+                    }}
+                        className='itens-btn'>Comprar agora</button>
+                    {viewAmont(Item)}
                 </div>
             </div>
-        </div>
+        </form>
     )))}
     </>
 

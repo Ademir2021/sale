@@ -49,8 +49,18 @@
 }
 
 .itens-valor {
-    color: blue;
-    font-size: 14px;
+    color:black;
+    font-size: 16px;
+}
+
+.itens-valor-vista {
+    color:blue;
+    font-size: 12px;
+}
+
+.itens-valor-inst {
+    color: green;
+    font-size: 12px;
 }
 
 .itens-descric {

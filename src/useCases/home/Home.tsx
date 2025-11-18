@@ -42,21 +42,21 @@ const Home = () => {
         setItem(values => ({ ...values, [name]: value }))
     };
 
-    const getProducts = async () => {
+    const getProducts = async (Products:TProduct[]) => {
         try {
             await api.post<TProduct[]>('products_list')
                 .then(response => {
-                    const resp: TProduct[] = response.data
+                    Products = response.data
                     if (flgItens === false) {
-                        setlistProd(resp)
+                        setlistProd(Products)
                         setFlgItens(true)
                     }
-                    findSubSectorsOfItems(resp)
+                    findSubSectorsOfItems(Products)
                 })
         } catch (err) { console.error("error occurred !" + err) }
     }
     useEffect(() => {
-        getProducts()
+        getProducts(products)
     }, [flgItens, selectSector])
 
     const findIdSector = (nameSubSector: string) => {
@@ -95,12 +95,12 @@ const Home = () => {
     }
     useEffect(() => {
         getItensStorage()
-    }, [item, itens])
+    }, [item, itens, amount])
 
-    const sumItens = () => {
+    const sumItens =  (Itens:TItens[]) => {
         let sum = 0
-        for (let item of itens) {
-            sum += (item.amount * item.valor)
+        for (let i of Itens) {
+            sum += (i.amount * i.valor)
         }
         setSubtotal(sum)
         localStorage.setItem("t", JSON.stringify(sum));
@@ -108,45 +108,42 @@ const Home = () => {
     }
 
     const itemAlreadyExists = (Item: TItens) => {
-        for (let item of itens)
-            if (Item.item === item.item) {
-                item.amount = item.amount + Item.amount;
-                return item.tItem = item.amount * item.valor;
+        for (let i of itens)
+            if (Item.item === i.item) {
+                i.amount = i.amount + Item.amount;
+                return i.tItem = i.amount * i.valor;
             }
         setCounter(counter + 1)
         localStorage.setItem("c", JSON.stringify(counter + 1));
         setId(id + 1);
-        return itens.push(Item);
+        itens.push(Item);
     }
 
-    const handleAddItem = (Item: TProduct) => {
+    const handleAddItem =  (Item: TProduct) => {
         const getItem: TItens = {
-            id: 0, item: 0, descric: '', amount: 0, valor: 0, tItem: 0
-        }
-        getItem.id = id;
-        getItem.item = Item.id_product;
-        getItem.descric = Item.descric_product;
-        getItem.amount = amount
-        getItem.valor = Item.val_max_product;
-        getItem.tItem = getItem.valor * getItem.amount;
-        setItens(itens);
+            id: id,
+            item: Item.id_product,
+            descric: Item.descric_product,
+            amount: amount,
+            valor: Item.val_max_product,
+            tItem: Item.val_max_product * Item.amount | 1
+        };
         for (let item_ of itens) { // Add amount item
-            if (item_.item === Item.id_product) {
+            if (item_.item === Item.id_product)
                 Item.amount = item_.amount
-            }
-        }
-        setSubtotal(sumItens)
-            itemAlreadyExists(getItem)
-            localStorage.setItem("i", JSON.stringify(itens))
-            localStorage.setItem("id", JSON.stringify(id))
-            setAmount(1)
-            setMsg('')
+        };
+        itemAlreadyExists(getItem)
+        setSubtotal(sumItens(itens))
+        localStorage.setItem("i", JSON.stringify(itens))
+        localStorage.setItem("id", JSON.stringify(id))
+        setAmount(1)
+        setMsg('')
     }
 
-    const handleProducts = () => {
+    const handleProducts = (Products:TProduct[]) => {
         if (item.descric !== '') {
             const resp: TProduct[] = []
-            for (let p of products)
+            for (let p of Products)
                 if (item.descric === p.descric_product) {
                     resp.push(p)
                     setlistProd(resp)
@@ -158,7 +155,7 @@ const Home = () => {
 
     const handleSubmit = (e: Event) => {
         e.preventDefault()
-        handleProducts()
+        handleProducts(products)
     }
 
     useEffect(() => {
@@ -245,6 +242,8 @@ const Home = () => {
             sectors={sectors}
             subSectors={subSectors}
             nameUniMeds={nameUniMeds}
+            amount={amount}
+            itens={itens}
         />
         <FooterHomePage /> </>
 }
