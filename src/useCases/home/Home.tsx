@@ -148,7 +148,6 @@ const Home: React.FC = () => {
                 i.amount = i.amount + Item.amount;
                 return i.tItem = i.amount * i.valor;
             }
-            if(amount !== 0)
         setCounter(counter + 1)
         localStorage.setItem("c", JSON.stringify(counter + 1));
         setId(id + 1);
@@ -160,19 +159,23 @@ const Home: React.FC = () => {
             id: id,
             item: Item.id_product,
             descric: Item.descric_product,
-            amount: amount || 0,
+            amount: amount || 1,
             valor: Item.val_max_product,
-            tItem: Item.val_max_product * amount || 0
+            tItem: Item.val_max_product * amount || 1
         };
         for (let item of itens) { // Add amount item
             if (item.item === Item.id_product)
                 Item.amount = item.amount
         };
-        handleItemAlreadyExists(newItem)
-        setSubtotal(sumItens(itens))
-        localStorage.setItem("i", JSON.stringify(itens))
-        localStorage.setItem("id", JSON.stringify(id))
-        setAmount(0)
+        if(amount === 0){
+            setAmount(1)
+        }
+            handleItemAlreadyExists(newItem)
+            setSubtotal(sumItens(itens))
+            localStorage.setItem("i", JSON.stringify(itens))
+            localStorage.setItem("id", JSON.stringify(id))
+            setAmount(0)
+        
     }
 
     const handleProducts = (Products: TProduct[]) => {

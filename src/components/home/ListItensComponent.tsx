@@ -55,27 +55,27 @@ const ListItensComponent: React.FC<Props> = ({
         }
     }
 
-    const selectAmount = (Item:TProduct) => {
-          for (let i of itens)
+    const selectAmount = (Item: TProduct) => {
+        for (let i of itens)
             if (i.item === Item.id_product)
-        return <select onChange={e =>  setAmount(parseInt(e.target.value)) }
-            className='select-amount'
-            defaultValue={1}
-        ><option disabled value={1}
-        >Quantidade</option>
-            <option>{1}</option>
-            <option>{2}</option>
-            <option>{3}</option>
-            <option>{4}</option>
-            <option>{5}</option>
-            <option>{6}</option>
-            <option>{7}</option>
-            <option>{8}</option>
-            <option>{9}</option>
-            <option>{10}</option>
-            <option>{11}</option>
-            <option>{12}</option>
-        </select>
+                return <select onChange={e => setAmount(parseInt(e.target.value))}
+                    className='select-amount'
+                    defaultValue={1}
+                ><option disabled value={1}
+                >Quantidades</option>
+                    <option>{1}</option>
+                    <option>{2}</option>
+                    <option>{3}</option>
+                    <option>{4}</option>
+                    <option>{5}</option>
+                    <option>{6}</option>
+                    <option>{7}</option>
+                    <option>{8}</option>
+                    <option>{9}</option>
+                    <option>{10}</option>
+                    <option>{11}</option>
+                    <option>{12}</option>
+                </select>
     }
 
     const inputAmount = (Item: TProduct) => {
@@ -104,7 +104,7 @@ const ListItensComponent: React.FC<Props> = ({
                     {valMin(Item)}
                     {valMax(Item)}
                     {viewAmount(Item)}
-                    {amount > 10 || amount > 0 && amount < 11
+                    {amount > 11 || amount > 0 && amount < 12
                         ? inputAmount(Item) : selectAmount(Item)}
                     <button onClick={(e: any) => {
                         e.preventDefault()
