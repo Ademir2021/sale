@@ -81,10 +81,10 @@ const ListItensComponent: React.FC<Props> = ({
         <form>
             <input
                 className='input-amount'
-                inputMode='tel'
-                pattern="[11-1000]*"
+                type='number'
+                pattern="[1-1000]*"
                 placeholder='Apenas números'
-                min={12}
+                min={1}
                 max={1000}
                 value={amount || ''}
                 onChange={e => setAmount(parseInt(e.target.value))}
