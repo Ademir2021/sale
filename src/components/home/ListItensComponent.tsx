@@ -78,20 +78,18 @@ const ListItensComponent: React.FC<Props> = ({
         </select></>
 
     const inputAmount = <>
-    <form>
-        <input
-            className='input-amount'
-            inputMode='numeric'
-            type='number'
-            name='amount'
-            pattern="[11-1000]*"
-            placeholder='Apenas números'
-            min={12}
-            max={1000}
-            value={amount || 12}
-            onChange={e => setAmount(parseInt(e.target.value))}
-        />
-    </form>
+        <form>
+            <input
+                className='input-amount'
+                inputMode='tel'
+                pattern="[11-1000]*"
+                placeholder='Apenas números'
+                min={12}
+                max={1000}
+                value={amount || ''}
+                onChange={e => setAmount(parseInt(e.target.value))}
+            />
+        </form>
     </>
 
     const cardsProds = <> {(listProd.map((Item: TProduct) => (
@@ -105,7 +103,8 @@ const ListItensComponent: React.FC<Props> = ({
                     {valMin(Item)}
                     {valMax(Item)}
                     {viewAmount(Item)}
-                    {amount > 11 ? inputAmount : selectAmount}
+                    {amount > 11 || amount === 1
+                        ? inputAmount : selectAmount}
                     <button onClick={(e: any) => {
                         e.preventDefault()
                         handleNewItem(Item)

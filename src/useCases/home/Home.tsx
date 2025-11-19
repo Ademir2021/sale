@@ -21,7 +21,7 @@ const Home: React.FC = () => {
 
     const [msg, setMsg] = useState('')
     const [id, setId] = useState(1);
-    const [amount, setAmount] = useState(1)
+    const [amount, setAmount] = useState(0)
     const [counter, setCounter] = useState(0)
     const [subTotal, setSubtotal] = useState(0)
     const [products, setProducts] = useState<TProduct[]>([]);
@@ -160,9 +160,9 @@ const Home: React.FC = () => {
             id: id,
             item: Item.id_product,
             descric: Item.descric_product,
-            amount: amount,
+            amount: amount | 1,
             valor: Item.val_max_product,
-            tItem: Item.val_max_product * amount
+            tItem: Item.val_max_product * amount | 1
         };
         for (let item of itens) { // Add amount item
             if (item.item === Item.id_product)
@@ -172,7 +172,7 @@ const Home: React.FC = () => {
         setSubtotal(sumItens(itens))
         localStorage.setItem("i", JSON.stringify(itens))
         localStorage.setItem("id", JSON.stringify(id))
-        setAmount(1)
+        setAmount(0)
         setMsg('')
     }
 
