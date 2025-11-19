@@ -57,8 +57,10 @@ const ListItensComponent: React.FC<Props> = ({
         }
     }
 
-    const selectAmount = <>
-        <select onChange={e => setAmount(parseInt(e.target.value))}
+    const selectAmount = (Item:TProduct) => {
+          for (let i of itens)
+            if (i.item === Item.id_product)
+        return <select onChange={e =>  setAmount(parseInt(e.target.value)) }
             className='select-amount'
             defaultValue={1}
         ><option disabled value={1}
@@ -75,22 +77,23 @@ const ListItensComponent: React.FC<Props> = ({
             <option>{10}</option>
             <option>{11}</option>
             <option>{12}</option>
-        </select></>
+        </select>
+    }
 
-    const inputAmount = <>
-        <form>
-            <input
-                className='input-amount'
-                type='number'
-                pattern="[1-1000]*"
-                placeholder='Apenas números'
-                min={1}
-                max={1000}
-                value={amount || ''}
-                onChange={e => setAmount(parseInt(e.target.value))}
-            />
-        </form>
-    </>
+    const inputAmount = (Item: TProduct) => {
+        for (let i of itens)
+            if (i.item === Item.id_product)
+                return <input
+                    className='input-amount'
+                    type='number'
+                    pattern="[1-1000]*"
+                    placeholder='Apenas números'
+                    min={1}
+                    max={1000}
+                    value={amount || ''}
+                    onChange={e => setAmount(parseInt(e.target.value))}
+                />
+    }
 
     const cardsProds = <> {(listProd.map((Item: TProduct) => (
         <form className='container-itens' key={Item.id_product}>
@@ -104,7 +107,7 @@ const ListItensComponent: React.FC<Props> = ({
                     {valMax(Item)}
                     {viewAmount(Item)}
                     {amount > 10 || amount > 0 && amount < 11
-                        ? inputAmount : selectAmount}
+                        ? inputAmount(Item) : selectAmount(Item)}
                     <button onClick={(e: any) => {
                         e.preventDefault()
                         handleNewItem(Item)
