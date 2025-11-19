@@ -19,7 +19,6 @@ type TProdListQuery = {
 
 const Home: React.FC = () => {
 
-    const [msg, setMsg] = useState('')
     const [id, setId] = useState(1);
     const [amount, setAmount] = useState(0)
     const [counter, setCounter] = useState(0)
@@ -149,6 +148,7 @@ const Home: React.FC = () => {
                 i.amount = i.amount + Item.amount;
                 return i.tItem = i.amount * i.valor;
             }
+            if(amount !== 0)
         setCounter(counter + 1)
         localStorage.setItem("c", JSON.stringify(counter + 1));
         setId(id + 1);
@@ -173,7 +173,6 @@ const Home: React.FC = () => {
         localStorage.setItem("i", JSON.stringify(itens))
         localStorage.setItem("id", JSON.stringify(id))
         setAmount(0)
-        setMsg('')
     }
 
     const handleProducts = (Products: TProduct[]) => {
@@ -230,7 +229,6 @@ const Home: React.FC = () => {
         />}
         {selectSector === "Todos" && <ControlledCarousel />}
         <ListItensComponent
-            msg={msg}
             listProd={listProd}
             handleNewItem={handleNewItem}
             setAmount={setAmount}

@@ -5,7 +5,6 @@ import { HandleProducts } from '../../useCases/products/HandleProduct';
 import './css/list-itens.css'
 
 type Props = {
-    msg: string
     listProd: TProduct[]
     handleNewItem: Function;
     tItem?: number;
@@ -20,7 +19,6 @@ type Props = {
 }
 
 const ListItensComponent: React.FC<Props> = ({
-    msg,
     listProd,
     handleNewItem,
     setAmount,
