@@ -160,9 +160,9 @@ const Home: React.FC = () => {
             id: id,
             item: Item.id_product,
             descric: Item.descric_product,
-            amount: amount | 1,
+            amount: amount || 1,
             valor: Item.val_max_product,
-            tItem: Item.val_max_product * amount | 1
+            tItem: Item.val_max_product * amount || 1
         };
         for (let item of itens) { // Add amount item
             if (item.item === Item.id_product)

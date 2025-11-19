@@ -103,7 +103,7 @@ const ListItensComponent: React.FC<Props> = ({
                     {valMin(Item)}
                     {valMax(Item)}
                     {viewAmount(Item)}
-                    {amount > 11 || amount === 1
+                    {amount > 10 || amount > 0 && amount < 11
                         ? inputAmount : selectAmount}
                     <button onClick={(e: any) => {
                         e.preventDefault()
