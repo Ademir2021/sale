@@ -17,7 +17,7 @@ type TProdListQuery = {
     fk_sub_sector: number
 }
 
-const Home = () => {
+const Home: React.FC = () => {
 
     const [msg, setMsg] = useState('')
     const [id, setId] = useState(1);
@@ -42,7 +42,7 @@ const Home = () => {
         setItem(values => ({ ...values, [name]: value }))
     };
 
-    const getProducts = async (Products:TProduct[]) => {
+    const getProducts = async (Products: TProduct[]) => {
         try {
             await api.post<TProduct[]>('products_list')
                 .then(response => {
@@ -97,7 +97,7 @@ const Home = () => {
         getItensStorage()
     }, [item, itens, amount])
 
-    const sumItens =  (Itens:TItens[]) => {
+    const sumItens = (Itens: TItens[]) => {
         let sum = 0
         for (let i of Itens) {
             sum += (i.amount * i.valor)
@@ -119,20 +119,20 @@ const Home = () => {
         itens.push(Item);
     }
 
-    const handleAddItem =  (Item: TProduct) => {
-        const getItem: TItens = {
+    const handleAddItem = (Item: TProduct) => {
+        const newItem: TItens = {
             id: id,
             item: Item.id_product,
             descric: Item.descric_product,
             amount: amount,
             valor: Item.val_max_product,
-            tItem: Item.val_max_product * Item.amount | 1
+            tItem: Item.val_max_product * amount
         };
-        for (let item_ of itens) { // Add amount item
-            if (item_.item === Item.id_product)
-                Item.amount = item_.amount
+        for (let item of itens) { // Add amount item
+            if (item.item === Item.id_product)
+                Item.amount = item.amount
         };
-        itemAlreadyExists(getItem)
+        itemAlreadyExists(newItem)
         setSubtotal(sumItens(itens))
         localStorage.setItem("i", JSON.stringify(itens))
         localStorage.setItem("id", JSON.stringify(id))
@@ -140,7 +140,7 @@ const Home = () => {
         setMsg('')
     }
 
-    const handleProducts = (Products:TProduct[]) => {
+    const handleProducts = (Products: TProduct[]) => {
         if (item.descric !== '') {
             const resp: TProduct[] = []
             for (let p of Products)
@@ -242,7 +242,6 @@ const Home = () => {
             sectors={sectors}
             subSectors={subSectors}
             nameUniMeds={nameUniMeds}
-            amount={amount}
             itens={itens}
         />
         <FooterHomePage /> </>

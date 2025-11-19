@@ -15,7 +15,6 @@ type Props = {
     sectors: TSector[]
     subSectors: TSubSector[]
     nameUniMeds: Function
-    amount: number 
     itens:TItens[]
 }
 
@@ -29,11 +28,11 @@ const ListItensComponent: React.FC<Props> = ({
     sectors,
     subSectors,
     nameUniMeds,
-    amount,
     itens
 }: Props) => {
 
     // const handleProducts: HandleProducts = new HandleProducts()
+
 
     const [itemImg,] = useState('./img/img_itens/sale_avatar.png');
 
@@ -48,14 +47,13 @@ const ListItensComponent: React.FC<Props> = ({
         return <div className='itens-valor-inst'>{installments}x de R$ {installment.toFixed(2)} no prazo</div>
     }
 
-
     const viewAmont = (Item: TProduct) => {
-            for (let i of itens) {
-                if (i.item === Item.id_product){
-                    if(i.amount > 0)
-                    return <label id='msg-green'><b>{Item.amount}</b> {nameUniMeds(Item.fk_un_med)} no Carrinho</label>
-                }
+        for (let i of itens) {
+            if (i.item === Item.id_product) {
+                if (i.amount > 0)
+                    return <label id='msg-green'><b>{i.amount}</b> {nameUniMeds(Item.fk_un_med)} no Carrinho</label>
             }
+        }
     }
 
     const selectAmount = <>
