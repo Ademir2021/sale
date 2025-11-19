@@ -47,6 +47,12 @@
     border: none;
     text-align: center;
 }
+.input-amount {
+    margin: 12px;
+    border-radius: 12px;
+    max-width: 40%;
+    text-align: center;
+}
 
 .itens-valor {
     color:black;

@@ -35,6 +35,7 @@ const Home: React.FC = () => {
     const [selectSector, setSelectSector] = useState<string>("Todos")
     const [flgItens, setFlgItens] = useState<boolean>(false)
     const [checkSearch, setCheckSearch] = useState<boolean>(false)
+    const [descricProd, setDescricProd] = useState('')
 
     const handleChange = (e: any) => {
         const name = e.target.name;
@@ -42,6 +43,42 @@ const Home: React.FC = () => {
         setItem(values => ({ ...values, [name]: value }))
     };
 
+    useEffect(() => {
+        getList('brands', setBrand)
+    }, [])
+
+    useEffect(() => {
+        getList('sectors', setSector)
+    }, [sectors])
+
+    useEffect(() => {
+        getList('sub_sectors', setSubSector)
+    }, [subSectors])
+
+    useEffect(() => {
+        getList('un_meds', setUniMeds)
+    }, [uniMeds])
+
+    const nameBrands = (id: number) => {
+        for (let brand of brands) {
+            if (brand.id_brand === id)
+                return brand.name_brand
+        }
+    }
+
+    const nameSubSector = (id: number) => {
+        for (let subSector of subSectors) {
+            if (subSector.id_sub_sector === id)
+                return subSector.name_sub_sector
+        }
+    }
+
+    const nameUniMeds = (id: number) => {
+        for (let uniMed of uniMeds) {
+            if (uniMed.id_un === id)
+                return uniMed.un_med
+        }
+    }
     const getProducts = async (Products: TProduct[]) => {
         try {
             await api.post<TProduct[]>('products_list')
@@ -74,7 +111,6 @@ const Home: React.FC = () => {
                 resultProducts.push(item);
             selectSector !== "Todos" ? setProducts(resultProducts) : setAllItems(items)
         }
-
     }
 
     const setAllItems = (items: TProduct[]) => {
@@ -107,7 +143,7 @@ const Home: React.FC = () => {
         return sum
     }
 
-    const itemAlreadyExists = (Item: TItens) => {
+    const handleItemAlreadyExists = (Item: TItens) => {
         for (let i of itens)
             if (Item.item === i.item) {
                 i.amount = i.amount + Item.amount;
@@ -119,7 +155,7 @@ const Home: React.FC = () => {
         itens.push(Item);
     }
 
-    const handleAddItem = (Item: TProduct) => {
+    const handleNewItem = (Item: TProduct) => {
         const newItem: TItens = {
             id: id,
             item: Item.id_product,
@@ -132,7 +168,7 @@ const Home: React.FC = () => {
             if (item.item === Item.id_product)
                 Item.amount = item.amount
         };
-        itemAlreadyExists(newItem)
+        handleItemAlreadyExists(newItem)
         setSubtotal(sumItens(itens))
         localStorage.setItem("i", JSON.stringify(itens))
         localStorage.setItem("id", JSON.stringify(id))
@@ -157,45 +193,6 @@ const Home: React.FC = () => {
         e.preventDefault()
         handleProducts(products)
     }
-
-    useEffect(() => {
-        getList('brands', setBrand)
-    }, [])
-
-    useEffect(() => {
-        getList('sectors', setSector)
-    }, [sectors])
-
-    useEffect(() => {
-        getList('sub_sectors', setSubSector)
-    }, [subSectors])
-
-    useEffect(() => {
-        getList('un_meds', setUniMeds)
-    }, [uniMeds])
-
-    const nameBrands = (idBrand: number) => {
-        for (let brand of brands) {
-            if (brand.id_brand === idBrand)
-                return brand.name_brand
-        }
-    }
-
-    const nameSubSector = (idSubSector: number) => {
-        for (let subSector of subSectors) {
-            if (subSector.id_sub_sector === idSubSector)
-                return subSector.name_sub_sector
-        }
-    }
-
-    const nameUniMeds = (idUniMeds: number) => {
-        for (let uniMed of uniMeds) {
-            if (uniMed.id_un === idUniMeds)
-                return uniMed.un_med
-        }
-    }
-
-    const [descricProd, setDescricProd] = useState<any>(null)
 
     const prod: TProdListQuery = {
         id_product: 0,
@@ -235,7 +232,7 @@ const Home: React.FC = () => {
         <ListItensComponent
             msg={msg}
             listProd={listProd}
-            handleAddItem={handleAddItem}
+            handleNewItem={handleNewItem}
             setAmount={setAmount}
             nameBrands={nameBrands}
             nameSubSector={nameSubSector}
@@ -243,6 +240,7 @@ const Home: React.FC = () => {
             subSectors={subSectors}
             nameUniMeds={nameUniMeds}
             itens={itens}
+            amount={amount}
         />
         <FooterHomePage /> </>
 }

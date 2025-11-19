@@ -7,7 +7,7 @@ import './css/list-itens.css'
 type Props = {
     msg: string
     listProd: TProduct[]
-    handleAddItem: Function;
+    handleNewItem: Function;
     tItem?: number;
     setAmount: Function
     nameBrands: Function
@@ -15,24 +15,25 @@ type Props = {
     sectors: TSector[]
     subSectors: TSubSector[]
     nameUniMeds: Function
-    itens:TItens[]
+    itens: TItens[]
+    amount: number
 }
 
 const ListItensComponent: React.FC<Props> = ({
     msg,
     listProd,
-    handleAddItem,
+    handleNewItem,
     setAmount,
     nameBrands,
     nameSubSector,
     sectors,
     subSectors,
     nameUniMeds,
-    itens
+    itens,
+    amount
 }: Props) => {
 
     // const handleProducts: HandleProducts = new HandleProducts()
-
 
     const [itemImg,] = useState('./img/img_itens/sale_avatar.png');
 
@@ -47,11 +48,11 @@ const ListItensComponent: React.FC<Props> = ({
         return <div className='itens-valor-inst'>{installments}x de R$ {installment.toFixed(2)} no prazo</div>
     }
 
-    const viewAmont = (Item: TProduct) => {
+    const viewAmount = (Item: TProduct) => {
         for (let i of itens) {
             if (i.item === Item.id_product) {
                 if (i.amount > 0)
-                    return <label id='msg-green'><b>{i.amount}</b> {nameUniMeds(Item.fk_un_med)} no Carrinho</label>
+                    return <div id='msg-green'><b>{i.amount}</b>{nameUniMeds(Item.fk_un_med)} no Carrinho</div>
             }
         }
     }
@@ -59,8 +60,8 @@ const ListItensComponent: React.FC<Props> = ({
     const selectAmount = <>
         <select onChange={e => setAmount(parseInt(e.target.value))}
             className='select-amount'
-            defaultValue={''}
-        ><option disabled value={''}
+            defaultValue={1}
+        ><option disabled value={1}
         >Quantidade</option>
             <option>{1}</option>
             <option>{2}</option>
@@ -72,7 +73,22 @@ const ListItensComponent: React.FC<Props> = ({
             <option>{8}</option>
             <option>{9}</option>
             <option>{10}</option>
+            <option>{11}</option>
+            <option>{12}</option>
         </select></>
+
+    const inputAmount = <>
+        <input
+            className='input-amount'
+            type='number'
+            pattern="[11-1000]*"
+            placeholder='Apenas números'
+            min={10}
+            max={1000}
+            value={amount || 12}
+            onChange={e => setAmount(parseInt(e.target.value))}
+        />
+    </>
 
     const cardsProds = <> {(listProd.map((Item: TProduct) => (
         <form className='container-itens' key={Item.id_product}>
@@ -84,13 +100,13 @@ const ListItensComponent: React.FC<Props> = ({
                     <div className='itens-descric'>{Item.descric_product}</div>
                     {valMin(Item)}
                     {valMax(Item)}
-                    {selectAmount}
+                    {viewAmount(Item)}
+                    {amount > 11 ? inputAmount : selectAmount}
                     <button onClick={(e: any) => {
                         e.preventDefault()
-                        handleAddItem(Item)
+                        handleNewItem(Item)
                     }}
                         className='itens-btn'>Comprar agora</button>
-                    {viewAmont(Item)}
                 </div>
             </div>
         </form>
