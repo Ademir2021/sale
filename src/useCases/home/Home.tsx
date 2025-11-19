@@ -8,6 +8,8 @@ import { currencyFormat } from '../../components/utils/currentFormat/CurrentForm
 import ControlledCarousel from '../../components/carousel/ControlledCarousel';
 import { FilterItens } from '../../components/home/FilterItens';
 import { getList, getListQuery } from '../../services/handleService'
+import { HandleHome } from './handleHome/HandleHome';
+
 import api from '../../services/api/api'
 
 type TProdListQuery = {
@@ -35,6 +37,8 @@ const Home: React.FC = () => {
     const [flgItens, setFlgItens] = useState<boolean>(false)
     const [checkSearch, setCheckSearch] = useState<boolean>(false)
     const [descricProd, setDescricProd] = useState('')
+
+    const handleHome = new HandleHome()
 
     const handleChange = (e: any) => {
         const name = e.target.name;
@@ -117,30 +121,9 @@ const Home: React.FC = () => {
         setFlgItens(false);
     }
 
-    const getItensStorage = () => {
-        const res_itens = localStorage.getItem('i')
-        if (res_itens)
-            setItens(JSON.parse(res_itens))
-        const res_counter = localStorage.getItem('c')
-        if (res_counter)
-            setCounter(JSON.parse(res_counter))
-        const res_sub_total = localStorage.getItem('t')
-        if (res_sub_total)
-            setSubtotal(JSON.parse(res_sub_total))
-    }
     useEffect(() => {
-        getItensStorage()
+        handleHome.getItensStorage(setItem, setCounter, setSubtotal)
     }, [item, itens, amount])
-
-    const sumItens = (Itens: TItens[]) => {
-        let sum = 0
-        for (let i of Itens) {
-            sum += (i.amount * i.valor)
-        }
-        setSubtotal(sum)
-        localStorage.setItem("t", JSON.stringify(sum));
-        return sum
-    }
 
     const handleItemAlreadyExists = (Item: TItens) => {
         for (let i of itens)
@@ -171,7 +154,7 @@ const Home: React.FC = () => {
             setAmount(1)
         }
             handleItemAlreadyExists(newItem)
-            setSubtotal(sumItens(itens))
+            setSubtotal(handleHome.sumItens(itens, setSubtotal))
             localStorage.setItem("i", JSON.stringify(itens))
             localStorage.setItem("id", JSON.stringify(id))
             setAmount(0)

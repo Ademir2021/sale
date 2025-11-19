@@ -4,6 +4,7 @@ import { Itens } from "../../components/sales/Itens";
 import { TProduct, TItens } from "../products/type/TProducts";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
 import { postList } from "../../services/handleService";
+import { HandleHome } from "../home/handleHome/HandleHome";
 
 const RegisterSale: React.FC = () => {
 
@@ -21,6 +22,8 @@ const RegisterSale: React.FC = () => {
     const [itens, setItens] = useState<TItens[]>([]);
     const [item, setItem] = useState<TItens>(
         { id: 0, item: 0, descric: "", valor: 0, amount: 1, tItem: 0 });
+
+    const handleHome = new HandleHome()
 
     const handleChange = (e: any) => {
         const name = e.target.name;
@@ -45,12 +48,12 @@ const RegisterSale: React.FC = () => {
         if (item.image === null) {
             setIemImg('')
         } else {
-            findProducts();
+            findProducts(products);
         }
     };
 
-    const findProducts = () => {
-        for (let p of products) {
+    const findProducts = (Products:TProduct[]) => {
+        for (let p of Products) {
             if (item.descric == p.id_product
                 || item.descric === p.bar_code
                 || item.descric === p.descric_product) {
@@ -72,15 +75,15 @@ const RegisterSale: React.FC = () => {
         }
     };
 
-    const deleteProduct = () => {
-        for (let i = 0; itens.length > i; i++) {
+    const deleteProduct = (Items:TItens[]) => {
+        for (let i = 0; Items.length > i; i++) {
             setEditId(editId)
-            if (itens[i].id === editId) {
-                itens.splice(i, 1);
+            if (Items[i].id === editId) {
+                Items.splice(i, 1);
                 setEditId(null);
                 openClearNewSale();
                 setStatusBtnSaleSubmit("Faturar Pedido");
-                sumItens();
+                handleHome.sumItens(Items, setTotalItens);
             }
         }
     };
@@ -105,32 +108,24 @@ const RegisterSale: React.FC = () => {
                 item.tItem = Item.amount * Item.valor
                 return setMsg("Item já foi lançado ! a quantidade é de " + Item.amount + " item(s)")
             }
-        deleteProduct();
+        deleteProduct(itens);
         setItens(itens);
         return itens.push(Item);
     };
 
-    const sumItens = () => {
-        let sum = 0
-        for (let item of itens) {
-            sum += (item.amount * item.valor)
-        }
-        setTotalItens(sum)
-        return sum
-    };
 
     const handleSaveUpdate = (e: Event) => {
         e.preventDefault();
         if (editId === null) {
-            findProducts();
+            findProducts(products);
             verifItem(item);
-            sumItens();
+            handleHome.sumItens(itens, setTotalItens);
             openClearNewSale();
             setStatusBtnSaleSubmit("Faturar Pedido");
         } else {
-            findProducts();
+            findProducts(products);
             verifItemForUpdate(item);
-            sumItens();
+            handleHome.sumItens(itens, setTotalItens);
             openClearNewSale();
             setEditId(null);
             setPreco(0);
@@ -143,7 +138,7 @@ const RegisterSale: React.FC = () => {
             if (window.confirm(
                 "Realmente Deseja Remover o Item de ID: "
                 + editId + " ?")) {
-                deleteProduct();
+                deleteProduct(itens);
                 openClearNewSale();
             }
         } else {
@@ -167,7 +162,7 @@ const RegisterSale: React.FC = () => {
                 const sale_store = localStorage.getItem('sl');
                 if (!sale_store) {
                     localStorage.setItem("i", JSON.stringify(itens))
-                    localStorage.setItem("s", JSON.stringify(sumItens().toFixed(2)));
+                    localStorage.setItem("s", JSON.stringify(handleHome.sumItens(itens, setTotalItens).toFixed(2)));
                     setMsg("Pedido gravado com sucesso")
                     setTimeout(() => {
                         window.location.replace("/invoice_sales");
@@ -193,9 +188,9 @@ const RegisterSale: React.FC = () => {
         if (statuStore === false) {
             itensStore()
             setStatuStore(true)
-            sumItens()
+            handleHome.sumItens(itens, setTotalItens);
         }
-        findProducts();
+        findProducts(products);
         setPreco(item.valor);
     };
 

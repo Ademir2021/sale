@@ -8,12 +8,12 @@ import '../css/styles-forms.css'
 
 type Props = {
     itens: TItens[]
-    decrementItemListStore: any
-    incrementItemListStore: any
+    decrementItemListStore: Function
+    incrementItemListStore: Function
     deleteListStore: any
     messages: string
-    counter_: number
-    subtotal: number
+    counter: number
+    subTotal: number
 }
 
 export function ListItensStore({
@@ -22,8 +22,8 @@ export function ListItensStore({
     incrementItemListStore,
     deleteListStore,
     messages,
-    counter_,
-    subtotal,
+    counter,
+    subTotal,
 }: Props) {
 
     const list = itens.map((item: TItens) => (
@@ -58,14 +58,14 @@ export function ListItensStore({
             <input
                 id="store-input-quant"
                 placeholder="Quantidade"
-                value={counter_}
+                value={counter}
                 disabled
             />
             {/* <label>Total</label> */}
             <input
                 id="store-input-total"
                 placeholder="Total dos Items"
-                value={currencyFormat(subtotal)}
+                value={currencyFormat(subTotal)}
                 disabled
             />
             {itens.length !== 0 && <div id='msg-red'>{messages}</div>}
