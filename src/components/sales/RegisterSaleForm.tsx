@@ -87,8 +87,16 @@ const RegisterSaleForm:React.FC<Props> = ({
         {totalItens && <label>SubTotal {totalItens}</label>}
         </p>
         {msg && <div id='msg-red'>{msg}</div>}
-        <a href='##' className='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</a>
-        <a href='##' className='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</a>
+        <a href='##' className='m-2' onClick={handleSubmit}>{
+        statusBtnSaleSubmit === "Iniciar Pedido" ?
+        <Icon.Check size={26} weight='bold'  color='red' alt='Iniciar Pedido' /> :
+        <Icon.Checks size={26} weight='bold' color='green' alt='Faturar Pedido' />
+        }</a>
+        <a href='##' className='m-2' onClick={handleSaveUpdate}>{
+        statusBtnSaveUpdate === "Salvar Item" ?
+        <Icon.ArrowClockwise size={18} weight='bold' alt='Inserir Item' /> :
+        <Icon.ArrowsCounterClockwise size={18} weight='bold' alt='Atualizar Item' />} 
+        </a>
         <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' alt='Importar Carrinho' />}</a>
         {totalItens && <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' alt='Remover Item' />}</a>}
             {totalItens && <a href='##' className='m-2' onClick={clearItensStore}>{<Icon.ArrowSquareOut size={18} color='red' alt='Esvaziar Carrinho' />}</a>}
