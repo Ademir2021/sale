@@ -21,22 +21,27 @@ type TProdListQuery = {
 
 const Home: React.FC = () => {
 
-    const [id, setId] = useState(1);
-    const [amount, setAmount] = useState(0)
-    const [counter, setCounter] = useState(0)
     const [subTotal, setSubtotal] = useState(0)
     const [products, setProducts] = useState<TProduct[]>([]);
     const [listProd, setlistProd] = useState<TProduct[]>([]);
-    const [itens, setItens] = useState<TItens[]>([]);
     const [item, setItem] = useState<TItem>({ descric: '' });
     const [brands, setBrand] = useState<TBrand[]>([]);
     const [sectors, setSector] = useState<TSector[]>([]);
     const [subSectors, setSubSector] = useState<TSubSector[]>([]);
     const [uniMeds, setUniMeds] = useState<TUnMed[]>([])
-    const [selectSector, setSelectSector] = useState<string>("Todos")
-    const [flgItens, setFlgItens] = useState<boolean>(false)
-    const [checkSearch, setCheckSearch] = useState<boolean>(false)
+    const [selectSector, setSelectSector] = useState("Todos")
+    const [flgItens, setFlgItens] = useState(false)
+    const [checkSearch, setCheckSearch] = useState(false)
     const [descricProd, setDescricProd] = useState('')
+    const [itens, setItens] = useState<TItens[]>([]);
+    let [newItem, setNewItem] = useState<TItens>({
+        id: itens.length + 1,
+        item: 0,
+        descric: '',
+        amount: 1,
+        valor: 0,
+        tItem: 0
+    });
 
     const handleHome = new HandleHome()
 
@@ -122,8 +127,8 @@ const Home: React.FC = () => {
     }
 
     useEffect(() => {
-        handleHome.getItensStorage(setItem, setCounter, setSubtotal)
-    }, [item, itens, amount])
+        handleHome.getItensStorage(setItens, setSubtotal)
+    }, [itens, subTotal])
 
     const handleItemAlreadyExists = (Item: TItens) => {
         for (let i of itens)
@@ -131,34 +136,33 @@ const Home: React.FC = () => {
                 i.amount = i.amount + Item.amount;
                 return i.tItem = i.amount * i.valor;
             }
-        setCounter(counter + 1)
-        localStorage.setItem("c", JSON.stringify(counter + 1));
-        setId(id + 1);
-        itens.push(Item);
+        return itens.push(Item);
     }
 
     const handleNewItem = (Item: TProduct) => {
-        const newItem: TItens = {
-            id: id,
-            item: Item.id_product,
-            descric: Item.descric_product,
-            amount: amount || 1,
-            valor: Item.val_max_product,
-            tItem: Item.val_max_product * amount || 1
-        };
+        newItem.id = itens.length + 1
+        newItem.item = Item.id_product
+        newItem.descric = Item.descric_product
+        newItem.valor = Item.val_max_product
+        newItem.tItem = Item.val_max_product * newItem.amount | 1
+
         for (let item of itens) { // Add amount item
             if (item.item === Item.id_product)
                 Item.amount = item.amount
         };
-        if(amount === 0){
-            setAmount(1)
-        }
-            handleItemAlreadyExists(newItem)
-            setSubtotal(handleHome.sumItens(itens, setSubtotal))
-            localStorage.setItem("i", JSON.stringify(itens))
-            localStorage.setItem("id", JSON.stringify(id))
-            setAmount(0)
-        
+
+        handleItemAlreadyExists(newItem)
+        setSubtotal(handleHome.sumItens(itens, setSubtotal))
+        localStorage.setItem("i", JSON.stringify(itens))
+
+        setNewItem({
+            id: itens.length + 1,
+            item: 0,
+            descric: '',
+            amount: 1,
+            valor: 0,
+            tItem: 0
+        })
     }
 
     const handleProducts = (Products: TProduct[]) => {
@@ -194,7 +198,7 @@ const Home: React.FC = () => {
 
     return <>
         <Header
-            counter={counter !== 0 ? counter : 0}
+            counter={itens.length > 0 ? itens.length : 0}
             subtotal={subTotal !== 0 && currencyFormat(subTotal)}
         />
         <SearchItens
@@ -217,14 +221,13 @@ const Home: React.FC = () => {
         <ListItensComponent
             listProd={listProd}
             handleNewItem={handleNewItem}
-            setAmount={setAmount}
             nameBrands={nameBrands}
             nameSubSector={nameSubSector}
             sectors={sectors}
             subSectors={subSectors}
             nameUniMeds={nameUniMeds}
             itens={itens}
-            amount={amount}
+            newItem={newItem}
         />
         <FooterHomePage /> </>
 }

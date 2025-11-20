@@ -12,13 +12,10 @@ class HandleHome {
         return sum
     }
 
-    getItensStorage = (setItens: Function, setCounter: Function, setSubTotal: Function) => {
+    getItensStorage = (setItens: Function, setSubTotal: Function) => {
         const itens = localStorage.getItem('i')
         if (itens)
             setItens(JSON.parse(itens))
-        const counter = localStorage.getItem('c')
-        if (counter)
-            setCounter(JSON.parse(counter))
         const subTotal = localStorage.getItem('t')
         if (subTotal)
             setSubTotal(JSON.parse(subTotal))

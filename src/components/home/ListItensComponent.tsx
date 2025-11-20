@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TItens, TProduct, TSector, TSubSector, TUnMed } from '../../useCases/products/type/TProducts';
-import { HandleProducts } from '../../useCases/products/HandleProduct';
+// import { HandleProducts } from '../../useCases/products/HandleProduct';
 
 import './css/list-itens.css'
 
@@ -8,27 +8,25 @@ type Props = {
     listProd: TProduct[]
     handleNewItem: Function;
     tItem?: number;
-    setAmount: Function
     nameBrands: Function
     nameSubSector: Function
     sectors: TSector[]
     subSectors: TSubSector[]
     nameUniMeds: Function
     itens: TItens[]
-    amount: number
+    newItem:TItens
 }
 
 const ListItensComponent: React.FC<Props> = ({
     listProd,
     handleNewItem,
-    setAmount,
     nameBrands,
     nameSubSector,
     sectors,
     subSectors,
     nameUniMeds,
     itens,
-    amount
+    newItem
 }: Props) => {
 
     // const handleProducts: HandleProducts = new HandleProducts()
@@ -58,7 +56,7 @@ const ListItensComponent: React.FC<Props> = ({
     const selectAmount = (Item: TProduct) => {
         for (let i of itens)
             if (i.item === Item.id_product)
-                return <select onChange={e => setAmount(parseInt(e.target.value))}
+                return <select onChange={e => newItem.amount = parseInt(e.target.value)}
                     className='select-amount'
                     defaultValue={1}
                 ><option disabled value={1}
@@ -88,8 +86,8 @@ const ListItensComponent: React.FC<Props> = ({
                     placeholder='Apenas números'
                     min={1}
                     max={1000}
-                    value={amount || ''}
-                    onChange={e => setAmount(parseInt(e.target.value))}
+                    value={newItem.amount || ''}
+                    onChange={e => newItem.amount = parseInt(e.target.value)}
                 />
     }
 
@@ -104,7 +102,7 @@ const ListItensComponent: React.FC<Props> = ({
                     {valMin(Item)}
                     {valMax(Item)}
                     {viewAmount(Item)}
-                    {amount > 11 || amount > 0 && amount < 12
+                    {newItem.amount > 11 || newItem.amount > 1 && newItem.amount < 12
                         ? inputAmount(Item) : selectAmount(Item)}
                     <button onClick={(e: any) => {
                         e.preventDefault()
@@ -116,7 +114,7 @@ const ListItensComponent: React.FC<Props> = ({
         </form>
     )))}
     </>
-
+    
     return <> {cardsProds} </>
 }
 

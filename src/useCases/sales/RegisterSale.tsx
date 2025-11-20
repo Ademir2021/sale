@@ -9,7 +9,6 @@ import { HandleHome } from "../home/handleHome/HandleHome";
 const RegisterSale: React.FC = () => {
 
     const [msg, setMsg] = useState('')
-    const [id, setId] = useState(1);
     const [editId, setEditId] = useState<any>(null);
     const [, setPreco] = useState(0);
     const [totalItens, setTotalItens] = useState(0)
@@ -52,7 +51,7 @@ const RegisterSale: React.FC = () => {
         }
     };
 
-    const findProducts = (Products:TProduct[]) => {
+    const findProducts = (Products: TProduct[]) => {
         for (let p of Products) {
             if (item.descric == p.id_product
                 || item.descric === p.bar_code
@@ -60,7 +59,7 @@ const RegisterSale: React.FC = () => {
                 if (editId !== null) {
                     item.id = editId;
                 } else {
-                    item.id = id;
+                    item.id = itens.length + 1;
                 }
                 item.item = p.id_product;
                 item.descric = p.descric_product;
@@ -75,7 +74,7 @@ const RegisterSale: React.FC = () => {
         }
     };
 
-    const deleteProduct = (Items:TItens[]) => {
+    const deleteProduct = (Items: TItens[]) => {
         for (let i = 0; Items.length > i; i++) {
             setEditId(editId)
             if (Items[i].id === editId) {
@@ -88,17 +87,26 @@ const RegisterSale: React.FC = () => {
         }
     };
 
+     const searchItensInCart = (ItensStorage: TItens[]) => {
+        if (statuStore === false) {
+            itensStore(ItensStorage)
+            setStatuStore(true)
+            handleHome.sumItens(itens, setTotalItens);
+        }
+    }
+
     const verifItem = (Item: TItens) => {
+        searchItensInCart(itenStorage) // Busca  e verifica se item esta no carrinho
         if (Item.item !== 0) {
             for (let item of itens)
                 if (Item.item === item.item && editId == null) {
-                    return setMsg("Item já foi lançado")
-                }
-            setId(id + 1);
+                    return setMsg("Este Item Já Foi Lançado")
+                }else{setMsg('Item Incluido com Sucesso')}
             return itens.push(Item)
         } else {
-            setMsg("Item não localizado")
+            setMsg("Item Não localizado")
         }
+
     };
 
     function verifItemForUpdate(Item: TItens) {
@@ -159,9 +167,10 @@ const RegisterSale: React.FC = () => {
                 setMsg("Informe ao menos um item e clique em salvar !");
             } else {
                 setMsg("Seu pedido será gravado");
-                const sale_store = localStorage.getItem('sl');
-                if (!sale_store) {
+                const res = localStorage.getItem('sl');
+                if (!res) {
                     localStorage.setItem("i", JSON.stringify(itens))
+                    localStorage.setItem("c", JSON.stringify(itens.length));
                     localStorage.setItem("s", JSON.stringify(handleHome.sumItens(itens, setTotalItens).toFixed(2)));
                     setMsg("Pedido gravado com sucesso")
                     setTimeout(() => {
@@ -185,31 +194,24 @@ const RegisterSale: React.FC = () => {
 
     const searchItem = (e: Event) => {
         e.preventDefault();
-        if (statuStore === false) {
-            itensStore()
-            setStatuStore(true)
-            handleHome.sumItens(itens, setTotalItens);
-        }
+        searchItensInCart(itenStorage)
         findProducts(products);
         setPreco(item.valor);
     };
 
-    const itensStore = () => {
-        const itens_store_res = localStorage.getItem('i');
-        if (itens_store_res) {
-            const itens_store: TItens[] = JSON.parse(itens_store_res)
-            setItenStorage(itens_store);
-            for (let itemStorage of itenStorage) {
-                itens.push(itemStorage);
+    const itensStore = (ItensStorage: TItens[]) => {
+        const res = localStorage.getItem('i');
+        if (res) {
+            const newItens: TItens[] = JSON.parse(res)
+            setItenStorage(newItens);
+            for (let i of ItensStorage) {
+                itens.push(i);
                 setItens(itens)
-                const res_id = localStorage.getItem('id');
-                if (res_id)
-                    setId(JSON.parse(res_id))
             }
         }
     };
     useEffect(() => {
-        itensStore()
+        itensStore(itenStorage)
     }, []);
 
     const clearItensStore = () => {

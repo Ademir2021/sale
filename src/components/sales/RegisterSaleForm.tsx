@@ -86,7 +86,7 @@ const RegisterSaleForm:React.FC<Props> = ({
         {children.valor > 0 && val_items}
         {totalItens && <label>SubTotal {totalItens}</label>}
         </p>
-        {msg && <label>{msg}</label>}
+        {msg && <div id='msg-red'>{msg}</div>}
         <a href='##' className='m-2' onClick={handleSubmit}>{statusBtnSaleSubmit}</a>
         <a href='##' className='m-2' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</a>
         <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' alt='Importar Carrinho' />}</a>

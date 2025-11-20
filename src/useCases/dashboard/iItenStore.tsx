@@ -7,15 +7,18 @@ import { HandleHome } from '../home/handleHome/HandleHome';
 export function ItenStore() {
 
     const [itens, setItens] = useState<TItens[]>([]);
-    const [messages, setMessages] = useState<string>('');
-    const [subTotal, setSubTotal] = useState<number>(0);
-    const [counter, setCounter] = useState<number>(0)
+    const [messages, setMessages] = useState('');
+    const [subTotal, setSubTotal] = useState(0);
 
-     const handleHome = new HandleHome()
+    const handleHome = new HandleHome()
 
     useEffect(() => {
-        handleHome.getItensStorage(setItens, setCounter, setSubTotal)
-    }, [itens]);
+        handleHome.getItensStorage(setItens, setSubTotal)
+    }, [itens, subTotal]);
+
+    useEffect(()=>{
+        handleHome.sumItens(itens, setSubTotal)
+    },[itens])
 
     function deleteListStore(Item: TItens) {
         if (window.confirm('Deseja remover, ' + Item.descric + ' ?')) {
@@ -24,13 +27,6 @@ export function ItenStore() {
                 itens.splice(index, 1);
                 localStorage.setItem("i", JSON.stringify(itens));
                 setMessages(Item.descric + ', foi removido com sucesso.');
-                let counterStore = localStorage.getItem('c');
-                if (counterStore) {
-                    const counter = JSON.parse(counterStore);
-                    const newCounter = counter - 1;
-                    localStorage.setItem("c", JSON.stringify(newCounter));
-                    setCounter(newCounter);
-                }
                 handleHome.sumItens(itens, setSubTotal);
                 setTimeout(() => {
                     setMessages('');
@@ -63,18 +59,15 @@ export function ItenStore() {
         }
     };
 
-    return (
-        <>
-            <Dashboard />
-            <ListItensStore
-                itens={itens}
-                incrementItemListStore={incrementItemListStore}
-                decrementItemListStore={decrementItemListStore}
-                deleteListStore={deleteListStore}
-                messages={messages}
-                counter={counter}
-                subTotal={subTotal}
-            />
-        </>
-    )
+    return <>
+        <Dashboard />
+        <ListItensStore
+            itens={itens}
+            incrementItemListStore={incrementItemListStore}
+            decrementItemListStore={decrementItemListStore}
+            deleteListStore={deleteListStore}
+            messages={messages}
+            counter={itens.length}
+            subTotal={subTotal}
+        /> </>
 }
