@@ -94,7 +94,7 @@ const RegisterSaleForm:React.FC<Props> = ({
         }</a>
         <a href='##' className='m-2' onClick={handleSaveUpdate}>{
         statusBtnSaveUpdate === "Salvar Item" ?
-        <Icon.ArrowClockwise size={18} weight='bold' alt='Inserir Item' /> :
+        <Icon.Plus size={18} weight='bold' alt='Inserir Item' /> :
         <Icon.ArrowsCounterClockwise size={18} weight='bold' alt='Atualizar Item' />} 
         </a>
         <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' alt='Importar Carrinho' />}</a>
