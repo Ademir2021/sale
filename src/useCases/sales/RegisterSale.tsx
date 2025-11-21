@@ -13,7 +13,7 @@ const RegisterSale: React.FC = () => {
     const [, setPreco] = useState(0);
     const [totalItens, setTotalItens] = useState(0)
     const [statusBtnSaleSubmit, setStatusBtnSaleSubmit] = useState<"Iniciar Pedido" | "Faturar Pedido">("Iniciar Pedido");
-    const [statusBtnSaveUpdate, setStatusBtnSaveUpdate] = useState<"Salvar Item" | "Atualizar Item">("Salvar Item");
+    const [statusBtnSaveUpdate, setStatusBtnSaveUpdate] = useState<"Inserir Item" | "Atualizar Item">("Inserir Item");
     const [itemImg, setIemImg] = useState('');
     const [itenStorage, setItenStorage] = useState<TItens[]>([]);
     const [statuStore, setStatuStore] = useState(false)
@@ -100,11 +100,11 @@ const RegisterSale: React.FC = () => {
         if (Item.item !== 0) {
             for (let item of itens)
                 if (Item.item === item.item && editId == null) {
-                    return setMsg("Este Item Já Foi Lançado")
-                }else{setMsg('Item Incluido com Sucesso')}
+                    return setMsg("Este Item Já Foi Lançado ...")
+                }else{setMsg('Item Incluido com Sucesso ...')}
             return itens.push(Item)
         } else {
-            setMsg("Item Não localizado")
+            setMsg("Item não Localizado ...")
         }
 
     };
@@ -150,7 +150,7 @@ const RegisterSale: React.FC = () => {
                 openClearNewSale();
             }
         } else {
-            setMsg("Busque um Novo Item !");
+            setMsg("Selecione o Item que Deseja Remover ...");
             openClearNewSale();
         }
     };
@@ -164,7 +164,7 @@ const RegisterSale: React.FC = () => {
         } else {
             setStatusBtnSaleSubmit("Iniciar Pedido");
             if (itens.length === 0) {
-                setMsg("Informe ao menos um item e clique em salvar !");
+                setMsg("Informe ao Menos (1) Item e Clique em Inserir ...");
             } else {
                 setMsg("Seu pedido será gravado");
                 const res = localStorage.getItem('sl');
@@ -177,7 +177,7 @@ const RegisterSale: React.FC = () => {
                         window.location.replace("/invoice_sales");
                     }, 1000);
                 } else {
-                    setMsg("Aguarde ... ! Existe Pedido em Aberto");
+                    setMsg("Aguarde ! , Ainda existe Pedido em Aberto ...");
                 }
             }
         }
@@ -185,7 +185,7 @@ const RegisterSale: React.FC = () => {
 
     const openClearNewSale = () => {
         setItem({ id: 0, item: 0, descric: '', valor: 0, amount: 1, tItem: 0 });
-        setStatusBtnSaveUpdate("Salvar Item");
+        setStatusBtnSaveUpdate("Inserir Item");
         setStatusBtnSaleSubmit("Iniciar Pedido");
         setEditId(null);
         setPreco(0);

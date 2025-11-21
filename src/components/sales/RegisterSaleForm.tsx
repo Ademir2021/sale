@@ -3,6 +3,7 @@ import * as Icon from 'phosphor-react';
 import { NavBar } from '../navbar/Navbar';
 
 import '../../index.css'
+import { CloseX } from '../utils/closeX/CloseX';
 
 type Props = {
   children:TItens
@@ -13,7 +14,7 @@ type Props = {
   handleSearchItem: any;
   products: TProduct[];
   item: string | number;
-  statusBtnSaveUpdate: "Salvar Item" | "Atualizar Item";
+  statusBtnSaveUpdate: "Inserir Item" | "Atualizar Item";
   statusBtnSaleSubmit: "Iniciar Pedido" | "Faturar Pedido";
   loadItens: string | any;
   totalItens: number | any;
@@ -51,7 +52,8 @@ const RegisterSaleForm:React.FC<Props> = ({
   return <>
   <NavBar/>
       <div className='form' >
-        <h1 className='text-center p-2'>Checkout de Compras</h1>
+        <CloseX link='/'/>
+        <label className='text-center'>Checkout de Compras</label>
         {item_img && <img className='img-checkout' src={item_img} alt='Aguardando item ...'></img>}
         {item && <p className='item'>{item}</p>}
         <datalist id="data-itens">
@@ -87,19 +89,13 @@ const RegisterSaleForm:React.FC<Props> = ({
         {totalItens && <label>SubTotal {totalItens}</label>}
         </p>
         {msg && <div id='msg-red'>{msg}</div>}
-        <a href='##' className='m-2' onClick={handleSubmit}>{
-        statusBtnSaleSubmit === "Iniciar Pedido" ?
-        <Icon.Check size={26} weight='bold'  color='red' alt='Iniciar Pedido' /> :
-        <Icon.Checks size={26} weight='bold' color='green' alt='Faturar Pedido' />
-        }</a>
-        <a href='##' className='m-2' onClick={handleSaveUpdate}>{
-        statusBtnSaveUpdate === "Salvar Item" ?
-        <Icon.Plus size={18} weight='bold' alt='Inserir Item' /> :
-        <Icon.ArrowsCounterClockwise size={18} weight='bold' alt='Atualizar Item' />} 
-        </a>
-        <a href='##' className='m-2' onClick={handleSearchItem}>{<Icon.MagnifyingGlass size={18} color='blue' alt='Importar Carrinho' />}</a>
-        {totalItens && <a href='##' className='m-2' onClick={handleDelete}>{<Icon.Trash size={18} color='red' alt='Remover Item' />}</a>}
-            {totalItens && <a href='##' className='m-2' onClick={clearItensStore}>{<Icon.ArrowSquareOut size={18} color='red' alt='Esvaziar Carrinho' />}</a>}
+        <button className='container m-1' onClick={handleSaveUpdate}>{statusBtnSaveUpdate}</button>
+        {totalItens &&
+        <button className='container m-1' onClick={handleDelete}>{'Remover Item'}</button>}
+        <button className='container m-1' onClick={handleSearchItem}>{'Buscar Itens'}</button>
+            {totalItens &&
+        <button className='container m-1' onClick={clearItensStore}>{"Esvaziar Carrinho"}</button>}
+        <button className='container m-1' onClick={handleSubmit}>{statusBtnSaleSubmit}</button>
       </div>
       <div className='text-center p-1'>{loadItens}</div>
     </>

@@ -26,7 +26,7 @@ export type TSale = {
     installments: number | any
     paySale: any
     dinheiro: any
-    tItens: number
+    tItens: number | any
     tNote: number
     itens: TItens[]
     duplicatas: TContaAreceber[]
