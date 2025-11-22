@@ -17,7 +17,7 @@ declare global {
     }
 }
 
-export function PagSeguroCard() {
+const PagSeguroCard: React.FC = () => {
 
     const [flagSales, setFlagSales] = useState<boolean>(false);
     const [err, setErr] = useState('')
@@ -70,7 +70,7 @@ export function PagSeguroCard() {
         getSale()
     }, [payResponseIdCharge]);
 
-    function getPagSeguroArrayItems(items: TPagSeguroCard) {
+    const getPagSeguroArrayItems = (items: TPagSeguroCard) => {
         items.items = []
         for (let i = 0; sale.itens.length > i; i++) {
             const item: TPagSeguroItems = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
@@ -82,7 +82,7 @@ export function PagSeguroCard() {
         }
     };
 
-    function getPargSeguroCard(pagSeguroCard: TPagSeguroCard) {
+    const getPargSeguroCard = (pagSeguroCard: TPagSeguroCard) => {
         pagSeguroCard.reference_id = sale.user.user_id.toString()
         pagSeguroCard.description = "pagamento da nota"
         pagSeguroCard.customer.name = sale.person.name_pers
@@ -109,7 +109,7 @@ export function PagSeguroCard() {
         setPagSeguroCard(pagSeguroCard)
     };
 
-    async function publicKeyPagSeguro() {
+    const publicKeyPagSeguro =  async () => {
         try {
             await api.get("publickey")
                 .then(response => {
@@ -132,7 +132,7 @@ export function PagSeguroCard() {
         }
     }, [paid, payResponseCode, flagSales])
 
-    async function registerPagSeguroCard() {
+    const registerPagSeguroCard = async () => {
         try {
             const response = await api.post<TPagSeguroRequest>("card", pagSeguroCard)
             const res: TPagSeguroRequest = response.data
@@ -186,7 +186,7 @@ export function PagSeguroCard() {
         setErr(payResponseMessage)
     }, [payResponseMessage])
 
-    async function registerSale() {
+    const registerSale = async () => {
         await api.post<number>('sale_register', sale)
             .then(response => {
                 setNumNote(response.data)
@@ -228,3 +228,5 @@ export function PagSeguroCard() {
         </PagSeguroCardForm>
     </>
 }
+
+export { PagSeguroCard }

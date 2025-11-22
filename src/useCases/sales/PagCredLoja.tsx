@@ -6,7 +6,8 @@ import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePaym
 
 import api from "../../services/api/api";
 
-export function PagCredLoja() {
+const PagCredLoja:React.FC = () => {
+
     const [sendSale, setSendSale] = useState<boolean>(false)
     const [numNote, setNumNote] = useState(0)
     const [sale, setSale] = useState(sale_JSON);
@@ -27,7 +28,7 @@ export function PagCredLoja() {
         getSale()
     }, [])
 
-    async function registerSale() {
+    const registerSale = async () => {
         await api.post('sale_register', sale)
             .then(response => {
                 const res = response.data
@@ -63,3 +64,5 @@ export function PagCredLoja() {
             msg={msg}
         /> </>
 }
+
+export { PagCredLoja }

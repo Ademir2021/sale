@@ -13,7 +13,7 @@ type Props = {
     qrcode_img: string
     payPix: number | string;
     datavenc: Date | string | any
-    setInt: any
+    setboletoDueDate: Function
     qrCodeGeneratedSuccessfully?: any
     barCodeBoleto: string
     barCodeBoletoFormated: string
@@ -21,20 +21,20 @@ type Props = {
     URLNoteSubmit: number
     error: string
 }
-export function PagSeguroForm({
+const PagSeguroForm:React.FC<Props> = ({
     handleBoleto,
     handleQrCode,
     qrcode_img,
     payPix,
     datavenc,
-    setInt,
+    setboletoDueDate,
     qrCodeGeneratedSuccessfully,
     barCodeBoleto,
     barCodeBoletoFormated,
     paySale,
     URLNoteSubmit,
     error
-}: Props) {
+}: Props) => {
     return <>
         <NavBar />
         {<form className='form' >
@@ -45,7 +45,7 @@ export function PagSeguroForm({
             <input
                 type="date"
                 value={datavenc}
-                onChange={(e) => setInt(e.target.value)}
+                onChange={(e) => setboletoDueDate(e.target.value)}
             />
             {barCodeBoleto !== "" ? <div className='text-center' ><label>Código de Barras gerado com sucesso</label>
                 <hr></hr>
@@ -54,17 +54,19 @@ export function PagSeguroForm({
                 <label>{"< CÓDIGO DE BARRAS FORMATADO />"}</label>
                 <strong style={{ fontSize: '10px' }}>{barCodeBoletoFormated}</strong></div> :
                 <label>Aguardando código de barras</label>}
-            <button onClick={handleBoleto}>Emitir BOLETO</button>
+            <button className='container m-1' onClick={handleBoleto}>Emitir BOLETO</button>
             <hr></hr>
             <label>Gerar PIX</label>
             {qrcode_img && <img id='img-qrcode' src={qrcode_img} alt='Qrcode'></img>}
             {qrcode_img && <label><b>PIX</b> {payPix}</label>}
             {error && <label id='msg-red'>{error}</label>}
-            <dd>{qrCodeGeneratedSuccessfully}</dd>
-            <button onClick={handleQrCode}>Gerar QR-CODE</button>
+            {qrcode_img && <label>{qrCodeGeneratedSuccessfully}</label>}
+            <button className='container m-1' onClick={handleQrCode}>Gerar QR-CODE</button>
             <hr></hr>
             {URLNoteSubmit > 0 && <a className='m-3' href={Globais.URL_NOTE + '/' + URLNoteSubmit}>{<Icon.Note size={32} />}Emitir Nota</a>}
             {URLNoteSubmit > 0 && <a className='m-3' href='/dashboardefault'>{<Icon.SignOut size={32} />}Sair</a>}
         </form >}
     </>
 }
+
+export { PagSeguroForm }

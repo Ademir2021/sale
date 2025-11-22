@@ -8,7 +8,7 @@ import * as Icon from 'phosphor-react';
 import '../../index'
 import './css/styles.css'
 
-type PropsPagSeguroCardForm = {
+type Props = {
     children: TCard
     handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
     handleSubmit: any
@@ -19,7 +19,7 @@ type PropsPagSeguroCardForm = {
     err: string
 }
 
-export function PagSeguroCardForm({
+const PagSeguroCardForm: React.FC<Props> = ({
     children,
     handleChange,
     handleSubmit,
@@ -28,7 +28,7 @@ export function PagSeguroCardForm({
     paySale,
     URLNoteSubmit,
     err
-}: PropsPagSeguroCardForm) {
+}: Props) => {
 
     return <>
         <div className="container">
@@ -107,3 +107,5 @@ export function PagSeguroCardForm({
         </form>
     </>
 }
+
+export { PagSeguroCardForm }

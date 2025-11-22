@@ -1,5 +1,5 @@
 :root {
-    --main-white-color:rgb(197, 197, 197);
+    --main-white-color:black;
     --font-size:16px;
 }
 .header {
@@ -12,7 +12,6 @@
     margin-top: -33px;
     padding: 6px;
     gap: 4%;
-    /* background-color: rgb(75, 71, 71); */
     background-color:gainsboro;
 
 }

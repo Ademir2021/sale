@@ -13,45 +13,45 @@ type Props = {
     msg: string
 }
 
-export function PagCredLojaForm({
+const PagCredLojaForm: React.FC<Props> = ({
     handleSubmit,
     duplicatas,
     URLNoteSubmit,
     dinheiro,
     msg
-}: Props) {
+}: Props) => {
 
     const handleContasAReceber = new HandleFinanceiro()
 
-    const listDuplicatas =<div className="table-container">
-            <table className='table'>
-                <thead>
-                    <tr>
-                        <th id="center">ID</th>
-                        <th id='center'>Pagador</th>
-                        <th id="center">Emissão</th>
-                        <th id="center">Valor</th>
-                        <th id="center">Parcela</th>
-                        <th id="center">Vencimento</th>
+    const listDuplicatas = <div className="table-container">
+        <table className='table'>
+            <thead>
+                <tr>
+                    <th id="center">ID</th>
+                    <th id='center'>Pagador</th>
+                    <th id="center">Emissão</th>
+                    <th id="center">Valor</th>
+                    <th id="center">Parcela</th>
+                    <th id="center">Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {duplicatas.map((dup: TContaAreceber) => (
+                    <tr key={dup.id_conta}>
+                        <th id="center">{dup.id_conta}</th>
+                        <th id="center">{dup.fk_pagador}</th>
+                        <td id="center">{handleContasAReceber.formatDate(dup.emissao)}</td>
+                        <td id="center">{dup.valor}</td>
+                        <td id="center">{dup.parcela}</td>
+                        <td id="center">{handleContasAReceber.formatDate(dup.vencimento)}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {duplicatas.map((dup: TContaAreceber) => (
-                        <tr key={dup.id_conta}>
-                            <th id="center">{dup.id_conta}</th>
-                            <th id="center">{dup.fk_pagador}</th>
-                            <td id="center">{handleContasAReceber.formatDate(dup.emissao)}</td>
-                            <td id="center">{dup.valor}</td>
-                            <td id="center">{dup.parcela}</td>
-                            <td id="center">{handleContasAReceber.formatDate(dup.vencimento)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                ))}
+            </tbody>
+        </table>
+    </div>
     return <>
         <div className="form">
-              <a href="invoice_sales">{<Icon.X size={18} color="gray" />}</a>
+            <a href="invoice_sales">{<Icon.X size={18} color="gray" />}</a>
             <label>Crediário Loja</label>
             <p>Compra sujeita a aprovação do crediário! Caso seja sua primeira compra utilize pagamento com cartão, ou entre em <a href="contact">Contato</a> para detalhes sobre.</p>
             {dinheiro > 0 || duplicatas.length > 0 && <label>Forma de pagamento</label>}
@@ -66,3 +66,5 @@ export function PagCredLojaForm({
         </div>
     </>
 }
+
+export { PagCredLojaForm }

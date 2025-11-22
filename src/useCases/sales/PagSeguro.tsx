@@ -11,7 +11,8 @@ import { TPagSeguroPix } from "./type/TPagSeguroPix";
 import { TPagSeguroItems } from "./type/TPagSeguroCard";
 import api from "../../services/api/api";
 
-export function PagSeguro() {
+const PagSeguro:React.FC = () => {
+
     const [sendSale, setSendSale] = useState(false)
     const [sendPaid, setSendPaid] = useState(false)
     const [messagesSucess, setMessagesSucess] = useState('')
@@ -51,7 +52,7 @@ export function PagSeguro() {
         getSale()
     }, []);
 
-    function arrayItems(items: TPagSeguroBoleto | TPagSeguroPix) {
+    const arrayItems = (items: TPagSeguroBoleto | TPagSeguroPix) => {
         for (let i = 0; sale.itens.length > i; i++) {
             const item: TPagSeguroItems = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
             item.reference_id = sale.itens[i].item
@@ -62,7 +63,7 @@ export function PagSeguro() {
         }
     };
 
-    function getPagSeguro(pagSeguro: TPagSeguroBoleto | TPagSeguroPix) {
+    const getPagSeguro = (pagSeguro: TPagSeguroBoleto | TPagSeguroPix) => {
         pagSeguro.reference_id = sale.user.user_id
         pagSeguro.description = "Compras On-line"
         pagSeguro.customer.name = sale.person.name_pers
@@ -83,7 +84,7 @@ export function PagSeguro() {
         arrayItems(pagSeguro)
     };
 
-    function getPagSeguroPix() {
+    const getPagSeguroPix = () => {
         let time = new Date();
         let expiration_date_qrcode = new Date();
         expiration_date_qrcode.setHours(time.getHours() + 48);
@@ -95,23 +96,23 @@ export function PagSeguro() {
         setSendPaid(true)
     };
 
-    const [getboletoDueDate, setboletoDueDate] = useState(new Date());
-    function boletoDueDate() {
-        const data = new Date(getboletoDueDate),
+    const [boletoDueDate, setboletoDueDate] = useState(new Date());
+    const newBoletoDueDate = () => {
+        const data = new Date(boletoDueDate),
             day = (data.getDate() + 1).toString().padStart(2, '0'),
             month = (data.getMonth() + 1).toString().padStart(2, '0'),
             year = data.getFullYear();
         return year + "-" + month + "-" + day;
     }
 
-    function getPagSeguroBoleto() {
+    const getPagSeguroBoleto = () => {
         getPagSeguro(pagSeguroBoleto)
         pagSeguroBoleto.charges[0].reference_id = sale.user.user_id
         pagSeguroBoleto.charges[0].description = "Compra On-line"
         pagSeguroBoleto.charges[0].amount.value = payment.toFixed(2).replace(/[.]/g, '')
         pagSeguroBoleto.charges[0].amount.currency = "BRL"
         pagSeguroBoleto.charges[0].payment_method.type = "BOLETO"
-        pagSeguroBoleto.charges[0].payment_method.boleto.due_date = boletoDueDate()
+        pagSeguroBoleto.charges[0].payment_method.boleto.due_date = newBoletoDueDate()
         pagSeguroBoleto.charges[0].payment_method.boleto.instruction_lines.lines_1 = "Pagamento processado para DESC Fatura"
         pagSeguroBoleto.charges[0].payment_method.boleto.instruction_lines.lines_2 = "Via PagSeguro"
         pagSeguroBoleto.charges[0].payment_method.boleto.holder.name = sale.person.name_pers
@@ -130,21 +131,21 @@ export function PagSeguro() {
         setSendPaid(true)
     };
 
-    async function registerPagSeguroPix() {
+    const registerPagSeguroPix = async () => {
         await api.post<any>('/pix', pagSeguroPix)
             .then(response => {
                 setQrcode(response.data)
             }).catch(error => setError("Erro ao gerar PIX tente novamente"))
     }
 
-    async function registerPagSeguroBoleto() {
+    const registerPagSeguroBoleto = async () => {
         await api.post('/boleto', pagSeguroBoleto)
             .then(response => {
                 setBoletoPagSeguro(response.data)
             }).catch(error => setError("Erro ao gerar BOLETO tente novamente"))
     };
     
-    function handleQrCode(e: Event) {
+    const handleQrCode = (e: Event) => {
         e.preventDefault()
         if (paySale !== 0) {
             if (sendPaid === false) {
@@ -156,7 +157,7 @@ export function PagSeguro() {
         }
     };
 
-    function handleBoleto(e: Event) {
+    const handleBoleto = (e: Event) => {
         e.preventDefault()
         if (paySale !== 0) {
             if (sendPaid === false) {
@@ -170,7 +171,7 @@ export function PagSeguro() {
         }
     };
 
-    async function registerSale() {
+    const registerSale = async () => {
         await api.post('sale_register', sale)
             .then(response => {
                 const res = response.data
@@ -194,8 +195,8 @@ export function PagSeguro() {
         <>
             <PagSeguroForm
                 handleBoleto={handleBoleto}
-                datavenc={getboletoDueDate}
-                setInt={setboletoDueDate}
+                datavenc={boletoDueDate}
+                setboletoDueDate={setboletoDueDate}
                 barCodeBoleto={barCodeBoleto}
                 barCodeBoletoFormated={barCodeBoletoFormated}
                 handleQrCode={handleQrCode}
@@ -212,3 +213,5 @@ export function PagSeguro() {
         </>
     )
 }
+
+export { PagSeguro }
