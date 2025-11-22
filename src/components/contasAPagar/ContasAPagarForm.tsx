@@ -23,7 +23,7 @@ type Props = {
     handleChangeStatus:any
 }
 
-function ContasAPagarForm({
+const ContasAPagarForm:React.FC<Props> = ({
     contasAPagar,
     pagarValor,
     handleChangeValor,
@@ -37,7 +37,7 @@ function ContasAPagarForm({
     findNameDespesa,
     token,
     handleChangeStatus
-}: Props) {
+}: Props) => {
 
     const links = <> {handleLinksDir(
                 'dashboardefault',

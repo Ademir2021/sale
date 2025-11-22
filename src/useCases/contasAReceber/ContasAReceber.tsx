@@ -21,7 +21,6 @@ const ContasAReceber: React.FC = () => {
     const [valor, setValor] = useState(0)
     const [desconto, setDesconto] = useState(0)
     const [statusJurosEMulta, setStatusJurosEMulta] = useState<boolean>(false)
-    const [flagJuros, setFlagJuros] = useState(false)
     const [contasAReceber, setContasAReceber] = useState<TContaAreceber[]>([])
     const [openAccounts, setOpenAccounts] = useState<TContaAreceber[]>([])
     const [valsRecebido] = useState<TValsRecebidos[]>([])
@@ -41,20 +40,18 @@ const ContasAReceber: React.FC = () => {
         }, 9000);
     }, [msg])
 
+    async function getContasAReceber() {
+        await postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
+        const NewOpenAccounts: TContaAreceber[] = []
+        for (let conta of contasAReceber)
+            if (conta.saldo > 0 || conta.recebimento == 0) {
+                NewOpenAccounts.push(conta)
+            }
+        setOpenAccounts(NewOpenAccounts)
+    }
     useEffect(() => {
-        async function getContasAReceber() {
-            await postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
-            const NewOpenAccounts: TContaAreceber[] = []
-            for (let conta of contasAReceber)
-                if (conta.saldo > 0 || conta.recebimento == 0) {
-                    NewOpenAccounts.push(conta)
-                }
-            setOpenAccounts(NewOpenAccounts)
-        }
-        if (openAccounts.length === 0) {
-            if(flagJuros === false)
+        if (openAccounts.length === 0)
             getContasAReceber()
-        }
     }, [contasAReceber])
 
     useEffect(() => {
@@ -242,7 +239,7 @@ const ContasAReceber: React.FC = () => {
                 token={handleTokenMessage('contas_receber', tokenMessage)}
                 contasAReceber={openAccounts}
                 valoresRecebidos={valsRecebidos}
-                receberValor={valor > 0 ? handleSumbit : () => { setMsg('Informe um novo valor') }}
+                receberValor={valor > 0 ? handleSumbit : () => { setMsg('Informe o Valor Recebido ...') }}
                 handleChangeValor={(e: any) => {
                     setValor(parseFloat(e.target.value))
                 }}

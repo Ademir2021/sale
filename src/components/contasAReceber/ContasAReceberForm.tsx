@@ -174,7 +174,7 @@ const ContasAreceberForm: React.FC<Props> = ({
             {headerContasReceber}
             {token}
             {checkAdminPrivilege() === '2' ? inputReceberValor : <div>Contas em aberto do cliente</div>}
-            {<div>{msg}</div>}
+            {msg && <div id='msg-red'>{msg}</div>}
         </div>
         {statusJurosMulta}
         {contasAReceber.length > 0 ? <div className="table-container" >{listaContasReceber}</div> : <h1 className="text-center">Cliente sem título para pagar !</h1>}

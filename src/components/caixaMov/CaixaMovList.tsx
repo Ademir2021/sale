@@ -56,7 +56,7 @@ export const CaixaMovListComp: React.FC<Props> = ({
                         <th id="center">{caixa.id_caixa}</th>
                         <td>{handleContasAReceber.formatDate(caixa.data_recebimento)}</td>
                         <td id="center">{caixa.fk_val}</td>
-                        <td id='center'>{caixa.debito !== null ?
+                        <td>{caixa.debito !== null ?
                             findNameMovCaixaDebito(caixa.fk_val) :
                             findNameMovCaixaCredito(caixa.fk_val)}</td>
                         <td id="center">{findVendaMovCaixaCredito(caixa.fk_val) !==

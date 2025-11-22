@@ -20,7 +20,7 @@ type Props = {
     handleChangeStatus:any
 }
 
-export function ContasAPagarRegisterForm({
+const ContasAPagarRegisterForm:React.FC<Props> = ({
     handleTokenMessage,
     children,
     contasAPagar,
@@ -34,7 +34,7 @@ export function ContasAPagarRegisterForm({
     findDespesa,
     findPerson,
     handleChangeStatus
-}: Props) {
+}: Props) => {
 
     const handleFinanceiro = new HandleFinanceiro()
     const handleContaAPagar = new HandleContaAPagar()
@@ -183,3 +183,5 @@ export function ContasAPagarRegisterForm({
         {listContasAPagar}
     </>
 }
+
+export { ContasAPagarRegisterForm }

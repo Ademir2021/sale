@@ -53,9 +53,8 @@ function ContasAPagar() {
             }
     }
     useEffect(() => {
-        if (contasAPagar.length === 0) {
+        if (contasAPagar.length === 0)
             getContasAPagar()
-        }
     }, [contasAPagarUser])
 
     async function getValsPagos() {
@@ -86,7 +85,7 @@ function ContasAPagar() {
                 if (venc_original < diaPagamento) { // se vencer calcular juros e multa
                     const difference = handleContasAPagar.dateDifference(venc_original, diaPagamento);
                     const diasCalcJuros: number | any = (difference.diffInDays).toFixed(0)
-                    contaAPagar.juros = contaAPagar.valor !== 0.00 ? contaAPagar.valor * diasCalcJuros * (0.10 / 100) : 0.00
+                    contaAPagar.juros = contaAPagar.valor !== 0.00 ? contaAPagar.saldo * diasCalcJuros * (0.10 / 100) : 0.00
                     contaAPagar.multa = diasCalcJuros > 5 ? contaAPagar.valor * (3 / 100) : 0.00
                 }
             }
@@ -110,52 +109,38 @@ function ContasAPagar() {
             .catch(error => console.log((error)))
     }
 
-    function valsAPagar(conta: TContaAPagar) {
+    function valsAPagar(Conta: TContaAPagar) {
         let id = 1
         let newValPago: TValPago = {
-            id_val: 0,
-            fk_conta: 0,
-            fk_compra: 0,
-            fk_user: 0,
-            valor: 0,
-            data_recebimento: "",
-            descricao: "",
-            fk_person: 0,
-            fk_despesa: 0
+            id_val: id++,
+            fk_conta: Conta.id_conta,
+            fk_compra: Conta.fk_compra || 0,
+            fk_user: isLogged[0].id,
+            valor: valor,
+            data_recebimento: new Date(),
+            descricao:findNameDespesa(Conta.fk_despesa)  || '',
+            fk_person: Conta.fk_beneficiario || 0,
+            fk_despesa: Conta.fk_despesa || 0
         }
-        newValPago.id_val = id++
-        newValPago.fk_conta = conta.id_conta
-        if (conta.fk_compra !== null) {
-            newValPago.fk_compra = conta.fk_compra
-        }
-        else if (conta.fk_compra === null) {
-            newValPago.fk_compra = 0
-        }
-        newValPago.fk_despesa = conta.fk_despesa
-        newValPago.fk_user = isLogged[0].id
-        newValPago.data_recebimento = new Date()
-        newValPago.valor = valor
-        newValPago.descricao = findNameDespesa(conta.fk_despesa)
-        newValPago.fk_person = 0
         valsPagos.push(newValPago)
         registerValPago(newValPago)
     }
 
-    function somaValsPago(conta: TContaAPagar) {
-        let valRec: any = 0
-        let soma = 0
+    function somaValsPago(Conta: TContaAPagar) {
+        let soma = valor || 0
         for (let valRecebido of valsPagosList) {
-            if (valRecebido.fk_conta === conta.id_conta)
-                valRec = valRecebido.valor
-            soma += parseFloat(valRec)
+            if (valRecebido.fk_conta === Conta.id_conta) {
+                const res: any = valRecebido.valor
+                soma += parseFloat(res)
+            }
         }
-        return soma + valor
+        return soma
     }
 
-    const pagarValores = async (conta: TContaAPagar) => {
+    const pagarValores = async (Conta: TContaAPagar) => {
         for (let contaAPagar of contasAPagar) {
-            if (contaAPagar.id_conta === conta.id_conta) {
-                const recebimento = somaValsPago(conta)
+            if (contaAPagar.id_conta === Conta.id_conta) {
+                const recebimento = somaValsPago(Conta)
                 contaAPagar.recebimento = recebimento
                 contaAPagar.desconto = desconto
                 const saldo =
@@ -174,10 +159,10 @@ function ContasAPagar() {
         }
     }
 
-    const handleSumbit = (conta: TContaAPagar) => {
+    const handleSumbit = (Conta: TContaAPagar) => {
         setMsg('')
-        valsAPagar(conta)
-        pagarValores(conta)
+        valsAPagar(Conta)
+        pagarValores(Conta)
         setValor(0)
     }
 
