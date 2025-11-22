@@ -11,7 +11,7 @@ type Props = {
     setContaAReceber: Function
     handleSubmit: any
     handleChange: any
-    handleChangeStatus:any
+    handleChangeStatus: any
     msg: string
     listPersons: any
     handleTokenMessage: any
@@ -30,7 +30,7 @@ export function ContasAReceberRegisterForm({
     handleTokenMessage
 }: Props) {
 
-     const handleFinanceiro = new HandleFinanceiro()
+    const handleFinanceiro = new HandleFinanceiro()
     const handleContaAReceber = new HandleContaAReceber()
 
     const links = <>
@@ -113,7 +113,7 @@ export function ContasAReceberRegisterForm({
         <>{listPersons}</>
         <button className="container">{children.id_conta === 0 ? 'Inserir' : 'Atualizar'}</button>
         <button className="container" onClick={() => setContaAReceber(children)}>Cancelar</button>
-          {msg && <p className='p-2 text-center'>{msg}</p>}
+        {msg && <p className='p-2 text-center'>{msg}</p>}
     </form>
 
     const thead = <thead>
@@ -140,7 +140,7 @@ export function ContasAReceberRegisterForm({
                     <th className="text-center">{contaAReceber.id_conta}</th>
                     <th className="text-center">{contaAReceber.fk_venda}</th>
                     <th className="text-center">{contaAReceber.fk_pagador}</th>
-                    <th className="">{ handleFinanceiro.formatDate(contaAReceber.emissao)}</th>
+                    <th className="">{handleFinanceiro.formatDate(contaAReceber.emissao)}</th>
                     <th>{contaAReceber.valor}</th>
                     <th>{handleFinanceiro.formatDate(contaAReceber.vencimento)}</th>
                     <th>{contaAReceber.pagamento ? contaAReceber.pagamento : 'Em aberto'}</th>
@@ -155,10 +155,10 @@ export function ContasAReceberRegisterForm({
 
     const statusTitulo = <div className="container">
         <input
-        type="checkbox"
-        name="statusTitulo"
-        onChange={handleChangeStatus}
-    />
+            type="checkbox"
+            name="statusTitulo"
+            onChange={handleChangeStatus}
+        />
         <label className="p-2">Listar Somente os Títulos em Abertos</label>
     </div>
 

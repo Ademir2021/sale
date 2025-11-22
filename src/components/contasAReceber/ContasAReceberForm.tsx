@@ -19,10 +19,10 @@ type Props = {
     saldo: number
     printValorRecebido: any
     token: string | any
-    handleChangeStatus:any
+    handleChangeStatus: any
 }
 
-export function ContasAreceberForm({
+const ContasAreceberForm: React.FC<Props> = ({
     contasAReceber,
     receberValor,
     handleChangeValor,
@@ -36,11 +36,11 @@ export function ContasAreceberForm({
     printValorRecebido,
     token,
     handleChangeStatus
-}: Props) {
+}: Props) => {
 
     const handleContasAReceber = new HandleFinanceiro()
 
-    const links = <>    {handleLinksDir(
+    const links = <> {handleLinksDir(
         'dashboardefault',
         'Painel',
         '##',
@@ -159,12 +159,12 @@ export function ContasAreceberForm({
             </tr>
         ))}</tbody>
     </table>
-      const statusJurosMulta = <div className="container">
+    const statusJurosMulta = <div className="container">
         <input
-        type="checkbox"
-        name="statusTitulo"
-        onChange={handleChangeStatus}
-    />
+            type="checkbox"
+            name="statusTitulo"
+            onChange={handleChangeStatus}
+        />
         <label className="p-2">Calcular Juros e Multa</label>
     </div>
     return <><NavBar />
@@ -181,3 +181,5 @@ export function ContasAreceberForm({
         {valoresRecebidos.length > 0 && <div className="table-container">{listaValoresRecebidos}</div>}
     </>
 }
+
+export { ContasAreceberForm }
