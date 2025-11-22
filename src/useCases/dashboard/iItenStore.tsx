@@ -4,7 +4,7 @@ import { ListItensStore } from '../../components/dashboard/ListItensStore';
 import { TItens } from '../products/type/TProducts';
 import { HandleHome } from '../home/handleHome/HandleHome';
 
-export function ItenStore() {
+const ItenStore: React.FC = () => {
 
     const [itens, setItens] = useState<TItens[]>([]);
     const [messages, setMessages] = useState('');
@@ -16,9 +16,9 @@ export function ItenStore() {
         handleHome.getItensStorage(setItens, setSubTotal)
     }, [itens, subTotal]);
 
-    useEffect(()=>{
+    useEffect(() => {
         handleHome.sumItens(itens, setSubTotal)
-    },[itens])
+    }, [itens])
 
     function deleteListStore(Item: TItens) {
         if (window.confirm('Deseja remover, ' + Item.descric + ' ?')) {
@@ -70,4 +70,7 @@ export function ItenStore() {
             counter={itens.length}
             subTotal={subTotal}
         /> </>
+
 }
+
+export { ItenStore }

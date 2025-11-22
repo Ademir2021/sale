@@ -16,7 +16,7 @@ type Props = {
     subTotal: number
 }
 
-export function ListItensStore({
+const ListItensStore: React.FC<Props> = ({
     itens,
     decrementItemListStore,
     incrementItemListStore,
@@ -24,7 +24,7 @@ export function ListItensStore({
     messages,
     counter,
     subTotal,
-}: Props) {
+}: Props) => {
 
     const list = itens.map((item: TItens) => (
         <div id='itens-store' key={item.id}>
@@ -39,7 +39,7 @@ export function ListItensStore({
                     id='m-2'
                     onClick={() => incrementItemListStore(item)}>{<Icon.Plus size={16} />}</a>
                 <a href="##"
-                    
+
                     id='m-2'
                     onClick={() => { deleteListStore(item) }} >{<Icon.Trash size={18} color='red' />}</a>
             </div>
@@ -70,9 +70,9 @@ export function ListItensStore({
             {itens.length !== 0 && <div id='msg-red'>{messages}</div>}
             {itens.length > 0 && <button className='container m-1'
                 onClick={() => window.location.replace("/sale")}
-            >{<Icon.FlagCheckered size={32} />}Finalizar carrinho
+            >{<Icon.FlagCheckered size={32} />}Finalizar Carrinho
             </button>}
-             {itens.length > 0 && <button className='container m-1'
+            {itens.length > 0 && <button className='container m-1'
                 onClick={() => window.location.replace("/")}
             >Comprar + Itens</button>}
         </div>
@@ -83,8 +83,9 @@ export function ListItensStore({
             {itens.length === 0 && <button
                 className=' container m-1'
                 onClick={() => { window.location.replace("/") }}>
-                    {<Icon.ArrowSquareOut size={32} />}Voltar as Compras</button>}
+                {<Icon.ArrowSquareOut size={32} />}Voltar as Compras</button>}
             {list}
         </div>
     </>
 }
+export { ListItensStore }
