@@ -10,9 +10,10 @@
     position: fixed;
     width: 100%;
     margin-top: -33px;
-    padding: 4px;
-    gap: 3%;
-    background-color: rgb(75, 71, 71);
+    padding: 6px;
+    gap: 4%;
+    /* background-color: rgb(75, 71, 71); */
+    background-color:gainsboro;
 
 }
 @media screen and (max-width:768px) {
@@ -33,7 +34,7 @@
 
 .header-sub-total {
     color:var(--main-white-color);
-     color: #fff;
+     color: gray
 }
 .header-contact{
     font-size: var(--font-size);
