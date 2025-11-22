@@ -50,18 +50,17 @@ export function ListItensStore({
     ))
 
     return <>
-        <form className="form">
-            <dd>Você está a um passo de receber seus produtos favoritos. Finalize sua compra agora!</dd>
-            <b id='msg-red'>Confira os itens abaixo antes de finalizar sua compra.</b>
-            <dd id="msg-green">Seu carrinho está quase pronto! Finalize sua compra e receba seus produtos no conforto de casa.</dd>
-            <label>Items no carrinho</label>
+        <div className="form">
+            {/* <label>Você está a um passo de receber seus produtos favoritos. Finalize sua compra agora!</label> */}
+            <label>Confira os itens abaixo antes de finalizar sua compra.</label>
+            <label>Seu carrinho está quase pronto! Finalize sua compra e receba seus produtos no conforto de casa.</label>
+            <label>Items no Carrinho</label>
             <input
                 id="store-input-quant"
                 placeholder="Quantidade"
                 value={counter}
                 disabled
             />
-            {/* <label>Total</label> */}
             <input
                 id="store-input-total"
                 placeholder="Total dos Items"
@@ -69,20 +68,22 @@ export function ListItensStore({
                 disabled
             />
             {itens.length !== 0 && <div id='msg-red'>{messages}</div>}
-        </form>
-
-        <div className="form">
-            {itens.length > 0 && <a href="##"
-            id='m-2'
+            {itens.length > 0 && <button className='container m-1'
                 onClick={() => window.location.replace("/sale")}
             >{<Icon.FlagCheckered size={32} />}Finalizar carrinho
-            </a>}
+            </button>}
+             {itens.length > 0 && <button className='container m-1'
+                onClick={() => window.location.replace("/")}
+            >Comprar + Itens</button>}
+        </div>
+        <div className="form">
             <div id='m-2'>
-                {itens.length === 0 ? "O seu carrinho de compras está vazio" : null}
+                {itens.length === 0 && "O seu Carrinho de Compras está Vazio"}
             </div>
-            {itens.length === 0 && <a href="##"
-                id='m-2'
-                onClick={() => { window.location.replace("/") }}>{<Icon.ArrowSquareOut size={32} />}Voltar as Compras</a>}
+            {itens.length === 0 && <button
+                className=' container m-1'
+                onClick={() => { window.location.replace("/") }}>
+                    {<Icon.ArrowSquareOut size={32} />}Voltar as Compras</button>}
             {list}
         </div>
     </>
