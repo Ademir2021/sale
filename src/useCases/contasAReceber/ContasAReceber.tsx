@@ -7,15 +7,10 @@ import { postAuthHandle } from "../../services/handleService"
 import { TContaAreceber, TValsRecebidos } from "./type/TContasAReceber"
 import { TPerson } from "../persons/type/TPerson"
 import { TSaleList } from "../sales/type/TSale"
-
 import { AuthContext } from '../../context/auth'
-
 import api from "../../services/api/api"
 
 const ContasAReceber: React.FC = () => {
-
-    const { user: isLogged }: any = useContext(AuthContext);
-    const handleContasAReceber = new HandleFinanceiro()
 
     const [msg, setMsg] = useState('')
     const [valor, setValor] = useState(0)
@@ -29,41 +24,39 @@ const ContasAReceber: React.FC = () => {
     const [persons, setPersons] = useState<TPerson[]>([])
     const [sales, setSales] = useState<TSaleList[]>([]);
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
+    const { user: isLogged }: any = useContext(AuthContext);
+    const handleContasAReceber = new HandleFinanceiro()
 
     const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatusJurosEMulta(e.target.checked);
     };
 
-    useEffect(() => {
-        setTimeout(() => {
-            setMsg('')
-        }, 9000);
-    }, [msg])
+    useEffect(() => { setTimeout(() => { setMsg('') }, 9000) }, [msg])
 
-    async function getContasAReceber() {
+    async function getContasAReceber(ContasAReceber: TContaAreceber[]) {
         await postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
         const NewOpenAccounts: TContaAreceber[] = []
-        for (let conta of contasAReceber)
-            if (conta.saldo > 0 || conta.recebimento == 0) {
+        for (let conta of ContasAReceber)
+            if (conta.saldo > 0 || conta.recebimento === 0) {
                 NewOpenAccounts.push(conta)
+                setOpenAccounts(NewOpenAccounts)
             }
-        setOpenAccounts(NewOpenAccounts)
     }
     useEffect(() => {
         if (openAccounts.length === 0)
-            getContasAReceber()
+            getContasAReceber(contasAReceber)
     }, [contasAReceber])
 
+    async function getValsRecebidos(ValsRecebidosAll: TValsRecebidos[]) {
+        await postAuthHandle('vals_recebidos_list', setTokenMessage, setValsRecebidosAll, isLogged)
+        const vals: TValsRecebidos[] = []
+        for (let val of ValsRecebidosAll)
+            if (val.fk_user)
+                vals.push(val)
+        setValsRecebidos(vals)
+    }
     useEffect(() => {
-        async function getValsRecebidos() {
-            await postAuthHandle('vals_recebidos_list', setTokenMessage, setValsRecebidosAll, isLogged)
-            const vals: TValsRecebidos[] = []
-            for (let val of valsRecebidosAll)
-                if (val.fk_user)
-                    vals.push(val)
-            setValsRecebidos(vals)
-        }
-        getValsRecebidos()
+        getValsRecebidos(valsRecebidosAll)
     }, [valsRecebidosAll])
 
     const updateContaReceber = async (Conta: TContaAreceber) => {
@@ -84,14 +77,11 @@ const ContasAReceber: React.FC = () => {
 
     const calcContasAReceber = (OpenAccounts: TContaAreceber[]) => {
         for (let contaAReceber of OpenAccounts) {
-
             const venc_original = new Date(contaAReceber.vencimento).getTime();
             const diaPagamento = new Date().getTime()
-
             if (statusJurosEMulta === true) {
                 if (venc_original < diaPagamento) { // se vencer calcular juros e multa
                     const difference = handleContasAReceber.dateDifference(venc_original, diaPagamento);
-
                     if (parseInt(difference.diffInDays.toFixed(0)) < 500) { // calcula juros e multa por determindado tempo somente.
                         const diasCalcJuros: number | any = (difference.diffInDays).toFixed(0)
                         contaAReceber.juros = contaAReceber.valor !== 0.00 ? contaAReceber.saldo * diasCalcJuros * (0.10 / 100) : 0.00
@@ -101,11 +91,11 @@ const ContasAReceber: React.FC = () => {
             }
             getSaldo(contaAReceber)
         }
-    }
-
+    };
     useEffect(() => {
         calcContasAReceber(openAccounts);
     }, [openAccounts, statusJurosEMulta])
+
 
     async function registerValRecebido(ValRecebido: TValsRecebidos) {
         await api.post<TValsRecebidos>('val_recebido', ValRecebido)
@@ -133,10 +123,10 @@ const ContasAReceber: React.FC = () => {
 
     const somaValsRecebidos = async (Conta: TContaAreceber) => {
         let soma = valor || 0
-        for (let v of valsRecebidos) 
-            if (v.fk_conta === Conta.id_conta){
-                const res:any = v.valor
-            soma += parseFloat(res)
+        for (let v of valsRecebidos)
+            if (v.fk_conta === Conta.id_conta) {
+                const res: any = v.valor
+                soma += parseFloat(res)
             }
         return soma
     }
@@ -164,21 +154,15 @@ const ContasAReceber: React.FC = () => {
         }
     }
 
-    function handleSumbit(Conta: TContaAreceber) {
-        setMsg('')
-        valsReceber(Conta)
-        receberValores(Conta)
-        setValor(0)
-    }
 
-    function sumSaldoAReceber() {
-        let saldo: number | any = 0
-        if (openAccounts) {
-            for (let contaReceber_ of openAccounts)
-                saldo += parseFloat(contaReceber_.saldo)
+    function sumSaldoAReceber(OpenAccounts: TContaAreceber[]) {
+        let saldo = 0
+        if (OpenAccounts) {
+            for (let open of OpenAccounts)
+                saldo += parseFloat(open.saldo)
             return saldo
         }
-        else if (!openAccounts)
+        else if (!OpenAccounts)
             return 0
     }
 
@@ -233,27 +217,35 @@ const ContasAReceber: React.FC = () => {
         }
     }
 
+    function receberValor(Conta: TContaAreceber) {
+        setMsg('')
+        valsReceber(Conta)
+        getContasAReceber(contasAReceber)
+        receberValores(Conta)
+        setValor(0)
+    }
     return <>
-      <ContasAreceberForm
-                handleChangeStatus={handleChangeStatus}
-                token={handleTokenMessage('contas_receber', tokenMessage)}
-                contasAReceber={openAccounts}
-                valoresRecebidos={valsRecebidos}
-                receberValor={valor > 0 ? handleSumbit : () => { setMsg('Informe o Valor Recebido ...') }}
-                handleChangeValor={(e: any) => {
-                    setValor(parseFloat(e.target.value))
-                }}
-                handleChangeDesconto={(e: any) => {
-                    setDesconto(parseFloat(e.target.value))
-                }}
-                msg={msg}
-                submitContasAReceberRegister={() => { window.location.assign("/contas_receber_register") }}
-                submitInserirValor={() => { window.location.assign("receber_valor") }}
-                submitfluxoDeCaixa={() => { window.location.assign("caixa_mov") }}
-                saldo={sumSaldoAReceber()}
-                printValorRecebido={printValorRecebido}
-            />
-        </>
+        <ContasAreceberForm
+            handleChangeStatus={handleChangeStatus}
+            token={handleTokenMessage('contas_receber', tokenMessage)}
+            contasAReceber={openAccounts}
+            valoresRecebidos={valsRecebidos}
+            receberValor={valor > 0 ? receberValor : () => { setMsg('Informe o Valor Recebido ...') }}
+            handleChangeValor={(e: any) => {
+                setValor(parseFloat(e.target.value))
+            }}
+            handleChangeDesconto={(e: any) => {
+                setDesconto(parseFloat(e.target.value))
+            }}
+            msg={msg}
+            submitContasAReceberRegister={() => { window.location.assign("/contas_receber_register") }}
+            submitInserirValor={() => { window.location.assign("receber_valor") }}
+            submitfluxoDeCaixa={() => { window.location.assign("caixa_mov") }}
+            saldo={sumSaldoAReceber(openAccounts) || 0}
+            printValorRecebido={printValorRecebido}
+            statusJurosEMulta={statusJurosEMulta}
+        />
+    </>
 }
 
 export { ContasAReceber }

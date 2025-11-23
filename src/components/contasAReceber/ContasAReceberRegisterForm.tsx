@@ -120,7 +120,7 @@ export function ContasAReceberRegisterForm({
         <tr>
             <th className='text-center'>ID</th>
             <th className="text-center">Venda</th>
-            <th>ID Pagador</th>
+            <th className="text-center">ID Pagador</th>
             <th>Emissão</th>
             <th>Valor</th>
             <th>Vencimento</th>

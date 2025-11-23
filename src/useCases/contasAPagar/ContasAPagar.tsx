@@ -3,13 +3,11 @@ import { TContaAPagar, TDespesa, TValPago } from "./type/TContasAPagar"
 import { HandleFinanceiro } from "../../components/utils/financeiro/HandleFinanceiro"
 import { ContasAPagarForm } from "../../components/contasAPagar/ContasAPagarForm"
 import { getList, postAuthHandle } from "../../services/handleService"
+import { handleTokenMessage } from "../../services/handleEnsureAuth"
 import { AuthContext } from '../../context/auth'
 import api from "../../services/api/api"
-import { handleTokenMessage } from "../../services/handleEnsureAuth"
 
-function ContasAPagar() {
-    const handleContasAPagar = new HandleFinanceiro()
-    const { user: isLogged }: any = useContext(AuthContext);
+const ContasAPagar:React.FC = () => {
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
     const [msg, setMsg] = useState('')
     const [statusJurosEMulta, setStatusJurosEMulta] = useState<boolean>(false)
@@ -21,64 +19,62 @@ function ContasAPagar() {
     const [valsPagos] = useState<TValPago[]>([])
     const [valsPagosList, setValsPagosList] = useState<TValPago[]>([])
     const [valsPagosUser, setValsPagosUser] = useState<TValPago[]>([])
+    const handleContasAPagar = new HandleFinanceiro()
+    const { user: isLogged }: any = useContext(AuthContext);
 
     const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatusJurosEMulta(e.target.checked);
     };
 
-    useEffect(() => {
-        setTimeout(() => {
-            setMsg('')
-        }, 9000);
-    }, [msg])
+    useEffect(() => { setTimeout(() => { setMsg('') }, 9000) }, [msg])
 
     useEffect(() => {
         getList('despesas', setDespesas)
     }, [despesas])
 
     function findNameDespesa(id: number) {
-        for (let despesa of despesas) {
-            if (despesa.id === id)
-                return despesa.name
+        for (let d of despesas) {
+            if (d.id === id)
+                return d.name
         }
     }
 
-    async function getContasAPagar() {
+    async function getContasAPagar(ContasAPagarUser:TContaAPagar[]) {
         await postAuthHandle('contas_pagar_list', setTokenMessage, setContasAPagarUser, isLogged)
-        const contas_: TContaAPagar[] = []
-        for (let conta of contasAPagarUser)
-            if (conta.saldo > 0 || conta.recebimento == 0) {
-                contas_.push(conta)
-                setContasAPagar(contas_)
+        const contas: TContaAPagar[] = []
+        for (let c of ContasAPagarUser)
+            if (c.saldo > 0 || c.recebimento == 0) {
+                contas.push(c)
+                setContasAPagar(contas)
             }
     }
     useEffect(() => {
         if (contasAPagar.length === 0)
-            getContasAPagar()
+            getContasAPagar(contasAPagarUser)
     }, [contasAPagarUser])
 
-    async function getValsPagos() {
+    async function getValsPagos(ValsPagosUser:TValPago[]) {
         await postAuthHandle('vals_pagos_list', setTokenMessage, setValsPagosUser, isLogged)
         const vals: TValPago[] = []
-        for (let val of valsPagosUser)
-            if (val.fk_user)
-                vals.push(val)
+        for (let v of ValsPagosUser)
+            if (v.fk_user)
+                vals.push(v)
         setValsPagosList(vals)
-    }
+    };
     useEffect(() => {
-        getValsPagos()
+        getValsPagos(valsPagosUser)
     }, [valsPagosUser])
 
-    const updateContaPagar = async (conta: TContaAPagar) => {
-        await api.put<TContaAPagar>('contas_pagar', conta)
+    const updateContaPagar = async (Conta: TContaAPagar) => {
+        await api.put<TContaAPagar>('contas_pagar', Conta)
             .then(response => {
                 console.log(response.data)
             })
             .catch(err => console.log(err))
     }
 
-    function calcContasAPagar() {
-        for (let contaAPagar of contasAPagar) {
+    function calcContasAPagar(ContasAPagar:TContaAPagar[]) {
+        for (let contaAPagar of ContasAPagar) {
             const venc_original = new Date(contaAPagar.vencimento).getTime();
             const diaPagamento = new Date().getTime()
             if (statusJurosEMulta === true) {
@@ -98,11 +94,11 @@ function ContasAPagar() {
         }
     }
     useEffect(() => {
-        calcContasAPagar();
+        calcContasAPagar(contasAPagar);
     }, [contasAPagar, statusJurosEMulta])
 
-    const registerValPago = async (valPago: TValPago) => {
-        await api.post<TValPago>('val_pago', valPago)
+    const registerValPago = async (ValPago: TValPago) => {
+        await api.post<TValPago>('val_pago', ValPago)
             .then(response => {
                 console.log(response.data)
             })
@@ -154,20 +150,20 @@ function ContasAPagar() {
                 contaAPagar.multa = parseFloat(contaAPagar.multa).toFixed(2)
                 contaAPagar.desconto = parseFloat(contaAPagar.desconto).toFixed(2)
                 contaAPagar.pagamento = handleContasAPagar.newData()
-                await updateContaPagar(contaAPagar)
+               await updateContaPagar(contaAPagar)
             }
         }
     }
 
-    const handleSumbit = (Conta: TContaAPagar) => {
-        setMsg('')
-        valsAPagar(Conta)
-        pagarValores(Conta)
-        setValor(0)
+    const pagarValor = (Conta: TContaAPagar) => {
+            setMsg('')
+            valsAPagar(Conta)
+            pagarValores(Conta)
+            setValor(0)
     }
 
     function sumSaldoAPagar() {
-        let saldo: number | any = 0
+        let saldo = 0
         if (contasAPagar) {
             for (let contaPagar_ of contasAPagar)
                 saldo += parseFloat(contaPagar_.saldo)
@@ -181,7 +177,7 @@ function ContasAPagar() {
             token={handleTokenMessage('contas_pagar', tokenMessage)}
             contasAPagar={contasAPagar}
             valoresPagos={valsPagosList}
-            pagarValor={valor > 0 ? handleSumbit : () => { setMsg('Informe um novo valor') }}
+            pagarValor={valor > 0 ? pagarValor : () => { setMsg('Informe o valor da Conta') }}
             handleChangeValor={(e: any) => {
                 setValor(parseFloat(e.target.value))
             }}
@@ -192,7 +188,7 @@ function ContasAPagar() {
             submitContasAPagarRegister={() => { window.location.assign("/contas_pagar_register") }}
             submitInserirValor={() => { window.location.assign("pagar_valor") }}
             submitfluxoDeCaixa={() => { window.location.assign("caixa_mov") }}
-            saldo={sumSaldoAPagar()}
+            saldo={sumSaldoAPagar() || 0}
             findNameDespesa={findNameDespesa}
             handleChangeStatus={handleChangeStatus}
         />

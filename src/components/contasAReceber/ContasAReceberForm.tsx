@@ -20,6 +20,7 @@ type Props = {
     printValorRecebido: any
     token: string | any
     handleChangeStatus: any
+    statusJurosEMulta: boolean
 }
 
 const ContasAreceberForm: React.FC<Props> = ({
@@ -35,7 +36,8 @@ const ContasAreceberForm: React.FC<Props> = ({
     saldo,
     printValorRecebido,
     token,
-    handleChangeStatus
+    handleChangeStatus,
+    statusJurosEMulta
 }: Props) => {
 
     const handleContasAReceber = new HandleFinanceiro()
@@ -105,7 +107,7 @@ const ContasAreceberForm: React.FC<Props> = ({
                 <td>Pagamento</td>
                 <td>Recebimento</td>
                 <td>Observação</td>
-                <td>Receber</td>
+                <td className="text-center">Receber</td>
             </tr>
         </thead>
         <tbody>
@@ -126,8 +128,8 @@ const ContasAreceberForm: React.FC<Props> = ({
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.observacao}</td>
                     <td>{checkAdminPrivilege() === "2" &&
-                        <a href="##" onClick={() => receberValor(conta)}
-                        >Receber</a>}</td>
+                        <button className="container" onClick={() => { receberValor(conta) }}
+                        >Receber</button>}</td>
                 </tr>
             ))}
         </tbody>
@@ -146,16 +148,16 @@ const ContasAreceberForm: React.FC<Props> = ({
                 <td>Recibo</td>
             </tr>
         </thead>
-        <tbody>{valoresRecebidos.map((valRec: TValsRecebidos) => (
-            <tr key={valRec.id_val}>
-                <th id="center">{valRec.id_val}</th>
-                <td id="center">{valRec.fk_conta}</td>
-                <td id="center">{valRec.fk_venda}</td>
-                <td id="center">{valRec.fk_user}</td>
-                <td>{valRec.valor}</td>
-                <td>{handleContasAReceber.formatDate(valRec.data_recebimento)}</td>
-                <td>{valRec.descricao}</td>
-                <td><a href="##" onClick={() => printValorRecebido(valRec)}>Recibo</a></td>
+        <tbody>{valoresRecebidos.map((ValRec: TValsRecebidos) => (
+            <tr key={ValRec.id_val}>
+                <th id="center">{ValRec.id_val}</th>
+                <td id="center">{ValRec.fk_conta}</td>
+                <td id="center">{ValRec.fk_venda}</td>
+                <td id="center">{ValRec.fk_user}</td>
+                <td>{ValRec.valor}</td>
+                <td>{handleContasAReceber.formatDate(ValRec.data_recebimento)}</td>
+                <td>{ValRec.descricao}</td>
+                <td><a href="##" onClick={() => printValorRecebido(ValRec)}>Recibo</a></td>
             </tr>
         ))}</tbody>
     </table>
@@ -173,11 +175,12 @@ const ContasAreceberForm: React.FC<Props> = ({
             {checkAdminPrivilege() === '2' && sumbit}
             {headerContasReceber}
             {token}
-            {checkAdminPrivilege() === '2' ? inputReceberValor : <div>Contas em aberto do cliente</div>}
+            {checkAdminPrivilege() === '2' ? inputReceberValor :
+                <div>Contas em aberto do cliente</div>}
             {msg && <div id='msg-red'>{msg}</div>}
         </div>
-        {statusJurosMulta}
-        {contasAReceber.length > 0 ? <div className="table-container" >{listaContasReceber}</div> : <h1 className="text-center">Cliente sem título para pagar !</h1>}
+        {!statusJurosEMulta && statusJurosMulta}
+        {contasAReceber.length > 0 ? <div className="table-container" >{listaContasReceber}</div> : <h1 className="text-center">Cliente sem Título para Pagar !</h1>}
         {valoresRecebidos.length > 0 && <div className="table-container">{listaValoresRecebidos}</div>}
     </>
 }
