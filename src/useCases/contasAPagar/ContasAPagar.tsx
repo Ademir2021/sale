@@ -177,7 +177,7 @@ const ContasAPagar:React.FC = () => {
             token={handleTokenMessage('contas_pagar', tokenMessage)}
             contasAPagar={contasAPagar}
             valoresPagos={valsPagosList}
-            pagarValor={valor > 0 ? pagarValor : () => { setMsg('Informe o valor da Conta') }}
+            pagarValor={valor > 0 ? pagarValor : () => { setMsg('Informe o Valor da Conta ...') }}
             handleChangeValor={(e: any) => {
                 setValor(parseFloat(e.target.value))
             }}

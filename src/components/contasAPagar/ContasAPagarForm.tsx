@@ -172,8 +172,8 @@ const ContasAPagarForm:React.FC<Props> = ({
             {checkAdminPrivilege() == '2' && sumbit}
             {headerContasPagar}
             {token}
-            {msg && <div className="msg-red">{msg}</div>}
             {checkAdminPrivilege() == '2' && inputPagarValor}
+            {msg && <div id="msg-red">{msg}</div>}
         </div>
         {statusJurosMulta}
         {contasAPagar.length > 0 && <div className="table-container">{listaContasPagar}</div>}
