@@ -1,4 +1,4 @@
-import { TContaAreceber } from "./type/TContasAReceber";
+import { TContaAreceber, TReciboValRec } from "./type/TContasAReceber";
 
 class HandleContaAReceber {
 
@@ -8,7 +8,7 @@ class HandleContaAReceber {
             fk_filial: 0,
             tipo: "Leg",
             fk_venda: 0,
-            fk_user:ContaAReceber.fk_user,
+            fk_user: ContaAReceber.fk_user,
             parcela: '1/1',
             valor: 0,
             multa: 0,
@@ -23,6 +23,41 @@ class HandleContaAReceber {
             fk_pagador: 0
         });
         return res;
+    }
+
+    private bodyReceipt(receipt: TReciboValRec) {
+        const receiptTXT = `
+RAZÃO SOCIAL: ${process.env.REACT_APP_COMPANY}
+CNPJ: ${process.env.REACT_APP_CNPJ}
+ENDEREÇO: ${process.env.REACT_APP_ADDRESS}
+FONE: ${process.env.REACT_APP_PHONE}
+================ / RECIBO / ================
+ID: ${receipt.id}
+Conta: ${receipt.conta}
+Venda: ${receipt.venda}
+Usuário: ${receipt.user}
+Valor recebido: R$ ${receipt.valor}
+Data: ${receipt.data_rec}
+Descrição: ${receipt.descricao}
+
+Cliente: ${receipt.nome_cliente}
+CPF: ${receipt.cpf}
+
+----------------------------
+Obrigado pela preferência!`;
+
+        return receiptTXT
+    }
+
+    generateFileTXT(receipt: TReciboValRec, nameFile: string) {
+        const res: any | TReciboValRec = this.bodyReceipt(receipt)
+        const blob = new Blob([res], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = nameFile;
+        a.click();
+        URL.revokeObjectURL(url);
     }
 }
 

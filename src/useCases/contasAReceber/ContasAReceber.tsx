@@ -4,11 +4,12 @@ import { FormatDate } from "../../components/utils/formatDate"
 import { HandleFinanceiro } from "../../components/utils/financeiro/HandleFinanceiro"
 import { handleTokenMessage } from "../../services/handleEnsureAuth"
 import { postAuthHandle } from "../../services/handleService"
-import { TContaAreceber, TValsRecebidos } from "./type/TContasAReceber"
+import { TContaAreceber, TReciboValRec, TValsRecebidos } from "./type/TContasAReceber"
 import { TPerson } from "../persons/type/TPerson"
 import { TSaleList } from "../sales/type/TSale"
 import { AuthContext } from '../../context/auth'
 import api from "../../services/api/api"
+import { HandleContaAReceber } from "./handleContaAReceber"
 
 const ContasAReceber: React.FC = () => {
 
@@ -23,9 +24,11 @@ const ContasAReceber: React.FC = () => {
     const [valsRecebidosAll, setValsRecebidosAll] = useState<TValsRecebidos[]>([])
     const [persons, setPersons] = useState<TPerson[]>([])
     const [sales, setSales] = useState<TSaleList[]>([]);
+
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
     const { user: isLogged }: any = useContext(AuthContext);
-    const handleContasAReceber = new HandleFinanceiro()
+    const handleFinanceiro = new HandleFinanceiro()
+    const handleContaAReceber = new HandleContaAReceber()
 
     const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatusJurosEMulta(e.target.checked);
@@ -81,7 +84,7 @@ const ContasAReceber: React.FC = () => {
             const diaPagamento = new Date().getTime()
             if (statusJurosEMulta === true) {
                 if (venc_original < diaPagamento) { // se vencer calcular juros e multa
-                    const difference = handleContasAReceber.dateDifference(venc_original, diaPagamento);
+                    const difference = handleFinanceiro.dateDifference(venc_original, diaPagamento);
                     if (parseInt(difference.diffInDays.toFixed(0)) < 500) { // calcula juros e multa por determindado tempo somente.
                         const diasCalcJuros: number | any = (difference.diffInDays).toFixed(0)
                         contaAReceber.juros = contaAReceber.valor !== 0.00 ? contaAReceber.saldo * diasCalcJuros * (0.10 / 100) : 0.00
@@ -148,12 +151,11 @@ const ContasAReceber: React.FC = () => {
                 contaAReceber.juros = parseFloat(contaAReceber.juros).toFixed(2)
                 contaAReceber.multa = parseFloat(contaAReceber.multa).toFixed(2)
                 contaAReceber.desconto = parseFloat(contaAReceber.desconto).toFixed(2)
-                contaAReceber.pagamento = handleContasAReceber.newData()
+                contaAReceber.pagamento = handleFinanceiro.newData()
                 await updateContaReceber(contaAReceber)
             }
         }
     }
-
 
     function sumSaldoAReceber(OpenAccounts: TContaAreceber[]) {
         let saldo = 0
@@ -195,11 +197,15 @@ const ContasAReceber: React.FC = () => {
             }
     }
 
-    function printValorRecebido(ValRec: TValsRecebidos) {
-        for (let val of valsRecebidos) {
-            if (val.id_val === ValRec.id_val) {
-                const pers = findPerson(ValRec.fk_person, ValRec.fk_conta, ValRec.fk_venda)
-                const recibo = {
+    const printValorRecebido = (ValRec: TValsRecebidos) => {
+        for (let v of valsRecebidos) {
+            if (v.id_val === ValRec.id_val) {
+                const pers = findPerson(
+                    ValRec.fk_person,
+                    ValRec.fk_conta,
+                    ValRec.fk_venda
+                );
+                const recibo:TReciboValRec = {
                     id: ValRec.id_val,
                     conta: ValRec.fk_conta,
                     venda: ValRec.fk_venda,
@@ -210,20 +216,22 @@ const ContasAReceber: React.FC = () => {
                     id_cliente: pers && pers[0] || 0,
                     nome_cliente: pers && pers[1] || "",
                     cpf: pers && pers && pers[2] || ''
-                }
+                };
                 localStorage.setItem("recibo_val_rec", JSON.stringify(recibo))
+                handleContaAReceber.generateFileTXT(recibo,`recibo_${recibo.id}.txt`, );
                 window.location.replace('recibo_val_rec')
             }
         }
     }
-
-    function receberValor(Conta: TContaAreceber) {
+    
+    const receberValor = (Conta: TContaAreceber) => {
         setMsg('')
         valsReceber(Conta)
         getContasAReceber(contasAReceber)
         receberValores(Conta)
         setValor(0)
     }
+
     return <>
         <ContasAreceberForm
             handleChangeStatus={handleChangeStatus}
