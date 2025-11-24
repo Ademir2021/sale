@@ -51,8 +51,7 @@ const ContasAPagarForm:React.FC<Props> = ({
     const handleFinanceiro = new HandleFinanceiro()
     const headerContasPagar = <b>Contas a Pagar em Aberto</b>
 
-    const sumbit =
-        <>
+    const sumbit = <>
             <a href="##"
                 id="m-2"
                 onClick={submitContasAPagarRegister}

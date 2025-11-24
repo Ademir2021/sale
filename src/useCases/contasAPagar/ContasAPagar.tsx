@@ -19,7 +19,8 @@ const ContasAPagar:React.FC = () => {
     const [valsPagos] = useState<TValPago[]>([])
     const [valsPagosList, setValsPagosList] = useState<TValPago[]>([])
     const [valsPagosUser, setValsPagosUser] = useState<TValPago[]>([])
-    const handleContasAPagar = new HandleFinanceiro()
+
+    const handleFinanceiro = new HandleFinanceiro()
     const { user: isLogged }: any = useContext(AuthContext);
 
     const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +80,7 @@ const ContasAPagar:React.FC = () => {
             const diaPagamento = new Date().getTime()
             if (statusJurosEMulta === true) {
                 if (venc_original < diaPagamento) { // se vencer calcular juros e multa
-                    const difference = handleContasAPagar.dateDifference(venc_original, diaPagamento);
+                    const difference = handleFinanceiro.dateDifference(venc_original, diaPagamento);
                     const diasCalcJuros: number | any = (difference.diffInDays).toFixed(0)
                     contaAPagar.juros = contaAPagar.valor !== 0.00 ? contaAPagar.saldo * diasCalcJuros * (0.10 / 100) : 0.00
                     contaAPagar.multa = diasCalcJuros > 5 ? contaAPagar.valor * (3 / 100) : 0.00
@@ -149,7 +150,7 @@ const ContasAPagar:React.FC = () => {
                 contaAPagar.juros = parseFloat(contaAPagar.juros).toFixed(2)
                 contaAPagar.multa = parseFloat(contaAPagar.multa).toFixed(2)
                 contaAPagar.desconto = parseFloat(contaAPagar.desconto).toFixed(2)
-                contaAPagar.pagamento = handleContasAPagar.newData()
+                contaAPagar.pagamento = handleFinanceiro.newData()
                await updateContaPagar(contaAPagar)
             }
         }
