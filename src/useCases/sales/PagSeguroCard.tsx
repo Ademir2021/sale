@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { PagSeguroCardForm } from "../../components/pagseguro/PagSeguroCardForm";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
 import { TSale } from "./type/TSale";
-import { TCard, TPagSeguroItems, TPagSeguroCard } from "./type/TPagSeguroCard";
+import { TCard, TPagSeguroCard } from "./type/TPagSeguroCard";
 import { TPagSeguroRequest } from "./type/TPagSeguroRequest";
 import saleJSON from "./JSON/sale.json"
 import pagSeguroCardJSON from "./JSON/pagSeguroCard.json"
