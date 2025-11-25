@@ -24,7 +24,6 @@ const ContasAReceber: React.FC = () => {
     const [valsRecebidosAll, setValsRecebidosAll] = useState<TValsRecebidos[]>([])
     const [persons, setPersons] = useState<TPerson[]>([])
     const [sales, setSales] = useState<TSaleList[]>([]);
-
     const [tokenMessage, setTokenMessage] = useState<string>("Usuário Autenticado !")
     const { user: isLogged }: any = useContext(AuthContext);
     const handleFinanceiro = new HandleFinanceiro()
@@ -39,12 +38,13 @@ const ContasAReceber: React.FC = () => {
     async function getContasAReceber(ContasAReceber: TContaAreceber[]) {
         await postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
         const NewOpenAccounts: TContaAreceber[] = []
-        for (let conta of ContasAReceber)
-            if (conta.saldo > 0 || conta.recebimento === 0) {
-                NewOpenAccounts.push(conta)
-                setOpenAccounts(NewOpenAccounts)
-            }
+        for (let conta of ContasAReceber){
+              if (conta.saldo >0 || conta.recebimento === 0) 
+            NewOpenAccounts.push(conta)
+        setOpenAccounts(NewOpenAccounts)
+        
     }
+}
     useEffect(() => {
         if (openAccounts.length === 0)
             getContasAReceber(contasAReceber)
@@ -61,6 +61,7 @@ const ContasAReceber: React.FC = () => {
     useEffect(() => {
         getValsRecebidos(valsRecebidosAll)
     }, [valsRecebidosAll])
+
 
     const updateContaReceber = async (Conta: TContaAreceber) => {
         await api.put<TContaAreceber>('contas_receber', Conta)

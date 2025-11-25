@@ -58,7 +58,7 @@ class HandlePayment {
                     desconto : 0,
                     emissao : new Date().toISOString(),
                     vencimento : this.setPrazo(i).toISOString(),
-                    saldo : 0,
+                    saldo : parseFloat(valParc.toFixed(3)),
                     pagamento : null,
                     recebimento : 0,
                     observacao : holder_id,
