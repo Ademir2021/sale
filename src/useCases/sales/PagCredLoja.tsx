@@ -1,27 +1,31 @@
 import { useState, useEffect } from "react";
-import sale_JSON from "./JSON/sale.json"
+import saleJSON from "./JSON/sale.json"
 import { PagCredLojaForm } from "../../components/sales/PagCredLojaForm"
 import { NavBar } from "../../components/navbar/Navbar";
-import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
 
 import api from "../../services/api/api";
+import { TSale } from "./type/TSale";
+import { HandlePayment } from "./handlePayment/HandlePayment";
 
 const PagCredLoja:React.FC = () => {
 
     const [sendSale, setSendSale] = useState<boolean>(false)
     const [numNote, setNumNote] = useState(0)
-    const [sale, setSale] = useState(sale_JSON);
+    const saleJSON_:any = saleJSON
+    const [sale, setSale] = useState<TSale>(saleJSON_);
     const [msg, setMsg] = useState('')
 
     const msgSendSale = 'Sua compra já foi enviada.'
     const msgNoShopping = 'Sem compras para pagar.'
+
+    const handlePayment = new HandlePayment()
 
     const getSale = () => {
         const store_sale = localStorage.getItem('sl');
         if (store_sale) {
             const res = JSON.parse(store_sale)
             setSale(res)
-            handleInstallments(res, 'Cred', "Crediário Loja")
+            handlePayment.handleInstallments(res, 'Cred', "Crediário Loja")
         }
     };
     useEffect(() => {
@@ -38,7 +42,7 @@ const PagCredLoja:React.FC = () => {
     };
 
         useEffect(() => {
-            clearSaleStorage(numNote)
+            handlePayment.clearSaleStorage(numNote)
         }, [numNote])
 
     const handleSubmit = () => {

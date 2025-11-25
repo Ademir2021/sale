@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react"
 import { PagSeguroCardForm } from "../../components/pagseguro/PagSeguroCardForm";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
-import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
 import { TSale } from "./type/TSale";
 import { TCard, TPagSeguroItems, TPagSeguroCard } from "./type/TPagSeguroCard";
 import { TPagSeguroRequest } from "./type/TPagSeguroRequest";
 import saleJSON from "./JSON/sale.json"
 import pagSeguroCardJSON from "./JSON/pagSeguroCard.json"
-// import pagSeguroRequestJSON from "./JSON/pagSeguroRequest.json"
 import api from './../../services/api/api';
+import { HandlePayment } from "./handlePayment/HandlePayment";
 
 // Adiciona a definição de PagSeguro ao tipo Window
 declare global {
@@ -52,35 +51,25 @@ const PagSeguroCard: React.FC = () => {
     const msgSucess = 'Valor pago com sucesso.'
     const valPayCard = "Pagamento em " + sale.installments + " parcelas de " + currencyFormat(paySale / sale.installments)
 
+    const handlePayment  = new HandlePayment()
+
     const handleChange = (e: any) => {
         const name = e.target.name;
         const value = e.target.value;
         setCard(values => ({ ...values, [name]: value }))
     };
 
-    useEffect(() => {
-        const getSale = () => {
-            const store_sale = localStorage.getItem('sl');
-            if (store_sale !== null) {
-                const res = JSON.parse(store_sale)
-                setSale(res)
-                handleInstallments(res, 'Card', payResponseIdCharge || "Pago com Cartão")
-            }
-        };
-        getSale()
-    }, [payResponseIdCharge]);
-
-    const getPagSeguroArrayItems = (items: TPagSeguroCard) => {
-        items.items = []
-        for (let i = 0; sale.itens.length > i; i++) {
-            const item: TPagSeguroItems = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
-            item.reference_id = sale.itens[i].item.toString()
-            item.name = sale.itens[i].descric.toString()
-            item.quantity = sale.itens[i].amount
-            item.unit_amount = sale.itens[i].valor.replace(/[.]/g, '')
-            items.items.push(item)
+    const getSale = () => {
+        const store_sale = localStorage.getItem('sl');
+        if (store_sale !== null) {
+            const res = JSON.parse(store_sale)
+            setSale(res)
+            handlePayment.handleInstallments(res, 'Card', payResponseIdCharge || "Pago com Cartão")
         }
     };
+    useEffect(() => {
+        getSale()
+    }, [payResponseIdCharge]);
 
     const getPargSeguroCard = (pagSeguroCard: TPagSeguroCard) => {
         pagSeguroCard.reference_id = sale.user.user_id.toString()
@@ -105,7 +94,7 @@ const PagSeguroCard: React.FC = () => {
         pagSeguroCard.charges[0].payment_method.installments = parseInt(sale.installments)
         pagSeguroCard.charges[0].payment_method.holder.tax_id = sale.person.cpf_pers
         pagSeguroCard.charges[0].amount.value = payment.toFixed(2).replace(/[.]/g, '')
-        getPagSeguroArrayItems(pagSeguroCard)
+        handlePayment.pagSeguroItens(pagSeguroCard, sale.itens)
         setPagSeguroCard(pagSeguroCard)
     };
 
@@ -126,11 +115,11 @@ const PagSeguroCard: React.FC = () => {
     }, [publicKey])
 
     useEffect(() => {
-        if (paid !== 0 || payResponseCode === "20000" && flagSales === false) {
+        if (paid !== 0  && flagSales === false) {
             registerSale() // Gerar a Venda
             setFlagSales(true)
         }
-    }, [paid, payResponseCode, flagSales])
+    }, [paid, flagSales])
 
     const registerPagSeguroCard = async () => {
         try {
@@ -196,7 +185,7 @@ const PagSeguroCard: React.FC = () => {
     };
 
     useEffect(() => {
-        clearSaleStorage(numNote)
+        handlePayment.clearSaleStorage(numNote)
     }, [numNote])
 
     const handleSubmitCard = (e: Event) => {

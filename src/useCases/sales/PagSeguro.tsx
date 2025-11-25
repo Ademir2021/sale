@@ -5,13 +5,12 @@ import pagSeguroPixJSON from "./JSON/pagSeguroPix.json"
 import pagSeguroBoletoJSON from "./JSON/pagSeguroBoleto.json"
 import boletoRequestJSON from './JSON/boletoRequest.json'
 import { currencyFormat } from '../../components/utils/currentFormat/CurrentFormat';
-import { clearSaleStorage, handleInstallments } from "./handlePayment/HandlePayment";
 import { TPagSeguroBoleto } from "./type/TPagSeguroBoleto";
 import { TPagSeguroPix } from "./type/TPagSeguroPix";
-import { TPagSeguroItems } from "./type/TPagSeguroCard";
 import api from "../../services/api/api";
+import { HandlePayment } from "./handlePayment/HandlePayment";
 
-const PagSeguro:React.FC = () => {
+const PagSeguro: React.FC = () => {
 
     const [sendSale, setSendSale] = useState(false)
     const [sendPaid, setSendPaid] = useState(false)
@@ -37,8 +36,9 @@ const PagSeguro:React.FC = () => {
     const barCodeBoleto = boletoPagSeguro.charges[0].payment_method.boleto.barcode
     const barCodeBoletoFormated = boletoPagSeguro.charges[0].payment_method.boleto.formatted_barcode
 
-
     const msgPay = 'Sem compras para pagar'
+
+    const handlePayment = new HandlePayment()
 
     useEffect(() => {
         const getSale = () => {
@@ -46,22 +46,11 @@ const PagSeguro:React.FC = () => {
             if (store_sale) {
                 const res = JSON.parse(store_sale)
                 setSale(res)
-                handleInstallments(res, 'Pix/Boleto', "Aguardando Pagamento")
+               handlePayment.handleInstallments(res, 'Pix/Boleto', "Aguardando Pagamento")
             }
         };
         getSale()
     }, []);
-
-    const arrayItems = (items: TPagSeguroBoleto | TPagSeguroPix) => {
-        for (let i = 0; sale.itens.length > i; i++) {
-            const item: TPagSeguroItems = { reference_id: "", name: '', quantity: 0, unit_amount: 0 }
-            item.reference_id = sale.itens[i].item
-            item.name = sale.itens[i].descric
-            item.quantity = sale.itens[i].amount
-            item.unit_amount = sale.itens[i].valor.replace(/[.]/g, '')
-            items.items.push(item)
-        }
-    };
 
     const getPagSeguro = (pagSeguro: TPagSeguroBoleto | TPagSeguroPix) => {
         pagSeguro.reference_id = sale.user.user_id
@@ -81,7 +70,7 @@ const PagSeguro:React.FC = () => {
         pagSeguro.shipping.address.region_code = sale.person.address.uf
         pagSeguro.shipping.address.country = 'BRA'
         pagSeguro.shipping.address.postal_code = sale.person.address.num_cep.replace(/[..-]/g, '')
-        arrayItems(pagSeguro)
+        handlePayment.pagSeguroItens(pagSeguro, sale.itens)
     };
 
     const getPagSeguroPix = () => {
@@ -92,7 +81,7 @@ const PagSeguro:React.FC = () => {
         pagSeguroPix.qr_codes[0].amount.value = payment.toFixed(2).replace(/[.]/g, '')
         pagSeguroPix.qr_codes[0].expiration_date = expiration_date_qrcode
         pagSeguroPix.notification_urls = ["https://meusite.com/notificacoes"]
-        setMessagesSucess('Aponte sua Camera para o QrCorde')
+        setMessagesSucess('Aponte sua Câmera para o QrCorde')
         setSendPaid(true)
     };
 
@@ -144,7 +133,7 @@ const PagSeguro:React.FC = () => {
                 setBoletoPagSeguro(response.data)
             }).catch(error => setError("Erro ao gerar BOLETO tente novamente"))
     };
-    
+
     const handleQrCode = (e: Event) => {
         e.preventDefault()
         if (paySale !== 0) {
@@ -188,7 +177,7 @@ const PagSeguro:React.FC = () => {
     }, [valueQrCode, barCodeBoleto])
 
     useEffect(() => {
-        clearSaleStorage(numNote)
+        handlePayment.clearSaleStorage(numNote)
     }, [numNote])
 
     return (

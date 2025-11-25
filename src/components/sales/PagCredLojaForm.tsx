@@ -21,7 +21,7 @@ const PagCredLojaForm: React.FC<Props> = ({
     msg
 }: Props) => {
 
-    const handleContasAReceber = new HandleFinanceiro()
+    const handleFinanceiro = new HandleFinanceiro()
 
     const listDuplicatas = <div className="table-container">
         <table className='table'>
@@ -40,10 +40,10 @@ const PagCredLojaForm: React.FC<Props> = ({
                     <tr key={dup.id_conta}>
                         <th id="center">{dup.id_conta}</th>
                         <th id="center">{dup.fk_pagador}</th>
-                        <td id="center">{handleContasAReceber.formatDate(dup.emissao)}</td>
+                        <td id="center">{handleFinanceiro.formatDate(dup.emissao)}</td>
                         <td id="center">{dup.valor}</td>
                         <td id="center">{dup.parcela}</td>
-                        <td id="center">{handleContasAReceber.formatDate(dup.vencimento)}</td>
+                        <td id="center">{handleFinanceiro.formatDate(dup.vencimento)}</td>
                     </tr>
                 ))}
             </tbody>
