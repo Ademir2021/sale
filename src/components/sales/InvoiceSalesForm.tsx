@@ -97,16 +97,16 @@ const InvoiceSalesForm: React.FC<Props> = ({
         <div>Total na Nota {currencyFormat(children.tNote)}</div>
         <div className='final' >Total a Pagar {currencyFormat(children.paySale - children.disc_sale)}</div>
       </div>}
+        <label>Confira os Dados de Entrega</label> 
       {children.person.cpf_pers && <div id='entrega'>
-        <label>Confira os Dados de Entrega</label>
-        <i>[ <b>Telefone</b> {children.person.phone_pers} ]</i>
-        <i>[ <b>CPF</b> {children.person.cpf_pers} ]</i>
-        <i>[ <b>Endereço</b> {children.person.address.address_pers} ]</i>
-        <i>[ <b>Número</b> {children.person.address.num_address} ]</i>
-        <i>[ <b>Bairro</b> {children.person.address.bairro_pers} ]</i>
-        <i>[ <b>Cidade</b> {children.person.address.name_city} ]</i>
-        <i>[ <b>Estado</b> {children.person.address.uf} ]</i>
-        <i>[ <b>CEP</b> {children.person.address.num_cep} ]</i>
+        <div> Telefone : {children.person.phone_pers}</div>
+        <div>CPF : {children.person.cpf_pers}</div>
+        <div>Endereço : {children.person.address.address_pers}</div>
+        <div>Número : {children.person.address.num_address}</div>
+        <div>Bairro : {children.person.address.bairro_pers}</div>
+        <div>Cidade : {children.person.address.name_city}</div>
+        <div>Estado : {children.person.address.uf}</div>
+        <div>CEP : {children.person.address.num_cep}</div>
       </div>}
     </div>
   </>

@@ -58,7 +58,7 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
         </>
     return <>
         <Dashboard />
-        <div className='form'>
+        <div className='container'>
             {links}
             <label>Sua Conta</label>
             {perfil}

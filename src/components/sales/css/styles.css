@@ -122,16 +122,13 @@ button:hover {
   /* verde */
 }
 
-#entrega label {
-  margin-bottom: 2px;
-}
-
 #entrega {
-  color: #2563eb;
-}
-
-#entrega b {
-  color: #333;
+  color: black;
+  padding: 36px;
+  background-color: rgb(240, 235, 235);
+  border-radius: 2px;
+  width: 100%;
+  border: none;
 }
 
 .item {
