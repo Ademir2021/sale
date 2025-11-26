@@ -25,3 +25,41 @@
     width: 30%;
     color: blue;
 }
+
+.panel-perfil {
+    background-color: rgb(6, 6, 68);
+    color:whitesmoke;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 18px;
+    font-size: 12px;
+    width:100%;
+    border-radius: 12px;
+    border: black solid 1px;
+}
+
+.panel-card {
+    display: flex;
+    padding: 16px;
+    vertical-align: top;
+    border-radius: 2px;
+    background-color: rgb(221, 212, 212);
+    justify-content: center;
+    max-width: 100%;
+    margin: 1px;
+    width: 100%;
+    min-width: 100%;
+}
+
+.panel-card-button {
+    flex-direction: column;
+    padding: 12px;
+    font-size: 12px;
+    min-width: 25%;
+    margin: 1px;
+    background-color: whitesmoke;
+    border-radius: 12px;
+    margin-left: 3px;
+    border: none;
+
+}
