@@ -89,46 +89,35 @@ button:hover {
 }
 
 #vals {
-  background-color: #f5f5f5;
-  /* cor de fundo suave */
-  border: 1px solid #ccc;
-  /* borda leve */
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 3px;
+  padding: 26px;
   margin: 10px 0;
-  max-width: 300px;
-  font-family: 'Arial', sans-serif;
+  width: 100%;
+  font-size: 18px;
+  color: black;
+  border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#vals div {
-  display: flex;
-  justify-content: space-between;
-  margin: 6px 0;
-  font-size: 16px;
-  /* color: #333; */
-  color: #1d4ed8;
-}
-
 #vals div::before {
-  content: "•";
-  /* color: #888; */
-  color: #2563eb;
-}
-
-#vals .final {
-  font-weight: bold;
-  color: #007b00;
-  /* verde */
+  content: " * ";
+  font-size: 18px;
+  color: gray
 }
 
 #entrega {
   color: black;
-  padding: 36px;
-  background-color: rgb(240, 235, 235);
-  border-radius: 2px;
+  padding: 26px;
+  border-radius: 3px;
   width: 100%;
   border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#entrega div::before {
+  content: " * ";
+  font-size: 18px;
+  color: gray;
 }
 
 .item {

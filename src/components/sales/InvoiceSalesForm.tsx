@@ -81,32 +81,32 @@ const InvoiceSalesForm: React.FC<Props> = ({
         disabled
         onChange={handleChange}
       />
-      {msg && <p id='msg-red'>{msg}</p>}
-      <p>
-        <a href='##' className='m-2' onClick={handleSubmitCard}>{<Icon.CreditCard size={32} color='green' />}Cartão</a>
-        <a href='##' className='m-2' onClick={handleSubmit}>{<Icon.QrCode size={32} color='green' />}Pix/Boleto</a>
-        <a href='##' className='m-2' onClick={handleSubmitCred}>{<Icon.Wallet size={32} color='green' />}Cred/Dinheiro</a>
-      </p>
       <p>
         <a href='/person_update'>{<Icon.Checks size={32} />} Atualizar Cadastro</a>
         {token}
       </p>
+      {msg && <p id='msg-red'>{msg}</p>}
+      <p>
+        <button className='m-1' onClick={handleSubmitCard}>{<Icon.CreditCard size={32} color='white' />} Cartão</button>
+        <button className='m-1' onClick={handleSubmit}>{<Icon.QrCode size={32} color='white' />} Pix ou Boleto</button>
+        <button className='container m-1' onClick={handleSubmitCred}>{<Icon.Wallet size={32} color='white' />} Crédito ou Dinheiro</button>
+      </p>
       {children.tNote > 0 && <div id='vals'>
-        <div>Soma Total, R$ {currencyFormat(children.tItens)}</div>
-        <div>Desconto na Nota {currencyFormat(children.disc_sale)}</div>
-        <div>Total na Nota {currencyFormat(children.tNote)}</div>
-        <div className='final' >Total a Pagar {currencyFormat(children.paySale - children.disc_sale)}</div>
+        <div> <strong>Total Produtos : </strong>{currencyFormat(parseFloat(children.tItens))}</div>
+        <div> <strong>Desconto na Nota : </strong>{currencyFormat(parseFloat(children.disc_sale)) || 0}</div>
+        <div> <strong>Total na Nota : </strong>{currencyFormat(children.tNote)}</div>
+        <div> <strong>Total a Pagar : </strong>{currencyFormat(children.paySale - children.disc_sale)}</div>
       </div>}
-        <label>Confira os Dados de Entrega</label> 
       {children.person.cpf_pers && <div id='entrega'>
-        <div> Telefone : {children.person.phone_pers}</div>
-        <div>CPF : {children.person.cpf_pers}</div>
-        <div>Endereço : {children.person.address.address_pers}</div>
-        <div>Número : {children.person.address.num_address}</div>
-        <div>Bairro : {children.person.address.bairro_pers}</div>
-        <div>Cidade : {children.person.address.name_city}</div>
-        <div>Estado : {children.person.address.uf}</div>
-        <div>CEP : {children.person.address.num_cep}</div>
+        <strong>Confira os Dados de Entrega : </strong>
+        <div><strong> Telefone : </strong> {children.person.phone_pers}</div>
+        <div><strong> CPF : </strong> {children.person.cpf_pers}</div>
+        <div><strong> Endereço : </strong> {children.person.address.address_pers}</div>
+        <div><strong> Número : </strong> {children.person.address.num_address}</div>
+        <div><strong> Bairro : </strong> {children.person.address.bairro_pers}</div>
+        <div><strong> Cidade : </strong> {children.person.address.name_city}</div>
+        <div><strong> Estado : </strong> {children.person.address.uf}</div>
+        <div><strong> CEP :</strong> {children.person.address.num_cep}</div>
       </div>}
     </div>
   </>

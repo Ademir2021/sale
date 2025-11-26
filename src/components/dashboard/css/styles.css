@@ -28,12 +28,12 @@
 
 .panel-perfil {
     background-color: rgb(6, 6, 68);
-    color:whitesmoke;
+    color: whitesmoke;
     margin-top: 12px;
     margin-bottom: 12px;
     padding: 18px;
     font-size: 12px;
-    width:100%;
+    width: 100%;
     border-radius: 12px;
     border: black solid 1px;
 }
@@ -62,4 +62,22 @@
     margin-left: 3px;
     border: none;
 
+}
+
+.store-plus {
+    display: contents;
+    /* width: 15%; */
+    /* border: none; */
+}
+
+.store-minus {
+    display: contents;
+    /* width: 15%; */
+    /* border: none; */
+}
+
+.store-del {
+    display: contents;
+    /* width: 15%; */
+    /* border: none; */
 }

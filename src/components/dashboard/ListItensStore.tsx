@@ -31,17 +31,16 @@ const ListItensStore: React.FC<Props> = ({
             <div><b>Item: </b>{item.item}</div>
             <p><b>Descrição: </b>{item.descric}</p>
             <div>
-                <a href="##"
-                    id='m-2'
-                    onClick={() => decrementItemListStore(item)}>{<Icon.Minus size={16} />}</a>
-                {item.amount}
-                <a href="##"
-                    id='m-2'
-                    onClick={() => incrementItemListStore(item)}>{<Icon.Plus size={16} />}</a>
-                <a href="##"
-
-                    id='m-2'
-                    onClick={() => { deleteListStore(item) }} >{<Icon.Trash size={18} color='red' />}</a>
+                <button
+                    className="store-minus"
+                    onClick={() => decrementItemListStore(item)}>{<Icon.Minus size={28} color="red" alt="Aumentar" />}</button>
+                <b>{'[ '}</b>{item.amount}<b>{' ]'}</b>
+                <button
+                    className="store-plus"
+                    onClick={() => incrementItemListStore(item)}>{<Icon.Plus size={28} color="blue" alt="Diminuir" />}</button>
+                <button
+                    className="store-del m-1"
+                    onClick={() => { deleteListStore(item) }} >{<Icon.Trash size={28} color='red' alt='Remover' />}</button>
             </div>
             <><b> Unitário: </b>{currencyFormat(item.valor)}</>
             <p><b>Total: </b>{currencyFormat(item.tItem)}</p>
