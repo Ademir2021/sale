@@ -33,16 +33,16 @@ const ListItensStore: React.FC<Props> = ({
             <div>
                 <button
                     className="store-minus"
-                    onClick={() => decrementItemListStore(item)}>{<Icon.Minus size={28} color="red" alt="Aumentar" />}</button>
+                    onClick={() => decrementItemListStore(item)}>{<Icon.Minus size={28} color="red" alt="Diminuir" />}</button>
                 <b>{'[ '}</b>{item.amount}<b>{' ]'}</b>
                 <button
                     className="store-plus"
-                    onClick={() => incrementItemListStore(item)}>{<Icon.Plus size={28} color="blue" alt="Diminuir" />}</button>
+                    onClick={() => incrementItemListStore(item)}>{<Icon.Plus size={28} color="blue" alt="Aumentar" />}</button>
                 <button
                     className="store-del m-1"
                     onClick={() => { deleteListStore(item) }} >{<Icon.Trash size={28} color='red' alt='Remover' />}</button>
             </div>
-            <><b> Unitário: </b>{currencyFormat(item.valor)}</>
+            <><b>Unitário: </b>{"R$ "}{currencyFormat(item.valor)}</>
             <p><b>Total: </b>{currencyFormat(item.tItem)}</p>
             <hr></hr>
         </div>
