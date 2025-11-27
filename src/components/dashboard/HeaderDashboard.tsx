@@ -47,8 +47,20 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
         >{<Icon.ArrowClockwise size={32} />}<p>Compra</p></a>
         </div>
         </div>
-        {/* <hr></hr> */}
+    
         <div className='panel-card'>
+             <div className='panel-card-button'>
+        <a href='##' onClick={()=>window.location.replace('pe')}
+        >{<Icon.ShoppingCart size={32} />}<p>Carrinho</p></a>
+        </div>
+             <div className='panel-card-button'>
+        <a href='##' onClick={()=>window.location.replace('login')}
+        >{<Icon.User size={32} />}<p>Sua Conta</p></a>
+        </div>
+             <div className='panel-card-button'>
+        <a href='##' onClick={()=>window.location.replace('pagsegurocard')}
+        >{<Icon.CreditCard size={32} />}<p>Cartão de Crédito</p></a>
+        </div>
             <div className='panel-card-button'>
         <a href='##' onClick={props.handleLogout}
         >{<Icon.SignOut size={32} />}<p>Sair</p></a>
