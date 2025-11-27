@@ -10,13 +10,13 @@
 }
 
 #itens-store {
-    background-color: rgb(34, 33, 33);
     border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     padding: 18px;
     font-size: 16px;
-    color:whitesmoke;
-    margin:1px;
+    color:black;
+    margin:12px;
 }
 
 #store-input-quant {
