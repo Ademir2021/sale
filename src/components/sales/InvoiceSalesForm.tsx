@@ -36,7 +36,7 @@ const InvoiceSalesForm: React.FC<Props> = ({
 }: Props) => {
 
   return <>
-    <NavBar />
+  <div className='container'><NavBar /></div>
     <div className='form'>
       <CloseX link='sale' />
       <label>Cliente</label>

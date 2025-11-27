@@ -59,7 +59,7 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
         </div>
              <div className='panel-card-button'>
         <a href='##' onClick={()=>window.location.replace('pagsegurocard')}
-        >{<Icon.CreditCard size={32} />}<p>Cartão de Crédito</p></a>
+        >{<Icon.CreditCard size={32} />}<p>Cartão</p></a>
         </div>
             <div className='panel-card-button'>
         <a href='##' onClick={props.handleLogout}

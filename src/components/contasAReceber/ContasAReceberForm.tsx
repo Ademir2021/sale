@@ -169,7 +169,8 @@ const ContasAreceberForm: React.FC<Props> = ({
         />
         <label className="p-2">Calcular Juros e Multa</label>
     </div>
-    return <><NavBar />
+    return <>
+        <NavBar />
         <div className="form">
             {links}
             {checkAdminPrivilege() === '2' && sumbit}

@@ -139,7 +139,8 @@ export function ProductForm({
     <span id='m-2'>{msgNcm}</span>
   </div>
 
-  return <> <NavBar />
+  return <>
+  <div className='container'><NavBar /></div>
       <div className='form'>
         <CloseX link='/' />
         {menu === 'geral' && <label id='m-2'>Cadastrar Produto</label>}

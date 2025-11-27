@@ -50,7 +50,7 @@ const RegisterSaleForm:React.FC<Props> = ({
   </div>
 
   return <>
-  <NavBar/>
+  <div className='container'><NavBar/></div>
       <div className='form' >
         <CloseX link='/'/>
         <label className='text-center'>Checkout de Compras</label>
