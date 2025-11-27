@@ -23,18 +23,18 @@ const ListItensStore: React.FC<Props> = ({
     deleteListStore,
     messages,
     counter,
-    subTotal,
+    subTotal
 }: Props) => {
 
     const list = itens.map((item: TItens) => (
         <div id='itens-store' key={item.id}>
-            <div><b>Item: </b>{item.item}</div>
-            <p><b>Descrição: </b>{item.descric}</p>
+            <div><strong>Item : </strong>{item.item}</div>
+            <p><strong>Descrição : </strong>{item.descric}</p>
             <div>
                 <button
                     className="store-minus"
                     onClick={() => decrementItemListStore(item)}>{<Icon.Minus size={28} color="red" alt="Diminuir" />}</button>
-                <b>{'[ '}</b>{item.amount}<b>{' ]'}</b>
+                <strong>{'[ '}</strong>{item.amount}<strong>{' ]'}</strong>
                 <button
                     className="store-plus"
                     onClick={() => incrementItemListStore(item)}>{<Icon.Plus size={28} color="blue" alt="Aumentar" />}</button>
@@ -42,9 +42,9 @@ const ListItensStore: React.FC<Props> = ({
                     className="store-del m-1"
                     onClick={() => { deleteListStore(item) }} >{<Icon.Trash size={28} color='red' alt='Remover' />}</button>
             </div>
-            <><b>Unitário: </b>{"R$ "}{currencyFormat(item.valor)}</>
-            <p><b>Total: </b>{currencyFormat(item.tItem)}</p>
-            <hr></hr>
+            <><strong>Unitário : </strong>{"R$ "}{currencyFormat(item.valor)}</>
+            <p><strong>Total : </strong>{currencyFormat(item.tItem)}</p>
+            {/* <hr></hr> */}
         </div>
     ))
 

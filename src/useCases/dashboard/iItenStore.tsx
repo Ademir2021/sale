@@ -37,7 +37,7 @@ const ItenStore: React.FC = () => {
 
     function incrementItemListStore(Item: TItens) {
         for (let item of itens) {
-            if (item.id === Item.id) {
+            if (item.item === Item.item) {
                 item.amount += 1
                 item.tItem = item.amount * item.valor
                 localStorage.setItem("i", JSON.stringify(itens));
@@ -48,7 +48,7 @@ const ItenStore: React.FC = () => {
 
     function decrementItemListStore(Item: TItens) {
         for (let item of itens) {
-            if (item.id === Item.id) {
+            if (item.item === Item.item) {
                 item.amount -= 1
                 if (item.amount > 0) {
                     item.tItem = item.amount * item.valor
