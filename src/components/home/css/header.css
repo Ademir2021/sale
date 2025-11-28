@@ -27,9 +27,9 @@
 .header-counter {
     display:inline;
     position: relative;
-    color: rgb(18, 18, 110);
+    color:#2e3092;
     top: -5px;
-    left: 23px;
+    left: 21px;
 }
 .header-car  {
     font-size: var(--font-size);
@@ -40,8 +40,7 @@
 }
 
 .header-sub-total {
-    color:var(--main-white-color);
-      color: rgb(18, 18, 110);
+    color:#2e3092;
 }
 .header-contact{
     font-size: var(--font-size);
