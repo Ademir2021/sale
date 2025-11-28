@@ -10,9 +10,10 @@
     position: fixed;
     width: 100%;
     margin-top: -33px;
-    padding: 6px;
-    gap: 4%;
+    padding: 0 auto;
+    gap: 6%;
     background-color:gainsboro;
+    border: none;
 
 }
 @media screen and (max-width:768px) {
@@ -27,9 +28,13 @@
 .header-counter {
     display:inline;
     position: relative;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 0 auto;
     color:#2e3092;
-    top: -5px;
-    left: 21px;
+    top: -6px;
+    left: 48px;
 }
 .header-car  {
     font-size: var(--font-size);
