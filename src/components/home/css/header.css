@@ -23,7 +23,15 @@
 .header-navbar{
     margin-top: 5vh;
 }
-.header-car {
+
+.header-counter {
+    display:inline;
+    position: relative;
+    color: rgb(18, 18, 110);
+    top: -5px;
+    left: 23px;
+}
+.header-car  {
     font-size: var(--font-size);
     color:var(--main-white-color);
 }
@@ -33,7 +41,7 @@
 
 .header-sub-total {
     color:var(--main-white-color);
-     color: gray
+      color: rgb(18, 18, 110);
 }
 .header-contact{
     font-size: var(--font-size);
