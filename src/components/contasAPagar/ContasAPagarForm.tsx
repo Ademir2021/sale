@@ -3,6 +3,7 @@ import { TContaAPagar, TValPago } from "../../useCases/contasAPagar/type/TContas
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 import { handleLinksDir } from "../utils/backHome/BackHome";
+import * as Icon from 'phosphor-react';
 
 import '../css/styles-forms.css'
 import { NavBar } from "../navbar/Navbar";
@@ -49,25 +50,25 @@ const ContasAPagarForm:React.FC<Props> = ({
             )}</>
 
     const handleFinanceiro = new HandleFinanceiro()
-    const headerContasPagar = <b>Contas a Pagar em Aberto</b>
 
-    const sumbit = <>
+    const sumbit = <div className="container">
             <a href="##"
-                id="m-2"
+                className="m-1"
                 onClick={submitContasAPagarRegister}
-            >Emitir Título</a>
+            >Emitir Título</a> |
             <a href="##"
-                id="m-2"
+                className="m-1"
                 onClick={submitInserirValor}
-            >Pagar Valor</a>
+            >Pagar Valor</a> |
             <a href="##"
-                id="m-2"
+                className="m-1"
                 onClick={submitfluxoDeCaixa}
             >Fluxo de caixa</a>
-            <div id="m-2"><b>Saldo à pagar </b>{currencyFormat(saldo)}</div>
-        </>
+           
+        </div>
 
-    const inputPagarValor = <div id="main-inputs-row">
+    const inputPagarValor = <div id="_up_conta">
+    <div id="main-inputs-row">
         <input
             id="main-input-number"
             min={0}
@@ -84,6 +85,10 @@ const ContasAPagarForm:React.FC<Props> = ({
             placeholder="Desconto"
             onChange={handleChangeDesconto}
         />
+    </div>
+      {msg && <div id="msg-red">{msg}</div>}
+     <span id="p-2"><b>Saldo : </b>{currencyFormat(saldo)}</span>
+     {token}
     </div>
 
     const listaContasPagar = <table className='table'>
@@ -127,7 +132,9 @@ const ContasAPagarForm:React.FC<Props> = ({
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.pagamento !== null ? handleFinanceiro.formatDate(conta.pagamento) : null}</td>
                     <td>{conta.observacao}</td>
-                    <td><a href="##" onClick={() => pagarValor(conta)} >Pagar</a></td>
+                    <td><a href="#_up_conta" onClick={() => pagarValor(conta)}>
+                        <Icon.Check size={16} alt="Pagar" color="blue" />
+                    </a></td>
                 </tr>
             ))}
         </tbody>
@@ -165,14 +172,12 @@ const ContasAPagarForm:React.FC<Props> = ({
     />
         <label className="p-2">Calcular Juros e Multa</label>
     </div>
-    return <> <NavBar />
+    return <>
+    <div className="container"><NavBar /></div>
         <div className="form">
             {links}
             {checkAdminPrivilege() == '2' && sumbit}
-            {headerContasPagar}
-            {token}
             {checkAdminPrivilege() == '2' && inputPagarValor}
-            {msg && <div id="msg-red">{msg}</div>}
         </div>
         {statusJurosMulta}
         {contasAPagar.length > 0 && <div className="table-container">{listaContasPagar}</div>}

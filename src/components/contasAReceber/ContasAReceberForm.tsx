@@ -3,6 +3,7 @@ import { TContaAreceber, TValsRecebidos } from "../../useCases/contasAReceber/ty
 import { currencyFormat } from '../utils/currentFormat/CurrentFormat';
 import { checkAdminPrivilege } from "../utils/checksUserLogged/ChecksUserLogged";
 import { handleLinksDir } from "../utils/backHome/BackHome";
+import * as Icon from 'phosphor-react';
 import { NavBar } from "../navbar/Navbar";
 
 
@@ -51,26 +52,24 @@ const ContasAreceberForm: React.FC<Props> = ({
         'Contas a receber'
     )}</>
 
-    const headerContasReceber =
-        <b>Contas a Receber em Aberto</b>
-
-    const sumbit = <>
+    const sumbit = <div className="container">
         <a href="##"
-            id='m-2'
+            className='m-1'
             onClick={submitContasAReceberRegister}
-        >Emitir Título</a>
+        >Emitir Título</a> |
         <a href="##"
-            id='m-2'
+            className="m-1"
             onClick={submitInserirValor}
-        >Receber Valor</a>
+        >Receber Valor</a> |
         <a href="##"
-            id='m-2'
+            className="m-1"
             onClick={submitfluxoDeCaixa}
         >Fluxo de caixa</a>
-        <div id="m-2"><b>Saldo à receber </b>{currencyFormat(saldo)}</div>
-    </>
 
-    const inputReceberValor = <div
+    </div>
+
+    const inputReceberValor = <div id="_up_conta">
+         <div
         id="main-inputs-row">
         <input
             id="main-input-number"
@@ -88,6 +87,10 @@ const ContasAreceberForm: React.FC<Props> = ({
             placeholder="Desconto"
             onChange={handleChangeDesconto}
         />
+    </div>
+       {msg && <div id='msg-red'>{msg}</div>}
+        <span className="p-2"><b>Saldo : </b>{currencyFormat(saldo)}</span>
+        {token}
     </div>
 
     const listaContasReceber = <table className="table">
@@ -128,8 +131,8 @@ const ContasAreceberForm: React.FC<Props> = ({
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.observacao}</td>
                     <td>{checkAdminPrivilege() === "2" &&
-                        <button className="container" onClick={() => { receberValor(conta) }}
-                        >Receber</button>}</td>
+                        <a href="#_up_conta" className="container" onClick={() => { receberValor(conta) }}
+                        ><Icon.Check size={16} alt="Receber" color="blue" /></a>}</td>
                 </tr>
             ))}
         </tbody>
@@ -170,15 +173,13 @@ const ContasAreceberForm: React.FC<Props> = ({
         <label className="p-2">Calcular Juros e Multa</label>
     </div>
     return <>
-        <NavBar />
+          <div className="container"><NavBar /></div>
         <div className="form">
             {links}
             {checkAdminPrivilege() === '2' && sumbit}
-            {headerContasReceber}
-            {token}
+
             {checkAdminPrivilege() === '2' ? inputReceberValor :
-                <div>Contas em aberto do cliente</div>}
-            {msg && <div id='msg-red'>{msg}</div>}
+                <div>Contas em Aberto</div>}
         </div>
         {!statusJurosEMulta && statusJurosMulta}
         {contasAReceber.length > 0 ? <div className="table-container" >{listaContasReceber}</div> : <h1 className="text-center">Cliente sem Título para Pagar !</h1>}
