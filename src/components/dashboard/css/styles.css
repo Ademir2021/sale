@@ -57,7 +57,7 @@
     width: 100%;
 }
 .link-sales span {
-  position: fixed;
+  position: absolute;
   left: 87%;
 }
 
