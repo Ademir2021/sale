@@ -110,7 +110,7 @@ const ContasAreceberForm: React.FC<Props> = ({
                 <td>Pagamento</td>
                 <td>Recebimento</td>
                 <td>Observação</td>
-                <td className="text-center">Receber</td>
+                <td id="center">Receber</td>
             </tr>
         </thead>
         <tbody>
@@ -130,7 +130,7 @@ const ContasAreceberForm: React.FC<Props> = ({
                     <td>{conta.pagamento !== null ? handleContasAReceber.formatDate(conta.pagamento) : null}</td>
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.observacao}</td>
-                    <td>{checkAdminPrivilege() === "2" &&
+                    <td id="center">{checkAdminPrivilege() === "2" &&
                         <a href="#_up_conta" className="container" onClick={() => { receberValor(conta) }}
                         ><Icon.Check size={16} alt="Receber" color="blue" /></a>}</td>
                 </tr>

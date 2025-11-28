@@ -132,7 +132,7 @@ const ContasAPagarForm:React.FC<Props> = ({
                     <td>{parseFloat(conta.recebimento).toFixed(2)}</td>
                     <td>{conta.pagamento !== null ? handleFinanceiro.formatDate(conta.pagamento) : null}</td>
                     <td>{conta.observacao}</td>
-                    <td><a href="#_up_conta" onClick={() => pagarValor(conta)}>
+                    <td id='center'><a href="#_up_conta" onClick={() => pagarValor(conta)}>
                         <Icon.Check size={16} alt="Pagar" color="blue" />
                     </a></td>
                 </tr>
