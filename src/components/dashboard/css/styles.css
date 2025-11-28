@@ -43,13 +43,31 @@
     border-radius: 12px;
     border: black solid 1px;
 }
+.link-sales a {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    border: none;
+    background-color: rgb(63, 61, 61);
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    color: white;
+    width: 100%;
+}
+.link-sales span {
+  position: fixed;
+  left: 87%;
+}
 
 .panel-card {
     display: flex;
-    padding: 16px;
+    border:none;
+    padding: 3px;
     vertical-align: top;
     border-radius: 2px;
-    background-color: rgb(226, 226, 226);
+    /* background-color: rgb(226, 226, 226); */
     justify-content: center;
     max-width: 100%;
     margin: 1px;

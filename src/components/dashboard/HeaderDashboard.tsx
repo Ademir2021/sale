@@ -27,7 +27,14 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
         <div><strong>Olá, </strong>{props.name}</div>
         <div>{props.username}</div>
     </div>
+    const linkSales = <div className='link-sales'>
+        <a href='##'
+        onClick={()=>window.location.replace('list_sale')}
+        >Consultar Compras<span>
+            <Icon.CaretRight size={26} color='white' alt='Compras' /></span></a>
+    </div>
     const panel = <>
+    <label>Acesso rápido</label>
     <div className='panel-card'>
         <div  className='panel-card-button'>
         <a href='form_person' >{
@@ -74,6 +81,7 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
             {links}
             <label>Sua Conta</label>
             {perfil}
+            {linkSales}
             {panel}
         </div>
     </>
