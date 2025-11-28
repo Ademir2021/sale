@@ -30,7 +30,7 @@ export const CaixaMovListComp: React.FC<Props> = ({
             '##',
             'Caixa Movimento'
         )}
-        {<a href="contas_pagar">Contas a Pagar</a>} | Financeiro |  <a href="contas_receber">Contas a Receber</a>
+        {<a href="contas_pagar">Contas a Pagar</a>} | Caixa Movimento |  <a href="contas_receber">Contas a Receber</a>
         <label>Caixa Movimento</label>
         <span>{caixaMov.length > 0 && `Saldo : ${currencyFormat(parseFloat(caixaMov[0].saldo))} `}</span>
         {token}
