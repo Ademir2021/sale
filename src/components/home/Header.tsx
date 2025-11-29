@@ -12,14 +12,15 @@ export function Header(props: Props) {
     return <>
      <div className='header'>
         <a href='pe' className='header-car' >
-        <div className='header-counter'>{props.counter}</div>
-            {<Icon.ShoppingCart size={38} color='#2e3092' alt='Carrinho' />}</a>
-        {props.subtotal && <span className='header-sub-total'>
-            {props.subtotal}</span>}
+        <strong className='header-counter'>{props.counter}</strong>
+            {<Icon.ShoppingCart size={45}  alt='Carrinho' />}
+            <strong className='txt-car'>Carrinho</strong></a>
+        {props.subtotal && <div className='header-sub-total'>
+            {props.subtotal}</div>}
         {<a href={"contact"} className='header-contact'>
-            {<Icon.PhoneCall size={26} color='#2e3092' alt='Contato' />}</a>}
+            {<Icon.PhoneCall size={32} alt='Contato' />}</a>}
         {<a href='contact' className='header-frete'>
-            {<Icon.Package size={26} color='#2e3092' alt='Entrega' />}</a>}
+            {<Icon.Package size={32} alt='Entrega' />}</a>}
     </div>
     <div className='header-navbar'>
     <NavBar/>

@@ -1,7 +1,9 @@
 :root {
-    --main-white-color:black;
-    --font-size:16px;
+    --main-white-color: #ffff;
+    --main-gray-color: gray;
+    --font-size: 16px;
 }
+
 .header {
     display: flex;
     align-items: center;
@@ -11,54 +13,77 @@
     width: 100%;
     margin-top: -33px;
     padding: 0 auto;
-    gap: 6%;
-    background-color:gainsboro;
+    gap: 5%;
+    /* background-color:gainsboro; */
+    background-color: rgb(247, 75, 23);
     border: none;
 
 }
+
 @media screen and (max-width:768px) {
-     .header {
-          top: 33px;
-     }
+    .header {
+        top: 33px;
+    }
 }
-.header-navbar{
+
+.header-navbar {
     margin-top: 5vh;
 }
 
 .header-counter {
-    display:inline;
+    display: inline;
     position: relative;
     text-align: center;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 13px;
     padding: 0 auto;
-    color:#2e3092;
-    top: -6px;
-    left: 48px;
+    color: var(--main-white-color);
+    /* color:#2e3092; */
+    top: -3px;
+    left: 24px;
 }
-.header-car  {
+
+.header-car {
     font-size: var(--font-size);
-    color:var(--main-white-color);
+    color: var(--main-white-color);
+    /* color: #2e3092; */
 }
-.header-car:hover{
-    color: gray;
+
+.header-car:hover {
+    border: solid #ffff 1px;
+    color: var(--main-gray-color)
+}
+
+.txt-car {
+    display: inline;
+    position: relative;
+    font-size: 16px;
+    top: 13px;
+    left: -5px;
 }
 
 .header-sub-total {
-    color:#2e3092;
-}
-.header-contact{
-    font-size: var(--font-size);
-    color:var(--main-white-color);
-}
-.header-contact:hover{
-    color: gray;
-}
-.header-frete{
-    font-size: var(--font-size);
-    color:var(--main-white-color);
-}
-.header-frete:hover{
-    color: gray;
+    /* color:#2e3092; */
+    color: var(--main-white-color);
 }
 
+.header-contact {
+    font-size: var(--font-size);
+    color: var(--main-white-color);
+    /* color:#2e3092 */
+}
+
+.header-contact:hover {
+    border: solid #ffff 1px;
+    color: var(--main-gray-color)
+}
+
+.header-frete {
+    font-size: var(--font-size);
+    color: var(--main-white-color);
+}
+
+.header-frete:hover {
+    border: solid #ffff 1px;
+    color: var(--main-gray-color)
+}
