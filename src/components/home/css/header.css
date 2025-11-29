@@ -12,10 +12,9 @@
     position: fixed;
     width: 100%;
     margin-top: -33px;
-    padding: 0 auto;
+    padding: 4px;
     gap: 5%;
-    /* background-color:gainsboro; */
-    background-color: rgb(247, 75, 23);
+    background-color:#464141dc;
     border: none;
 
 }
@@ -33,20 +32,14 @@
 .header-counter {
     display: inline;
     position: relative;
-    text-align: center;
-    border-radius: 6px;
-    font-size: 13px;
-    padding: 0 auto;
-    color: var(--main-white-color);
-    /* color:#2e3092; */
+    font-size: 12px;
     top: -3px;
-    left: 24px;
+    left: 41px;
 }
 
 .header-car {
     font-size: var(--font-size);
     color: var(--main-white-color);
-    /* color: #2e3092; */
 }
 
 .header-car:hover {
@@ -54,23 +47,13 @@
     color: var(--main-gray-color)
 }
 
-.txt-car {
-    display: inline;
-    position: relative;
-    font-size: 16px;
-    top: 13px;
-    left: -5px;
-}
-
 .header-sub-total {
-    /* color:#2e3092; */
     color: var(--main-white-color);
 }
 
 .header-contact {
     font-size: var(--font-size);
     color: var(--main-white-color);
-    /* color:#2e3092 */
 }
 
 .header-contact:hover {
