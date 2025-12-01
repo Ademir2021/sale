@@ -20,7 +20,7 @@ export function Header(props: Props) {
         <a href='pe' className='header-car' >
        <strong>Carrinho</strong> : {props.subtotal && <label className='header-sub-total'>
             {props.subtotal}</label>}
-        <label className='header-counter'>{props.counter}</label>
+        <strong className='header-counter'>{props.counter}</strong>
             {<Icon.ShoppingCart size={32}  alt='Carrinho' />}
       </a>
     </div>
