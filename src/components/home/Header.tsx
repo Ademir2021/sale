@@ -11,16 +11,18 @@ type Props = {
 export function Header(props: Props) {
     return <>
      <div className='header'>
-        <a href='pe' className='header-car' >
-        <label className='header-counter'>{props.counter}</label>
-            {<Icon.ShoppingCart size={32}  alt='Carrinho' />}
-      </a>
-        {props.subtotal && <label className='header-sub-total'>
-            {props.subtotal}</label>}
+        {<a href='login' className='header-login'>Faça seu
+            <strong> Login</strong></a>}
         {<a href={"contact"} className='header-contact'>
             {<Icon.PhoneCall size={26} alt='Contato' />}</a>}
         {<a href='contact' className='header-frete'>
-            {<Icon.Package size={26} alt='Entrega' />}</a>}
+           {<Icon.Package size={26} alt='Entrega' />}</a>}
+        <a href='pe' className='header-car' >
+       <strong>Carrinho</strong> : {props.subtotal && <label className='header-sub-total'>
+            {props.subtotal}</label>}
+        <label className='header-counter'>{props.counter}</label>
+            {<Icon.ShoppingCart size={32}  alt='Carrinho' />}
+      </a>
     </div>
     <div className='header-navbar'>
     <NavBar/>

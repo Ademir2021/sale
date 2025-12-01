@@ -7,16 +7,14 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: right;
     overflow: hidden;
     position: fixed;
     width: 100%;
     margin-top: -33px;
-    padding: 4px;
-    gap: 5%;
+    padding: 6px;
+    gap: 8%;
     background-color:#464141dc;
-    border: none;
-
 }
 
 @media screen and (max-width:768px) {
@@ -28,21 +26,33 @@
 .header-navbar {
     margin-top: 5vh;
 }
+.header-login{
+    font-size: 10px;
+    color: var(--main-white-color);
+
+}
+.header-login:hover {
+     border: solid #ffff 1px;
+    color: var(--main-gray-color);
+    padding: 2px;
+}
 
 .header-counter {
     display: inline;
     position: relative;
     font-size: 12px;
-    top: -3px;
+    top: -10px;
     left: 41px;
 }
 
 .header-car {
+    margin-right: 36px;
     font-size: var(--font-size);
     color: var(--main-white-color);
 }
 
 .header-car:hover {
+    padding: 2px;
     border: solid #ffff 1px;
     color: var(--main-gray-color)
 }
