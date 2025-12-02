@@ -43,7 +43,7 @@ Descrição: ${receipt.descricao}
 Cliente: ${receipt.nome_cliente}
 CPF: ${receipt.cpf}
 
-----------------------------
+--------------------------------
 Obrigado pela preferência!`;
 
         return receiptTXT

@@ -1,3 +1,4 @@
+import * as Icon from 'phosphor-react';
 import { TSaleList } from "../../useCases/sales/type/TSale"
 import { Globais } from "../globais/Globais"
 import { Waiting } from "../utils/waiting/Waiting"
@@ -73,7 +74,8 @@ const ListSalesForm: React.FC<Props> = ({
             <th>T-Prod</th>
             <th>Desc.</th>
             <th>T-Nota</th>
-            <th>Imprimir</th>
+            <th className='text-center'>PDF</th>
+            <th className='text-center'>TEXTO</th>
         </tr>
     </thead>
 
@@ -88,7 +90,12 @@ const ListSalesForm: React.FC<Props> = ({
                 <td>{currencyFormat(sale.total_sale)}</td>
                 <td>{currencyFormat(sale.disc_sale)}</td>
                 <td>{currencyFormat(sale.val_rec)}</td>
-                <td><a href={Globais.URL_NOTE + '/' + sale.id_sale}>Imprimir</a></td>
+                <td className='text-center'>
+                    <a href={Globais.URL_NOTE + '/' + sale.id_sale}
+                target='_blank' >{<Icon.FilePdf size={18} color='red' alt='Imprimir PDF' />}</a></td>
+                <td className='text-center'>
+                    <a href={Globais.URL_TICKET + '/' + sale.id_sale}
+                target='_blank' >{<Icon.FileText size={18} color='black' alt='Imprimir Texto' />}</a></td>
             </tr>
         ))}
     </tbody>
