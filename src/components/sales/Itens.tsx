@@ -18,8 +18,9 @@ const Itens: React.FC<Props> = ({
             <th id="center">ID</th>
             <th id="center">ITEM</th>
             <th>DESCRIÇÃO</th>
-            <th id='center'>QUANT</th>
             <th>UN</th>
+            <th id='center'>QUANT</th>
+            <th>PREÇO</th>
             <th>TOTAL</th>
             <th id="center">EDITAR</th>
         </tr>
@@ -30,6 +31,7 @@ const Itens: React.FC<Props> = ({
                 <th id="center">{item.id}</th>
                 <td id="center">{item.item}</td>
                 <td>{item.descric}</td>
+                <td>{item.unMed}</td>
                 <td id="center">{item.amount}</td>
                 <td>{currencyFormat(item.valor)}</td>
                 <td>{currencyFormat(item.tItem)}</td>

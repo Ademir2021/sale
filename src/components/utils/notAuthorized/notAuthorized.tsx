@@ -1,19 +1,13 @@
-import { BackHome } from "../backHome/BackHome";
-
-export function NotAuthorized() {
-
+import { CloseX } from "../closeX/CloseX";
+import "./styles/styles.css"
+const NotAuthorized: React.FC = () => {
     return <>
-            <BackHome />
-        <div className="text-center">
-            <a href="/">Home</a>
-            <hr />
-            <img className="p-3"
-                src="img\error_401.jpeg"
-                style={{ borderRadius: "67px" }}
-                />
-                 <div><b>Error 401 - </b>O Usuário não está Autorizado !
-                </div>
-            <hr></hr>
+        <div className="notAuth-container">
+            <CloseX link="/" />
+            <img src="img\error_401.jpeg" />
+            <div>Usuário não Autorizado ...
+            </div>
         </div>
     </>
 }
+export { NotAuthorized }

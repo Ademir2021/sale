@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { RegisterSaleForm } from "../../components/sales/RegisterSaleForm";
 import { Itens } from "../../components/sales/Itens";
-import { TProduct, TItens } from "../products/type/TProducts";
+import { TProduct, TItens, TUnMed } from "../products/type/TProducts";
 import { currencyFormat } from "../../components/utils/currentFormat/CurrentFormat";
-import { postList } from "../../services/handleService";
+import { getList, postList } from "../../services/handleService";
 import { HandleHome } from "../home/handleHome/HandleHome";
 
 const RegisterSale: React.FC = () => {
@@ -17,10 +17,11 @@ const RegisterSale: React.FC = () => {
     const [itemImg, setIemImg] = useState('');
     const [itenStorage, setItenStorage] = useState<TItens[]>([]);
     const [statuStore, setStatuStore] = useState(false)
+    const [uniMeds, setUniMeds] = useState<TUnMed[]>([])
     const [products, setProducts] = useState<TProduct[]>([]);
     const [itens, setItens] = useState<TItens[]>([]);
     const [item, setItem] = useState<TItens>(
-        { id: 0, item: 0, descric: "", valor: 0, amount: 1, tItem: 0 });
+        { id: 0, item: 0, descric: "", unMed: '', valor: 0, amount: 1, tItem: 0 });
 
     const handleHome = new HandleHome()
 
@@ -29,6 +30,17 @@ const RegisterSale: React.FC = () => {
         const value = e.target.value;
         setItem(values => ({ ...values, [name]: value }))
     };
+
+    useEffect(() => {
+        getList('un_meds', setUniMeds)
+    }, [uniMeds])
+
+    const nameUniMeds = (id: number) => {
+        for (let uniMed of uniMeds) {
+            if (uniMed.id_un === id)
+                return uniMed.un_med
+        }
+    }
 
     useEffect(() => {
         postList('products_list', setProducts)
@@ -40,6 +52,7 @@ const RegisterSale: React.FC = () => {
         item.id = Item.id;
         item.item = Item.item;
         item.descric = Item.descric;
+        item.unMed = Item.unMed
         item.amount = Item.amount;
         item.valor = Item.valor;
         item.tItem = Item.amount * Item.valor;
@@ -63,6 +76,7 @@ const RegisterSale: React.FC = () => {
                 }
                 item.item = p.id_product;
                 item.descric = p.descric_product;
+                item.unMed = nameUniMeds(p.fk_un_med) || ''
                 item.valor = p.val_max_product;
                 item.tItem = item.valor * item.amount;
                 if (p.image === null) {
@@ -87,7 +101,7 @@ const RegisterSale: React.FC = () => {
         }
     };
 
-     const searchItensInCart = (ItensStorage: TItens[]) => {
+    const searchItensInCart = (ItensStorage: TItens[]) => {
         if (statuStore === false) {
             itensStore(ItensStorage)
             setStatuStore(true)
@@ -101,7 +115,7 @@ const RegisterSale: React.FC = () => {
             for (let item of itens)
                 if (Item.item === item.item && editId == null) {
                     return setMsg("Este Item Já Foi Lançado ...")
-                }else{setMsg('Item Incluido com Sucesso ...')}
+                } else { setMsg('Item Incluido com Sucesso ...') }
             return itens.push(Item)
         } else {
             setMsg("Item não Localizado ...")
@@ -184,7 +198,7 @@ const RegisterSale: React.FC = () => {
     };
 
     const openClearNewSale = () => {
-        setItem({ id: 0, item: 0, descric: '', valor: 0, amount: 1, tItem: 0 });
+        setItem({ id: 0, item: 0, descric: '', unMed: '', valor: 0, amount: 1, tItem: 0 });
         setStatusBtnSaveUpdate("Inserir Item");
         setStatusBtnSaleSubmit("Iniciar Pedido");
         setEditId(null);

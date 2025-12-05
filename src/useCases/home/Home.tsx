@@ -38,6 +38,7 @@ const Home: React.FC = () => {
         id: itens.length + 1,
         item: 0,
         descric: '',
+        unMed:'',
         amount: 1,
         valor: 0,
         tItem: 0
@@ -143,6 +144,7 @@ const Home: React.FC = () => {
         newItem.id = itens.length + 1
         newItem.item = Item.id_product
         newItem.descric = Item.descric_product
+        newItem.unMed = nameUniMeds(Item.fk_un_med) || ''
         newItem.valor = Item.val_max_product
         newItem.tItem = Item.val_max_product * newItem.amount | 1
 
@@ -159,6 +161,7 @@ const Home: React.FC = () => {
             id: itens.length + 1,
             item: 0,
             descric: '',
+            unMed:'',
             amount: 1,
             valor: 0,
             tItem: 0

@@ -25,6 +25,7 @@ export type TItens = {
     id: number ;
     item: number;
     descric: string | number;
+    unMed:string;
     amount: number;
     valor: number;
     tItem: number;

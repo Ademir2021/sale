@@ -26,12 +26,17 @@ class HandleContaAReceber {
     }
 
     private bodyReceipt(receipt: TReciboValRec) {
-        const receiptTXT = `
-RAZÃO SOCIAL: ${process.env.REACT_APP_COMPANY}
+        const line = "=".repeat(12)
+        let res = process.env.REACT_APP_ADDRESS
+        const resp: any = res?.split(',')
+        let address = resp[0]
+        let city = resp[1]
+        const receiptTXT = `${process.env.REACT_APP_COMPANY}
 CNPJ: ${process.env.REACT_APP_CNPJ}
-ENDEREÇO: ${process.env.REACT_APP_ADDRESS}
+${address}
+${city.trim()}
 FONE: ${process.env.REACT_APP_PHONE}
-================ / RECIBO / ================
+${line} / RECIBO / ${line}
 ID: ${receipt.id}
 Conta: ${receipt.conta}
 Venda: ${receipt.venda}

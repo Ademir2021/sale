@@ -1,0 +1,23 @@
+.error-container {
+    display: flex;
+    font-family: OpenSans, arial, sans-serif;
+    justify-items: center;
+    color:#fff;
+    /* color:red; */
+    align-items: center;
+    margin: 16px;
+    border-radius: 2px;
+    position: fixed;
+    bottom: 0;
+    left: 13px;
+    top:25%;
+    width: 90%;
+    height: 30%;
+    background-color: #232323;
+    padding: 12px;
+    z-index: 1000;
+}
+.error-container img {
+    border-radius: 12px;
+    margin: 12px;
+}
