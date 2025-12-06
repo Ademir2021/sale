@@ -1,42 +1,43 @@
 .container-itens {
-   display: inline-block;
-   vertical-align: top;
-   justify-content: center;
-   max-width: 96%;
-   margin: 1px;
-   width: 24%;
-   min-width: 196px;
-}
-.main-itens {
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    border-radius: 2px;
-    margin-top: 1px;
-    margin-bottom: 1px;
-    transition: 2s ease-in-out;
-    color: black;
-    margin-left: 8px;
-    border: solid rgb(248, 244, 244) 1px;
+    display: inline-block;
+    background-color: #fff;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 25%;
+    padding: 8px;
 }
 
-.main-itens:hover {
-    background-color: #dae2e6
+@media screen and (max-width:768px) {
+    .container-itens {
+        width: 50%;
+    }
+}
+
+.main-itens {
+    width: 100%;
+    text-align: center;
+    min-height: 100%;
+    border: none;
+    border-radius: 4px;
+    padding: 1px;
+    background: white;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin: 1px;
 }
 
 .itens-img {
-    margin-top: auto;
-    max-height: 80%;
-    max-width: 80%;
-    height: auto;
-    width: auto;
-    border-radius: 2px;
-    border: 1px solid none;
+    margin-top: 1px;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
 }
 
 .itens-img:hover {
-    max-height: 100%;
-    max-width: 100%;
+    width: 150px;
+    height: 150px;
 }
 
 .select-amount {
@@ -47,6 +48,7 @@
     border: none;
     text-align: center;
 }
+
 .input-amount {
     margin: 12px;
     border-radius: 12px;
@@ -55,12 +57,12 @@
 }
 
 .itens-valor {
-    color:black;
+    color: black;
     font-size: 16px;
 }
 
 .itens-valor-vista {
-    color:blue;
+    color: blue;
     font-size: 12px;
 }
 
@@ -74,6 +76,6 @@
 }
 
 .itens-btn {
-    margin-bottom: 12px;
-    font-size: 14px;
+    margin-bottom: 1px;
+    font-size: 12px;
 }

@@ -32,6 +32,8 @@
 /* Indicadores responsivos */
 .carousel-indicators [data-bs-target] {
   background-color: gray;
+  /* margin: 4px; */
+  margin-bottom: -21px;
   width: 10px;
   height: 10px;
   border-radius: 50%;

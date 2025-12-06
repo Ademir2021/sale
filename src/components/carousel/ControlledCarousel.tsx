@@ -4,7 +4,7 @@ import * as Icon from 'phosphor-react';
 
 import './css/styles.css'
 
-function ControlledCarousel() {
+const ControlledCarousel: React.FC = () => {
   const [index, setIndex] = useState(0);
   const res_banners: any = process.env.REACT_APP_BANNERS
   const banners: [] = JSON.parse(res_banners)
@@ -30,4 +30,4 @@ function ControlledCarousel() {
   </>
 }
 
-export default ControlledCarousel
+export { ControlledCarousel }

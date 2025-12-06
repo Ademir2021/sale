@@ -1,0 +1,24 @@
+.card-carousel {
+   display: flex;
+   justify-content: center;   /* horizontal */
+   align-items: center;        /* vertical */
+   flex-direction: column;     /* mantém itens em coluna */
+   margin: 1px auto;
+   max-width: 100%;
+   width: 24%;
+   min-width: 96%;
+   background-color: rgb(245, 240, 240);
+   /* border: solid 1px gray; */
+   border-radius: 3px;
+   text-align: center;
+   margin-top: 6px;
+   margin-bottom: 26px;
+}
+
+
+.card-title{
+   color: black;
+   padding: 12px;
+   text-align: center;
+   font-size: 26px;
+}

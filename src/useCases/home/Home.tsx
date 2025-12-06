@@ -5,12 +5,13 @@ import { Header } from '../../components/home/Header';
 import { FooterHomePage } from './FooterHome';
 import { SearchItens } from '../../components/home/SearchItens';
 import { currencyFormat } from '../../components/utils/currentFormat/CurrentFormat';
-import ControlledCarousel from '../../components/carousel/ControlledCarousel';
+import { ControlledCarousel } from '../../components/carousel/ControlledCarousel';
 import { FilterItens } from '../../components/home/FilterItens';
 import { getList, getListQuery } from '../../services/handleService'
 import { HandleHome } from './handleHome/HandleHome';
 
 import api from '../../services/api/api'
+import { CardsCarousel } from '../../components/carousel/CardsCarousel';
 
 type TProdListQuery = {
     id_product: number
@@ -45,6 +46,8 @@ const Home: React.FC = () => {
     });
 
     const handleHome = new HandleHome()
+
+        const itemImg  = './img/img_itens/sale_avatar.png'
 
     const handleChange = (e: any) => {
         const name = e.target.name;
@@ -221,6 +224,17 @@ const Home: React.FC = () => {
             listProd={listProd}
         />}
         {selectSector === "Todos" && <ControlledCarousel />}
+        <CardsCarousel
+         listProd={listProd}
+            handleNewItem={handleNewItem}
+            nameBrands={nameBrands}
+            nameSubSector={nameSubSector}
+            sectors={sectors}
+            subSectors={subSectors}
+            nameUniMeds={nameUniMeds}
+            itens={itens}
+            newItem={newItem}
+        />
         <ListItensComponent
             listProd={listProd}
             handleNewItem={handleNewItem}
