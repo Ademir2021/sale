@@ -2,7 +2,7 @@ import { SetStateAction, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import * as Icon from 'phosphor-react';
 
-import './css/styles.css'
+// import './css/styles.css'
 import './css/cards-carousel.css'
 import { TItens, TProduct, TSector, TSubSector } from '../../useCases/products/type/TProducts';
 import { HandleItens } from '../home/handleItens/HandleItens';
