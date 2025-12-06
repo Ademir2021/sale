@@ -224,7 +224,7 @@ const Home: React.FC = () => {
             listProd={listProd}
         />}
         {selectSector === "Todos" && <ControlledCarousel />}
-        <CardsCarousel
+        {/* <CardsCarousel
          listProd={listProd}
             handleNewItem={handleNewItem}
             nameBrands={nameBrands}
@@ -234,7 +234,7 @@ const Home: React.FC = () => {
             nameUniMeds={nameUniMeds}
             itens={itens}
             newItem={newItem}
-        />
+        /> */}
         <ListItensComponent
             listProd={listProd}
             handleNewItem={handleNewItem}
