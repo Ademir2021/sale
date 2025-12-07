@@ -1,3 +1,4 @@
+import * as Icon from 'phosphor-react';
 import { TItens, TProduct } from "../../../useCases/products/type/TProducts"
 
 class HandleItens {
@@ -62,7 +63,8 @@ class HandleItens {
 
     cards = (Item: TProduct, Itens: TItens[], nameUniMeds: Function, handleNewItem: Function, newItem: TItens) => {
         const itemImg = './img/img_itens/sale_avatar.png'
-        return <div className='container-itens'>
+        return<>
+             <div className='container-itens'>
             <div className='main-itens' key={Item.id_product}>
                 <img className='itens-img' src={Item.image !== null ?
                     `./img/img_itens/${Item.image}` :
@@ -76,10 +78,10 @@ class HandleItens {
                 <button onClick={(e: any) => {
                     e.preventDefault()
                     handleNewItem(Item)
-                }}
-                    className='itens-btn'>Comprar agora</button>
+                }} className='itens-btn'>Comprar{<Icon.ShoppingCart size={26} />}</button>
             </div>
         </div>
+        </>
     }
 }
 

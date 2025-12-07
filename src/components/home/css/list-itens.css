@@ -1,6 +1,5 @@
 .container-itens {
     display: inline-block;
-    background-color: #fff;
     justify-content: center;
     align-items: flex-start;
     gap: 12px;
@@ -18,8 +17,8 @@
 .main-itens {
     width: 100%;
     text-align: center;
-    min-height: 100%;
-    border: none;
+    min-height:300px;
+    border: solid 1px rgb(236, 229, 229);
     border-radius: 4px;
     padding: 1px;
     background: white;
@@ -30,14 +29,13 @@
 
 .itens-img {
     margin-top: 1px;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: auto;
     border-radius: 8px;
 }
 
 .itens-img:hover {
-    width: 150px;
-    height: 150px;
+    width: 220px;
 }
 
 .select-amount {
@@ -76,6 +74,5 @@
 }
 
 .itens-btn {
-    margin-bottom: 1px;
-    font-size: 12px;
+    font-size: 14px;
 }
