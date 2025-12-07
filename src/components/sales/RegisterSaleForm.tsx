@@ -51,11 +51,11 @@ const RegisterSaleForm:React.FC<Props> = ({
 
   return <>
   <div className='container'><NavBar/></div>
-      <div className='form' >
+      <div className='form'>
         <CloseX link='/'/>
         <label className='text-center'>Checkout de Compras</label>
         {item_img && <img className='img-checkout' src={item_img} alt='Aguardando item ...'></img>}
-        {item && <p className='item'>{item}</p>}
+        {item && <div className='item'>{item}</div>}
         <datalist id="data-itens">
           <select>{products.map((product: TProduct) => (
             <option key={product.id_product}>

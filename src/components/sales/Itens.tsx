@@ -13,7 +13,7 @@ const Itens: React.FC<Props> = ({
     itens,
     updateListProduct
 }: Props) => {
-    const thead = <thead>
+    const thead = <thead id="up_item_">
         <tr>
             <th id="center">ID</th>
             <th id="center">ITEM</th>
@@ -35,7 +35,7 @@ const Itens: React.FC<Props> = ({
                 <td id="center">{item.amount}</td>
                 <td>{currencyFormat(item.valor)}</td>
                 <td>{currencyFormat(item.tItem)}</td>
-                <td id="center">{<a href="##" onClick={() =>
+                <td id="center">{<a href="#up_item_" onClick={() =>
                     updateListProduct(item)}
                 >{<Icon.Pencil size={18} color="blue" />}</a>}</td>
             </tr>
