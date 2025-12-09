@@ -7,37 +7,40 @@
     width: 25%;
     padding: 8px;
 }
-
 @media screen and (max-width:768px) {
     .container-itens {
         width: 50%;
     }
 }
-
 .main-itens {
     width: 100%;
     text-align: center;
-    min-height:300px;
-    border: solid 1px rgb(236, 229, 229);
+    min-height:360px;
+    border: solid 1px rgb(227, 227, 240);
     border-radius: 4px;
     padding: 1px;
-    background: white;
+    background: #fff;
     margin-top: 1px;
     margin-bottom: 1px;
     margin: 1px;
 }
-
+@media screen and (max-width:768px) {
+    .main-itens {
+        min-height: 380px;
+    }
+}
 .itens-img {
     margin-top: 1px;
-    width: 150px;
-    height: auto;
+    width: auto;
+    height: 150px;
     border-radius: 8px;
+    cursor: pointer;
 }
-
-.itens-img:hover {
-    width: 220px;
+@media screen and (max-width:768px) {
+    .itens-img {
+        height: 116px;
+    }
 }
-
 .select-amount {
     margin: 12px;
     padding: 4px;
@@ -46,33 +49,27 @@
     border: none;
     text-align: center;
 }
-
 .input-amount {
     margin: 12px;
     border-radius: 12px;
     max-width: 40%;
     text-align: center;
 }
-
 .itens-valor {
     color: black;
     font-size: 16px;
 }
-
 .itens-valor-vista {
     color: blue;
     font-size: 12px;
 }
-
 .itens-valor-inst {
     color: green;
     font-size: 12px;
 }
-
 .itens-descric {
     font-size: 13px;
 }
-
 .itens-btn {
     font-size: 14px;
 }
