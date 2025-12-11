@@ -14,11 +14,15 @@ class HandleItens {
         return <div className='itens-valor-inst'>{installments}x de R$ {installment.toFixed(2)} no prazo</div>
     }
 
-    private viewAmount = (Item: TProduct, Itens: TItens[], nameUniMeds: Function) => {
+    private viewAmount = (Item: TProduct, Itens: TItens[], nameUniMeds: Function, newItem:TItens) => {
         for (let i of Itens) {
             if (i.item === Item.id_product) {
                 if (i.amount > 0)
-                    return <div id='msg-green'><b>{i.amount}</b>{nameUniMeds(Item.fk_un_med)} no Carrinho</div>
+                    return<>
+                    <div id='msg-green'><b>{i.amount}</b>{nameUniMeds(Item.fk_un_med)} no Carrinho</div>
+                        {newItem.amount > 11 || newItem.amount > 1 && newItem.amount < 12
+                    ? this.inputAmount(Item, Itens, newItem) : this.selectAmount(Item, Itens, newItem)}
+                    </> 
             }
         }
     }
@@ -72,9 +76,7 @@ class HandleItens {
                 <div className='itens-descric'>{Item.descric_product}</div>
                 {this.valMin(Item)}
                 {this.valMax(Item)}
-                {this.viewAmount(Item, Itens, nameUniMeds)}
-                {newItem.amount > 11 || newItem.amount > 1 && newItem.amount < 12
-                    ? this.inputAmount(Item, Itens, newItem) : this.selectAmount(Item, Itens, newItem)}
+                {this.viewAmount(Item, Itens, nameUniMeds, newItem)}
                 <button onClick={(e: any) => {
                     e.preventDefault()
                     handleNewItem(Item)
