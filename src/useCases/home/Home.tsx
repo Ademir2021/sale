@@ -39,7 +39,7 @@ const Home: React.FC = () => {
         id: itens.length + 1,
         item: 0,
         descric: '',
-        unMed:'',
+        unMed: '',
         amount: 1,
         valor: 0,
         tItem: 0
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
 
     const handleHome = new HandleHome()
 
-        const itemImg  = './img/img_itens/sale_avatar.png'
+    const itemImg = './img/img_itens/sale_avatar.png'
 
     const handleChange = (e: any) => {
         const name = e.target.name;
@@ -164,7 +164,7 @@ const Home: React.FC = () => {
             id: itens.length + 1,
             item: 0,
             descric: '',
-            unMed:'',
+            unMed: '',
             amount: 1,
             valor: 0,
             tItem: 0
@@ -225,7 +225,7 @@ const Home: React.FC = () => {
         />}
         {selectSector === "Todos" && <ControlledCarousel />}
         {/* <CardsCarousel
-         listProd={listProd}
+            listProd={listProd}
             handleNewItem={handleNewItem}
             nameBrands={nameBrands}
             nameSubSector={nameSubSector}

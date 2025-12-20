@@ -30,11 +30,11 @@ const ListItensComponent: React.FC<Props> = ({
 }: Props) => {
     // const handleProducts: HandleProducts = new HandleProducts()
     const handleItens = new HandleItens()
-    const cardsProds = <> {(listProd.map((Item: TProduct) => (
+    const cardsProds = <>{(listProd.map((Item: TProduct) => (
         handleItens.cards(Item, itens, nameUniMeds, handleNewItem, newItem)
     )))}
     </>
-    return <> {cardsProds} </>
+    return <><h3 className='text-center mt-2 mb-0'>Destaques</h3> {cardsProds} </>
 }
 
 export { ListItensComponent }

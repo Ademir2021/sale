@@ -9,12 +9,15 @@ Recursos:
 - `Carrinho de compras para controle dos items no Pedido`
 - `Checkout para digitação e alteração dos Items`
 - `Checkout para finalização dos Pagamentos`
+- `Controle de Contas a Pagar`
+- `Controle de Contas a Receber`
+- `Controle de Titulos e cobranças`
 
 Segurança:
 - `Autenticação segura dos usuários`
 - `Segurança controlada com (JWT Web Token)`
 
-Integração:
+Integrações:
 - `API REST`
 - `Postgres`
 - `Checkout de Vendas`
