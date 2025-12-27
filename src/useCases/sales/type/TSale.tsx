@@ -46,4 +46,9 @@ export type TSaleList = {
     situacao_nfe?: string
     chave_nfe?: string
     protocolo_nfe?: string
+    model:string
+    serie:string
+    tpAmb:string
+    tpEmis:string
+    tpNf:string
 };

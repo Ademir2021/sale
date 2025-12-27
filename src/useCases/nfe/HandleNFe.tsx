@@ -34,6 +34,12 @@ function HandleNFe() {
         nfe_inutilizada: false,
     })
 
+    const [model, setModel] = useState('')
+    const [serie, setSerie] = useState('')
+    const [tpAmb, setTpAmb] = useState('1 - Produção')
+    const [tpEmis, setTpEmis] = useState('')
+    const [tpNF, setTpNf] = useState('1 - Saída')
+
     function clearNfeStatus() {
         const nfeStatus: INFeStatus = {
             nfe_autorizada: false,
@@ -109,6 +115,11 @@ function HandleNFe() {
     }
 
     async function handleGerarNFe(sale: TSaleList) {
+        sale.model = model.slice(-2)
+        sale.serie = serie
+        sale.tpAmb = tpAmb.charAt(0)
+        sale.tpEmis = tpEmis.charAt(0)
+        sale.tpNf = tpNF.charAt(0)
         const resp = await putUpdate(sale, 'gerar_nfe')
         // console.log(resp)
     }
@@ -123,6 +134,7 @@ function HandleNFe() {
 
     return (
         <>
+            {/* <p>{JSON.stringify(tpNf.charAt(0))}</p> */}
             <HandleNFeForm
                 tokenMessage={tokenMessage}
                 salesFound={salesFound}
@@ -133,6 +145,16 @@ function HandleNFe() {
                 handleSubmit={handleSubmit}
                 handleClear={handleClear}
                 gerarNFe={gerarNFe}
+                setModel={setModel}
+                setSerie={setSerie}
+                setTpAmb={setTpAmb}
+                setTpEmis={setTpEmis}
+                setTpNf={setTpNf}
+                tpNf={tpNF}
+                model={model}
+                serie={serie}
+                tpAmb={tpAmb}
+                tpEmis={tpEmis}
             >
                 {nfeStatus}
             </HandleNFeForm>
