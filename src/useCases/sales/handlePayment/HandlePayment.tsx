@@ -1,5 +1,5 @@
 import moment from "moment";
-import { TContaAreceber } from "../../contasAReceber/type/TContasAReceber";
+import { TContaAreceber, ContasAReceberSituacao } from "../../contasAReceber/type/TContasAReceber";
 import { TSale } from "../type/TSale";
 import { TPagSeguroBoleto } from "../type/TPagSeguroBoleto";
 import { TPagSeguroPix } from "../type/TPagSeguroPix";
@@ -62,7 +62,8 @@ class HandlePayment {
                     pagamento : null,
                     recebimento : 0,
                     observacao : holder_id,
-                    fk_pagador : sale.person.fk_name_pers
+                    fk_pagador : sale.person.fk_name_pers,
+                    situacao:ContasAReceberSituacao.Aberto
                 };
                 sale.duplicatas.push(contaReceber)
             }

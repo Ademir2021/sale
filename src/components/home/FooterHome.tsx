@@ -7,11 +7,11 @@ import './css/footer.css'
 
 export function FooterHome() {
 
-    const linkApp = 'https://drive.google.com/file/d/1cxKaXyg9uOfaqpu_eS8lRSgp4jhAY12G/view?usp=drive_link'
+    // const linkApp = 'https://drive.google.com/file/d/1cxKaXyg9uOfaqpu_eS8lRSgp4jhAY12G/view?usp=drive_link'
 
     return (
         <footer className='text-center'>
-            <p>
+            {/* <p>
                 <dd>Baixe nosso App-Store !</dd>
                 <a
                     href={linkApp}
@@ -32,7 +32,7 @@ export function FooterHome() {
                 <a target="_blank" href={process.env.REACT_APP_TWITTER_SOCIAL}><img className="social-icons" src="img//social//twitter.png"></img></a>
             </p>
 
-            <p>Loja on-line. Fácil de comprar, Rapidez e segurança em suas compras</p>
+            <p>Loja on-line. Fácil de comprar, Rapidez e segurança em suas compras</p> */}
 
             <label id="header-channel-title">Canais para Acessos rápido</label>
             <div className="menu-footer">

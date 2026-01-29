@@ -1,4 +1,4 @@
-import { TContaAreceber, TReciboValRec } from "./type/TContasAReceber";
+import { TContaAreceber, TReciboValRec, ContasAReceberSituacao } from "./type/TContasAReceber";
 
 class HandleContaAReceber {
 
@@ -20,7 +20,8 @@ class HandleContaAReceber {
             pagamento: null,
             recebimento: 0,
             observacao: "",
-            fk_pagador: 0
+            fk_pagador: 0,
+            situacao:ContasAReceberSituacao.Aberto
         });
         return res;
     }

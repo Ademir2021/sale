@@ -38,13 +38,15 @@ const ContasAReceber: React.FC = () => {
     async function getContasAReceber(ContasAReceber: TContaAreceber[]) {
         await postAuthHandle('contas_receber_list', setTokenMessage, setContasAReceber, isLogged)
         const NewOpenAccounts: TContaAreceber[] = []
-        for (let conta of ContasAReceber){
-              if (conta.saldo >0 || conta.recebimento === 0) 
-            NewOpenAccounts.push(conta)
-        setOpenAccounts(NewOpenAccounts)
-        
+        for (let conta of ContasAReceber) {
+            if (conta.saldo > 0 || conta.recebimento === 0) {
+                if (conta.situacao !== "EmCobranca")
+                    NewOpenAccounts.push(conta)
+            }
+            setOpenAccounts(NewOpenAccounts)
+
+        }
     }
-}
     useEffect(() => {
         if (openAccounts.length === 0)
             getContasAReceber(contasAReceber)
@@ -206,7 +208,7 @@ const ContasAReceber: React.FC = () => {
                     ValRec.fk_conta,
                     ValRec.fk_venda
                 );
-                const recibo:TReciboValRec = {
+                const recibo: TReciboValRec = {
                     id: ValRec.id_val,
                     conta: ValRec.fk_conta,
                     venda: ValRec.fk_venda,
@@ -219,12 +221,12 @@ const ContasAReceber: React.FC = () => {
                     cpf: pers && pers && pers[2] || ''
                 };
                 localStorage.setItem("recibo_val_rec", JSON.stringify(recibo))
-                handleContaAReceber.generateFileTXT(recibo,`recibo_${recibo.id}.txt`, );
+                handleContaAReceber.generateFileTXT(recibo, `recibo_${recibo.id}.txt`,);
                 window.location.replace('recibo_val_rec')
             }
         }
     }
-    
+
     const receberValor = (Conta: TContaAreceber) => {
         setMsg('')
         valsReceber(Conta)
@@ -234,6 +236,7 @@ const ContasAReceber: React.FC = () => {
     }
 
     return <>
+        {/* <p>{JSON.stringify(openAccounts)}</p> */}
         <ContasAreceberForm
             handleChangeStatus={handleChangeStatus}
             token={handleTokenMessage('contas_receber', tokenMessage)}

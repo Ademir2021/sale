@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import { ContasAReceberRegisterForm } from "../../components/contasAReceber/ContasAReceberRegisterForm";
-import { TContaAreceber } from "./type/TContasAReceber";
+import { TContaAreceber, ContasAReceberSituacao } from "./type/TContasAReceber";
 import { TPerson } from "../persons/type/TPerson";
 import { postAuthHandle, postRegister } from "../../services/handleService";
 import { AuthContext } from '../../context/auth'
@@ -16,6 +16,16 @@ export function ContasAReceberRegister() {
     const [contasAReceber, setContasAReceber] = useState<TContaAreceber[]>([])
     const [contasAReceberOpen, setContasAReceberOpen] = useState<TContaAreceber[]>([])
     const { user: isLogged }: any = useContext(AuthContext);
+    
+    const [situacoes] = useState<ContasAReceberSituacao[]>([
+    ContasAReceberSituacao.Aberto,
+    ContasAReceberSituacao.Parcial,
+    ContasAReceberSituacao.Quitado,
+    ContasAReceberSituacao.Outros,
+    ContasAReceberSituacao.EmCobranca,
+    ContasAReceberSituacao.Cancelada
+    ])
+    const [situacao, setSituacao] = useState("Aberto")
     const [contaAReceber, setContaAReceber] = useState<TContaAreceber>({
         id_conta: 0,
         fk_filial: 0,
@@ -33,9 +43,14 @@ export function ContasAReceberRegister() {
         pagamento: null,
         recebimento: 0,
         observacao: "",
-        fk_pagador: 0
-
+        fk_pagador: 0,
+        situacao:ContasAReceberSituacao.Aberto
     });
+
+    useEffect(()=>{
+        contaAReceber.situacao = situacao
+    },[situacao])
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
@@ -103,7 +118,8 @@ export function ContasAReceberRegister() {
         pagamento: null,
         recebimento: 0,
         observacao: "",
-        fk_pagador: 0
+        fk_pagador: 0,
+        situacao:ContasAReceberSituacao.Aberto
     }
 
     const handleContasAReceberUpdate = async () => {
@@ -136,6 +152,7 @@ export function ContasAReceberRegister() {
     }
 
     return <>
+    {/* <p>{JSON.stringify(contaAReceber)}</p> */}
         <ContasAReceberRegisterForm
             handleTokenMessage={handleTokenMessage('contas_receber_register', tokenMessage)}
             contasAReceber={statusTitulo ? contasAReceberOpen : contasAReceber}
@@ -158,6 +175,20 @@ export function ContasAReceberRegister() {
                         {" - " + person.cpf_pers}
                     </option>
                 ))}</select>}
+                listSituacao={<select
+                onChange={e => setSituacao(e.target.value)}
+                >
+                    <option>Selecione a Situação do Titulo</option>
+                    {situacoes.map((situacao: ContasAReceberSituacao)=>(
+                        <option
+                        key={situacao}
+                        value={situacao}
+                        >
+                            {situacao}
+                        </option>
+                    ))}
+
+                </select>}
         >
             {contaAReceber}
         </ContasAReceberRegisterForm>

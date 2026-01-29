@@ -1,3 +1,12 @@
+export enum ContasAReceberSituacao {
+    Aberto = "Aberto",
+    Parcial = "Parcial",
+    Quitado = "Quitado",
+    EmCobranca = "EmCobranca",
+    Cancelada = "Cancelada",
+    Outros = "Outros"
+}
+
 export type TContaAreceber = {
     id_conta: number
     fk_filial: number
@@ -16,6 +25,7 @@ export type TContaAreceber = {
     recebimento: number | any
     observacao: string | null | any
     fk_pagador: number
+    situacao:string
 }
 
 export type TValsRecebidos = {

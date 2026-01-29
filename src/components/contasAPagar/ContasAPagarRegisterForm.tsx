@@ -127,20 +127,20 @@ const ContasAPagarRegisterForm:React.FC<Props> = ({
     const thead = <thead>
         <tr>
             <th className='text-center'>ID</th>
-            <th className="text-center">Compra</th>
-            <th>BenefID</th>
-            <th>Beneficiário</th>
-            <th>DespID</th>
-            <th>Despesa</th>
-            <th>Observação</th>
-            <th>Emissão</th>
-            <th>Valor</th>
-            <th>Vencimento</th>
-            <th>Pagamento</th>
-            <th>Saldo</th>
-            <th>Recebido</th>
-            <th className="text-center">Atualizar</th>
-            <th className="text-center">Cancelar</th>
+            <td className="text-center">Compra</td>
+            <td>BenefID</td>
+            <td>Beneficiário</td>
+            <td>DespID</td>
+            <td>Despesa</td>
+            <td>Observação</td>
+            <td>Emissão</td>
+            <td>Valor</td>
+            <td>Vencimento</td>
+            <td>Pagamento</td>
+            <td>Saldo</td>
+            <td>Recebido</td>
+            <td className="text-center">Atualizar</td>
+            <td className="text-center">Cancelar</td>
         </tr>
     </thead>
 
@@ -150,20 +150,20 @@ const ContasAPagarRegisterForm:React.FC<Props> = ({
             {contasAPagar.map((contaAPagar: TContaAPagar) => (
                 <tr key={contaAPagar.id_conta}>
                     <th className="text-center">{contaAPagar.id_conta}</th>
-                    <th className="text-center">{contaAPagar.fk_compra}</th>
-                    <th className="text-center">{contaAPagar.fk_beneficiario}</th>
-                    <th>{findPerson(contaAPagar)}</th>
-                    <th className="text-center">{contaAPagar.fk_despesa}</th>
-                    <th>{findDespesa(contaAPagar)}</th>
-                    <th>{contaAPagar.observacao}</th>
-                    <th className="">{handleFinanceiro.formatDate(contaAPagar.emissao)}</th>
-                    <th>{contaAPagar.valor}</th>
-                    <th>{handleFinanceiro.formatDate(contaAPagar.vencimento)}</th>
-                    <th>{contaAPagar.pagamento ? contaAPagar.pagamento : 'Em aberto'}</th>
-                    <th>{contaAPagar.saldo}</th>
-                    <th>{contaAPagar.recebimento}</th>
-                    <th className="text-center"><a href="#up_form_" onClick={() => contaPagarUpdate(contaAPagar)}>Atualizar</a></th>
-                    <th className="text-center"><a href="#up_form_" onClick={() => setContaAPagar(handleContaAPagar.clearFields(contaAPagar))}>Cancelar</a></th>
+                    <td className="text-center">{contaAPagar.fk_compra}</td>
+                    <td className="text-center">{contaAPagar.fk_beneficiario}</td>
+                    <td>{findPerson(contaAPagar)}</td>
+                    <td className="text-center">{contaAPagar.fk_despesa}</td>
+                    <td>{findDespesa(contaAPagar)}</td>
+                    <td>{contaAPagar.observacao}</td>
+                    <td className="">{handleFinanceiro.formatDate(contaAPagar.emissao)}</td>
+                    <td>{contaAPagar.valor}</td>
+                    <td>{handleFinanceiro.formatDate(contaAPagar.vencimento)}</td>
+                    <td>{contaAPagar.pagamento ? contaAPagar.pagamento : 'Em aberto'}</td>
+                    <td>{contaAPagar.saldo}</td>
+                    <td>{contaAPagar.recebimento}</td>
+                    <td className="text-center"><a href="#up_form_" onClick={() => contaPagarUpdate(contaAPagar)}>Atualizar</a></td>
+                    <td className="text-center"><a href="#up_form_" onClick={() => setContaAPagar(handleContaAPagar.clearFields(contaAPagar))}>Cancelar</a></td>
                 </tr>
             ))}
         </tbody>

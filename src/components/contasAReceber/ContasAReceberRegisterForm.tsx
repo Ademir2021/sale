@@ -2,7 +2,6 @@ import { HandleContaAReceber } from "../../useCases/contasAReceber/handleContaAR
 import { TContaAreceber } from "../../useCases/contasAReceber/type/TContasAReceber"
 import { handleLinksDir } from "../utils/backHome/BackHome"
 import { HandleFinanceiro } from "../utils/financeiro/HandleFinanceiro"
-import { FormatDate } from "../utils/formatDate"
 
 type Props = {
     children: TContaAreceber
@@ -15,6 +14,7 @@ type Props = {
     msg: string
     listPersons: any
     handleTokenMessage: any
+    listSituacao:any
 }
 
 export function ContasAReceberRegisterForm({
@@ -27,7 +27,8 @@ export function ContasAReceberRegisterForm({
     handleChangeStatus,
     msg,
     listPersons,
-    handleTokenMessage
+    handleTokenMessage,
+    listSituacao
 }: Props) {
 
     const handleFinanceiro = new HandleFinanceiro()
@@ -111,6 +112,7 @@ export function ContasAReceberRegisterForm({
             placeholder="Observação"
         />
         <>{listPersons}</>
+        <>{listSituacao}</>
         <button className="container">{children.id_conta === 0 ? 'Inserir' : 'Atualizar'}</button>
         <button className="container" onClick={() => setContaAReceber(children)}>Cancelar</button>
         {msg && <p className='p-2 text-center'>{msg}</p>}
@@ -119,16 +121,16 @@ export function ContasAReceberRegisterForm({
     const thead = <thead>
         <tr>
             <th className='text-center'>ID</th>
-            <th className="text-center">Venda</th>
-            <th className="text-center">ID Pagador</th>
-            <th>Emissão</th>
-            <th>Valor</th>
-            <th>Vencimento</th>
-            <th>Pagamento</th>
-            <th>Saldo</th>
-            <th>Recebido</th>
-            <th className="text-center">Atualizar</th>
-            <th className="text-center">Cancelar</th>
+            <td className="text-center">Venda</td>
+            <td className="text-center">ID Pagador</td>
+            <td>Emissão</td>
+            <td>Valor</td>
+            <td>Vencimento</td>
+            <td>Pagamento</td>
+            <td>Saldo</td>
+            <td>Recebido</td>
+            <td className="text-center">Atualizar</td>
+            <td className="text-center">Cancelar</td>
         </tr>
     </thead>
 
@@ -138,16 +140,16 @@ export function ContasAReceberRegisterForm({
             {contasAReceber.map((contaAReceber: TContaAreceber) => (
                 <tr key={contaAReceber.id_conta}>
                     <th className="text-center">{contaAReceber.id_conta}</th>
-                    <th className="text-center">{contaAReceber.fk_venda}</th>
-                    <th className="text-center">{contaAReceber.fk_pagador}</th>
-                    <th className="">{handleFinanceiro.formatDate(contaAReceber.emissao)}</th>
-                    <th>{contaAReceber.valor}</th>
-                    <th>{handleFinanceiro.formatDate(contaAReceber.vencimento)}</th>
-                    <th>{contaAReceber.pagamento ? contaAReceber.pagamento : 'Em aberto'}</th>
-                    <th>{contaAReceber.saldo}</th>
-                    <th>{contaAReceber.recebimento}</th>
-                    <th className="text-center"><a href="#up_form_" onClick={() => contaReceberUpdate(contaAReceber)}>Atualizar</a></th>
-                    <th className="text-center"><a href="#up_form_" onClick={() => setContaAReceber(handleContaAReceber.clearFields(contaAReceber))}>Cancelar</a></th>
+                    <td className="text-center">{contaAReceber.fk_venda}</td>
+                    <td className="text-center">{contaAReceber.fk_pagador}</td>
+                    <td className="">{handleFinanceiro.formatDate(contaAReceber.emissao)}</td>
+                    <td>{contaAReceber.valor}</td>
+                    <td>{handleFinanceiro.formatDate(contaAReceber.vencimento)}</td>
+                    <td>{contaAReceber.pagamento ? contaAReceber.pagamento : 'Em aberto'}</td>
+                    <td>{contaAReceber.saldo}</td>
+                    <td>{contaAReceber.recebimento}</td>
+                    <td className="text-center"><a href="#up_form_" onClick={() => contaReceberUpdate(contaAReceber)}>Atualizar</a></td>
+                    <td className="text-center"><a href="#up_form_" onClick={() => setContaAReceber(handleContaAReceber.clearFields(contaAReceber))}>Cancelar</a></td>
                 </tr>
             ))}
         </tbody>
