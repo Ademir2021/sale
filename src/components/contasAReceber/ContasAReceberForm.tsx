@@ -134,7 +134,7 @@ const ContasAreceberForm: React.FC<Props> = ({
                     <td id="center">{checkAdminPrivilege() === "2" &&
                         <a href="#_up_conta" className="container" onClick={() => { receberValor(conta) }}
                         ><Icon.Check size={16} alt="Receber" color="blue" /></a>}</td>
-                        <td>{conta.situacao}</td>
+                        <td>{conta.situacao || "Não Informada"}</td>
                 </tr>
             ))}
         </tbody>

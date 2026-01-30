@@ -131,6 +131,7 @@ export function ContasAReceberRegisterForm({
             <td>Recebido</td>
             <td className="text-center">Atualizar</td>
             <td className="text-center">Cancelar</td>
+            <td>Situação</td>
         </tr>
     </thead>
 
@@ -150,6 +151,7 @@ export function ContasAReceberRegisterForm({
                     <td>{contaAReceber.recebimento}</td>
                     <td className="text-center"><a href="#up_form_" onClick={() => contaReceberUpdate(contaAReceber)}>Atualizar</a></td>
                     <td className="text-center"><a href="#up_form_" onClick={() => setContaAReceber(handleContaAReceber.clearFields(contaAReceber))}>Cancelar</a></td>
+                    <td>{contaAReceber.situacao || "Não Informada"}</td>
                 </tr>
             ))}
         </tbody>

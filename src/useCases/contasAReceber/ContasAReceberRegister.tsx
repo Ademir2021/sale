@@ -152,7 +152,6 @@ export function ContasAReceberRegister() {
     }
 
     return <>
-    {/* <p>{JSON.stringify(contaAReceber)}</p> */}
         <ContasAReceberRegisterForm
             handleTokenMessage={handleTokenMessage('contas_receber_register', tokenMessage)}
             contasAReceber={statusTitulo ? contasAReceberOpen : contasAReceber}

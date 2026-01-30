@@ -236,7 +236,6 @@ const ContasAReceber: React.FC = () => {
     }
 
     return <>
-        {/* <p>{JSON.stringify(openAccounts)}</p> */}
         <ContasAreceberForm
             handleChangeStatus={handleChangeStatus}
             token={handleTokenMessage('contas_receber', tokenMessage)}
