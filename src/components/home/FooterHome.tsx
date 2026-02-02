@@ -22,17 +22,17 @@ export function FooterHome() {
                         src='img/android_downl_app.png'
                         alt='Baixar nosso aplicativo para Android'
                     ></img></a>
-            </p>
+            </p> */}
             <p>
                 <dd>Siga-nos !</dd>
                 <a target="_blank" href={process.env.REACT_APP_FACEBOOK_SOCIAL}><img className="social-icons" src="img/social/facebook.ico" alt='Icon Facebook'></img></a>
                 <a target="_blank" href={process.env.REACT_APP_INSTAGRAM_SOCIAL}><img className="social-icons" src="img//social//instagram.ico" alt='Icon Intagram'></img></a>
-                <a target="_blank" href={process.env.REACT_APP_LINKEDIN_SOCIAL}><img className="social-icons" src="img//social//linkedin.png"></img></a>
-                <a target="_blank" href={process.env.REACT_APP_GITHUB_SOCIAL}><img className="social-icons" src="img//social//github.ico" alt='Icon Github'></img></a>
-                <a target="_blank" href={process.env.REACT_APP_TWITTER_SOCIAL}><img className="social-icons" src="img//social//twitter.png"></img></a>
+                {/* <a target="_blank" href={process.env.REACT_APP_LINKEDIN_SOCIAL}><img className="social-icons" src="img//social//linkedin.png"></img></a> */}
+                {/* <a target="_blank" href={process.env.REACT_APP_GITHUB_SOCIAL}><img className="social-icons" src="img//social//github.ico" alt='Icon Github'></img></a> */}
+                {/* <a target="_blank" href={process.env.REACT_APP_TWITTER_SOCIAL}><img className="social-icons" src="img//social//twitter.png"></img></a> */}
             </p>
 
-            <p>Loja on-line. Fácil de comprar, Rapidez e segurança em suas compras</p> */}
+            {/* <p>Loja on-line. Fácil de comprar, Rapidez e segurança em suas compras</p> */}
 
             <label id="header-channel-title">Canais para Acessos rápido</label>
             <div className="menu-footer">

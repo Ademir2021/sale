@@ -186,7 +186,6 @@ export function ContasAReceberRegister() {
                             {situacao}
                         </option>
                     ))}
-
                 </select>}
         >
             {contaAReceber}
