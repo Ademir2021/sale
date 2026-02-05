@@ -31,7 +31,7 @@ const HeaderDashboard: React.FC<Props> = (props: Props) => {
         <a href='##'
         onClick={()=>window.location.replace('list_sale')}
         >Consultar Compras<span>
-            <Icon.CaretRight size={26} color='white' alt='Compras' /></span></a>
+            <Icon.CaretRight size={18} color='gray' alt='Compras' /></span></a>
     </div>
     const panel = <>
     <label>Acesso rápido</label>

@@ -46,14 +46,14 @@
 .link-sales a {
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
     background-color: rgb(63, 61, 61);
-    border-radius: 12px;
-    padding: 12px;
+    border-radius: 8px;
+    padding: 6px;
     margin-top: 12px;
     margin-bottom: 12px;
-    color: white;
+    color: whitesmoke;
     width: 100%;
 }
 .link-sales span {

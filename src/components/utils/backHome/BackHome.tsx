@@ -40,11 +40,11 @@ export function handleLinksDir(
     title_c: string
 ) {
     const links = <>
-        <div className="mt-2">
+        <div className="mt-1">
             <a href={link_a}><b>{title_a}</b></a>
-            {<Icon.CaretRight size={32} color="blue" />}
+            {<Icon.CaretRight size={18} color="black" />}
             <a href={link_b}><b>{title_b}</b></a>
-             {<Icon.CaretRight size={32} color="blue" />}
+             {<Icon.CaretRight size={18} color="black" />}
             <a href={link_c}><b>{title_c}</b></a>
         </div></>
     return links;

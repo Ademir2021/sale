@@ -34,7 +34,7 @@ const ListItensComponent: React.FC<Props> = ({
         handleItens.cards(Item, itens, nameUniMeds, handleNewItem, newItem)
     )))}
     </>
-    return <><h3 className='text-center mt-2 mb-0'>Destaques</h3> {cardsProds} </>
+    return <>{cardsProds}</>
 }
 
 export { ListItensComponent }
